@@ -3,7 +3,7 @@ WORKSHOP_TITLE
 
 ### posit::conf(2025)
 
-by Daniel Chen
+by Daniel D. Sjoberg, and Becca Krouse
 
 -----
 
