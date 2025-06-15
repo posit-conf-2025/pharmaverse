@@ -1,4 +1,4 @@
-WORKSHOP_TITLE
+End-to-End Submissions in R with the Pharmaverse
 ================
 
 ### posit::conf(2025)
