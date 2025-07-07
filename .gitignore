@@ -2,3 +2,8 @@
 .Rhistory
 .RData
 .Ruserdata
+
+/.quarto/
+
+docs
+site_libs
