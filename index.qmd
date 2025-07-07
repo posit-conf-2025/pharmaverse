@@ -19,6 +19,8 @@ editor:
 
 ## Description
 
+<!-- TODO: UPDATE ABSTRACT -->
+
 Over the past 5 years, the pharmaverse was created and has blossomed
 into a booming community of organizations and package developers aimed
 at supporting R development with focus on the clinical reporting
