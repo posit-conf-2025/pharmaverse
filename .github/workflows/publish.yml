@@ -18,11 +18,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: 'release'
+          http-user-agent: ${{ matrix.config.http-user-agent }}
+          use-public-rspm: true
+
+
       - name: Install Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
       - name: Cache packages
-        uses: actions/cache@v1
+        uses: actions/cache@v4
         with:
           path: ${{ env.RENV_PATHS_ROOT }}
           key: ${{ runner.os }}-renv-${{ hashFiles('**/renv.lock') }}
@@ -49,3 +56,4 @@ jobs:
           target: gh-pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
