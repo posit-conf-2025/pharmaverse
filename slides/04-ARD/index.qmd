@@ -1,0 +1,17 @@
+---
+title: "ARDs (Analysis Results Datasets) in R"
+logo: "../../images/pharmaverse-hex.png"
+footer: "[https://posit-conf-2025.github.io/pharmaverse/](https://posit-conf-2025.github.io/pharmaverse/)" 
+editor: source
+engine: knitr
+format: 
+  revealjs: 
+    theme: ../slides.scss
+    transition: fade
+    slide-number: true
+    chalkboard: true
+execute:
+  echo: true
+  freeze: false
+cache: false
+--- 
