@@ -86,6 +86,9 @@ Science Innovation Hub. A biostatistician by training, she has
 experience spanning 13+ years in the field of clinical research and
 specializes in developing R-based tools.
 
+![](images/ben-circle.jpg){style="float:left;padding: 0 20px 0 20px;"
+fig-alt="Headshot of Ben Straub" width="140"}
+
 **Ben Straub** is a Principal Programmer at GSK in the Immunology Therapeutic Area since 2018.  
 He has led and helped with many initiatives around R Adoption activities within Clinical Programming 
 since his start at GSK.  He is also actively helping to develop and maintain an end-to-end R package pipeline 
