@@ -2,22 +2,16 @@
 title: "Tables in R using {gtsummary}" 
 logo: "../../images/pharmaverse-hex.png"
 footer: "[https://posit-conf-2025.github.io/pharmaverse/](https://posit-conf-2025.github.io/pharmaverse/)" 
-title-slide-attributes: 
-  data-background-image:  ../../_extensions/positconfslides/assets/backgrounds/title-slide-teal.svg
-  data-background-size: contain
-format:
-  positconfslides-revealjs: 
+editor: source
+engine: knitr
+format: 
+  revealjs: 
+    theme: ../slides.scss
     transition: fade
     slide-number: true
     chalkboard: true
-    center-title-slide: false
-    execute:
-      echo: true
-      freeze: false
-    cache: false
-    code-copy: true
-    width: "1600"
-    height: "900"
-    filters:
-      - positconfslides
----
+execute:
+  echo: true
+  freeze: false
+cache: false
+--- 
