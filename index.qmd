@@ -90,8 +90,9 @@ specializes in developing R-based tools.
 fig-alt="Headshot of Ben Straub" width="140"}
 
 **Ben Straub** is a Principal Programmer at GSK in the Immunology Therapeutic Area since 2018.  
-He has led and helped with many initiatives around R Adoption activities within Clinical Programming 
-since his start at GSK.  He is also actively helping to develop and maintain an end-to-end R package pipeline 
-[(pharmaverse)](https://pharmaverse.org/) that addresses all the needs of Clinical Reporting with
-many awesome companies and individuals.  He is very excited for the future of using R and open
-source for Clinical Reporting.  
+He has led and helped with many initiatives around R Adoption activities within Clinical Programming  since his start at GSK.  He is also actively helping to develop and maintain an end-to-end R package pipeline [(pharmaverse)](https://pharmaverse.org/) that addresses all the needs of Clinical Reporting with many awesome companies and individuals.  He is very excited for the future of using R and open source for Clinical Reporting.  
+
+![](images/ram-circle.png){style="float:left;padding: 0 20px 0 20px;"
+fig-alt="Headshot of Rammprasad Ganapathy" width="140"}
+
+**Rammprasad Ganapathy** (Ram) is a Principal Data Scientist at Roche/Genentech with over 15 years of experience in EDC clinical programming and statistical programming. He leads the OAK team and is the author of the R packages {roak} and its open-source counterpart, {sdtm.oak}. Ram and his team developed the R-based SDTM automation solution, OAK, taking it from a proof of concept to full-scale implementation.
