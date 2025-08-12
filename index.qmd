@@ -54,8 +54,7 @@ to support their needs.
 
 ## Instructors
 
-![](images/dan-circle.png){style="float:left;padding: 0 10px 0 0;"
-fig-alt="Headshot of Daniel Sjoberg" width="150"}
+![](images/dan-circle.png){style="float:left;padding: 0 10px 0 0;" fig-alt="Headshot of Daniel Sjoberg" width="150"}
 
 [**Daniel D. Sjoberg**](https://www.danieldsjoberg.com/) (he/him) is a
 Senior Principal Data Scientist at Genentech. Previously, he was a Lead
@@ -78,18 +77,17 @@ award.
 [`r fontawesome::fa("linkedin", fill = "#606060")`](https://www.linkedin.com/in/ddsjoberg/)
 [`r fontawesome::fa("github", fill = "#606060")`](https://github.com/ddsjoberg/)
 
-![](images/becca.png){style="float:left;padding: 0 20px 0 20px;"
-fig-alt="Headshot of Becca Krouse" width="140"}
+![](images/becca.png){style="float:left;padding: 0 20px 0 20px;" fig-alt="Headshot of Becca Krouse" width="140"}
 
 **Becca Krouse** is a data scientist in GSK's Statistics and Data
 Science Innovation Hub. A biostatistician by training, she has
 experience spanning 13+ years in the field of clinical research and
 specializes in developing R-based tools.
 
-![](images/ben-circle.jpg){style="float:left;padding: 0 20px 0 20px;"
-fig-alt="Headshot of Ben Straub" width="140"}
+<br>
+![](images/ben-circle.jpg){style="float:left;padding: 0 20px 0 20px;" fig-alt="Headshot of Becca Krouse" width="140"}
 
-**Ben Straub** is a Principal Programmer at GSK in the Immunology Therapeutic Area since 2018.  
+**Ben Straub** is a Principal Programmer at GSK in the Immunology Therapeutic Area since 2018.
 He has led and helped with many initiatives around R Adoption activities within Clinical Programming  since his start at GSK.  He is also actively helping to develop and maintain an end-to-end R package pipeline [(pharmaverse)](https://pharmaverse.org/) that addresses all the needs of Clinical Reporting with many awesome companies and individuals.  He is very excited for the future of using R and open source for Clinical Reporting.  
 
 ![](images/ram-circle.png){style="float:left;padding: 0 20px 0 20px;"
