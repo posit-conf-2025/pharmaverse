@@ -25,6 +25,8 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
+      - name: Install libfontconfig1-dev
+        run: sudo apt-get update && sudo apt-get install -y libfontconfig1-dev
 
       - name: Install Quarto
         uses: quarto-dev/quarto-actions/setup@v2
