@@ -28,11 +28,11 @@ jobs:
       - name: Install System Deps
         run: |
           sudo apt-get update
+          sudo apt-get install -y libfontconfig1-dev
           sudo apt-get install -y libfreetype6-dev
           sudo apt-get install -y libpng-dev 
           sudo apt-get install -y libtiff5-dev
           sudo apt-get install -y libjpeg-dev
-          sudo apt-get install -y libjpeg-turbo8-dev
 
       - name: Install Quarto
         uses: quarto-dev/quarto-actions/setup@v2
