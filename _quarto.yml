@@ -31,8 +31,8 @@ website:
     contents:
      - href: index.qmd
        text: Home
-    #  - href: pre-conf-communication.qmd
-    #    text: Communications
+     - href: communications.qmd
+       text: Communications
      - href: license.qmd
 
 format:
