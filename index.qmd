@@ -41,7 +41,24 @@ to support their needs.
 
 ## Schedule
 
-
+```{r}
+#| echo: false
+tibble::tribble(
+  ~time, ~desc,
+  "10:30 - 11:00", "*Coffee Break*",
+  "12:30 - 13:30", "*Lunch*",
+  "xx:xx - xx:xx", "[Create Tables with {gtsummary}](slides/06-tables-gtsummary/index.html)",
+  "15:00 - 15:30", "*Coffee Break*",
+) |> 
+  gt::gt() |> 
+  gt::cols_align(align = "left") |> 
+  gt::tab_style(
+    style = "vertical-align:top",
+    locations = gt::cells_body(columns = gt::everything())
+  ) |> 
+  gt::cols_label(time = gt::md("**Time**"), desc = gt::md("**Activity**")) |> 
+  gt::fmt_markdown()
+```
 
 ## Pre-work
 
@@ -54,8 +71,7 @@ to support their needs.
 
 ## Instructors
 
-![](images/dan-circle.png){style="float:left;padding: 0 10px 0 0;"
-fig-alt="Headshot of Daniel Sjoberg" width="150"}
+![](images/dan-circle.png){style="float:left;padding: 0 10px 0 0;" fig-alt="Headshot of Daniel Sjoberg" width="150"}
 
 [**Daniel D. Sjoberg**](https://www.danieldsjoberg.com/) (he/him) is a
 Senior Principal Data Scientist at Genentech. Previously, he was a Lead
@@ -78,11 +94,20 @@ award.
 [`r fontawesome::fa("linkedin", fill = "#606060")`](https://www.linkedin.com/in/ddsjoberg/)
 [`r fontawesome::fa("github", fill = "#606060")`](https://github.com/ddsjoberg/)
 
-![](images/becca.png){style="float:left;padding: 0 20px 0 20px;"
-fig-alt="Headshot of Becca Krouse" width="140"}
+![](images/becca.png){style="float:left;padding: 0 20px 0 20px;" fig-alt="Headshot of Becca Krouse" width="140"}
 
 **Becca Krouse** is a data scientist in GSK's Statistics and Data
 Science Innovation Hub. A biostatistician by training, she has
 experience spanning 13+ years in the field of clinical research and
 specializes in developing R-based tools.
 
+<br>
+![](images/ben-circle.jpg){style="float:left;padding: 0 20px 0 20px;" fig-alt="Headshot of Becca Krouse" width="140"}
+
+**Ben Straub** is a Principal Programmer at GSK in the Immunology Therapeutic Area since 2018.
+He has led and helped with many initiatives around R Adoption activities within Clinical Programming  since his start at GSK.  He is also actively helping to develop and maintain an end-to-end R package pipeline [(pharmaverse)](https://pharmaverse.org/) that addresses all the needs of Clinical Reporting with many awesome companies and individuals.  He is very excited for the future of using R and open source for Clinical Reporting.  
+
+![](images/ram-circle.png){style="float:left;padding: 0 20px 0 20px;"
+fig-alt="Headshot of Rammprasad Ganapathy" width="140"}
+
+**Rammprasad Ganapathy** (Ram) is a Principal Data Scientist at Roche/Genentech with over 15 years of experience in EDC clinical programming and statistical programming. He leads the OAK team and is the author of the R packages {roak} and its open-source counterpart, {sdtm.oak}. Ram and his team developed the R-based SDTM automation solution, OAK, taking it from a proof of concept to full-scale implementation.
