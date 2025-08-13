@@ -1,7 +1,7 @@
 ---
 title: "Pharmaverse Phlavors: gtsummary + ARD"
 author: "Daniel D. Sjoberg"
-footer:  "[Pharmaverse Workshop (pos.it/pharmaverse_24)](https://posit-conf-2024.github.io/pharmaverse/)"
+footer:  "[Pharmaverse Workshop (pos.it/pharmaverse_24)](https://posit-conf-2025.github.io/pharmaverse/)"
 logo: "images/gtsummary-logo.png"
 editor: source
 format: 
