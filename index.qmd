@@ -41,7 +41,24 @@ to support their needs.
 
 ## Schedule
 
-
+```{r}
+#| echo: false
+tibble::tribble(
+  ~time, ~desc,
+  "10:30 - 11:00", "*Coffee Break*",
+  "12:30 - 13:30", "*Lunch*",
+  "xx:xx - xx:xx", "[Create Tables with {gtsummary}](slides/06-tables-gtsummary/index.html)",
+  "15:00 - 15:30", "*Coffee Break*",
+) |> 
+  gt::gt() |> 
+  gt::cols_align(align = "left") |> 
+  gt::tab_style(
+    style = "vertical-align:top",
+    locations = gt::cells_body(columns = gt::everything())
+  ) |> 
+  gt::cols_label(time = gt::md("**Time**"), desc = gt::md("**Activity**")) |> 
+  gt::fmt_markdown()
+```
 
 ## Pre-work
 
