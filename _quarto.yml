@@ -1,9 +1,9 @@
 project:
   type: website
   output-dir: docs
-  # render:
-  #   - "*.qmd"
-  #   - "!slides-gtsummary/[0-9]*.qmd"
+  render:
+    - "*.qmd"
+    - "!slides/**/[0-9]*.qmd"
   
 website:
   page-navigation: true
@@ -28,12 +28,12 @@ website:
         href: https://github.com/posit-conf-2025/pharmaverse
         text: GitHub
     style: docked
-    # contents:
-    #  - href: index.qmd
-    #    text: Home
+    contents:
+     - href: index.qmd
+       text: Home
     #  - href: pre-conf-communication.qmd
     #    text: Communications
-    #  - href: license.qmd
+     - href: license.qmd
 
 format:
   html:

@@ -1,17 +1,34 @@
 ---
-title: "Tables in R using {gtsummary}" 
-logo: "../../images/pharmaverse-hex.png"
-footer: "[https://posit-conf-2025.github.io/pharmaverse/](https://posit-conf-2025.github.io/pharmaverse/)" 
+title: "Pharmaverse Phlavors: gtsummary + ARD"
+author: "Daniel D. Sjoberg"
+footer:  "[Pharmaverse Workshop (pos.it/pharmaverse_24)](https://posit-conf-2024.github.io/pharmaverse/)"
+logo: "images/gtsummary-logo.png"
 editor: source
-engine: knitr
 format: 
   revealjs: 
-    theme: ../slides.scss
+    theme: slides.scss
     transition: fade
     slide-number: true
     chalkboard: true
 execute:
   echo: true
-  freeze: false
-cache: false
---- 
+---
+
+{{< include 00-setup.qmd >}}
+
+{{< include 01-background.qmd >}}
+
+{{< include 02-trial.qmd >}}
+
+{{< include 03-tbl_summary.qmd >}}
+
+{{< include 04-tbl_merge.qmd >}}
+
+{{< include 05-ard-first.qmd >}}
+
+{{< include 07-themes.qmd >}}
+
+{{< include 08-print_engines.qmd >}}
+
+{{< include 09-summary.qmd >}}
+
