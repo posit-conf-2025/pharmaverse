@@ -15,3 +15,7 @@ execute:
   freeze: false
 cache: false
 --- 
+
+{{< include intro_to_ards.qmd >}}
+
+{{< include cards.qmd >}}
