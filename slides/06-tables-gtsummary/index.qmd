@@ -1,5 +1,5 @@
 ---
-title: "Pharmaverse Phlavors: gtsummary + ARD"
+title: "gtsummary + ARD"
 author: "Daniel D. Sjoberg"
 footer:  "[Pharmaverse Workshop (pos.it/pharmaverse_24)](https://posit-conf-2025.github.io/pharmaverse/)"
 logo: "images/gtsummary-logo.png"
@@ -18,7 +18,8 @@ execute:
 
 {{< include 01-background.qmd >}}
 
-{{< include 02-trial.qmd >}}
+<!-- The dataset will be introduced earlier in the day. -->
+<!-- {{< include 02-trial.qmd >}} -->
 
 {{< include 03-tbl_summary.qmd >}}
 

@@ -124,20 +124,13 @@ While not yet exported from gtsummary, we can create a theme for tables that loo
 ```{r}
 #| echo: false
 theme_gtsummary_compact()
-cards::ADSL |>
-  dplyr::select(ARM, AGE, AGEGR1, SEX) |>
-  dplyr::mutate(
-    ARM = factor(ARM, levels = c("Placebo", "Xanomeline Low Dose", "Xanomeline High Dose")),
-    # AGEGR1 = factor(AGEGR1, levels = c("<65", "65-80", ">80"), labels = c("&lt;65", "65-80", ">80"))
-    AGEGR1 = factor(AGEGR1, levels = c("<65", "65-80", ">80"), labels = c("<65", "65-80", ">80"))
-  ) |>
+adsl |>
   tbl_summary(
     by = ARM,
+    include = c(AGE, ETHNIC, FEMALE),
     type = AGE ~ "continuous2",
     statistic = AGE ~ c("{median} ({p25}, {p75})", "{mean} ({sd})", "{min} - {max}"),
-    value = SEX ~ "F",
-    label = list(SEX = "Female", AGEGR1 = "Age Group"),
-    digits = list(all_categorical() ~ list(p = cards::alias_as_fmt_fn("xx.x%")),
+    digits = list(all_categorical() ~ list(p = cards::alias_as_fmt_fun("xx.x%")),
                   all_continuous() ~ 1L)
   ) |>
   add_stat_label() |>

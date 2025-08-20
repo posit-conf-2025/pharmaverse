@@ -1,8 +1,8 @@
-## Example Dataset
+## {pharmaverseadam} Datasets
 
 ::: {.columns .v-center-container}
 ::: {.column width="40%"}
--   The `trial` data set is included with {gtsummary}
+-   The {pharmaverseadam} package exports many example ADaM data sets.
 
 -   Simulated data set of baseline characteristics for 200 patients who receive Drug A or Drug B
 

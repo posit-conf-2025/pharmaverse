@@ -45,10 +45,16 @@ to support their needs.
 #| echo: false
 tibble::tribble(
   ~time, ~desc,
+  "09:00 - 9:30", "Introduction + Overview",
+  "09:30 - 10:30", "SDTM", 
   "10:30 - 11:00", "*Coffee Break*",
+  "11:00 - 12:30", "ADaM",
   "12:30 - 13:30", "*Lunch*",
-  "xx:xx - xx:xx", "[Create Tables with {gtsummary}](slides/06-tables-gtsummary/index.html)",
+  "13:30 - 14:15", "Analysis Results Datasets",
+  "14:15 - 15:00", "Create Tables with {tfrmt}",
   "15:00 - 15:30", "*Coffee Break*",
+  "15:30 - 16:15", "[Create Tables with {gtsummary}](slides/06-tables-gtsummary/index.html)",
+  "16:15 - 17:00", "Other Topics Overview + Wrap-up"
 ) |> 
   gt::gt() |> 
   gt::cols_align(align = "left") |> 
