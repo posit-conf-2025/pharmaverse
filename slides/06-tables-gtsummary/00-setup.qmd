@@ -8,17 +8,6 @@ library(tidyverse)
 library(countdown)
 library(knitr)
 
-# knit_print.gtsummary <- function(x, ...) {
-#   gtsummary::as_gt(x) |> gt::as_raw_html()
-# }
-# 
-# knit_print.gt_tbl <- function(x, ...) {
-#   gt::as_raw_html(x)
-# }
-
-# registerS3method("knit_print", "gtsummary", knit_print.gtsummary)
-# registerS3method("knit_print", "gt_tbl", knit_print.gt_tbl)
-
 # fill for font awesome icons
 fa_fill <- "#606060"
 ```
@@ -41,7 +30,7 @@ This work is licensed under a [Creative Commons Attribution-ShareAlike 4.0 Inter
 ::: {.column width="60%"}
 `r fontawesome::fa("link", fill = fa_fill)` [danieldsjoberg.com](https://www.danieldsjoberg.com/)
 
-`r fontawesome::fa("mastodon", fill = fa_fill)` [mastodon.social/@ddsjoberg](https://mastodon.social/@ddsjoberg)
+`r fontawesome::fa("bluesky", fill = fa_fill)` [ddsjoberg.bsky.social](https://bsky.app/profile/ddsjoberg.bsky.social)
 
 `r fontawesome::fa("linkedin", fill = fa_fill)` [linkedin.com/in/ddsjoberg](https://www.linkedin.com/in/ddsjoberg/)
 

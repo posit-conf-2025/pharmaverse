@@ -24,10 +24,10 @@
 
 - The stats
 
-  - [1,000,000+ installations]{.emphasis} from CRAN
-  - 1000+ GitHub stars
+  - [1,500,000+ installations]{.emphasis} from CRAN
+  - 1,100+ GitHub stars
   - 300+ contributors 
-  - ~50 code contributors
+  - 50+ code contributors
   
 - Won the 2021 American Statistical Association (ASA) Innovation in Programming Award
 
@@ -78,6 +78,8 @@
 For our workshop, we will focus on the following summary types as well as [themes]{.emphasis} and  [print engines]{.emphasis}.
 
 - `tbl_summary()`
+
+- `tbl_hierarchical()`/`tbl_hierarchical_count()`
 
 - `tbl_cross()`
 

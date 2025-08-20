@@ -1,14 +1,75 @@
 # tbl_summary()
 
+## Prepare the data
+
+```{r}
+#| message: false
+library(pharmaverseadam)
+library(tidyverse)
+
+adsl <- pharmaverseadam::adsl |> 
+  filter(ARM != "Screen Failure") |> 
+  select(USUBJID, ARM, AGE, ETHNIC, SEX, TRTDURD) |> 
+  mutate(FEMALE  = SEX == "F") |> 
+  labelled::set_variable_labels(FEMALE = "Female")
+adae <- pharmaverseadam::adae |> 
+  filter(
+    USUBJID %in% adsl$USUBJID,
+    AESOC %in% c("CARDIAC DISORDERS", "EYE DISORDERS"),
+    AEDECOD %in% c("ATRIAL FLUTTER", "MYOCARDIAL INFARCTION",
+                   "EYE ALLERGY", "EYE SWELLING")
+  ) |> 
+  select(USUBJID, ARM, AEDECOD, AESOC, AEHLT, AESEV, AESER, AEREL)
+adlb <- pharmaverseadam::adlb |> 
+  filter(
+    USUBJID %in% adsl$USUBJID, 
+    PARAM %in% c("Albumin (g/L)", "Bilirubin (umol/L)" , "Leukocytes (10^9/L)"),
+    AVISITN < 100
+  ) |> 
+  select(USUBJID, AVISIT, AVISITN, PARCAT1, PARAM, PARAMCD, 
+         AVAL, AVALC, BASE, CHG)
+
+# Construct an oncology outcomes dataset
+ad_onco <-
+  list(
+    # Best Overall Response
+    pharmaverseadam::adrs_onco |> 
+      filter(PARAMCD == "CBOR") |> 
+      select(USUBJID, RECIST_CBOR = AVALC) |> 
+      labelled::set_variable_labels(RECIST_CBOR = "Best Overall Response"),
+    # Tumor Size
+    pharmaverseadam::adtr_onco |> 
+      filter(PARAM == "Target Lesions Sum of Diameters by Investigator") |> 
+      select(USUBJID, TUMOR_SIZE = AVAL) |> 
+      labelled::set_variable_labels(TUMOR_SIZE = "Tumor Size, mm"),
+    # Progression-free Survival
+    pharmaverseadam::adtte_onco |> 
+      filter(PARAMCD == "PFS") |> 
+      select(USUBJID, PFS_CNSR = CNSR, PFS_TIME = AVAL) |> 
+      mutate(PFS_EVENT = abs(PFS_CNSR - 1)) |> 
+      labelled::set_variable_labels(
+        PFS_CNSR = "PFS, Censor",
+        PFS_EVENT = "Progression",
+        PFS_TIME = "PFS Followup Time, days"
+      )
+  ) |> 
+  reduce(full_join, by = "USUBJID") |> 
+  inner_join(adsl[c("USUBJID", "AGE", "ETHNIC", "ARM")], by = "USUBJID") |> 
+  mutate(ARM2 = word(ARM, 1))
+```
+
 ## Basic tbl_summary()
 
 ::: columns
 ::: {.column width="50%"}
 ```{r}
 #| label: 'simple-summary'
-sm_trial |> 
-  select(-trt) |>  
-  tbl_summary()
+library(gtsummary)
+
+adsl |> 
+  tbl_summary(
+    include = c(AGE, ETHNIC, FEMALE)
+  )
 ```
 :::
 
@@ -17,9 +78,7 @@ sm_trial |>
 
 -   Statistics are `median (IQR)` for continuous, `n (%)` for categorical/dichotomous
 
--   Variables coded `0/1`, `TRUE/FALSE`, `Yes/No` treated as dichotomous
-
--   Lists `NA` values under "Unknown"
+-   Variables coded `0/1`, `TRUE/FALSE`, `Yes/No` treated as dichotomous by default
 
 -   Label attributes are printed automatically
 :::
@@ -31,8 +90,9 @@ sm_trial |>
 #| output-location: "column"
 #| label: 'customize-summary1'
 tbl_summary(
-  sm_trial,
-  by = trt,
+  adsl,
+  include = c(AGE, ETHNIC, FEMALE),
+  by = ARM,
 )
 ```
 
@@ -53,9 +113,10 @@ tbl_summary(
 #| output-location: "column"
 #| label: 'customize-summary2'
 tbl_summary(
-  sm_trial,
-  by = trt,
-  type = age ~ "continuous2",
+  adsl,
+  include = c(AGE, ETHNIC, FEMALE),
+  by = ARM,
+  type = AGE ~ "continuous2",
 )
 ```
 
@@ -78,14 +139,15 @@ tbl_summary(
 #| output-location: "column"
 #| label: 'customize-summary3'
 tbl_summary(
-  sm_trial,
-  by = trt,
-  type = age ~ "continuous2",
+  adsl,
+  include = c(AGE, ETHNIC, FEMALE),
+  by = ARM,
+  type = AGE ~ "continuous2",
   statistic = 
     list(
-      age ~ c("{mean} ({sd})", 
+      AGE ~ c("{mean} ({sd})", 
               "{min}, {max}"), 
-      response ~ "{n} / {N} ({p}%)"
+      FEMALE ~ "{n} / {N} ({p}%)"
     ),
 )
 ```
@@ -111,17 +173,18 @@ tbl_summary(
 #| output-location: "column"
 #| label: 'customize-summary4'
 tbl_summary(
-  sm_trial,
-  by = trt,
-  type = age ~ "continuous2",
+  adsl,
+  include = c(AGE, ETHNIC, FEMALE),
+  by = ARM,
+  type = AGE ~ "continuous2",
   statistic = 
     list(
-      age ~ c("{mean} ({sd})", 
+      AGE ~ c("{mean} ({sd})", 
               "{min}, {max}"), 
-      response ~ "{n} / {N} ({p}%)"
+      FEMALE ~ "{n} / {N} ({p}%)"
     ),
   label = 
-    grade ~ "Pathologic tumor grade",
+    AGE ~ "Age, years",
 )
 ```
 
@@ -147,18 +210,19 @@ tbl_summary(
 #| output-location: "column"
 #| label: 'customize-summary5'
 tbl_summary(
-  sm_trial,
-  by = trt,
-  type = age ~ "continuous2",
+  adsl,
+  include = c(AGE, ETHNIC, FEMALE),
+  by = ARM,
+  type = AGE ~ "continuous2",
   statistic = 
     list(
-      age ~ c("{mean} ({sd})", 
+      AGE ~ c("{mean} ({sd})", 
               "{min}, {max}"), 
-      response ~ "{n} / {N} ({p}%)"
+      FEMALE ~ "{n} / {N} ({p}%)"
     ),
   label = 
-    grade ~ "Pathologic tumor grade",
-  digits = age ~ list(sd = 1) # report SD(age) to one decimal place
+    AGE ~ "Age, years",
+  digits = AGE ~ list(sd = 1) # report SD(age) to one decimal place
 )
 ```
 
@@ -209,99 +273,42 @@ This syntax is also used in {cards}, {cardx}, and {gt}.
 
 -   `bold_*()/italicize_*()` [style]{.emphasis} labels, variable levels, significant p-values
 
-## Update tbl_summary() with add\_\*()
-
-```{r}
-#| output-location: "column"
-#| code-line-numbers: "5,6"
-#| label: 'summary-with-p'
-sm_trial |>
-  tbl_summary(
-    by = trt
-  ) |> 
-  add_p() |> 
-  add_q(method = "fdr")
-```
-
--   `add_p()`: adds a column of p-values
-
--   `add_q()`: adds a column of p-values adjusted for multiple comparisons through a call to `p.adjust()`
-
 ## Update tbl_summary() with add\_\*()  {auto-animate="true"}
 
 ```{r}
 #| label: 'summary-with-overall1'
 #| output-location: "column"
 #| code-line-numbers: "6"
-sm_trial |>
+adsl |>
   tbl_summary(
-    by = trt,
-    missing = "no"
+    by = ARM,
+    include = c(AGE, ETHNIC, FEMALE)
   ) |> 
-  add_overall()
+  add_overall(last = TRUE)
 ```
 
 -   `add_overall()`: adds a column of overall statistics
 
-## Update tbl_summary() with add\_\*()  {auto-animate="true"}
+## Update tbl_summary() with add\_\*()
 
 ```{r}
-#| label: 'summary-with-overall2'
 #| output-location: "column"
-#| code-line-numbers: "7"
-sm_trial |>
+#| code-line-numbers: "8,9"
+#| label: 'summary-with-p'
+ad_onco |>
   tbl_summary(
-    by = trt,
+    by = ARM2, 
+    include = c(TUMOR_SIZE, PFS_EVENT),
     missing = "no"
   ) |> 
-  add_overall() |> 
-  add_n()
-```
-
--   `add_overall()`: adds a column of overall statistics
--   `add_n()`: adds a column with the sample size
-
-## Update tbl_summary() with add\_\*()  {auto-animate="true"}
-
-```{r}
-#| label: 'summary-with-overall3'
-#| output-location: "column"
-#| code-line-numbers: "8,9,10"
-sm_trial |>
-  tbl_summary(
-    by = trt,
-    missing = "no"
-  ) |> 
-  add_overall() |> 
   add_n() |> 
-  add_stat_label(
-    label = all_categorical() ~ "No. (%)"
-  ) 
+  add_p(pvalue_fun = label_style_pvalue(digits = 2)) |> 
+  add_q(method = "fdr")
 ```
 
--   `add_overall()`: adds a column of overall statistics
--   `add_n()`: adds a column with the sample size
--   `add_stat_label()`: adds a description of the reported statistic
+-   `add_p()`: adds a column of p-values
 
-## Update with bold\_\*()/italicize\_\*()
-
-```{r}
-#| label: 'summary-bold'
-#| output-location: "column"
-#| code-line-numbers: "6,7,8"
-sm_trial |>
-  tbl_summary(
-    by = trt
-  ) |>
-  add_p() |> 
-  bold_labels() |> 
-  italicize_levels() |> 
-  bold_p(t = 0.8)
-```
-
--   `bold_labels()`: bold the variable labels
--   `italicize_levels()`: italicize the variable levels
--   `bold_p()`: bold p-values according a specified threshold
+-   `add_q()`: adds a column of p-values adjusted for multiple comparisons through a call to `p.adjust()`
 
 ## Update tbl_summary() with modify\_\*()
 
@@ -310,12 +317,13 @@ sm_trial |>
 #| output-location: "column"
 #| code-line-numbers: "4,5,6,7,8,9,10,11,12,13"
 tbl <-
-  sm_trial |> 
-  tbl_summary(by = trt, 
+  adsl[c("ARM", "AGE", "ETHNIC", "FEMALE")] |> 
+  filter(startsWith(ARM, "Xanomeline")) |> 
+  tbl_summary(by = ARM, 
               missing = "no") |>
   modify_header(
-      stat_1 ~ "**Group A**",
-      stat_2 ~ "**Group B**"
+    stat_1 ~ "**Group A**",
+    stat_2 ~ "**Group B**"
   ) |> 
   modify_spanning_header(
     all_stat_cols() ~ "**Drug**") |> 
@@ -348,12 +356,12 @@ show_header_names(tbl)
 ```{r}
 #| label: 'summary-with-difference'
 #| code-line-numbers: "12"
-trial |>
-  select(trt, marker, response) |>
+ad_onco |>
   tbl_summary(
-    by = trt,
-    statistic = list(marker ~ "{mean} ({sd})",
-                     response ~ "{p}%"),
+    by = ARM2,
+    include = c(TUMOR_SIZE, PFS_EVENT),
+    statistic = list(TUMOR_SIZE = "{mean} ({sd})",
+                     PFS_EVENT = "{p}%"),
     missing = "no"
   ) |> 
   add_difference()
@@ -369,10 +377,10 @@ trial |>
 #| label: 'summary-with-custom-stat'
 #| eval: false
 #| code-line-numbers: "6"
-sm_trial |>
+adsl |>
   tbl_summary(
-    by = trt,
-    missing = "no"
+    by = ARM,
+    include = c(AGE, ETHNIC, FEMALE)
   ) |> 
   add_stat(...)
 ```
@@ -404,10 +412,9 @@ sm_trial |>
 
 ```{r}
 #| label: 'summary-view-ard'
-tbl <- tbl_summary(trial, by = trt) |> add_p()
-class(tbl$cards)
+tbl <- tbl_summary(adsl, by = ARM, include = AGE) |> add_p()
 names(tbl$cards)
-tbl$cards[["add_p"]][["age"]]
+tbl$cards[["add_p"]][["AGE"]]
 ```
 
 :::
@@ -442,10 +449,10 @@ countdown(minutes = 10)
 ```{r}
 #| label: 'tbl_cross'
 #| output-location: "column"
-sm_trial |>
+adsl |>
   tbl_cross(
-    row = trt, 
-    col = grade,
+    row = ARM, 
+    col = ETHNIC,
     percent = "row",
     margin = "row"
   ) |>
@@ -458,11 +465,11 @@ sm_trial |>
 
 ```{r}
 #| label: 'tbl_continuous'
-sm_trial |>
+adsl |>
   tbl_continuous(
-    variable = age,
-    by = trt,
-    include = grade
+    variable = AGE,
+    by = ARM,
+    include = ETHNIC
   )
 ```
 
@@ -472,17 +479,31 @@ sm_trial |>
 
 ```{r}
 #| label: 'tbl_wide_summary'
-trial |>
-  tbl_wide_summary(include = c(response, grade))
+adsl |>
+  tbl_wide_summary(include = c(ETHNIC, FEMALE))
 ```
 
 ## Wide Summaries with tbl_wide_summary()
 
 ```{r}
 #| label: 'tbl_wide_summary2'
-trial |>
-  tbl_wide_summary(include = c(age, marker))
+adsl |>
+  tbl_wide_summary(include = c(AGE, TRTDURD))
 ```
 
 Naturally, you can change the statistics, and which appear in each column.
- 
+
+## Adverse Event Reporting (and friends)
+
+Use `tbl_hierarchicial()` and `tbl_hierarchicial_count()` for reporting of AEs, Con Meds, and more.
+
+```{r}
+adae |> 
+  tbl_hierarchical(
+    by = ARM, 
+    variables = c(AESOC, AEDECOD),
+    id = "USUBJID",
+    denominator = adsl
+  )
+```
+

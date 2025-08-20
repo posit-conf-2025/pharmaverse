@@ -74,7 +74,7 @@ Gustavo Zapata Wainberg
 ::: {.column width="50%"}
 `r fontawesome::fa("link", fill = fa_fill)` [danieldsjoberg.com](https://www.danieldsjoberg.com/)
 
-`r fontawesome::fa("mastodon", fill = fa_fill)` [mastodon.social/\@ddsjoberg](https://mastodon.social/@ddsjoberg)
+`r fontawesome::fa("bluesky", fill = fa_fill)` [ddsjoberg.bsky.social](https://bsky.app/profile/ddsjoberg.bsky.social)
 
 `r fontawesome::fa("linkedin", fill = fa_fill)` [linkedin.com/in/ddsjoberg/](https://www.linkedin.com/in/ddsjoberg/)
 
