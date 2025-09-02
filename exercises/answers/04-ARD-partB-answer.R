@@ -19,12 +19,21 @@ adae <- pharmaverseadam::adae |>
 # By every combination of treatment group (TRT01A) 
 
 ard_stack_hierarchical(
-  data = ,
-  variables = ,
-  by = , 
-  id = ,
-  denominator = 
+  data = adae,
+  variables = c(AESOC, AEDECOD),
+  by = TRT01A, 
+  id = USUBJID,
+  denominator = adsl 
 ) 
 
 # B. [*BONUS*] Modify the code from part A to include overall number/percentage of
 # subjects with at least one AE, regardless of SOC and PT
+
+ard_stack_hierarchical(
+  data = adae,
+  variables = c(AESOC, AEDECOD),
+  by = TRT01A, 
+  id = USUBJID,
+  denominator = adsl,
+  over_variables = TRUE
+) 
