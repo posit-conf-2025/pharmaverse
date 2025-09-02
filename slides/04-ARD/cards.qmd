@@ -145,17 +145,13 @@ _Any unobserved levels of the variables will be present in the resulting ARD._
 
 The results from all these functions are entirely compatible with one another, and can be stacked into a single data frame. 🥞
 
-## {cardx}
-
-Dedicate 1 slide
-
 ## {cards}: Other Functions
 
 In addition to exporting functions to prepare summaries, {cards} exports many utilities for wrangling ARDs and creating new ARDs. 
 
 Constructing: `bind_ard()`, `tidy_as_ard()`, `nest_for_ard()`, `check_ard_structure()`, and many more
 
-Wrangling: `shuffle_ard()`, `get_ard_statistics()`, `replace_null_statistic()`, etc.
+Wrangling: `get_ard_statistics()`, `replace_null_statistic()`, etc.
 
 
 ## {cards}: Stacking utilities
@@ -340,3 +336,155 @@ ard_hier_c |>
 library(countdown)
 countdown(minutes = 8, play_sound = TRUE)
 ```
+
+
+## {cardx}
+
+-   Extension of the {cards} package, providing additional functions to create Analysis Results Datasets (ARDs)
+
+-   The {cardx} package exports many `ard_*()` function for statistical methods.
+
+![](images/cards-cardx-hex.png){fig-alt="cards and cardx package logos" fig-align="center"}
+
+## {cardx}
+
+-   Exports ARD frameworks for statistical analyses from many packages 
+
+::: {.larger}
+
+      - {stats}
+      - {car}
+      - {effectsize}
+      - {emmeans}
+      - {geepack}
+      - {lme4}
+      - {parameters}
+      - {smd}
+      - {survey}
+      - {survival}
+
+:::
+
+-   This list is growing (rather quickly) 🌱
+
+## {cardx} t-test Example
+
+::: {.small}
+
+- We see the results like the mean difference, the confidence interval, and p-value as expected.
+
+- And we also see the function's inputs, which is incredibly useful for re-use, e.g. we know the we did not use equal variances.
+
+:::
+
+```{r}
+#| message: true
+pharmaverseadam::adsl |> 
+  dplyr::filter(ARM %in% c("Xanomeline High Dose", "Xanomeline Low Dose")) |>
+  cardx::ard_stats_t_test(by = ARM, variables = AGE)
+```
+
+## {cardx} t-test Example
+
+- _What to do if a method you need is not implemented?_
+
+- It's simple to wrap existing frameworks to customize.
+
+- One-sample t-test example utilizing `cards::ard_continuous()`.
+
+```{r}
+#| message: true
+pharmaverseadam::adsl |> 
+  dplyr::filter(ARM %in% c("Xanomeline High Dose", "Xanomeline Low Dose")) |>
+  cards::ard_summary(
+    variables = AGE,
+    statistic = everything() ~ list(t_test = \(x) t.test(x) |> broom::tidy())
+  ) |> 
+  dplyr::mutate(context = "t_test_one_sample")
+```
+
+## {cardx} t-test Example
+
+- How to modify if we need a two-sample test, or more generally accessing other columns in the data frame.
+
+```{r}
+#| message: true
+pharmaverseadam::adsl |> 
+  dplyr::filter(ARM %in% c("Xanomeline High Dose", "Xanomeline Low Dose")) |>
+  cards::ard_mvsummary(
+    variables = AGE,
+    statistic = 
+      ~ list(t_test = \(x, data, ...) t.test(x ~ data$ARM) |> broom::tidy())
+  ) |> 
+  dplyr::mutate(group1 = "ARM", context = "t_test_two_sample") |> 
+  cards::tidy_ard_column_order()
+```
+
+## {cardx} Regression
+
+-   Includes functionality to summarize nearly every type of regression model in the R ecosystem: 
+
+::: {.small}
+
+`r broom.helpers::supported_models$model` (and more)
+
+:::
+
+
+## {cardx} Regression
+
+The `cardx::ard_regression()` does **a lot** for us in the background.
+
+- Identifies the variable from the regression terms (i.e. groups levels of the same variable)
+- Identifies reference groups from categorical covariates
+- Finds variable labels from the source data frames
+- Knows the total N of the model, the number of events, and can do the same for each level of categorical variables
+- Contextually aware of slopes, odds ratios, hazard ratios, and incidence rate ratios
+- And much _**much**_ more.
+
+```{r}
+lm(AGE ~ ARM, data = cards::ADSL) |>
+  cardx::ard_regression(add_estimate_to_reference_rows = TRUE)
+```
+
+
+## When things go wrong 😱
+
+What happens when statistics are un-calculable? 
+
+```{r}
+#| message: true
+ard_gone_wrong <- 
+  cards::ADSL |> 
+  cards::ard_summary(
+    by = ARM,
+    variable = AGEGR1,
+    statistic = ~list(kurtosis = \(x) e1071::kurtosis(x))
+  ) |> 
+  cards::replace_null_statistic()
+ard_gone_wrong
+```
+
+::: {.fragment}
+
+```r
+cards::print_ard_conditions(ard_gone_wrong)
+```
+
+![](images/ard-error-msg.png)
+
+:::
+
+::: {.notes}
+
+- Where is the statistic? `AGEGR1` is _character_
+
+- Even when there are errors or warnings, we still get the ARD with the expected structure returned.
+
+  - THIS IS BIG! There are MANY circumstances, when you are designing TLGs early in a study when you do not have all the data required to calculate every statistic.
+  
+  - This allows you to design everything up-front.
+  
+- We can also report these warnings and errors back to users. <!CLICK!>
+
+:::
