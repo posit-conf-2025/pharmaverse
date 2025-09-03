@@ -10,11 +10,11 @@ Similar to functions that accept a data frame, the package exports functions wit
 ```r
 tbl_summary()
 
+tbl_hierarchical()
+
 tbl_continuous()
 
 tbl_wide_summary()
-
-tbl_hierarchical()
 ```
 
 :::
@@ -23,11 +23,11 @@ tbl_hierarchical()
 ```r
 tbl_ard_summary()
 
+tbl_ard_hierarchical()
+
 tbl_ard_continuous()
 
 tbl_ard_wide_summary()
-
-tbl_ard_hierarchical()
 ```
 
 :::
@@ -40,6 +40,7 @@ We can use the skills we learned earlier today to create ARDs for gtsummary tabl
 ```{r}
 #| label: 'ard_stack'
 #| output-location: "column"
+#| message: true
 library(cards)
 
 ard <- ard_stack(
@@ -55,7 +56,11 @@ ard
 ```
 
 ::: aside
+::: {.small}
+
 The `.attributes=TRUE` call adds column attributes, like labels, to the ARD table, which leads to better defaults by displaying the column labels in the table.
+
+:::
 :::
 
 ## ARD-first Tables
@@ -106,7 +111,7 @@ adsl |>
 ```{r}
 #| label: 'tbl_ard_summary-mock'
 #| output-location: "slide"
-#| code-line-numbers: "15"
+#| code-line-numbers: "10"
 adsl |> 
   labelled::set_variable_labels(AGE = "Age, years") |> 
   ard_stack( 
@@ -126,16 +131,8 @@ adsl |>
   modify_header(all_stat_cols() ~ "**{level}**  \nN = xx")
 ```
 
-## {gtsummary} Exercise 2
+::: aside
 
-1. Navigate to Posit Cloud script `05-gtsummary_exercise2.R`.
+You can also pass ARDs created with the `cards::mock_*()` functions if no data are available.
 
-2. Create the table outlined in the script.
-
-3. Add the "completed" sticky note to your laptop when complete.
-
-```{r}
-#| echo: false
-#| cache: false
-countdown(minutes = 10)
-```
+:::
