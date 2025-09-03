@@ -37,9 +37,9 @@ ard_ae <- ard_stack_hierarchical(
 ard_ae_tidy <- ard_ae |> 
   shuffle_card(fill_hierarchical_overall = "ANY EVENT") |> 
   prep_big_n(vars = "TRT01A") |> 
-  prep_fill_pairwise(vars = c("AESOC","AEDECOD"),
-                     fill_from = "left")|> 
-  dplyr::select(-c(context, stat_label, stat_variable)) 
+  prep_hierarchical_fill(vars = c("AESOC","AEDECOD"),
+                         fill_from = "left")|> 
+  dplyr::select(-c(context, stat_label, stat_variable))  
 
 # B. Create a basic tfrmt, filling in the appropriate variable names
 
