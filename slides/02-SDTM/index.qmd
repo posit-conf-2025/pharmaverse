@@ -196,7 +196,7 @@ img_center_size <- 300
 ```
 ## Reusable Algorithms
 
-![](reusable_algorithms.jpg){.center}
+![](./images/reusable_algorithms.jpg){.center}
 
 ## Algorithms compared to `dplyr`  {.smaller}
 
@@ -225,7 +225,7 @@ img_center_size <- 300
 
 ## SDTM Concept
 
-![sdtm concept](sdtm_concept.png){.center}
+![sdtm concept](./images/sdtm_concept.png){.center}
 
 ## Programming steps {.smaller}
 
@@ -258,7 +258,7 @@ img_center_size <- 300
     SDTM datasets and the raw datasets during programming.
 :::
 
-# Workshop - Create AE domain
+# Workshop - Create VS domain
 
 ## How we will "code" today
 
