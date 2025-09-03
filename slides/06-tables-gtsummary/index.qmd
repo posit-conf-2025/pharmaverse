@@ -37,6 +37,8 @@ options(width = 120)
 
 {{< include 07-adopt.qmd >}}
 
+<!-- Add a section about cardinal -->
+
 <!-- Should I add an LLM section here? -->
 
 {{< include 09-summary.qmd >}}
