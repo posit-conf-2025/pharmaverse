@@ -194,3 +194,16 @@ adlb |>
     denominator = adsl
   )
 ```
+
+## cardinal collaboration  <img src="https://pharmaverse.github.io/cardinal/quarto/assets/images/logo/cardinal.png" align="right" height="120" />
+
+The cardinal initiative is an industry collaborative effort under the pharmaverse.
+
+The site includes examples for building ARDs and tables from the FDA Standard Safety Tables and Figures Integrated Guide using {cards} and {gtsummary}.
+
+
+
+<a href="https://pharmaverse.github.io/cardinal/#contributors" target="_blank"><img src='https://pharmaverse.github.io/cardinal/quarto/assets/images/logo/cardinal.png' align="center" height="320" /> Let's Go!</a>
+
+
+
