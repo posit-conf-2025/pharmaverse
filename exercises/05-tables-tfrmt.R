@@ -1,6 +1,6 @@
-# Table Exercise: Demographic summary table using {tfrmt}
+# Table Exercise: AE summary table using {tfrmt}
 
-# For this exercise, we will use the demography ARD from the last section to
+# For this exercise, we will use the AE ARD from the last section to
 # create a {tfrmt} table
 
 # Setup
@@ -37,7 +37,7 @@ ard_ae <- ard_stack_hierarchical(
 ard_ae_tidy <- ard_ae |> 
   shuffle_card(fill_hierarchical_overall = "ANY EVENT") |> 
   prep_big_n(vars = "TRT01A") |> 
-  prep_fill_pairwise(vars = c("AESOC","AEDECOD"),
+  prep_hierarchical_fill(vars = c("AESOC","AEDECOD"),
                      fill_from = "left")|> 
   dplyr::select(-c(context, stat_label, stat_variable)) 
 

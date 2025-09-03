@@ -48,15 +48,24 @@
 ::::
 
 
-```{r}
-#| echo: false
+```{r} 
+#| echo: false 
 library(tfrmt) 
 
-# insert ARD code
-# ard_demog <- 
+ard_demog <- data_demog |> 
+  dplyr::filter(!column=="p-value",
+                !rowlbl2=="n",
+                !column=="Total", !rowlbl1=="Race (Origin)") |> 
+  dplyr::mutate(column = gsub("Xanomeline ","", column)) |>  
+  dplyr::bind_rows(
+    dplyr::tibble(param = "bigN", 
+           column = c("High Dose","Low Dose","Placebo"),
+           value = c(84,84,86))
+  ) |> 
+  dplyr::ungroup() |>  
+  dplyr::filter(is.na(rowlbl1) | rowlbl1 %in% c("Age (y)","Baseline BMI","Race (Origin)","Sex","Duration of disease"))
 
-# make mock copy
-# ard_demog_mock <- ard_demog
+ard_demog_mock <- ard_demog
 
 
 
@@ -76,13 +85,37 @@ gt_style_slides <- function(x){
     )
 }
 
-```
-
-```{r} 
-#| echo: false 
-# tfrmt_demog <- tfrmt(
-#       # insert tfrmt code
-# )  
+tfrmt_demog <- tfrmt(
+  group = c(rowlbl1,grp),
+  label = rowlbl2,
+  column = column,
+  param = param,
+  value = value,
+  sorting_cols = c(ord1, ord2),
+  title = "Demographics Table",
+  body_plan = body_plan(
+    frmt_structure(group_val = ".default", label_val = ".default", 
+                   frmt_combine("{n} {pct}",
+                                n = frmt("xxx"),
+                                pct = frmt_when("==100" ~ "",
+                                                "==0" ~ "",
+                                                TRUE ~ frmt("(xx.x %)")))),
+    frmt_structure(group_val = ".default", label_val = "n", frmt("xxx")),
+    frmt_structure(group_val = ".default", label_val = c("Mean", "Median", "Min","Max"), frmt("xxx.x")),
+    frmt_structure(group_val = ".default", label_val = "SD", frmt("xxx.xx"))
+  ),
+  
+  col_plan = col_plan(-grp,
+                      -starts_with("ord")
+  )
+  ,
+  col_style_plan = col_style_plan(
+    col_style_structure(align = c(".",","," "), col = c("Placebo", "Low Dose",
+                                                        "High Dose")),
+    col_style_structure(align = "left", col = c("rowlbl1","rowlbl2"))
+  ),
+  big_n = big_n_structure(param_val  = "bigN", n_frmt = frmt("<br>N = xx"))
+)  
 ```
 
 # A quick tour of the many uses of {tfrmt}
@@ -290,7 +323,7 @@ adsl <- pharmaverseadam::adsl |>
     TRT01A = ifelse(!TRT01A == "Placebo", "Active", TRT01A)
   )
 
-ard_demog <- ard_stack(
+ard_demog <- cards::ard_stack(
   data = adsl,
   .by = TRT01A,
   cards::ard_continuous( variables = AGE,
@@ -302,7 +335,7 @@ ard_demog <- ard_stack(
 
 ard_demog <- ard_demog |> 
   tfrmt::shuffle_card(fill_overall = "Overall") |> 
-  tfrmt::prep_unite_vars(c("AGE","AGEGR1","SEX")) |> 
+  tfrmt::prep_combine_vars(c("AGE","AGEGR1","SEX")) |> 
   tfrmt::prep_label() |> 
   tfrmt::prep_big_n(vars  = "TRT01A")|>
   dplyr::mutate(label = dplyr::case_when(
@@ -616,12 +649,12 @@ print_to_gt(
 - Fill missing variable values in a hierarchy
 - Prepare big N rows for headers
 
-To explore, let's start with the result of our `ard_stack()` call.
+To explore, let's start with the result of our `cards::ard_stack()` call.
 
 ```{r}
 library(cards)
  
-ard_demog <- ard_stack(
+ard_demog <- cards::ard_stack(
   data = adsl,
   .by = TRT01A,
   cards::ard_continuous( variables = AGE,
@@ -653,7 +686,7 @@ Since the variable values are now spread wide, we want to collapse them into a s
 
 ard_demog_display <- ard_demog |> 
   tfrmt::shuffle_card(fill_overall = "Overall") |> 
-  tfrmt::prep_unite_vars(c("AGE","AGEGR1","SEX"))
+  tfrmt::prep_combine_vars(c("AGE","AGEGR1","SEX"))
 
 ard_demog_display
 ```
@@ -667,7 +700,7 @@ Next, we create a row label ("label" column) for the table that is either the ca
 
 ard_demog_display <- ard_demog |> 
   tfrmt::shuffle_card(fill_overall = "Overall") |> 
-  tfrmt::prep_unite_vars(c("AGE","AGEGR1","SEX")) |> 
+  tfrmt::prep_combine_vars(c("AGE","AGEGR1","SEX")) |> 
   tfrmt::prep_label()
 
 ard_demog_display
@@ -689,7 +722,7 @@ First, we only need the counts themselves, not denominators or percentages. Seco
 
 ard_demog_display <- ard_demog |> 
   tfrmt::shuffle_card(fill_overall = "Overall") |> 
-  tfrmt::prep_unite_vars(c("AGE","AGEGR1","SEX")) |> 
+  tfrmt::prep_combine_vars(c("AGE","AGEGR1","SEX")) |> 
   tfrmt::prep_label() |> 
   tfrmt::prep_big_n(vars = "TRT01A")
 
@@ -759,3 +792,10 @@ print_to_gt(tfrmt_demog, ard_demog_display)|>
 - Open R file `exercises/05-tables-tfrmt.R`
 
 - Create and modify the AE table as described
+
+```{r}
+#| echo: false
+#| cache: false
+library(countdown)
+countdown(minutes = 8, play_sound = TRUE)
+```
