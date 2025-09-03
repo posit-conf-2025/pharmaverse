@@ -59,6 +59,14 @@ jobs:
           renv::install(c("rmarkdown", "yaml"))
           renv::restore()
 
+      # rendering site
+      - name: Render Quarto Project
+        uses: quarto-dev/quarto-actions/render@v2
+        env:
+          QUARTO_PROFILE: preview
+        with:
+          to: html
+          
       - name: Publish to GitHub Pages
         if:  github.repository_owner == 'posit-conf-2025/pharmaverse' && github.event_name != 'pull_request'
         uses: quarto-dev/quarto-actions/publish@v2
