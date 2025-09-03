@@ -46,7 +46,7 @@ to support their needs.
 tibble::tribble(
   ~time, ~desc,
   "09:00 - 9:30", "Introduction + Overview",
-  "09:30 - 10:30", "SDTM", 
+  "09:30 - 10:30", "[SDTM](slides/02-SDTM/index.html)", 
   "10:30 - 11:00", "*Coffee Break*",
   "11:00 - 12:30", "ADaM",
   "12:30 - 13:30", "*Lunch*",
