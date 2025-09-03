@@ -263,7 +263,7 @@ img_center_size <- 300
 ## How we will "code" today
 
 ::: incremental
--   We will walk you through coding `AE` and `DM`
+-   We will walk you through coding `VS` and `DM`
     -   Discussion on each function and function arguments
     -   Occasional Check-in Poll
 -   Important to move along quickly
@@ -274,7 +274,7 @@ img_center_size <- 300
 
 Review aCRF
 
--  [AdverseEvent_aCRF](https://github.com/pharmaverse/pharmaverseraw/blob/main/vignettes/articles/aCRFs/AdverseEvent_aCRF.pdf)
+-  [AdverseEvent_aCRF](https://github.com/pharmaverse/pharmaverseraw/blob/main/vignettes/articles/aCRFs/VitalSigns_eCRF.pdf)
 
 ## Code Walkthrough
 
