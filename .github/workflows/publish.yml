@@ -61,6 +61,7 @@ jobs:
 
       # rendering site
       - name: Render Quarto Project
+        if:  !(github.repository_owner == 'posit-conf-2025/pharmaverse' && github.event_name != 'pull_request')
         uses: quarto-dev/quarto-actions/render@v2
         env:
           QUARTO_PROFILE: preview
