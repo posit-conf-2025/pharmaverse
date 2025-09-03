@@ -16,5 +16,12 @@ execute:
 cache: false
 --- 
 
+
+```{r}
+#| echo: false
+#| cache: false
+library(tfrmt)
+```
+
 {{< include tfrmt.qmd >}}
 

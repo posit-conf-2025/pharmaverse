@@ -19,8 +19,8 @@ adsl <- pharmaverseadam::adsl |>
 
 ard_continuous(
   data = adsl,
-  by = ,
-  variables =
+  by = TRT01A,
+  variables = AGE
 )
 
 
@@ -28,19 +28,19 @@ ard_continuous(
 
 ard_categorical(
   data = adsl,
-  by = ,
-  variables =
+  by = TRT01A,
+  variables = c(AGEGR1, SEX)
 )
 
 ## C. Perform all of the summaries in a single ard_stack() call, including:
 #   - summaries by TRT01A as performed above
 #      - continuous summaries from part A for AGE
+#      - categorical summaries from part B for AGEGR1 and SEX
 ard_stack(
   data = adsl,
-  .by = ,
-  
-  # add ard_* calls here
-  
+  .by = TRT01A,
+  ard_continuous(variables = AGE),
+  ard_categorical(variables = c(AGEGR1, SEX))
 )
 
 
@@ -49,4 +49,12 @@ ard_stack(
 #   - overall summaries for all of the variables
 #   - total N
 # (Hint: Modify the `.overall` and `.total_n` arguments, respectively)
+ard_stack(
+  data = adsl,
+  .by = TRT01A,
+  ard_continuous(variables = AGE),
+  ard_categorical(variables = c(AGEGR1, SEX)),
+  .overall = TRUE,
+  .total_n = TRUE
+)
 

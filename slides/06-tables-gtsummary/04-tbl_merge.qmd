@@ -5,11 +5,11 @@
 ```{r}
 #| label: 'tbl_merge'
 tbl_n <- 
-  tbl_summary(trial, include = grade, statistic = grade ~ "{n}") |> 
+  tbl_summary(adsl, include = ETHNIC, statistic = ETHNIC ~ "{n}") |> 
   modify_header(all_stat_cols() ~ "**N**") |> # update column header
-  modify_footnote(all_stat_cols() ~ NA) # remove footnote
+  remove_footnote_header() # remove footnote
 tbl_age <-
-  tbl_continuous(trial, include = grade, variable = age, by = trt) |> 
+  tbl_continuous(adsl, include = ETHNIC, variable = AGE, by = ARM) |> 
   modify_header(all_stat_cols() ~ "**{level}**") # update header
 
 # combine the tables side by side
@@ -21,27 +21,27 @@ list(tbl_n, tbl_age) |>
 
 ```{r}
 #| label: 'tbl_stack'
-tbl_drug_a <- trial |> 
-  dplyr::filter(trt == "Drug A") |> 
-  tbl_summary(include = c(response, death), missing = "no")
-tbl_drug_b <- trial |> 
-  dplyr::filter(trt == "Drug B") |> 
-  tbl_summary(include = c(response, death), missing = "no")
+tbl_drug_a <- adsl |> 
+  filter(ARM == "Xanomeline High Dose") |> 
+  tbl_summary(include = c(AGE, ETHNIC), missing = "no")
+tbl_drug_b <- adsl |> 
+  filter(ARM == "Xanomeline Low Dose") |> 
+  tbl_summary(include = c(AGE, ETHNIC), missing = "no")
 
 # stack the two tables 
 list(tbl_drug_a, tbl_drug_b) |> 
   tbl_stack(group_header = c("Drug A", "Drug B")) |> # optionally include headers for each table
-  modify_header(all_stat_cols() ~ "**Outcome Rates**")
+  modify_header(all_stat_cols() ~ "**Summary Statistics**")
 ```
 
 ## tbl_strata() for stratified tables
 
 ```{r}
 tbl_strata(
-  trial, 
-  strata = trt, 
+  adsl, 
+  strata = ARM, 
   ~ .x |> 
-    tbl_wide_summary(include = c(response, death))
+    tbl_wide_summary(include = c(ETHNIC, FEMALE))
 )
 ```
 
@@ -54,10 +54,10 @@ We can also stack the tables.
 
 ```{r}
 tbl_strata(
-  trial, 
-  strata = trt, 
+  adsl, 
+  strata = ARM, 
   ~ .x |> 
-    tbl_wide_summary(include = c(response, death)),
+    tbl_wide_summary(include = c(ETHNIC, FEMALE)),
   .combine_with = "tbl_stack"
 )
 ```
@@ -86,5 +86,5 @@ If needed, you can directly modify the underlying data frame with `modify_table_
 ::: 
 
 ```{r}
-trial |> tbl_summary(include = c(age, grade), by = trt) |> purrr::pluck("table_body")
+adsl |> tbl_summary(include = c(AGE, ETHNIC), by = ARM) |> purrr::pluck("table_body")
 ```

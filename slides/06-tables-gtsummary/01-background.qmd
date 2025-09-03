@@ -24,10 +24,10 @@
 
 - The stats
 
-  - [1,000,000+ installations]{.emphasis} from CRAN
-  - 1000+ GitHub stars
+  - [1,500,000+ installations]{.emphasis} from CRAN
+  - 1,100+ GitHub stars
   - 300+ contributors 
-  - ~50 code contributors
+  - 50+ code contributors
   
 - Won the 2021 American Statistical Association (ASA) Innovation in Programming Award
 
@@ -41,11 +41,9 @@
 
 <img src="images/gtsummary-logo.png" width="650"/>
 
-::: {.fragment}
 
 <img src="images/asa.png" width="200"/><img src="images/posit.png" width="200"/>
 
-:::
 :::
 :::
 
@@ -79,9 +77,23 @@ For our workshop, we will focus on the following summary types as well as [theme
 
 - `tbl_summary()`
 
-- `tbl_cross()`
+- `tbl_hierarchical()`
 
-- `tbl_continuous()`
+::: {.fragment}
 
-- `tbl_wide_summary()`
+Other functions helpful functions we're not covering:
 
+::: {.small}
+
+- `tbl_hierarchical_count()`: similar to `tbl_hierarchical()` for counts instead of rates
+
+- `tbl_cross()`: cross tabulations
+
+- `tbl_continuous()`: summarizing continuous variables by 2 categorical variables
+
+- `tbl_wide_summary()`: similar to `tbl_summary()` but statistics are presented in separate columns
+
+- many more!
+
+:::
+:::

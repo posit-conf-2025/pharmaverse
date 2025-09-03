@@ -67,14 +67,12 @@ Gustavo Zapata Wainberg
 `r fontawesome::fa("align-justify", fill = fa_fill)` *Use the gtsummary tag*
 
 `r fontawesome::fa("fire", fill = fa_fill)` Thousands of posts!
-
-`r fontawesome::fa("stopwatch", fill = fa_fill)` More on ARDs at the 2024 R/Pharma Workshop
 :::
 
 ::: {.column width="50%"}
 `r fontawesome::fa("link", fill = fa_fill)` [danieldsjoberg.com](https://www.danieldsjoberg.com/)
 
-`r fontawesome::fa("mastodon", fill = fa_fill)` [mastodon.social/\@ddsjoberg](https://mastodon.social/@ddsjoberg)
+`r fontawesome::fa("bluesky", fill = fa_fill)` [ddsjoberg.bsky.social](https://bsky.app/profile/ddsjoberg.bsky.social)
 
 `r fontawesome::fa("linkedin", fill = fa_fill)` [linkedin.com/in/ddsjoberg/](https://www.linkedin.com/in/ddsjoberg/)
 
