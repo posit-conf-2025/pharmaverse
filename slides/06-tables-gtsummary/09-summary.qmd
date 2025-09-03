@@ -67,8 +67,6 @@ Gustavo Zapata Wainberg
 `r fontawesome::fa("align-justify", fill = fa_fill)` *Use the gtsummary tag*
 
 `r fontawesome::fa("fire", fill = fa_fill)` Thousands of posts!
-
-`r fontawesome::fa("stopwatch", fill = fa_fill)` More on ARDs at the 2024 R/Pharma Workshop
 :::
 
 ::: {.column width="50%"}

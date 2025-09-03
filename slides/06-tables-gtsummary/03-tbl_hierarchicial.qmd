@@ -1,0 +1,72 @@
+# tbl_hierarchicial()
+
+## Adverse Event Reporting (and friends)
+
+Use `tbl_hierarchicial()` and `tbl_hierarchicial_count()` for reporting of AEs, Con Meds, and more.
+
+```{r}
+#| label: create-ae-tbl
+tbl_ae <- adae |> 
+  tbl_hierarchical(
+    by = "ARM", 
+    variables = c("AESOC", "AEDECOD"),
+    id = "USUBJID",
+    denominator = adsl
+  )
+```
+
+```{r}
+#| echo: false
+#| label: print-ae-tbl
+tbl_ae
+```
+
+## ARD + QC
+
+ARDs are **wonderful** for QCing {gtsummary} tables. 😻
+
+- The ARD include the formatted and un-formatted numbers that appear in the table.
+
+- Extract the ARD from the {gtsummary} table.
+
+- Build fresh ARD from source data, and compare it to the ARD from the table.
+
+## ARD + QC: Extract ARD
+
+```{r}
+#| eval: false
+gather_ard(tbl_ae)
+```
+
+```{r}
+#| label: gather-ae-tbl-ard
+#| echo: false
+#| message: true
+gather_ard(tbl_ae)[[1]] |> 
+  dplyr::filter(variable == "AEDECOD")
+```
+
+
+## ARD + QC: Build and Compare ARDs
+
+```{r}
+#| label: build-ae-tbl-ard
+ard_ae <- adae |> 
+  cards::ard_stack_hierarchical(
+    by = "ARM", 
+    variables = c("AESOC", "AEDECOD"),
+    id = "USUBJID",
+    denominator = adsl
+  )
+```
+
+The next step is to simply compare the two ARDs to confirm results.
+As this is done programmatically, it is quick to repeat as data continues to accrue.
+
+::: {.small}
+
+There are numerous ways to compare objects in R.
+We are currently developing a tool in {cards} that will streamline ARD comparison, with sensible defaults for ARDs.
+Stay tuned! 📺
+:::
+

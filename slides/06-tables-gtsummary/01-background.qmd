@@ -41,11 +41,9 @@
 
 <img src="images/gtsummary-logo.png" width="650"/>
 
-::: {.fragment}
 
 <img src="images/asa.png" width="200"/><img src="images/posit.png" width="200"/>
 
-:::
 :::
 :::
 
@@ -79,11 +77,23 @@ For our workshop, we will focus on the following summary types as well as [theme
 
 - `tbl_summary()`
 
-- `tbl_hierarchical()`/`tbl_hierarchical_count()`
+- `tbl_hierarchical()`
 
-- `tbl_cross()`
+::: {.fragment}
 
-- `tbl_continuous()`
+Other functions helpful functions we're not covering:
 
-- `tbl_wide_summary()`
+::: {.small}
 
+- `tbl_hierarchical_count()`: similar to `tbl_hierarchical()` for counts instead of rates
+
+- `tbl_cross()`: cross tabulations
+
+- `tbl_continuous()`: summarizing continuous variables by 2 categorical variables
+
+- `tbl_wide_summary()`: similar to `tbl_summary()` but statistics are presented in separate columns
+
+- many more!
+
+:::
+:::

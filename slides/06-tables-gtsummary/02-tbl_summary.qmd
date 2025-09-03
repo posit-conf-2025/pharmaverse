@@ -12,6 +12,7 @@ adsl <- pharmaverseadam::adsl |>
   select(USUBJID, ARM, AGE, ETHNIC, SEX, TRTDURD) |> 
   mutate(FEMALE  = SEX == "F") |> 
   labelled::set_variable_labels(FEMALE = "Female")
+
 adae <- pharmaverseadam::adae |> 
   filter(
     USUBJID %in% adsl$USUBJID,
@@ -20,13 +21,14 @@ adae <- pharmaverseadam::adae |>
                    "EYE ALLERGY", "EYE SWELLING")
   ) |> 
   select(USUBJID, ARM, AEDECOD, AESOC, AEHLT, AESEV, AESER, AEREL)
+
 adlb <- pharmaverseadam::adlb |> 
   filter(
     USUBJID %in% adsl$USUBJID, 
     PARAM %in% c("Albumin (g/L)", "Bilirubin (umol/L)" , "Leukocytes (10^9/L)"),
-    AVISITN < 100
+    AVISIT %in% c("Baseline", "Week 12", "Week 24")
   ) |> 
-  select(USUBJID, AVISIT, AVISITN, PARCAT1, PARAM, PARAMCD, 
+  select(USUBJID, ARM, AVISIT, AVISITN, PARCAT1, PARAM, PARAMCD, 
          AVAL, AVALC, BASE, CHG)
 
 # Construct an oncology outcomes dataset
@@ -246,7 +248,7 @@ tbl_summary(
 
 ## {gtsummary} + formulas
 
-This syntax is also used in {cards}, {cardx}, and {gt}.
+This syntax is also used in {cards}, {cardx}, {crane}, and {gt}.
 <p align="center">
 
 <img src="https://raw.githubusercontent.com/ddsjoberg/gtsummary-weill-cornell-presentation/5887c81b58f4ed0c76f6ae458243e9c2a2fbbcd2/Images/Dan-SummaryTables-5.png" width="95%"/>
@@ -341,7 +343,7 @@ tbl
 
 ```{r}
 #| label: 'column-names'
-#| output-location: "column"
+#| message: true
 show_header_names(tbl)
 ```
 
@@ -412,7 +414,8 @@ adsl |>
 
 ```{r}
 #| label: 'summary-view-ard'
-tbl <- tbl_summary(adsl, by = ARM, include = AGE) |> add_p()
+#| message: true
+tbl <- tbl_summary(adsl, by = "ARM", include = "AGE") |> add_p()
 names(tbl$cards)
 tbl$cards[["add_p"]][["AGE"]]
 ```
@@ -442,68 +445,54 @@ And a detailed `tbl_summary()` vignette at <http://www.danieldsjoberg.com/gtsumm
 countdown(minutes = 10)
 ```
 
-## Cross-tabulation with tbl_cross()
+<!-- ## Cross-tabulation with tbl_cross() -->
 
-`tbl_cross()` is a wrapper for `tbl_summary()` for **n x m** tables
+<!-- `tbl_cross()` is a wrapper for `tbl_summary()` for **n x m** tables -->
 
-```{r}
-#| label: 'tbl_cross'
-#| output-location: "column"
-adsl |>
-  tbl_cross(
-    row = ARM, 
-    col = ETHNIC,
-    percent = "row",
-    margin = "row"
-  ) |>
-  bold_labels()
-```
+<!-- ```{r} -->
+<!-- #| label: 'tbl_cross' -->
+<!-- #| output-location: "column" -->
+<!-- adsl |> -->
+<!--   tbl_cross( -->
+<!--     row = ARM,  -->
+<!--     col = ETHNIC, -->
+<!--     percent = "row", -->
+<!--     margin = "row" -->
+<!--   ) |> -->
+<!--   bold_labels() -->
+<!-- ``` -->
 
-## Continuous Summaries with tbl_continuous()
+<!-- ## Continuous Summaries with tbl_continuous() -->
 
-`tbl_continuous()` summarizes a continuous variable by 1, 2, or more categorical variables
+<!-- `tbl_continuous()` summarizes a continuous variable by 1, 2, or more categorical variables -->
 
-```{r}
-#| label: 'tbl_continuous'
-adsl |>
-  tbl_continuous(
-    variable = AGE,
-    by = ARM,
-    include = ETHNIC
-  )
-```
+<!-- ```{r} -->
+<!-- #| label: 'tbl_continuous' -->
+<!-- adsl |> -->
+<!--   tbl_continuous( -->
+<!--     variable = AGE, -->
+<!--     by = ARM, -->
+<!--     include = ETHNIC -->
+<!--   ) -->
+<!-- ``` -->
 
-## Wide Summaries with tbl_wide_summary()
+<!-- ## Wide Summaries with tbl_wide_summary() -->
 
-`tbl_wide_summary()` summarizes a continuous variable with summary statistics spread across columns
+<!-- `tbl_wide_summary()` summarizes a continuous variable with summary statistics spread across columns -->
 
-```{r}
-#| label: 'tbl_wide_summary'
-adsl |>
-  tbl_wide_summary(include = c(ETHNIC, FEMALE))
-```
+<!-- ```{r} -->
+<!-- #| label: 'tbl_wide_summary' -->
+<!-- adsl |> -->
+<!--   tbl_wide_summary(include = c(ETHNIC, FEMALE)) -->
+<!-- ``` -->
 
-## Wide Summaries with tbl_wide_summary()
+<!-- ## Wide Summaries with tbl_wide_summary() -->
 
-```{r}
-#| label: 'tbl_wide_summary2'
-adsl |>
-  tbl_wide_summary(include = c(AGE, TRTDURD))
-```
+<!-- ```{r} -->
+<!-- #| label: 'tbl_wide_summary2' -->
+<!-- adsl |> -->
+<!--   tbl_wide_summary(include = c(AGE, TRTDURD)) -->
+<!-- ``` -->
 
-Naturally, you can change the statistics, and which appear in each column.
-
-## Adverse Event Reporting (and friends)
-
-Use `tbl_hierarchicial()` and `tbl_hierarchicial_count()` for reporting of AEs, Con Meds, and more.
-
-```{r}
-adae |> 
-  tbl_hierarchical(
-    by = ARM, 
-    variables = c(AESOC, AEDECOD),
-    id = "USUBJID",
-    denominator = adsl
-  )
-```
+<!-- Naturally, you can change the statistics, and which appear in each column. -->
 
