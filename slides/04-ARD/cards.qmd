@@ -80,7 +80,7 @@ ADSL |>
   )
 ```
 
-## {cards}: `ard_summary()` fmt_fn
+## {cards}: `ard_summary()` fmt_fun
 
 ::: {.small}
 Override the default formatting functions, method 1:
@@ -92,12 +92,12 @@ ADSL |>
   ard_summary(
     variables = AGE,
     by = ARM,                               
-    fmt_fn = ~list(mean = 0)                
+    fmt_fun = ~list(mean = 0)                
   ) |> 
-  apply_fmt_fn() # add a character column of rounded results
+  apply_fmt_fun() # add a character column of rounded results
 ```
 
-## {cards}: `ard_summary()` fmt_fn
+## {cards}: `ard_summary()` fmt_fun
 
 ::: {.small}
 Override the default formatting functions, method 2:
@@ -110,8 +110,8 @@ ADSL |>
     variables = AGE,
     by = ARM,                               
   ) |> 
-  update_ard_fmt_fn(stat_names = "mean", fmt_fn = 0) |> 
-  apply_fmt_fn() 
+  update_ard_fmt_fun(stat_names = "mean", fmt_fun = 0) |> 
+  apply_fmt_fun() 
 ```
 
 ## {cards}: `ard_tabulate()`
