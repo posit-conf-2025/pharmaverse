@@ -1,6 +1,6 @@
-# Table Exercise: Demographic summary table using {tfrmt}
+# Table Exercise: AE summary table using {tfrmt}
 
-# For this exercise, we will use the demography ARD from the last section to
+# For this exercise, we will use the AE ARD from the last section to
 # create a {tfrmt} table
 
 # Setup
