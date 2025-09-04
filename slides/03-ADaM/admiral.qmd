@@ -4,10 +4,6 @@
 #| include: false
 library(glue)
 library(countdown)
-# library(link)
-# 
-# link::auto(keep_pkg_prefix = FALSE,
-#            keep_braces = FALSE)
 
 # Package hexes
 metacore_img <- "https://raw.githubusercontent.com/atorus-research/metacore/master/man/figures/metacore.PNG"
