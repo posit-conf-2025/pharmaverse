@@ -102,10 +102,7 @@ award.
 
 ![](images/becca.png){style="float:left;padding: 0 20px 0 20px;" fig-alt="Headshot of Becca Krouse" width="140"}
 
-**Becca Krouse** is a data scientist in GSK's Statistics and Data
-Science Innovation Hub. A biostatistician by training, she has
-experience spanning 13+ years in the field of clinical research and
-specializes in developing R-based tools.
+**Becca Krouse** is a data scientist in GSK’s Data Science Innovation and Engineering team where she focuses on enabling users across Biostatistics. A biostatistician by training, she has experience spanning 15 years in the field of clinical research and specializes in developing R-based tools.
 
 <br>
 ![](images/ben-circle.jpg){style="float:left;padding: 0 20px 0 20px;" fig-alt="Headshot of Becca Krouse" width="140"}
