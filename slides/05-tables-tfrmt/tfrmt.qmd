@@ -1,0 +1,801 @@
+## ARD-first Tables with {tfrmt} {.black-header}
+
+```{css, echo=FALSE}
+.black-header h2 {
+ color: black;
+}
+```
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+![](images/tfrmt-hex.png){align="center" height="500"}
+:::
+
+::: {.column}
+
+::: {.incremental}
+-   Metadata-driven table formatting
+
+-   Easily create new and modify existing tables
+
+-   Input: ARD with raw, numeric values ({cards}!)
+
+-   Output: Formatted table via {gt}
+:::
+
+:::
+
+:::
+
+
+## The {tfrmt} object
+
+- Pre-define the non-data components of your table
+- Pre-define how the data will be handled once added
+
+:::: {.columns}
+
+::: {.column width="40%"}
+![](images/tfrmt-help-1.png){align="center" height="500"}
+:::
+
+::: {.column width="60%"}
+![](images/tfrmt-help-2.png){fig-align="center"}
+:::
+
+::::
+
+
+```{r} 
+#| echo: false 
+library(tfrmt) 
+
+ard_demog <- data_demog |> 
+  dplyr::filter(!column=="p-value",
+                !rowlbl2=="n",
+                !column=="Total", !rowlbl1=="Race (Origin)") |> 
+  dplyr::mutate(column = gsub("Xanomeline ","", column)) |>  
+  dplyr::bind_rows(
+    dplyr::tibble(param = "bigN", 
+           column = c("High Dose","Low Dose","Placebo"),
+           value = c(84,84,86))
+  ) |> 
+  dplyr::ungroup() |>  
+  dplyr::filter(is.na(rowlbl1) | rowlbl1 %in% c("Age (y)","Baseline BMI","Race (Origin)","Sex","Duration of disease"))
+
+ard_demog_mock <- ard_demog
+
+
+
+gt_style_slides <- function(x){
+  x |>   
+    gt::tab_style(
+      style = gt::cell_text(font = c(gt::google_font("Google Sans Mono"),
+                                     c("Courier", gt::default_fonts()))),
+      locations = list(gt::cells_body(), 
+                       gt::cells_row_groups(), 
+                       gt::cells_stub(),
+                       gt::cells_column_labels(),
+                       gt::cells_column_spanners(),
+                       gt::cells_title(), 
+                       gt::cells_footnotes()
+      )
+    )
+}
+
+tfrmt_demog <- tfrmt(
+  group = c(rowlbl1,grp),
+  label = rowlbl2,
+  column = column,
+  param = param,
+  value = value,
+  sorting_cols = c(ord1, ord2),
+  title = "Demographics Table",
+  body_plan = body_plan(
+    frmt_structure(group_val = ".default", label_val = ".default", 
+                   frmt_combine("{n} {pct}",
+                                n = frmt("xxx"),
+                                pct = frmt_when("==100" ~ "",
+                                                "==0" ~ "",
+                                                TRUE ~ frmt("(xx.x %)")))),
+    frmt_structure(group_val = ".default", label_val = "n", frmt("xxx")),
+    frmt_structure(group_val = ".default", label_val = c("Mean", "Median", "Min","Max"), frmt("xxx.x")),
+    frmt_structure(group_val = ".default", label_val = "SD", frmt("xxx.xx"))
+  ),
+  
+  col_plan = col_plan(-grp,
+                      -starts_with("ord")
+  )
+  ,
+  col_style_plan = col_style_plan(
+    col_style_structure(align = c(".",","," "), col = c("Placebo", "Low Dose",
+                                                        "High Dose")),
+    col_style_structure(align = "left", col = c("rowlbl1","rowlbl2"))
+  ),
+  big_n = big_n_structure(param_val  = "bigN", n_frmt = frmt("<br>N = xx"))
+)  
+```
+
+# A quick tour of the many uses of {tfrmt}
+
+```{r }
+#| echo: FALSE
+
+fontawesome::fa("recycle", height="5em", fill="#606060")
+```
+
+
+## Use #1: Study planning (mocks)  
+
+```{r}
+#| output-location: "column-fragment"
+
+library(tfrmt)
+
+print_mock_gt(
+  tfrmt = tfrmt_demog, # tfrmt
+  .data = ard_demog_mock # sample ARD
+)|> 
+   gt_style_slides()
+``` 
+
+* If no data is supplied, {tfrmt} will generate some under the hood
+
+## Use #2: Final analysis {auto-animate="true"}
+
+```{r}
+#| output-location: "column-fragment"
+
+library(tfrmt)
+
+print_to_gt(
+  tfrmt = tfrmt_demog,
+  .data = ard_demog # true ARD
+)|> 
+   gt_style_slides()
+```
+
+* Full reuse of the original {tfrmt} object = reduced rework!
+
+## Use #3: Repurposed final table  {auto-animate="true"}
+
+```{r}
+#| echo: FALSE
+
+tfrmt_demog_custom <- tfrmt(
+      title = "Demographics Table",
+      subtitle = "Safety Population",
+      footnote_plan = footnote_plan(
+        footnote_structure("Data collected at Screening Visit")
+      ),
+      big_n = big_n_structure(param_val = "bigN", n_frmt = frmt("<br>(N = xx)")),
+      row_grp_plan = row_grp_plan(
+        row_grp_structure(group_val = ".default", element_block(post_space = " ")),
+        label_loc = element_row_grp_loc(location = "indented")
+      ),
+      col_plan = col_plan(
+        `High Dose`, `Low Dose`, `Placebo`,
+        -grp,
+        -starts_with("ord")
+      ),
+      page_plan = page_plan(max_rows = 20)  
+    )
+```
+
+```{r}
+#| output-location: "column-fragment"
+#| code-line-numbers: "4-6"
+ 
+library(tfrmt)
+
+tfrmt_demog |> 
+  layer_tfrmt(
+    tfrmt_demog_custom  
+  )|> 
+  print_to_gt( 
+    .data = ard_demog
+  ) |> 
+  gt::grp_pull(1)|> 
+   gt_style_slides()
+```
+
+* *Layering* allows for custom tweaks while preserving the original metadata
+
+
+## Templates: the possibilities {auto-animate="true"}
+ 
+- Organization standards can be capture as *templates*
+
+```{r}
+#| eval: FALSE
+
+# create a template as a function
+tfrmt_demog_org <- function(tfrmt_obj){
+  
+  tfrmt_demog_org <- tfrmt( 
+    # define standard formatting for org
+  )
+  
+  layer_tfrmt(x = tfrmt_obj, y = tfrmt_demog_ta)
+}
+
+# Make a standard table
+tfrmt_demog_org() |>  
+  print_to_gt(
+    .data = ard_demog
+  )
+
+```
+
+## Templates: the possibilities {auto-animate="true"}
+ 
+- Organization standards can be capture as *templates*
+
+- With layering, teams can customize *only* the bits that need changing
+
+```{r}
+#| eval: FALSE
+
+# create a template as a function
+tfrmt_demog_ta <- function(tfrmt_obj){
+  
+  tfrmt_demog_ta <- tfrmt( 
+    # define the formatting specific to the therapeutic area
+  )
+  
+  layer_tfrmt(x = tfrmt_obj, y = tfrmt_demog_ta)
+}
+
+# Layering multiple templates
+tfrmt_demog_org() |> 
+  tfrmt_demog_ta() |>  
+  print_to_gt(
+    .data = ard_demog
+  )
+
+```
+
+## Templates: the possibilities {auto-animate="true"}
+ 
+- Organization standards can be capture as *templates*
+
+- With layering, teams can customize *only* the bits that need changing
+
+```{r}
+#| eval: FALSE
+
+# create a template as a function
+tfrmt_demog_study <- function(tfrmt_obj){
+  
+  tfrmt_demog_study <- tfrmt( 
+    # define the formatting specific to the study
+  )
+  
+  layer_tfrmt(x = tfrmt_obj, y = tfrmt_demog_study)
+}
+
+# Layering multiple templates
+tfrmt_demog_org() |> 
+  tfrmt_demog_ta() |>  
+  tfrmt_demog_study() |> 
+  print_to_gt(
+    .data = ard_demog
+  )
+
+```
+
+## Save metadata for reuse
+
+```{r}
+#| output-location: "column-fragment"
+#| 
+library(tfrmt)
+
+tfrmt_demog |> 
+  tfrmt_to_json()
+```
+
+* Create a language-agnostic JSON file
+
+* Load JSON back into R and recreate the table with `json_to_tfrmt()`
+
+## Saving display
+
+-   `tfrmt::print_to_gt()` creates a {gt} object under the hood
+
+-   You can export the table to a variety of formats using `gt::gt_save()`
+
+![](images/gtsave.png){fig-align="center"}
+
+
+# Now, let's format a display, 1 piece at a time
+
+## Creating a {tfrmt} table step-by-step
+
+```{r}
+#| echo: false
+
+adsl <- pharmaverseadam::adsl |>
+  dplyr::filter(SAFFL == "Y") |> 
+  dplyr::mutate(
+    TRT01A = ifelse(!TRT01A == "Placebo", "Active", TRT01A)
+  )
+
+ard_demog <- cards::ard_stack(
+  data = adsl,
+  .by = TRT01A,
+  cards::ard_continuous( variables = AGE,
+                         statistic = ~ cards::continuous_summary_fns(c("median", "p25", "p75"))),
+  cards::ard_categorical(variables = c(AGEGR1, SEX), statistic = ~ c("n","p")),
+  .overall = TRUE,
+  .total_n = TRUE
+) 
+
+ard_demog <- ard_demog |> 
+  tfrmt::shuffle_card(fill_overall = "Overall") |> 
+  tfrmt::prep_combine_vars(c("AGE","AGEGR1","SEX")) |> 
+  tfrmt::prep_label() |> 
+  tfrmt::prep_big_n(vars  = "TRT01A")|>
+  dplyr::mutate(label = dplyr::case_when(
+                  stat_name %in% c("p25","p75") ~ "[Q1, Q3]", 
+                  TRUE ~ label
+                ),
+                stat_variable = dplyr::case_match(
+                  stat_variable,
+                  "AGE" ~ "Age (years)",
+                  "AGEGR1" ~ "Age Group",
+                  "SEX" ~ "Sex"
+                ) ) |> 
+  dplyr::select(-c(context, stat_label, variable_level)) |> 
+  dplyr::mutate(ord1 = as.numeric(factor(stat_variable, levels = c("Age (years)", "Age Group", "Sex"))),
+                ord2 = as.numeric(factor(label, levels = c("18-64",">64"))))
+
+gt_style_slides <- function(x){
+  x |> 
+    gt::tab_options(
+      table.font.size = 20
+    ) |>   
+    gt::tab_style(
+      style = gt::cell_text(font = c(gt::google_font("Google Sans Mono"),
+                                     c("Courier", gt::default_fonts()))),
+      locations = list(gt::cells_body(), 
+                       gt::cells_row_groups(), 
+                       gt::cells_stub(),
+                       gt::cells_column_labels(),
+                       gt::cells_column_spanners(),
+                       gt::cells_title(), 
+                       gt::cells_footnotes()
+      )
+    )
+}
+```
+
+
+::: {.fragment}
+
+```{r}  
+head(ard_demog)
+```
+
+:::
+
+<br>
+
+::: {.fragment}
+
+
+```{r}  
+#| eval: false
+
+tfrmt_demog <- tfrmt(
+  group = stat_variable, 
+  label = label, 
+  column = TRT01A,
+  param = stat_name,
+  value = stat, 
+  sorting_cols = c(ord1, ord2) 
+)
+
+```
+
+:::
+
+## Ensure placement of all values (Main)
+ 
+```{r}   
+#| output-location: "column"
+#| code-line-numbers: "2-7"
+
+tfrmt_demog <- tfrmt(
+  group = stat_variable, 
+  label = label, 
+  column = TRT01A,
+  param = stat_name,
+  value = stat, 
+  sorting_cols = c(ord1, ord2) 
+)
+
+print_to_gt(
+  tfrmt = tfrmt_demog,
+  .data = ard_demog
+) |> 
+   gt_style_slides()
+```
+
+## Ensure placement of all values (Big N)
+
+```{r}
+#| output-location: "column"
+#| code-line-numbers: "3-6"
+
+tfrmt_demog <- tfrmt_demog |>
+  tfrmt(
+    big_n = big_n_structure(
+      param_val = "bigN",
+      n_frmt = frmt("<br>N = xx")
+      )
+  )
+
+print_to_gt(
+  tfrmt = tfrmt_demog, 
+  .data = ard_demog
+  )|> 
+   gt_style_slides()
+```
+
+
+## Select and reorder columns
+```{r}
+#| output-location: "column"
+#| code-line-numbers: "3-7"
+
+tfrmt_demog <- tfrmt_demog |>
+  tfrmt(
+    col_plan = col_plan(
+      Placebo,
+      Active,
+      - starts_with("ord")
+    )
+  )
+
+print_to_gt(
+  tfrmt = tfrmt_demog, 
+  .data = ard_demog
+)|> 
+   gt_style_slides()
+```
+
+
+## Format the data values - Basic
+
+```{r}   
+#| output-location: "column"
+#| code-line-numbers: "3-8"
+
+tfrmt_demog <- tfrmt_demog |>
+  tfrmt(
+    body_plan = body_plan(
+      frmt_structure(
+        group_val = ".default", 
+        label_val = ".default", 
+        frmt("x.xx"))
+    )
+  )
+
+print_to_gt(
+  tfrmt = tfrmt_demog, 
+  .data = ard_demog
+) |> 
+   gt_style_slides()
+```
+
+
+## Format the data values - Advanced
+
+```{r}   
+#| output-location: "column"
+#| code-line-numbers: "4-11"
+
+tfrmt_demog <- tfrmt_demog |>
+  tfrmt(
+    body_plan = body_plan(
+      frmt_structure(
+        group_val = ".default", 
+        label_val = ".default",
+        frmt_combine("{n} ({p}%)",
+                     n = frmt("xx"),
+                     p = frmt("xx.x", transform = ~ . *100)
+                     
+        )
+      )
+    )
+  )
+
+print_to_gt(
+  tfrmt = tfrmt_demog, 
+  .data = ard_demog
+  ) |> 
+   gt_style_slides()
+```
+
+## Format the data values - Advanced
+```{r}
+#| output-location: "column"
+#| code-line-numbers: "5-19"
+
+tfrmt_demog <- tfrmt_demog |>
+  tfrmt(
+    body_plan = body_plan(
+      
+      frmt_structure(
+        group_val = ".default", 
+        label_val = "Median",
+        frmt("xx.x")
+      ),
+      
+      frmt_structure(
+        group_val = ".default",
+        label_val = ".default",
+        frmt_combine(
+          expression = "[{p25}, {p75}]",                
+          p25 = frmt("xx.x"),                     
+          p75 = frmt("xx.x")                      
+        )
+      )
+      
+    )
+  )
+  
+print_to_gt(
+  tfrmt = tfrmt_demog, 
+  .data = ard_demog
+  ) |> 
+   gt_style_slides()
+```
+
+
+## Align the columns
+```{r}
+#| output-location: "column"
+#| code-line-numbers: "3,4,5,6,7,8,9"
+
+tfrmt_demog <- tfrmt_demog |>
+  tfrmt(
+    col_style_plan = col_style_plan(
+      col_style_structure(
+        col = c("Placebo", 
+                "Active"),
+        align = " "
+      )
+    )
+  )
+  
+print_to_gt(
+  tfrmt = tfrmt_demog, 
+  .data = ard_demog
+  ) |> 
+   gt_style_slides()
+
+```
+
+## Add footnotes
+
+```{r}
+#| output-location: "column"
+#| code-line-numbers: "3,4,5,6,7,8"
+
+tfrmt_demog <- tfrmt_demog |>
+  tfrmt(
+    footnote_plan = footnote_plan(
+      footnote_structure(
+        "Pooled High and Low Dose",
+        column_val = "Active"
+      )
+    )
+  )
+  
+print_to_gt(
+  tfrmt = tfrmt_demog, 
+  .data = ard_demog
+  ) |> 
+   gt_style_slides()
+
+```
+
+
+## Add titles
+
+
+```{r}
+#| output-location: "column"
+#| code-line-numbers: "3,4"
+
+tfrmt_demog <- tfrmt_demog |>
+  tfrmt(
+    title = "Demographic Table",
+    subtitle = "Safety Population"
+  )
+  
+print_to_gt(
+  tfrmt = tfrmt_demog, 
+  .data = ard_demog
+  ) |> 
+   gt_style_slides()
+
+```
+ 
+
+## Other features include:
+
+* Transform values in the formatting
+
+* Row group formatting 
+
+* Pagination
+
+* Multi-positional column alignment
+
+* Templating 
+
+## cards to tfrmt - How did we get here?
+
+{tfrmt} includes several helper functions to transform native {cards} output to display-ready data. Functionality includes:
+
+- Coalesce/rename the group and variable names/levels
+- Unlist the list-columns
+- Prepare row group and label columns
+- Fill missing variable values in a hierarchy
+- Prepare big N rows for headers
+
+To explore, let's start with the result of our `cards::ard_stack()` call.
+
+```{r}
+library(cards)
+ 
+ard_demog <- cards::ard_stack(
+  data = adsl,
+  .by = TRT01A,
+  cards::ard_continuous( variables = AGE,
+                         statistic = ~ cards::continuous_summary_fns(c("median", "p25", "p75"))),
+  cards::ard_categorical(variables = c(AGEGR1, SEX), statistic = ~ c("n","p")),
+  .overall = TRUE,
+  .total_n = TRUE
+) 
+
+```
+
+## cards to tfrmt
+
+First, let's "shuffle" the results into a tidy data frame:
+
+```{r}
+ard_demog_display <- ard_demog |> 
+  tfrmt::shuffle_card(fill_overall = "Overall") 
+
+ard_demog_display
+```
+
+## cards to tfrmt
+
+Since the variable values are now spread wide, we want to collapse them into a single column named `variable_level`. 
+
+```{r}
+#| code-line-numbers: "3"
+
+ard_demog_display <- ard_demog |> 
+  tfrmt::shuffle_card(fill_overall = "Overall") |> 
+  tfrmt::prep_combine_vars(c("AGE","AGEGR1","SEX"))
+
+ard_demog_display
+```
+
+## cards to tfrmt
+
+Next, we create a row label ("label" column) for the table that is either the category (i.e. `variable_level`) for categorical variables, or the stat name for continuous variables.
+
+```{r}
+#| code-line-numbers: "4"
+
+ard_demog_display <- ard_demog |> 
+  tfrmt::shuffle_card(fill_overall = "Overall") |> 
+  tfrmt::prep_combine_vars(c("AGE","AGEGR1","SEX")) |> 
+  tfrmt::prep_label()
+
+ard_demog_display
+```
+
+## cards to tfrmt
+
+Take a look at our "big N" (i.e. population counts) rows:
+
+```{r}
+ard_demog_display |> 
+  dplyr::filter(stat_variable %in% c("TRT01A", "..ard_total_n.."))
+```
+
+First, we only need the counts themselves, not denominators or percentages. Second, we need to give these a unique stat name to distinguish them for the `big_n_structure` in {tfrmt}. We can use the `prep_big_n()` function for this:
+
+```{r}
+#| code-line-numbers: "5, 7, 8"
+
+ard_demog_display <- ard_demog |> 
+  tfrmt::shuffle_card(fill_overall = "Overall") |> 
+  tfrmt::prep_combine_vars(c("AGE","AGEGR1","SEX")) |> 
+  tfrmt::prep_label() |> 
+  tfrmt::prep_big_n(vars = "TRT01A")
+
+ard_demog_display |> 
+  dplyr::filter(stat_variable %in% c("TRT01A", "..ard_total_n.."))
+```
+
+## cards to tfrmt
+
+Finally, we can do any other necessary manipulations like relabeling or adding order variables before passing to `tfrmt()`.
+
+
+
+```{r}
+#| output-location: "column"
+ard_demog_display <- ard_demog_display |> 
+  dplyr::mutate(label = dplyr::case_when(
+    stat_name %in% c("p25","p75") ~ "[Q1, Q3]", # put these on 1 line
+    TRUE ~ label
+  ),
+  # relabel
+  stat_variable = dplyr::case_match(
+    stat_variable,
+    "AGE" ~ "Age (years)",
+    "AGEGR1" ~ "Age Group",
+    "SEX" ~ "Sex"
+  ) ) |> 
+  dplyr::select(-c(context, stat_label, variable_level)) |>  # drop unneeded vars
+  # make order vars
+  dplyr::mutate(ord1 = as.numeric(
+    factor(stat_variable, 
+           levels = c("Age (years)", "Age Group", "Sex"))),
+    ord2 = as.numeric(
+      factor(label, levels = c("18-64",">64"))))
+
+print_to_gt(tfrmt_demog, ard_demog_display)|> 
+  gt_style_slides()|> 
+  gt::tab_options(
+    table.font.size = 15
+  )
+```
+
+
+# The {tfrmtbuilder} App  {.black-header} 
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+![](images/tfrmtbuilder-hex.png){fig-align="center"}
+:::
+
+::: {.column}
+- Point-and-click interface for {tfrmt}
+
+- Ability to create new or modify existing display
+
+- Eases learning curve for new users
+
+- Empowers non-programmers
+:::
+
+:::
+
+## Exercise 🏃‍➡️ (Together!)
+
+- Open R file `exercises/05-tables-tfrmt.R`
+
+- Create and modify the AE table as described
+
+```{r}
+#| echo: false
+#| cache: false
+library(countdown)
+countdown(minutes = 8, play_sound = TRUE)
+```

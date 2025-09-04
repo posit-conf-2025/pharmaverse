@@ -2,6 +2,7 @@ on:
   push:
     branches: [main, master]
     tags: ['*']
+  pull_request:
 
 name: deploy
 
@@ -24,6 +25,14 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
+      - name: Install System Deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libfontconfig1-dev
+          sudo apt-get install -y libfreetype6-dev
+          sudo apt-get install -y libpng-dev 
+          sudo apt-get install -y libtiff5-dev
+          sudo apt-get install -y libjpeg-dev
 
       - name: Install Quarto
         uses: quarto-dev/quarto-actions/setup@v2
@@ -50,7 +59,17 @@ jobs:
           renv::install(c("rmarkdown", "yaml"))
           renv::restore()
 
+      # rendering site
+      - name: Render Quarto Project
+        if: ${{ !(github.repository_owner == 'posit-conf-2025/pharmaverse' && github.event_name != 'pull_request') }}
+        uses: quarto-dev/quarto-actions/render@v2
+        env:
+          QUARTO_PROFILE: preview
+        with:
+          to: html
+          
       - name: Publish to GitHub Pages
+        if:  github.repository_owner == 'posit-conf-2025/pharmaverse' && github.event_name != 'pull_request'
         uses: quarto-dev/quarto-actions/publish@v2
         with:
           target: gh-pages

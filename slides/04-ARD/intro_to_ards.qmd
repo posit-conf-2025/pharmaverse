@@ -1,0 +1,84 @@
+# Analysis Results Standard
+
+## Analysis Results Standard (ARS)
+
+![](images/ars-flow.png){.fragment fig-align="center"}
+
+![](images/ars-objectives.png){.fragment fig-align="center"}
+
+
+## Analysis Results Standard (ARS)
+
+::: {.incremental}
+
+-   Emerging standard for **prospectively** encoding statistical analysis reporting pipeline in a machine-readable format.
+
+-   Logical model that describes analysis results and associated metadata.
+
+-   Primary objectives:
+
+    -   Leverage analysis results **metadata** to drive **automation** of results 
+  
+    -   Support storage, access, processing, traceability and reproducibility of results
+  
+:::
+
+::: aside
+-   Learn more at [https://www.cdisc.org/events/webinar/analysis-results-standard-public-review](https://www.cdisc.org/events/webinar/analysis-results-standard-public-review) 
+:::
+
+## Analysis Results Standard (ARS)
+
+Example ARS Flow
+
+![](images/ars-example-flow.png){fig-align="center"}
+
+- The ARS provides a metadata-driven infrastructure for analysis
+
+## Analysis Results Standard (ARS)
+
+Example ARS Flow
+
+![](images/ars-example-flow-with-hex.png){fig-align="center"}
+
+- The ARS provides a metadata-driven infrastructure for analysis
+
+- {cards} serves as the engine for the analysis 
+
+## Analysis Results Data (ARD)
+
+::: {.incremental}
+
+-   Encodes statistical analysis outcomes in a machine-readable format.
+
+-   The ARD model specifies how statistical results are saved into a structured format.
+
+-   The ARD can be used to to subsequently create tables and figures.
+
+-   The ARD does *not* describe the layout of the results
+
+:::
+
+## Analysis Results Data (ARD)
+
+* After the initial creation of an ARD, the results can later be re-used again and again for subsequent reporting needs.
+
+![](images/ard-flow.png){fig-align="center"}
+
+## A few notes about ARDs
+
+:::{.incremental}
+
+-   Rethinking QC
+
+    -   QC can be focused on the raw value, not the formatted display
+  
+        -   You don’t have to waste time trying to match formatting to match QC
+    
+        -   But...QC will be more sensitive to floating point
+    
+-   Flexible data file types
+
+    -   ARD can be saved as a dataset (rds, xpt, etc) or json file
+  
+:::

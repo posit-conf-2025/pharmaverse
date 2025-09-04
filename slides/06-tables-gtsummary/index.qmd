@@ -1,0 +1,43 @@
+---
+title: "Clinical Reporting with {gtsummary}"
+author: "Daniel D. Sjoberg"
+footer:  "[Pharmaverse Workshop (pos.it/pharmaverse-conf25)](https://posit-conf-2025.github.io/pharmaverse/)"
+logo: "images/gtsummary-logo.png"
+editor: source
+format: 
+  revealjs: 
+    theme: slides.scss
+    transition: fade
+    slide-number: true
+    chalkboard: true
+execute:
+  message: true
+  echo: true
+---
+
+```{r}
+#| echo: false
+options(width = 120)
+```
+
+
+{{< include 00-setup.qmd >}}
+
+{{< include 01-background.qmd >}}
+
+{{< include 02-tbl_summary.qmd >}}
+
+{{< include 03-tbl_hierarchicial.qmd >}}
+
+{{< include 04-tbl_merge.qmd >}}
+
+{{< include 05-ard-first.qmd >}}
+
+{{< include 08-print_engines.qmd >}}
+
+{{< include 07-adopt.qmd >}}
+
+<!-- Should I add an LLM section here? -->
+
+{{< include 09-summary.qmd >}}
+

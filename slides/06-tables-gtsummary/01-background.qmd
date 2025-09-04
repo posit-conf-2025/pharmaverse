@@ -1,0 +1,99 @@
+
+##
+
+::: {.columns}
+::: {.column width="60%"}
+
+### How it started
+
+::: small
+
+- Began to address reproducible issues while working in academia
+
+- Goal was to build a package to summarize study results with code that was [both simple and customizable]{.emphasis}
+
+- First release in May 2019
+
+:::
+
+::: {.fragment}
+
+### How it's going
+
+::: small
+
+- The stats
+
+  - [1,500,000+ installations]{.emphasis} from CRAN
+  - 1,100+ GitHub stars
+  - 300+ contributors 
+  - 50+ code contributors
+  
+- Won the 2021 American Statistical Association (ASA) Innovation in Programming Award
+
+- Won the 2024 Posit Pharma Table Contest
+
+:::
+:::
+
+:::
+::: {.column width="40%"}
+
+<img src="images/gtsummary-logo.png" width="650"/>
+
+
+<img src="images/asa.png" width="200"/><img src="images/posit.png" width="200"/>
+
+:::
+:::
+
+
+## {gtsummary} overview
+
+::: {.columns}
+::: {.column width="50%"}
+-   Create [tabular summaries]{.emphasis} with sensible defaults but highly customizable
+-   Types of summaries:
+    -   Demographic- or "Table 1"-types
+    -   Cross-tabulation
+    -   Regression models
+    -   Survival data
+    -   Survey data
+    -   Custom tables
+:::
+
+::: {.column width="50%"}
+-   Report statistics from {gtsummary} tables [inline]{.emphasis} in R Markdown
+-   Stack and/or merge any table type
+-   Use [themes]{.emphasis} to standardize across tables
+-   Choose from different [print engines]{.emphasis}
+:::
+:::
+
+
+## {gtsummary} overview
+
+For our workshop, we will focus on the following summary types as well as [themes]{.emphasis} and  [print engines]{.emphasis}.
+
+- `tbl_summary()`
+
+- `tbl_hierarchical()`
+
+::: {.fragment}
+
+Other functions helpful functions we're not covering:
+
+::: {.small}
+
+- `tbl_hierarchical_count()`: similar to `tbl_hierarchical()` for counts instead of rates
+
+- `tbl_cross()`: cross tabulations
+
+- `tbl_continuous()`: summarizing continuous variables by 2 categorical variables
+
+- `tbl_wide_summary()`: similar to `tbl_summary()` but statistics are presented in separate columns
+
+- many more!
+
+:::
+:::

@@ -1,0 +1,562 @@
+
+
+```{r}
+#| include: false
+library(glue)
+library(countdown)
+
+# Package hexes
+metacore_img <- "https://raw.githubusercontent.com/atorus-research/metacore/master/man/figures/metacore.PNG"
+metatools_img <- "https://raw.githubusercontent.com/pharmaverse/metatools/master/man/figures/metatools.png"
+xportr_img <- "https://raw.githubusercontent.com/atorus-research/xportr/master/man/figures/logo.png"
+admiral_img <- "https://raw.githubusercontent.com/pharmaverse/admiral/master/man/figures/logo.png"
+pharmaverse_img <- "https://raw.githubusercontent.com/pharmaverse/pharmaverse-pkg/master/man/figures/banner.png"
+dplyr_img <- "https://raw.githubusercontent.com/tidyverse/dplyr/master/man/figures/logo.png"
+str_img <- "https://raw.githubusercontent.com/tidyverse/stringr/master/man/figures/logo.png"
+haven_img <- "https://raw.githubusercontent.com/tidyverse/haven/master/man/figures/logo.png"
+lub_img <- "https://raw.githubusercontent.com/tidyverse/lubridate/master/man/figures/logo.png"
+
+# Set image sizes
+img_bullet_size <- 80
+img_right_size <- 150
+img_center_size <- 300
+```
+
+## Objectives
+
+::: incremental
+-   By the end of this ADaM section you will have:
+    - **Gained** an understanding of how to use `admiral`, `metatools/metacore`, and `xportr` packages to create       ADaMs
+    - **Seen** code executed to create ADaMs: `ADSL` and `ADVS`.
+    - **Checked** in on our fav participant - Barb 
+:::
+
+## Assumptions
+
+::: incremental
+*   Basic knowledge of CDISC Standards (ADaM and SDTM Domains)
+*   Check out the [ADaM IG and other documents for CDISC](https://www.cdisc.org/standards/foundational/adam) 
+    *   These are great but tome-like!!
+* Check out [admiral](https://pharmaverse.github.io/admiral/cran-release/) and [admiraldiscovery](https://pharmaverse.github.io/admiraldiscovery/articles/reactable.html) for CDISC implementation
+    *   I always like to code immedialtely to understand a process!
+*   🦺 But even lacking CDSIC knowledge, we still think you will gain some great learnings today! 🦺
+:::
+
+## Play by Play
+
+::: incremental
+-   🕙11:00 - 11:15 Set the Stage: Overview of datasets, specs, processes, packages, functions
+
+-   🕥11:15 - 11:45 Subject-level dataset: `ADSL`
+
+-   🕚11:45 - 11:50 Check in on Barb / Quick Q
+
+-   🕦11:50 - 12:25 Basic Data Structure: `ADVS`
+
+-   🕚12:25 - 12:30 Check in on Barb / Quick Q
+
+-   🕚12:30 Lunch!
+:::
+
+# Set the Stage
+
+🕥11:00 - 11:15
+
+<div style="text-align: center;"> <img src="./images/office.jpg" alt="office" style="width: 600px;"/> </div>
+
+## Set the Stage
+
+::: incremental
+
+*  processes
+*  Data
+*  Specs
+*  pharmaverse packages
+*  functions
+:::
+
+# How we will proceed today?
+
+<div style="text-align: center;"> <img src="./images/possible.jpg" alt="office" style="width: 400px;"/> </div>
+
+
+## How we will proceed today?
+
+::: incremental
+-   I will walk you through certain parts of the  `ADSL` and `ADVS` R sripts
+    -   Discussion on **certain** function and function arguments from [scripts](TBL)
+    -   Will pull up full function for more discussion.   
+-   Important to move along quickly:
+    -   Can discuss issues/questions in the break.
+    -   Code should run out of the box - but have to wait to diagnose.
+:::
+
+
+# Datasets
+
+## ADSL - Subject Level Dataset (dpi / needs fix)
+
+<div style="text-align: center;"> <img src="./images/adsl.png" alt="adsl" style="width: 600px;"/> </div>
+
+* ADSL - Subject Level Dataset, i.e each subject has a record.  Focus on adding variables.
+
+## ADVS - Subject Level Dataset (dpi / needs fix)
+
+<div style="text-align: center;"> <img src="./images/adsl.png" alt="advs" style="width: 600px;"/> </div>
+
+* ADVS - Basic Data Structure (BDS) Dataset. Focus on adding records.
+
+# Specs
+
+<div style="text-align: center;"> <img src="./images/specs.png" alt="sunny" style="width: 600px;"/> </div>
+
+## Spec-details
+
+- Gives specifics on how we derive variables in the ADaMs (extreme traceability)
+- Not fit for purpose - just a helpful guide
+- What is in the the Specs:
+  -   Two datasets, dataset labels and variable keys
+  -   Variables - labels, lengths, types, linked to method
+  -   Codelists!!
+  -   No VLMs
+
+## The core pharmaverse packages
+
+`r glue("<img src={metacore_img} height='{img_bullet_size}' style='display:inline-block; vertical-align:middle; margin-right:0.3em;'/>")`
+`r glue("<img src={metatools_img} height='{img_bullet_size}' style='display:inline-block; vertical-align:middle; margin-right:0.3em;'/>")`
+
+Focus on **applying** information from our Specs to the ADaMs
+
+`r glue("<img src={admiral_img} height='{img_bullet_size}' style='display:inline-block; vertical-align:middle; margin-right:0.3em;'/>")`
+
+Focus on **deriving** variables and records driven by our Specs
+
+`r glue("<img src={xportr_img} height='{img_bullet_size}' style='display:inline-block; vertical-align:middle; margin-right:0.3em;'/>")`
+
+Focus on **preparing** the dataset as an xpt file to be sent to regulatory agencies.
+
+## pharmaverse plays nice!
+
+::: incremental
+- The ADaM code presented today utilizes all the previously mentioned packages, but also
+makes use of tidyverse and base R code.
+
+- If a function isn't meeting your needs or looks too cumbersome, then that is okay!
+
+- These packages are all modular and play well with others!
+:::
+
+## admiral {.smaller}
+
+| Package | Function | Purpose |
+|----|----|----|
+| admiral | derive_vars_merged()        | `left_join` on steroids |
+| admiral | derive_param_computed()     | Core function for wrappers used in ADVS |
+| admiral | derive_vars_dy()            | Create the relative study day |
+| admiral | derive_vars_dtm()           | Take a `---DTC` variable and turn it into a `---DTM` variable |
+| admiral | derive_vars_duration()      | Duration between timepoints |
+| admiral | restrict_derivation()       | HOF:  |
+| admiral | derive_var_extreme_flag()   | ... |
+
+
+Most functions in admiral follow these conventions:
+
+::: {.incremental}
+
+* `var_` or `_vars_` functions add variable(s) to ADaMs
+* `_param_` functions add records to ADaMS
+* Other not following this convention typically do more advanced stuff...
+
+::: 
+
+## metatools and xportr  {.smaller}
+
+| Package | Function | Purpose |
+|----|----|----|
+| metacore    | spec_to_metacore()           | Creates a "special" object from your specs |
+| metatools   | combine_supp()               | Join Parent and Supplementary Datasets |
+| metatools   | create_var_from_codelist()   | Numeric Vars from Specs! |
+| metatools   | drop_unspec_vars()           | Easily drop variables not in Spec |
+| xportr      | xportr_label()               | Apply labels from Spec |
+| xportr      | xportr_write()               | Write out an xpt file |
+
+* Most functions from these packages are about applying metadata from specs to your dataset.
+* xportr follows a standard naming convention.
+
+# `ADSL`
+
+🕥 11:15 - 11:45
+
+
+* Note: Referencing lines in file at each section (Lines: ##-##)
+
+## The Big Picture of ADSL
+
+* We have an ADSL script:
+  * Using pharmaversesdtm data: dm, suppdm, ex, ae, vs, etc
+  * Uses the ADSL section of our spec file
+  * Creating a single record for each subject
+  
+## Reading in our spec for ADSL (Lines: )
+
+```{.r}
+spec_to_metacore(
+  path = "slides/03-ADaM/metadata/posit_specs.xlsx",
+  where_sep_sheet = FALSE,
+  quiet = TRUE
+) %>%
+  select_dataset("ADVS")
+```
+
+## Combine Parent and Supplementary Data (Lines: )
+
+```{.r}
+dm_suppdm <- combine_supp(dm, suppdm)
+```
+
+* One line of code to join two datasets!
+* Collecting non-standard data and linking to parent
+* Function is from `{metatools}`
+
+* Maybe a dm record linked to suppdm record here??
+
+## Let's turn a `--DTC` to a `*DTM` variable (Lines: )
+
+```{.r code-line-numbers="1|2|3|4|5"}
+derive_vars_dtm(
+  dtc = EXSTDTC,
+  new_vars_prefix = "EXST",
+  time_imputation = "last",
+  flag_imputation = "time"
+)
+```
+
+## Woah...there is more!!
+
+::: {.codewindow style="font-size: 0.6em;"}
+```r
+derive_vars_dtm(
+  dataset,
+  new_vars_prefix,
+  dtc,
+  highest_imputation = "h",
+  date_imputation = "first",
+  time_imputation = "first",
+  flag_imputation = "auto",
+  min_dates = NULL,
+  max_dates = NULL,
+  preserve = FALSE,
+  ignore_seconds_flag = FALSE
+)
+```
+:::
+
+## Let's get a merge  (Lines: )
+
+```{.r code-line-numbers="1|2|3|4|5|6|7|8|9|10"}
+derive_vars_merged(
+  dataset_add = ex_ext,
+  by_vars = exprs(STUDYID, USUBJID),
+  order = exprs(EXSTDTM, EXSEQ),
+  new_vars = exprs(TRTSDTM = EXSTDTM, TRTSTMF = EXSTTMF),
+  filter_add = (EXDOSE > 0 |
+    (EXDOSE == 0 &
+      str_detect(EXTRT, "PLACEBO"))) &
+    !is.na(EXSTDTM),
+  mode = "first",
+)
+```
+
+## Whoa!!! Way more options!!
+
+::: {.codewindow style="font-size: 0.6em;"}
+```r
+derive_vars_merged(
+  dataset,
+  dataset_add,
+  by_vars,
+  order = NULL,
+  new_vars = NULL,
+  filter_add = NULL,
+  mode = NULL,
+  exist_flag = NULL,
+  true_value = "Y",
+  false_value = NA_character_,
+  missing_values = NULL,
+  check_type = "warning",
+  duplicate_msg = NULL,
+  relationship = NULL
+)
+```
+:::
+
+## Let's derive a Duration Variable (Lines: )
+
+```{.r code-line-numbers="1|2|3|4"}
+derive_vars_duration(
+    new_var = DTHADY,
+    start_date = TRTSDT,
+    end_date = DTHDT
+  )
+```
+
+## Ohhh there is more!!
+
+::: {.codewindow style="font-size: 0.6em;"}
+```r
+derive_vars_duration(
+  dataset,
+  new_var,
+  new_var_unit = NULL,
+  start_date,
+  end_date,
+  in_unit = "days",
+  out_unit = "DAYS",
+  floor_in = TRUE,
+  add_one = TRUE,
+  trunc_out = FALSE,
+  type = "duration"
+)
+```
+:::
+
+## Let's apply Control Terms / Code Lists (Lines: )
+
+```{.r}
+adsl16 %>%
+  create_var_from_codelist(metacore, input_var = AGEGR1, out_var = AGEGR1N) %>%
+  create_var_from_codelist(metacore, input_var = RACE, out_var = RACEN) %>%
+  create_var_from_codelist(metacore, input_var = RACEGR1, out_var = RACEGR1N) %>%
+  create_var_from_codelist(metacore, input_var = REGION1, out_var = REGION1N) %>%
+  create_var_from_codelist(metacore, input_var = TRT01P, out_var = TRT01PN) %>%
+  create_var_from_codelist(metacore, input_var = TRT01A, out_var = TRT01AN)
+```
+
+## More details
+
+::: {.codewindow style="font-size: 0.6em;"}
+```r
+create_var_from_codelist(
+  data,
+  metacore,
+  input_var,
+  out_var,
+  codelist = NULL,
+  decode_to_code = TRUE,
+  strict = TRUE
+)
+```
+:::
+
+# Check in on Barb / Check in Question
+
+## Check in on Barb
+
+## Check-in Question
+
+Which `admiral` function can be used to turn a `---DTC` variable into a
+`*DTM` variable
+
+::: incremental
+a)  `derive_vars_dtc()`
+b)  `derive_var_trtdurd()`
+c)  `derive_vars_dtm()`
+d)  `derive_vars_exsdtc()`
+
+-   Correct Answer: c) `derive_vars_dtm()`
+:::
+
+# `ADVS`
+
+🕦11:30 - 12:30
+
+
+## The Big Picture of ADVS
+
+* We have an ADVS script:
+  * Using `pharmaversesdtm` data: ...
+  * Uses the ADVS section of our spec file
+  * Creating a **multiple records** for each subject
+  * ADSL information included
+  * Lot's of functions are repeated within the ADVS script used in ADSL script
+
+## Let's talk about lookup tables (Lines: )
+
+```{.r code-line-numbers="1|2|3|4|5|6|7|8|9|10"}
+  derive_vars_merged_lookup(
+    dataset_add = param_lookup,
+    new_vars = exprs(PARAMCD),
+    by_vars = exprs(VSTESTCD),
+    print_not_mapped = TRUE 
+  ) 
+```
+
+## A Fuller Look!
+
+::: {.codewindow style="font-size: 0.6em;"}
+```r
+derive_vars_merged_lookup(
+  dataset,
+  dataset_add,
+  by_vars,
+  order = NULL,
+  new_vars = NULL,
+  mode = NULL,
+  filter_add = NULL,
+  check_type = "warning",
+  duplicate_msg = NULL,
+  print_not_mapped = TRUE
+)
+```
+:::
+
+## Let's add more records for each subject (Lines: )
+
+```{.r code-line-numbers="1|2|3|4|5|6|7|8|9|10"}
+derive_param_computed(
+  by_vars = exprs(STUDYID, USUBJID, VISIT, VISITNUM, ADT, ADY, VSTPT, VSTPTNUM),
+  parameters = "WEIGHT",
+  set_values_to = exprs(
+    AVAL = AVAL.WEIGHT / (AVAL.HEIGHT / 100)^2,
+    PARAMCD = "BMI",
+    PARAM = "Body Mass Index (kg/m^2)",
+    AVALU = "kg/m^2"
+  ),
+  constant_parameters = c("HEIGHT"),
+  constant_by_vars = exprs(USUBJID)
+)
+```
+
+## Only two arguments not used!
+
+::: {.codewindow style="font-size: 0.6em;"}
+```r
+derive_param_computed(
+  dataset = NULL,
+  dataset_add = NULL,
+  by_vars,
+  parameters,
+  set_values_to,
+  filter = NULL,
+  constant_by_vars = NULL,
+  constant_parameters = NULL,
+  keep_nas = FALSE
+)
+:::
+
+## Let't derive DTYPE summary records
+
+```{.r code-line-numbers="1|2|3|4|5|6|7|8|9|10"}
+derive_summary_records(
+    dataset_add = advs_2, 
+    by_vars = exprs(STUDYID, USUBJID, !!!adsl_vars, PARAMCD, AVISITN, AVISIT, ADT, ADY, AVALU),
+    filter_add = !is.na(AVAL),
+    set_values_to = exprs(
+      AVAL = mean(AVAL),
+      DTYPE = "AVERAGE"
+  )
+)
+```
+
+::: {.codewindow style="font-size: 0.6em;"}
+```r
+
+## Let's restrict!
+
+```{.r code-line-numbers="1|2|3|4|5|6|7|8|9|10"}
+restrict_derivation(
+  derivation = derive_var_extreme_flag,
+  args = params(
+    by_vars = exprs(STUDYID, USUBJID, BASETYPE, PARAMCD),
+    order = exprs(ADT, VISITNUM, VSSEQ),
+    new_var = ABLFL,
+    mode = "last", # Determines of the first or last observation is flagged
+    # Below arguments are default values and not necessary to add in our case
+    true_value = "Y"
+  ),
+  filter = (!is.na(AVAL) &
+    ADT <= TRTSDT & !is.na(BASETYPE) & is.na(DTYPE))
+)
+```
+
+## Let's get that data read for regulatory agencies
+
+```{.r code-line-numbers="1|2|3|4|5|6|7|8|9|10"}
+advs <- advs_final %>%
+  drop_unspec_vars(metacore) %>% # Drop unspecified variables from specs
+  check_variables(metacore, dataset_name = "ADVS") %>% # Check all variables specified are present and no more
+  order_cols(metacore) %>% # Orders the columns according to the spec
+  sort_by_key(metacore) %>% # Sorts the rows by the sort keys
+  xportr_type(metacore) %>%
+  xportr_length(metacore) %>%
+  xportr_label(metacore) %>%
+  xportr_format(metacore, domain = "ADVS") %>%
+  xportr_df_label(metacore, domain = "ADVS") %>%
+  xportr_write("datasets/advs.xpt", metadata = metacore, domain = "ADVS")
+```
+
+# `ADVS` Quiz
+
+## Check-in 
+
+Have a look to
+[{admiraldiscovery}](https://pharmaverse.github.io/admiraldiscovery/articles/reactable.html):
+Which `admiral` **wrapper** function could be used to derive "BSA" parameter
+at any time point?
+
+> > -   
+> >
+> >     a)  admiral::derive_param_bsa()
+> >
+> > -   
+> >
+> >     b)  admiral::compute_bsa()
+
+> -   Correct answer:
+> -   **a) the wrapper function admiral::derive_param_bsa()**
+
+> -   We could also use
+>     `("admiral::derive_param_computed()")`
+
+## Questions and Resources
+
+> -   [admiraldiscovery](https://pharmaverse.github.io/admiraldiscovery/)
+> -   [pharmaverse examples](https://github.com/pharmaverse/examples)
+> -   pgkdown sites for
+>     [xportr](https://atorus-research.github.io/xportr/),
+>     [metatools](https://pharmaverse.github.io/metatools/),
+>     [metacore](https://atorus-research.github.io/metacore/) and
+>     [admiral](https://pharmaverse.github.io/admiral/)
+> -   Extension packages for admiral:
+>     [admiralophtha](https://pharmaverse.github.io/admiralophtha/),
+>     [admiralonco](https://pharmaverse.github.io/admiralonco/),
+>     [admiralpeds](https://github.com/pharmaverse/admiralpeds)
+
+## Closing Thoughts
+
+> -   Only able to show a small number of `pharmaverse` packages
+>     and functions today, but please delve deeper to explore the full
+>     breadth
+> -   If you'd like to contribute to `pharmaverse`, check out options at
+>     [pharmaverse.org](https://pharmaverse.org/contribute/)
+> -   Finally, be sure to join our community on
+>     [Slack!](https://join.slack.com/t/pharmaverse/shared_invite/zt-yv5atkr4-Np2ytJ6W_QKz_4Olo7Jo9A)
+
+## Pacakges and Session Information
+
+```{r}
+#| class-output: hscroll
+
+sessionInfo()
+```
+
+```{css, echo=FALSE}
+.hscroll {
+  overflow-x: auto;
+  white-space: nowrap;
+}
+```
+
+## R/Pharma ADaM Workshop Starting at 10:02 US EST
+
+![](waiting.jpg){.center}
