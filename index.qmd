@@ -48,7 +48,7 @@ tibble::tribble(
   "09:00 - 9:30", "Introduction + Overview",
   "09:30 - 10:30", "[SDTM](slides/02-SDTM/index.html)", 
   "10:30 - 11:00", "*Coffee Break*",
-  "11:00 - 12:30", "ADaM",
+  "11:00 - 12:30", "[ADaMs with {admiral} and friends](slides/03-ADaM/index.html)",
   "12:30 - 13:30", "*Lunch*",
   "13:30 - 14:15", "[Analysis Results Datasets](slides/04-ARD/index.html)",
   "14:15 - 15:00", "[Create Tables with {tfrmt}](slides/05-tables-tfrmt/index.html)",
