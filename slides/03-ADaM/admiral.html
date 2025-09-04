@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.34">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>admiral – End-to-End Submissions in R with the Pharmaverse</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../images/pharmaverse-hex.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7ad8df1012cc34949a7a0ac4d54234c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-b32fb026e9a32257519cfbe7ca6f7bde.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../images/pharmaverse-hex.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main">
+    <a href="https://github.com/posit-conf-2025/pharmaverse" title="GitHub" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../communications.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Communications</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../license.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">License</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#objectives" id="toc-objectives" class="nav-link active" data-scroll-target="#objectives">Objectives</a></li>
+  <li><a href="#assumptions" id="toc-assumptions" class="nav-link" data-scroll-target="#assumptions">Assumptions</a></li>
+  <li><a href="#play-by-play" id="toc-play-by-play" class="nav-link" data-scroll-target="#play-by-play">Play by Play</a></li>
+  <li><a href="#set-the-stage" id="toc-set-the-stage" class="nav-link" data-scroll-target="#set-the-stage">Set the Stage</a>
+  <ul class="collapse">
+  <li><a href="#set-the-stage-1" id="toc-set-the-stage-1" class="nav-link" data-scroll-target="#set-the-stage-1">Set the Stage</a></li>
+  </ul></li>
+  <li><a href="#how-we-will-proceed-today" id="toc-how-we-will-proceed-today" class="nav-link" data-scroll-target="#how-we-will-proceed-today">How we will proceed today?</a>
+  <ul class="collapse">
+  <li><a href="#how-we-will-proceed-today-1" id="toc-how-we-will-proceed-today-1" class="nav-link" data-scroll-target="#how-we-will-proceed-today-1">How we will proceed today?</a></li>
+  </ul></li>
+  <li><a href="#datasets" id="toc-datasets" class="nav-link" data-scroll-target="#datasets">Datasets</a>
+  <ul class="collapse">
+  <li><a href="#adsl---subject-level-dataset-dpi-needs-fix" id="toc-adsl---subject-level-dataset-dpi-needs-fix" class="nav-link" data-scroll-target="#adsl---subject-level-dataset-dpi-needs-fix">ADSL - Subject Level Dataset (dpi / needs fix)</a></li>
+  <li><a href="#advs---subject-level-dataset-dpi-needs-fix" id="toc-advs---subject-level-dataset-dpi-needs-fix" class="nav-link" data-scroll-target="#advs---subject-level-dataset-dpi-needs-fix">ADVS - Subject Level Dataset (dpi / needs fix)</a></li>
+  </ul></li>
+  <li><a href="#specs" id="toc-specs" class="nav-link" data-scroll-target="#specs">Specs</a>
+  <ul class="collapse">
+  <li><a href="#spec-details" id="toc-spec-details" class="nav-link" data-scroll-target="#spec-details">Spec-details</a></li>
+  <li><a href="#the-core-pharmaverse-packages" id="toc-the-core-pharmaverse-packages" class="nav-link" data-scroll-target="#the-core-pharmaverse-packages">The core pharmaverse packages</a></li>
+  <li><a href="#pharmaverse-plays-nice" id="toc-pharmaverse-plays-nice" class="nav-link" data-scroll-target="#pharmaverse-plays-nice">pharmaverse plays nice!</a></li>
+  <li><a href="#admiral" id="toc-admiral" class="nav-link" data-scroll-target="#admiral">admiral</a></li>
+  <li><a href="#metatools-and-xportr" id="toc-metatools-and-xportr" class="nav-link" data-scroll-target="#metatools-and-xportr">metatools and xportr</a></li>
+  </ul></li>
+  <li><a href="#adsl" id="toc-adsl" class="nav-link" data-scroll-target="#adsl"><code>ADSL</code></a>
+  <ul class="collapse">
+  <li><a href="#the-big-picture-of-adsl" id="toc-the-big-picture-of-adsl" class="nav-link" data-scroll-target="#the-big-picture-of-adsl">The Big Picture of ADSL</a></li>
+  <li><a href="#reading-in-our-spec-for-adsl-lines" id="toc-reading-in-our-spec-for-adsl-lines" class="nav-link" data-scroll-target="#reading-in-our-spec-for-adsl-lines">Reading in our spec for ADSL (Lines: )</a></li>
+  <li><a href="#combine-parent-and-supplementary-data-lines" id="toc-combine-parent-and-supplementary-data-lines" class="nav-link" data-scroll-target="#combine-parent-and-supplementary-data-lines">Combine Parent and Supplementary Data (Lines: )</a></li>
+  <li><a href="#lets-turn-a---dtc-to-a-dtm-variable-lines" id="toc-lets-turn-a---dtc-to-a-dtm-variable-lines" class="nav-link" data-scroll-target="#lets-turn-a---dtc-to-a-dtm-variable-lines">Let’s turn a <code>--DTC</code> to a <code>*DTM</code> variable (Lines: )</a></li>
+  <li><a href="#woahthere-is-more" id="toc-woahthere-is-more" class="nav-link" data-scroll-target="#woahthere-is-more">Woah…there is more!!</a></li>
+  <li><a href="#lets-get-a-merge-lines" id="toc-lets-get-a-merge-lines" class="nav-link" data-scroll-target="#lets-get-a-merge-lines">Let’s get a merge (Lines: )</a></li>
+  <li><a href="#whoa-way-more-options" id="toc-whoa-way-more-options" class="nav-link" data-scroll-target="#whoa-way-more-options">Whoa!!! Way more options!!</a></li>
+  <li><a href="#lets-derive-a-duration-variable-lines" id="toc-lets-derive-a-duration-variable-lines" class="nav-link" data-scroll-target="#lets-derive-a-duration-variable-lines">Let’s derive a Duration Variable (Lines: )</a></li>
+  <li><a href="#ohhh-there-is-more" id="toc-ohhh-there-is-more" class="nav-link" data-scroll-target="#ohhh-there-is-more">Ohhh there is more!!</a></li>
+  <li><a href="#lets-apply-control-terms-code-lists-lines" id="toc-lets-apply-control-terms-code-lists-lines" class="nav-link" data-scroll-target="#lets-apply-control-terms-code-lists-lines">Let’s apply Control Terms / Code Lists (Lines: )</a></li>
+  <li><a href="#more-details" id="toc-more-details" class="nav-link" data-scroll-target="#more-details">More details</a></li>
+  </ul></li>
+  <li><a href="#check-in-on-barb-check-in-question" id="toc-check-in-on-barb-check-in-question" class="nav-link" data-scroll-target="#check-in-on-barb-check-in-question">Check in on Barb / Check in Question</a>
+  <ul class="collapse">
+  <li><a href="#check-in-on-barb" id="toc-check-in-on-barb" class="nav-link" data-scroll-target="#check-in-on-barb">Check in on Barb</a></li>
+  <li><a href="#check-in-question" id="toc-check-in-question" class="nav-link" data-scroll-target="#check-in-question">Check-in Question</a></li>
+  </ul></li>
+  <li><a href="#advs" id="toc-advs" class="nav-link" data-scroll-target="#advs"><code>ADVS</code></a>
+  <ul class="collapse">
+  <li><a href="#the-big-picture-of-advs" id="toc-the-big-picture-of-advs" class="nav-link" data-scroll-target="#the-big-picture-of-advs">The Big Picture of ADVS</a></li>
+  <li><a href="#lets-talk-about-lookup-tables-lines" id="toc-lets-talk-about-lookup-tables-lines" class="nav-link" data-scroll-target="#lets-talk-about-lookup-tables-lines">Let’s talk about lookup tables (Lines: )</a></li>
+  <li><a href="#a-fuller-look" id="toc-a-fuller-look" class="nav-link" data-scroll-target="#a-fuller-look">A Fuller Look!</a></li>
+  <li><a href="#lets-add-more-records-for-each-subject-lines" id="toc-lets-add-more-records-for-each-subject-lines" class="nav-link" data-scroll-target="#lets-add-more-records-for-each-subject-lines">Let’s add more records for each subject (Lines: )</a></li>
+  <li><a href="#only-two-arguments-not-used" id="toc-only-two-arguments-not-used" class="nav-link" data-scroll-target="#only-two-arguments-not-used">Only two arguments not used!</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/posit-conf-2025/pharmaverse/edit/main/slides/03-ADaM/admiral.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/posit-conf-2025/pharmaverse/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+
+
+
+
+<section id="objectives" class="level2">
+<h2 class="anchored" data-anchor-id="objectives">Objectives</h2>
+<div class="incremental">
+<ul class="incremental">
+<li>By the end of this ADaM section you will have:
+<ul class="incremental">
+<li><strong>Gained</strong> an understanding of how to use <code>admiral</code>, <code>metatools/metacore</code>, and <code>xportr</code> packages to create ADaMs</li>
+<li><strong>Seen</strong> code executed to create ADaMs: <code>ADSL</code> and <code>ADVS</code>.</li>
+<li><strong>Checked</strong> in on our fav participant - Barb</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="assumptions" class="level2">
+<h2 class="anchored" data-anchor-id="assumptions">Assumptions</h2>
+<div class="incremental">
+<ul class="incremental">
+<li>Basic knowledge of CDISC Standards (ADaM and SDTM Domains)</li>
+<li>Check out the <a href="https://www.cdisc.org/standards/foundational/adam">ADaM IG and other documents for CDISC</a>
+<ul class="incremental">
+<li>These are great but tome-like!!</li>
+</ul></li>
+<li>Check out <a href="https://pharmaverse.github.io/admiral/cran-release/">admiral</a> and <a href="https://pharmaverse.github.io/admiraldiscovery/articles/reactable.html">admiraldiscovery</a> for CDISC implementation
+<ul class="incremental">
+<li>I always like to code immedialtely to understand a process!</li>
+</ul></li>
+<li>🦺 But even lacking CDSIC knowledge, we still think you will gain some great learnings today! 🦺</li>
+</ul>
+</div>
+</section>
+<section id="play-by-play" class="level2">
+<h2 class="anchored" data-anchor-id="play-by-play">Play by Play</h2>
+<div class="incremental">
+<ul class="incremental">
+<li><p>🕙11:00 - 11:15 Set the Stage: Overview of datasets, specs, processes, packages, functions</p></li>
+<li><p>🕥11:15 - 11:45 Subject-level dataset: <code>ADSL</code></p></li>
+<li><p>🕚11:45 - 11:50 Check in on Barb / Quick Q</p></li>
+<li><p>🕦11:50 - 12:25 Basic Data Structure: <code>ADVS</code></p></li>
+<li><p>🕚12:25 - 12:30 Check in on Barb / Quick Q</p></li>
+<li><p>🕚12:30 Lunch!</p></li>
+</ul>
+</div>
+</section>
+<section id="set-the-stage" class="level1">
+<h1>Set the Stage</h1>
+<p>🕥11:00 - 11:15</p>
+<div style="text-align: center;">
+<img src="./images/office.jpg" alt="office" style="width: 600px;">
+</div>
+<section id="set-the-stage-1" class="level2">
+<h2 class="anchored" data-anchor-id="set-the-stage-1">Set the Stage</h2>
+<div class="incremental">
+<ul class="incremental">
+<li>processes</li>
+<li>Data</li>
+<li>Specs</li>
+<li>pharmaverse packages</li>
+<li>functions</li>
+</ul>
+</div>
+</section>
+</section>
+<section id="how-we-will-proceed-today" class="level1">
+<h1>How we will proceed today?</h1>
+<div style="text-align: center;">
+<img src="./images/possible.jpg" alt="office" style="width: 400px;">
+</div>
+<section id="how-we-will-proceed-today-1" class="level2">
+<h2 class="anchored" data-anchor-id="how-we-will-proceed-today-1">How we will proceed today?</h2>
+<div class="incremental">
+<ul class="incremental">
+<li>I will walk you through certain parts of the <code>ADSL</code> and <code>ADVS</code> R sripts
+<ul class="incremental">
+<li>Discussion on <strong>certain</strong> function and function arguments from <a href="TBL">scripts</a></li>
+<li>Will pull up full function for more discussion.<br>
+</li>
+</ul></li>
+<li>Important to move along quickly:
+<ul class="incremental">
+<li>Can discuss issues/questions in the break.</li>
+<li>Code should run out of the box - but have to wait to diagnose.</li>
+</ul></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="datasets" class="level1">
+<h1>Datasets</h1>
+<section id="adsl---subject-level-dataset-dpi-needs-fix" class="level2">
+<h2 class="anchored" data-anchor-id="adsl---subject-level-dataset-dpi-needs-fix">ADSL - Subject Level Dataset (dpi / needs fix)</h2>
+<div style="text-align: center;">
+<img src="./images/adsl.png" alt="adsl" style="width: 600px;">
+</div>
+<ul>
+<li>ADSL - Subject Level Dataset, i.e each subject has a record. Focus on adding variables.</li>
+</ul>
+</section>
+<section id="advs---subject-level-dataset-dpi-needs-fix" class="level2">
+<h2 class="anchored" data-anchor-id="advs---subject-level-dataset-dpi-needs-fix">ADVS - Subject Level Dataset (dpi / needs fix)</h2>
+<div style="text-align: center;">
+<img src="./images/adsl.png" alt="advs" style="width: 600px;">
+</div>
+<ul>
+<li>ADVS - Basic Data Structure (BDS) Dataset. Focus on adding records.</li>
+</ul>
+</section>
+</section>
+<section id="specs" class="level1">
+<h1>Specs</h1>
+<div style="text-align: center;">
+<img src="./images/specs.png" alt="sunny" style="width: 600px;">
+</div>
+<section id="spec-details" class="level2">
+<h2 class="anchored" data-anchor-id="spec-details">Spec-details</h2>
+<ul>
+<li>Gives specifics on how we derive variables in the ADaMs (extreme traceability)</li>
+<li>Not fit for purpose - just a helpful guide</li>
+<li>What is in the the Specs:
+<ul>
+<li>Two datasets, dataset labels and variable keys</li>
+<li>Variables - labels, lengths, types, linked to method</li>
+<li>Codelists!!</li>
+<li>No VLMs</li>
+</ul></li>
+</ul>
+</section>
+<section id="the-core-pharmaverse-packages" class="level2">
+<h2 class="anchored" data-anchor-id="the-core-pharmaverse-packages">The core pharmaverse packages</h2>
+<p><img src="https://raw.githubusercontent.com/atorus-research/metacore/master/man/figures/metacore.PNG" height="80" style="display:inline-block; vertical-align:middle; margin-right:0.3em;"> <img src="https://raw.githubusercontent.com/pharmaverse/metatools/master/man/figures/metatools.png" height="80" style="display:inline-block; vertical-align:middle; margin-right:0.3em;"></p>
+<p>Focus on <strong>applying</strong> information from our Specs to the ADaMs</p>
+<p><img src="https://raw.githubusercontent.com/pharmaverse/admiral/master/man/figures/logo.png" height="80" style="display:inline-block; vertical-align:middle; margin-right:0.3em;"></p>
+<p>Focus on <strong>deriving</strong> variables and records driven by our Specs</p>
+<p><img src="https://raw.githubusercontent.com/atorus-research/xportr/master/man/figures/logo.png" height="80" style="display:inline-block; vertical-align:middle; margin-right:0.3em;"></p>
+<p>Focus on <strong>preparing</strong> the dataset as an xpt file to be sent to regulatory agencies.</p>
+</section>
+<section id="pharmaverse-plays-nice" class="level2">
+<h2 class="anchored" data-anchor-id="pharmaverse-plays-nice">pharmaverse plays nice!</h2>
+<div class="incremental">
+<ul class="incremental">
+<li><p>The ADaM code presented today utilizes all the previously mentioned packages, but also makes use of tidyverse and base R code.</p></li>
+<li><p>If a function isn’t meeting your needs or looks too cumbersome, then that is okay!</p></li>
+<li><p>These packages are all modular and play well with others!</p></li>
+</ul>
+</div>
+</section>
+<section id="admiral" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="admiral">admiral</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Package</th>
+<th>Function</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>admiral</td>
+<td>derive_vars_merged()</td>
+<td><code>left_join</code> on steroids</td>
+</tr>
+<tr class="even">
+<td>admiral</td>
+<td>derive_param_computed()</td>
+<td>Core function for wrappers used in ADVS</td>
+</tr>
+<tr class="odd">
+<td>admiral</td>
+<td>derive_vars_dy()</td>
+<td>Create the relative study day</td>
+</tr>
+<tr class="even">
+<td>admiral</td>
+<td>derive_vars_dtm()</td>
+<td>Take a <code>---DTC</code> variable and turn it into a <code>---DTM</code> variable</td>
+</tr>
+<tr class="odd">
+<td>admiral</td>
+<td>derive_vars_duration()</td>
+<td>Duration between timepoints</td>
+</tr>
+<tr class="even">
+<td>admiral</td>
+<td>restrict_derivation()</td>
+<td>HOF:</td>
+</tr>
+<tr class="odd">
+<td>admiral</td>
+<td>derive_var_extreme_flag()</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<p>Most functions in admiral follow these conventions:</p>
+<div class="incremental">
+<ul class="incremental">
+<li><code>var_</code> or <code>_vars_</code> functions add variable(s) to ADaMs</li>
+<li><code>_param_</code> functions add records to ADaMS</li>
+<li>Other not following this convention typically do more advanced stuff…</li>
+</ul>
+</div>
+</section>
+<section id="metatools-and-xportr" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="metatools-and-xportr">metatools and xportr</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Package</th>
+<th>Function</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>metacore</td>
+<td>spec_to_metacore()</td>
+<td>Creates a “special” object from your specs</td>
+</tr>
+<tr class="even">
+<td>metatools</td>
+<td>combine_supp()</td>
+<td>Join Parent and Supplementary Datasets</td>
+</tr>
+<tr class="odd">
+<td>metatools</td>
+<td>create_var_from_codelist()</td>
+<td>Numeric Vars from Specs!</td>
+</tr>
+<tr class="even">
+<td>metatools</td>
+<td>drop_unspec_vars()</td>
+<td>Easily drop variables not in Spec</td>
+</tr>
+<tr class="odd">
+<td>xportr</td>
+<td>xportr_label()</td>
+<td>Apply labels from Spec</td>
+</tr>
+<tr class="even">
+<td>xportr</td>
+<td>xportr_write()</td>
+<td>Write out an xpt file</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Most functions from these packages are about applying metadata from specs to your dataset.</li>
+<li>xportr follows a standard naming convention.</li>
+</ul>
+</section>
+</section>
+<section id="adsl" class="level1">
+<h1><code>ADSL</code></h1>
+<p>🕥 11:15 - 11:45</p>
+<ul>
+<li>Note: Referencing lines in file at each section (Lines: ##-##)</li>
+</ul>
+<section id="the-big-picture-of-adsl" class="level2">
+<h2 class="anchored" data-anchor-id="the-big-picture-of-adsl">The Big Picture of ADSL</h2>
+<ul>
+<li>We have an ADSL script:
+<ul>
+<li>Using pharmaversesdtm data: dm, suppdm, ex, ae, vs, etc</li>
+<li>Uses the ADSL section of our spec file</li>
+<li>Creating a single record for each subject</li>
+</ul></li>
+</ul>
+</section>
+<section id="reading-in-our-spec-for-adsl-lines" class="level2">
+<h2 class="anchored" data-anchor-id="reading-in-our-spec-for-adsl-lines">Reading in our spec for ADSL (Lines: )</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">spec_to_metacore</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">path =</span> <span class="st">"slides/03-ADaM/metadata/posit_specs.xlsx"</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">where_sep_sheet =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">quiet =</span> <span class="cn">TRUE</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select_dataset</span>(<span class="st">"ADVS"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="combine-parent-and-supplementary-data-lines" class="level2">
+<h2 class="anchored" data-anchor-id="combine-parent-and-supplementary-data-lines">Combine Parent and Supplementary Data (Lines: )</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dm_suppdm <span class="ot">&lt;-</span> <span class="fu">combine_supp</span>(dm, suppdm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><p>One line of code to join two datasets!</p></li>
+<li><p>Collecting non-standard data and linking to parent</p></li>
+<li><p>Function is from <code>{metatools}</code></p></li>
+<li><p>Maybe a dm record linked to suppdm record here??</p></li>
+</ul>
+</section>
+<section id="lets-turn-a---dtc-to-a-dtm-variable-lines" class="level2">
+<h2 class="anchored" data-anchor-id="lets-turn-a---dtc-to-a-dtm-variable-lines">Let’s turn a <code>--DTC</code> to a <code>*DTM</code> variable (Lines: )</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">derive_vars_dtm</span>(</span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="at">dtc =</span> EXSTDTC,</span>
+<span id="cb3-3"><a href="#cb3-3"></a>  <span class="at">new_vars_prefix =</span> <span class="st">"EXST"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4"></a>  <span class="at">time_imputation =</span> <span class="st">"last"</span>,</span>
+<span id="cb3-5"><a href="#cb3-5"></a>  <span class="at">flag_imputation =</span> <span class="st">"time"</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="woahthere-is-more" class="level2">
+<h2 class="anchored" data-anchor-id="woahthere-is-more">Woah…there is more!!</h2>
+<div class="codewindow" style="font-size: 0.6em;">
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">derive_vars_dtm</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  dataset,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  new_vars_prefix,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  dtc,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">highest_imputation =</span> <span class="st">"h"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">date_imputation =</span> <span class="st">"first"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">time_imputation =</span> <span class="st">"first"</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">flag_imputation =</span> <span class="st">"auto"</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">min_dates =</span> <span class="cn">NULL</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">max_dates =</span> <span class="cn">NULL</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">preserve =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">ignore_seconds_flag =</span> <span class="cn">FALSE</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="lets-get-a-merge-lines" class="level2">
+<h2 class="anchored" data-anchor-id="lets-get-a-merge-lines">Let’s get a merge (Lines: )</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">derive_vars_merged</span>(</span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="at">dataset_add =</span> ex_ext,</span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="at">by_vars =</span> <span class="fu">exprs</span>(STUDYID, USUBJID),</span>
+<span id="cb5-4"><a href="#cb5-4"></a>  <span class="at">order =</span> <span class="fu">exprs</span>(EXSTDTM, EXSEQ),</span>
+<span id="cb5-5"><a href="#cb5-5"></a>  <span class="at">new_vars =</span> <span class="fu">exprs</span>(<span class="at">TRTSDTM =</span> EXSTDTM, <span class="at">TRTSTMF =</span> EXSTTMF),</span>
+<span id="cb5-6"><a href="#cb5-6"></a>  <span class="at">filter_add =</span> (EXDOSE <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">|</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a>    (EXDOSE <span class="sc">==</span> <span class="dv">0</span> <span class="sc">&amp;</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a>      <span class="fu">str_detect</span>(EXTRT, <span class="st">"PLACEBO"</span>))) <span class="sc">&amp;</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a>    <span class="sc">!</span><span class="fu">is.na</span>(EXSTDTM),</span>
+<span id="cb5-10"><a href="#cb5-10"></a>  <span class="at">mode =</span> <span class="st">"first"</span>,</span>
+<span id="cb5-11"><a href="#cb5-11"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="whoa-way-more-options" class="level2">
+<h2 class="anchored" data-anchor-id="whoa-way-more-options">Whoa!!! Way more options!!</h2>
+<div class="codewindow" style="font-size: 0.6em;">
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">derive_vars_merged</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  dataset,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  dataset_add,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  by_vars,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">order =</span> <span class="cn">NULL</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">new_vars =</span> <span class="cn">NULL</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">filter_add =</span> <span class="cn">NULL</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">mode =</span> <span class="cn">NULL</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">exist_flag =</span> <span class="cn">NULL</span>,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">true_value =</span> <span class="st">"Y"</span>,</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">false_value =</span> <span class="cn">NA_character_</span>,</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">missing_values =</span> <span class="cn">NULL</span>,</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">check_type =</span> <span class="st">"warning"</span>,</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">duplicate_msg =</span> <span class="cn">NULL</span>,</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">relationship =</span> <span class="cn">NULL</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="lets-derive-a-duration-variable-lines" class="level2">
+<h2 class="anchored" data-anchor-id="lets-derive-a-duration-variable-lines">Let’s derive a Duration Variable (Lines: )</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">derive_vars_duration</span>(</span>
+<span id="cb7-2"><a href="#cb7-2"></a>    <span class="at">new_var =</span> DTHADY,</span>
+<span id="cb7-3"><a href="#cb7-3"></a>    <span class="at">start_date =</span> TRTSDT,</span>
+<span id="cb7-4"><a href="#cb7-4"></a>    <span class="at">end_date =</span> DTHDT</span>
+<span id="cb7-5"><a href="#cb7-5"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="ohhh-there-is-more" class="level2">
+<h2 class="anchored" data-anchor-id="ohhh-there-is-more">Ohhh there is more!!</h2>
+<div class="codewindow" style="font-size: 0.6em;">
+<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">derive_vars_duration</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  dataset,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  new_var,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">new_var_unit =</span> <span class="cn">NULL</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  start_date,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  end_date,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">in_unit =</span> <span class="st">"days"</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">out_unit =</span> <span class="st">"DAYS"</span>,</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">floor_in =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">add_one =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">trunc_out =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"duration"</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="lets-apply-control-terms-code-lists-lines" class="level2">
+<h2 class="anchored" data-anchor-id="lets-apply-control-terms-code-lists-lines">Let’s apply Control Terms / Code Lists (Lines: )</h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>adsl16 <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">create_var_from_codelist</span>(metacore, <span class="at">input_var =</span> AGEGR1, <span class="at">out_var =</span> AGEGR1N) <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">create_var_from_codelist</span>(metacore, <span class="at">input_var =</span> RACE, <span class="at">out_var =</span> RACEN) <span class="sc">%&gt;%</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">create_var_from_codelist</span>(metacore, <span class="at">input_var =</span> RACEGR1, <span class="at">out_var =</span> RACEGR1N) <span class="sc">%&gt;%</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">create_var_from_codelist</span>(metacore, <span class="at">input_var =</span> REGION1, <span class="at">out_var =</span> REGION1N) <span class="sc">%&gt;%</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">create_var_from_codelist</span>(metacore, <span class="at">input_var =</span> TRT01P, <span class="at">out_var =</span> TRT01PN) <span class="sc">%&gt;%</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">create_var_from_codelist</span>(metacore, <span class="at">input_var =</span> TRT01A, <span class="at">out_var =</span> TRT01AN)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="more-details" class="level2">
+<h2 class="anchored" data-anchor-id="more-details">More details</h2>
+<div class="codewindow" style="font-size: 0.6em;">
+<div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">create_var_from_codelist</span>(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  data,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  metacore,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  input_var,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  out_var,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">codelist =</span> <span class="cn">NULL</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">decode_to_code =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">strict =</span> <span class="cn">TRUE</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="check-in-on-barb-check-in-question" class="level1">
+<h1>Check in on Barb / Check in Question</h1>
+<section id="check-in-on-barb" class="level2">
+<h2 class="anchored" data-anchor-id="check-in-on-barb">Check in on Barb</h2>
+</section>
+<section id="check-in-question" class="level2">
+<h2 class="anchored" data-anchor-id="check-in-question">Check-in Question</h2>
+<p>Which <code>admiral</code> function can be used to turn a <code>---DTC</code> variable into a <code>*DTM</code> variable</p>
+<div class="incremental">
+<ol class="incremental" type="a">
+<li><code>derive_vars_dtc()</code></li>
+<li><code>derive_var_trtdurd()</code></li>
+<li><code>derive_vars_dtm()</code></li>
+<li><code>derive_vars_exsdtc()</code></li>
+</ol>
+<ul class="incremental">
+<li>Correct Answer: c) <code>derive_vars_dtm()</code></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="advs" class="level1">
+<h1><code>ADVS</code></h1>
+<p>🕦11:30 - 12:30</p>
+<section id="the-big-picture-of-advs" class="level2">
+<h2 class="anchored" data-anchor-id="the-big-picture-of-advs">The Big Picture of ADVS</h2>
+<ul>
+<li>We have an ADVS script:
+<ul>
+<li>Using <code>pharmaversesdtm</code> data: …</li>
+<li>Uses the ADVS section of our spec file</li>
+<li>Creating a <strong>multiple records</strong> for each subject</li>
+<li>ADSL information included</li>
+<li>Lot’s of functions are repeated within the ADVS script used in ADSL script</li>
+</ul></li>
+</ul>
+</section>
+<section id="lets-talk-about-lookup-tables-lines" class="level2">
+<h2 class="anchored" data-anchor-id="lets-talk-about-lookup-tables-lines">Let’s talk about lookup tables (Lines: )</h2>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>  <span class="fu">derive_vars_merged_lookup</span>(</span>
+<span id="cb11-2"><a href="#cb11-2"></a>    <span class="at">dataset_add =</span> param_lookup,</span>
+<span id="cb11-3"><a href="#cb11-3"></a>    <span class="at">new_vars =</span> <span class="fu">exprs</span>(PARAMCD),</span>
+<span id="cb11-4"><a href="#cb11-4"></a>    <span class="at">by_vars =</span> <span class="fu">exprs</span>(VSTESTCD),</span>
+<span id="cb11-5"><a href="#cb11-5"></a>    <span class="at">print_not_mapped =</span> <span class="cn">TRUE</span> </span>
+<span id="cb11-6"><a href="#cb11-6"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="a-fuller-look" class="level2">
+<h2 class="anchored" data-anchor-id="a-fuller-look">A Fuller Look!</h2>
+<div class="codewindow" style="font-size: 0.6em;">
+<div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">derive_vars_merged_lookup</span>(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  dataset,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  dataset_add,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  by_vars,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">order =</span> <span class="cn">NULL</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">new_vars =</span> <span class="cn">NULL</span>,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">mode =</span> <span class="cn">NULL</span>,</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">filter_add =</span> <span class="cn">NULL</span>,</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">check_type =</span> <span class="st">"warning"</span>,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">duplicate_msg =</span> <span class="cn">NULL</span>,</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">print_not_mapped =</span> <span class="cn">TRUE</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="lets-add-more-records-for-each-subject-lines" class="level2">
+<h2 class="anchored" data-anchor-id="lets-add-more-records-for-each-subject-lines">Let’s add more records for each subject (Lines: )</h2>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">derive_param_computed</span>(</span>
+<span id="cb13-2"><a href="#cb13-2"></a>  <span class="at">by_vars =</span> <span class="fu">exprs</span>(STUDYID, USUBJID, VISIT, VISITNUM, ADT, ADY, VSTPT, VSTPTNUM),</span>
+<span id="cb13-3"><a href="#cb13-3"></a>  <span class="at">parameters =</span> <span class="st">"WEIGHT"</span>,</span>
+<span id="cb13-4"><a href="#cb13-4"></a>  <span class="at">set_values_to =</span> <span class="fu">exprs</span>(</span>
+<span id="cb13-5"><a href="#cb13-5"></a>    <span class="at">AVAL =</span> AVAL.WEIGHT <span class="sc">/</span> (AVAL.HEIGHT <span class="sc">/</span> <span class="dv">100</span>)<span class="sc">^</span><span class="dv">2</span>,</span>
+<span id="cb13-6"><a href="#cb13-6"></a>    <span class="at">PARAMCD =</span> <span class="st">"BMI"</span>,</span>
+<span id="cb13-7"><a href="#cb13-7"></a>    <span class="at">PARAM =</span> <span class="st">"Body Mass Index (kg/m^2)"</span>,</span>
+<span id="cb13-8"><a href="#cb13-8"></a>    <span class="at">AVALU =</span> <span class="st">"kg/m^2"</span></span>
+<span id="cb13-9"><a href="#cb13-9"></a>  ),</span>
+<span id="cb13-10"><a href="#cb13-10"></a>  <span class="at">constant_parameters =</span> <span class="fu">c</span>(<span class="st">"HEIGHT"</span>),</span>
+<span id="cb13-11"><a href="#cb13-11"></a>  <span class="at">constant_by_vars =</span> <span class="fu">exprs</span>(USUBJID)</span>
+<span id="cb13-12"><a href="#cb13-12"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="only-two-arguments-not-used" class="level2">
+<h2 class="anchored" data-anchor-id="only-two-arguments-not-used">Only two arguments not used!</h2>
+<div class="codewindow" style="font-size: 0.6em;">
+<div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">derive_param_computed</span>(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">dataset =</span> <span class="cn">NULL</span>,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">dataset_add =</span> <span class="cn">NULL</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  by_vars,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  parameters,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  set_values_to,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">filter =</span> <span class="cn">NULL</span>,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">constant_by_vars =</span> <span class="cn">NULL</span>,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">constant_parameters =</span> <span class="cn">NULL</span>,</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">keep_nas =</span> <span class="cn">FALSE</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="sc">:::</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="do">## Let't derive DTYPE summary records</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="st">```</span><span class="at">{.r code-line-numbers="1|2|3|4|5|6|7|8|9|10"}</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="at">derive_summary_records(</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="at">    dataset_add = advs_2, </span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="at">    by_vars = exprs(STUDYID, USUBJID, !!!adsl_vars, PARAMCD, AVISITN, AVISIT, ADT, ADY, AVALU),</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="at">    filter_add = !is.na(AVAL),</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="at">    set_values_to = exprs(</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="at">      AVAL = mean(AVAL),</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a><span class="at">      DTYPE = "AVERAGE"</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a><span class="at">  )</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a><span class="at">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="codewindow" style="font-size: 0.6em;">
+<div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Let's restrict!</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="st">```</span><span class="at">{.r code-line-numbers="1|2|3|4|5|6|7|8|9|10"}</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="at">restrict_derivation(</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="at">  derivation = derive_var_extreme_flag,</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="at">  args = params(</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="at">    by_vars = exprs(STUDYID, USUBJID, BASETYPE, PARAMCD),</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="at">    order = exprs(ADT, VISITNUM, VSSEQ),</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="at">    new_var = ABLFL,</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="at">    mode = "last", # Determines of the first or last observation is flagged</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="at">    # Below arguments are default values and not necessary to add in our case</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="at">    true_value = "Y"</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="at">  ),</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="at">  filter = (!is.na(AVAL) &amp;</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="at">    ADT &lt;= TRTSDT &amp; !is.na(BASETYPE) &amp; is.na(DTYPE))</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="at">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="lets-get-that-data-read-for-regulatory-agencies" class="level2">
+<h2 class="anchored" data-anchor-id="lets-get-that-data-read-for-regulatory-agencies">Let’s get that data read for regulatory agencies</h2>
+<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>advs <span class="ot">&lt;-</span> advs_final <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">drop_unspec_vars</span>(metacore) <span class="sc">%&gt;%</span> <span class="co"># Drop unspecified variables from specs</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a>  <span class="fu">check_variables</span>(metacore, <span class="at">dataset_name =</span> <span class="st">"ADVS"</span>) <span class="sc">%&gt;%</span> <span class="co"># Check all variables specified are present and no more</span></span>
+<span id="cb16-4"><a href="#cb16-4"></a>  <span class="fu">order_cols</span>(metacore) <span class="sc">%&gt;%</span> <span class="co"># Orders the columns according to the spec</span></span>
+<span id="cb16-5"><a href="#cb16-5"></a>  <span class="fu">sort_by_key</span>(metacore) <span class="sc">%&gt;%</span> <span class="co"># Sorts the rows by the sort keys</span></span>
+<span id="cb16-6"><a href="#cb16-6"></a>  <span class="fu">xportr_type</span>(metacore) <span class="sc">%&gt;%</span></span>
+<span id="cb16-7"><a href="#cb16-7"></a>  <span class="fu">xportr_length</span>(metacore) <span class="sc">%&gt;%</span></span>
+<span id="cb16-8"><a href="#cb16-8"></a>  <span class="fu">xportr_label</span>(metacore) <span class="sc">%&gt;%</span></span>
+<span id="cb16-9"><a href="#cb16-9"></a>  <span class="fu">xportr_format</span>(metacore, <span class="at">domain =</span> <span class="st">"ADVS"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-10"><a href="#cb16-10"></a>  <span class="fu">xportr_df_label</span>(metacore, <span class="at">domain =</span> <span class="st">"ADVS"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-11"><a href="#cb16-11"></a>  <span class="fu">xportr_write</span>(<span class="st">"datasets/advs.xpt"</span>, <span class="at">metadata =</span> metacore, <span class="at">domain =</span> <span class="st">"ADVS"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="advs-quiz" class="level1">
+<h1><code>ADVS</code> Quiz</h1>
+<section id="check-in" class="level2">
+<h2 class="anchored" data-anchor-id="check-in">Check-in</h2>
+<p>Have a look to <a href="https://pharmaverse.github.io/admiraldiscovery/articles/reactable.html">{admiraldiscovery}</a>: Which <code>admiral</code> <strong>wrapper</strong> function could be used to derive “BSA” parameter at any time point?</p>
+<blockquote class="blockquote">
+<blockquote class="blockquote">
+<ul>
+<li><ol type="a">
+<li>admiral::derive_param_bsa()</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li>admiral::compute_bsa()</li>
+</ol></li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote class="blockquote">
+<ul>
+<li>Correct answer:</li>
+<li><strong>a) the wrapper function admiral::derive_param_bsa()</strong></li>
+</ul>
+</blockquote>
+<blockquote class="blockquote">
+<ul>
+<li>We could also use <code>("admiral::derive_param_computed()")</code></li>
+</ul>
+</blockquote>
+</section>
+<section id="questions-and-resources" class="level2">
+<h2 class="anchored" data-anchor-id="questions-and-resources">Questions and Resources</h2>
+<blockquote class="blockquote">
+<ul>
+<li><a href="https://pharmaverse.github.io/admiraldiscovery/">admiraldiscovery</a></li>
+<li><a href="https://github.com/pharmaverse/examples">pharmaverse examples</a></li>
+<li>pgkdown sites for <a href="https://atorus-research.github.io/xportr/">xportr</a>, <a href="https://pharmaverse.github.io/metatools/">metatools</a>, <a href="https://atorus-research.github.io/metacore/">metacore</a> and <a href="https://pharmaverse.github.io/admiral/">admiral</a></li>
+<li>Extension packages for admiral: <a href="https://pharmaverse.github.io/admiralophtha/">admiralophtha</a>, <a href="https://pharmaverse.github.io/admiralonco/">admiralonco</a>, <a href="https://github.com/pharmaverse/admiralpeds">admiralpeds</a></li>
+</ul>
+</blockquote>
+</section>
+<section id="closing-thoughts" class="level2">
+<h2 class="anchored" data-anchor-id="closing-thoughts">Closing Thoughts</h2>
+<blockquote class="blockquote">
+<ul>
+<li>Only able to show a small number of <code>pharmaverse</code> packages and functions today, but please delve deeper to explore the full breadth</li>
+<li>If you’d like to contribute to <code>pharmaverse</code>, check out options at <a href="https://pharmaverse.org/contribute/">pharmaverse.org</a></li>
+<li>Finally, be sure to join our community on <a href="https://join.slack.com/t/pharmaverse/shared_invite/zt-yv5atkr4-Np2ytJ6W_QKz_4Olo7Jo9A">Slack!</a></li>
+</ul>
+</blockquote>
+</section>
+<section id="pacakges-and-session-information" class="level2">
+<h2 class="anchored" data-anchor-id="pacakges-and-session-information">Pacakges and Session Information</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre class="hscroll"><code>R version 4.5.1 (2025-06-13)
+Platform: x86_64-pc-linux-gnu
+Running under: Ubuntu 24.04.3 LTS
+
+Matrix products: default
+BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
+LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0
+
+locale:
+ [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
+ [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
+ [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
+[10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
+
+time zone: UTC
+tzcode source: system (glibc)
+
+attached base packages:
+[1] stats     graphics  grDevices datasets  utils     methods   base     
+
+other attached packages:
+[1] countdown_0.4.0 glue_1.8.0     
+
+loaded via a namespace (and not attached):
+ [1] htmlwidgets_1.6.4 compiler_4.5.1    fastmap_1.2.0     cli_3.6.5        
+ [5] htmltools_0.5.8.1 tools_4.5.1       yaml_2.3.10       rmarkdown_2.29   
+ [9] knitr_1.50        jsonlite_2.0.0    xfun_0.52         digest_0.6.37    
+[13] rlang_1.1.6       renv_1.1.5        evaluate_1.0.4   </code></pre>
+</div>
+</div>
+<div class="cell">
+<style type="text/css">
+.hscroll {
+  overflow-x: auto;
+  white-space: nowrap;
+}
+</style>
+</div>
+</section>
+<section id="rpharma-adam-workshop-starting-at-1002-us-est" class="level2">
+<h2 class="anchored" data-anchor-id="rpharma-adam-workshop-starting-at-1002-us-est">R/Pharma ADaM Workshop Starting at 10:02 US EST</h2>
+<p><img src="waiting.jpg" class="center img-fluid"></p>
+
+
+</section>
+</section>
+</div>
+</div>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/posit-conf-2025\.github\.io\/pharmaverse\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>This page is built with ❤️ and <a href="https://quarto.org/">Quarto</a>. Inspired by <a href="https://bsky.app/profile/minecr.bsky.social"><span class="citation" data-cites="minecr.bsky.social">@minecr.bsky.social</span></a>.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/posit-conf-2025/pharmaverse/edit/main/slides/03-ADaM/admiral.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/posit-conf-2025/pharmaverse/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

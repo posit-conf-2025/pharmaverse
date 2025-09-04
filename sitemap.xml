@@ -1,11 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://posit-conf-2025.github.io/pharmaverse/index.html</loc>
-    <lastmod>2025-08-11T16:36:06.187Z</lastmod>
+    <loc>https://posit-conf-2025.github.io/pharmaverse/slides/07-submissions-wrapup/index.html</loc>
+    <lastmod>2025-09-04T16:46:18.846Z</lastmod>
   </url>
   <url>
-    <loc>https://posit-conf-2025.github.io/pharmaverse/LICENSE.html</loc>
-    <lastmod>2025-08-11T16:36:06.178Z</lastmod>
+    <loc>https://posit-conf-2025.github.io/pharmaverse/slides/05-tables-tfrmt/tfrmt.html</loc>
+    <lastmod>2025-09-04T16:46:18.812Z</lastmod>
+  </url>
+  <url>
+    <loc>https://posit-conf-2025.github.io/pharmaverse/slides/04-ARD/intro_to_ards.html</loc>
+    <lastmod>2025-09-04T16:46:18.807Z</lastmod>
+  </url>
+  <url>
+    <loc>https://posit-conf-2025.github.io/pharmaverse/slides/04-ARD/cards.html</loc>
+    <lastmod>2025-09-04T16:46:18.796Z</lastmod>
+  </url>
+  <url>
+    <loc>https://posit-conf-2025.github.io/pharmaverse/slides/03-ADaM/admiral.html</loc>
+    <lastmod>2025-09-04T16:46:18.793Z</lastmod>
+  </url>
+  <url>
+    <loc>https://posit-conf-2025.github.io/pharmaverse/slides/01-intro/index.html</loc>
+    <lastmod>2025-09-04T16:46:18.791Z</lastmod>
+  </url>
+  <url>
+    <loc>https://posit-conf-2025.github.io/pharmaverse/index.html</loc>
+    <lastmod>2025-09-04T16:46:18.789Z</lastmod>
+  </url>
+  <url>
+    <loc>https://posit-conf-2025.github.io/pharmaverse/communications.html</loc>
+    <lastmod>2025-09-04T16:46:18.784Z</lastmod>
+  </url>
+  <url>
+    <loc>https://posit-conf-2025.github.io/pharmaverse/license.html</loc>
+    <lastmod>2025-09-04T16:46:18.789Z</lastmod>
+  </url>
+  <url>
+    <loc>https://posit-conf-2025.github.io/pharmaverse/slides/02-SDTM/index.html</loc>
+    <lastmod>2025-09-04T16:46:18.792Z</lastmod>
+  </url>
+  <url>
+    <loc>https://posit-conf-2025.github.io/pharmaverse/slides/03-ADaM/index.html</loc>
+    <lastmod>2025-09-04T16:46:18.795Z</lastmod>
+  </url>
+  <url>
+    <loc>https://posit-conf-2025.github.io/pharmaverse/slides/04-ARD/index.html</loc>
+    <lastmod>2025-09-04T16:46:18.807Z</lastmod>
+  </url>
+  <url>
+    <loc>https://posit-conf-2025.github.io/pharmaverse/slides/05-tables-tfrmt/index.html</loc>
+    <lastmod>2025-09-04T16:46:18.812Z</lastmod>
+  </url>
+  <url>
+    <loc>https://posit-conf-2025.github.io/pharmaverse/slides/06-tables-gtsummary/index.html</loc>
+    <lastmod>2025-09-04T16:46:18.845Z</lastmod>
   </url>
 </urlset>
