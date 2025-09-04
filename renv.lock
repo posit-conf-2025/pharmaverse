@@ -1090,6 +1090,12 @@
       "Repository": "RSPM",
       "Encoding": "UTF-8"
     },
+    "checkmate": {
+      "Package": "checkmate",
+      "Version": "2.3.3",
+      "Source": "Repository",
+      "Repository": "CRAN"
+    },
     "class": {
       "Package": "class",
       "Version": "7.3-23",
@@ -3911,6 +3917,18 @@
       "Author": "Hadley Wickham [aut], Jim Hester [aut], Winston Chang [aut, cre], Kirill Müller [aut], Daniel Cook [aut], Mark Edmondson [ctb]",
       "Maintainer": "Winston Chang <winston@rstudio.com>",
       "Repository": "https://packages.roche.com/Validated-4.4.1/__linux__/jammy/2024-11-05+43qXXU5E"
+    },
+    "metacore": {
+      "Package": "metacore",
+      "Version": "0.2.1",
+      "Source": "Repository",
+      "Repository": "CRAN"
+    },
+    "metatools": {
+      "Package": "metatools",
+      "Version": "0.2.0",
+      "Source": "Repository",
+      "Repository": "CRAN"
     },
     "mgcv": {
       "Package": "mgcv",
@@ -6982,6 +7000,12 @@
       "Author": "Gábor Csárdi [aut, cre], Fathi Boudra [aut], Rex Dieter [aut], Kevin Krammer [aut], Jeremy White [aut], Posit Software, PBC [cph, fnd]",
       "Maintainer": "Gábor Csárdi <csardi.gabor@gmail.com>",
       "Repository": "https://packages.roche.com/Validated-4.4.1/__linux__/jammy/2024-11-05+43qXXU5E"
+    },
+    "xportr": {
+      "Package": "xportr",
+      "Version": "0.4.3",
+      "Source": "Repository",
+      "Repository": "CRAN"
     },
     "xtable": {
       "Package": "xtable",
