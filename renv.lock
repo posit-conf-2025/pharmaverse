@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "4.5.1",
+    "Version": "4.4.1",
     "Repositories": [
       {
         "Name": "CRAN",
@@ -180,7 +180,8 @@
       "Description": "Provides color schemes for maps (and other graphics) designed by Cynthia Brewer as described at http://colorbrewer2.org.",
       "License": "Apache License 2.0",
       "NeedsCompilation": "no",
-      "Repository": "CRAN"
+      "Repository": "RSPM",
+      "Encoding": "UTF-8"
     },
     "Rcpp": {
       "Package": "Rcpp",
@@ -395,8 +396,7 @@
       "NeedsCompilation": "no",
       "Author": "Hadley Wickham [aut, cre]",
       "Maintainer": "Hadley Wickham <hadley@rstudio.com>",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "backports": {
       "Package": "backports",
@@ -437,7 +437,8 @@
       "License": "GPL-2 | GPL-3",
       "URL": "http://www.rforge.net/base64enc",
       "NeedsCompilation": "yes",
-      "Repository": "CRAN"
+      "Repository": "RSPM",
+      "Encoding": "UTF-8"
     },
     "bigD": {
       "Package": "bigD",
@@ -547,7 +548,8 @@
       "NeedsCompilation": "yes",
       "Author": "Steve Dutky [aut] (S original; then (after MM's port) revised and modified), Martin Maechler [cre, aut] (Initial R port; tweaks, <https://orcid.org/0000-0002-8685-9910>)",
       "Maintainer": "Martin Maechler <maechler@stat.math.ethz.ch>",
-      "Repository": "CRAN"
+      "Repository": "RSPM",
+      "Encoding": "UTF-8"
     },
     "blob": {
       "Package": "blob",
@@ -840,7 +842,7 @@
       "NeedsCompilation": "no",
       "Author": "Joseph Larmarange [aut, cre] (<https://orcid.org/0000-0001-7097-700X>), Daniel D. Sjoberg [aut] (<https://orcid.org/0000-0003-0862-2018>)",
       "Maintainer": "Joseph Larmarange <joseph@larmarange.net>",
-      "Repository": "http://rspm/default/__linux__/focal/latest"
+      "Repository": "CRAN"
     },
     "bslib": {
       "Package": "bslib",
@@ -2612,7 +2614,7 @@
       "NeedsCompilation": "no",
       "Author": "Hadley Wickham [aut] (<https://orcid.org/0000-0003-4757-117X>), Winston Chang [aut] (<https://orcid.org/0000-0002-1576-2126>), Lionel Henry [aut], Thomas Lin Pedersen [aut, cre] (<https://orcid.org/0000-0002-5147-4711>), Kohske Takahashi [aut], Claus Wilke [aut] (<https://orcid.org/0000-0002-7470-9261>), Kara Woo [aut] (<https://orcid.org/0000-0002-5125-4188>), Hiroaki Yutani [aut] (<https://orcid.org/0000-0002-3385-7233>), Dewey Dunnington [aut] (<https://orcid.org/0000-0002-9415-4582>), Teun van den Brand [aut] (<https://orcid.org/0000-0002-9335-7468>), Posit, PBC [cph, fnd]",
       "Maintainer": "Thomas Lin Pedersen <thomas.pedersen@posit.co>",
-      "Repository": "http://rspm/default/__linux__/focal/latest"
+      "Repository": "CRAN"
     },
     "gh": {
       "Package": "gh",
@@ -2941,7 +2943,7 @@
       "NeedsCompilation": "no",
       "Author": "Hadley Wickham [aut], Thomas Lin Pedersen [aut, cre], Posit Software, PBC [cph, fnd]",
       "Maintainer": "Thomas Lin Pedersen <thomas.pedersen@posit.co>",
-      "Repository": "http://rspm/default/__linux__/focal/latest"
+      "Repository": "RSPM"
     },
     "gtsummary": {
       "Package": "gtsummary",
@@ -3425,7 +3427,7 @@
       "NeedsCompilation": "yes",
       "Author": "Hadley Wickham [aut, cre] (<https://orcid.org/0000-0003-4757-117X>), Claus O. Wilke [aut] (Original author, <https://orcid.org/0000-0002-7470-9261>), Thomas Lin Pedersen [aut] (<https://orcid.org/0000-0002-5147-4711>)",
       "Maintainer": "Hadley Wickham <hadley@posit.co>",
-      "Repository": "http://rspm/default/__linux__/focal/latest"
+      "Repository": "RSPM"
     },
     "jquerylib": {
       "Package": "jquerylib",
@@ -3584,7 +3586,8 @@
         "stats",
         "graphics"
       ],
-      "Repository": "CRAN"
+      "Repository": "RSPM",
+      "Encoding": "UTF-8"
     },
     "labelled": {
       "Package": "labelled",
@@ -3632,7 +3635,7 @@
       "Config/Needs/check": "memisc",
       "NeedsCompilation": "no",
       "Author": "Joseph Larmarange [aut, cre] (ORCID: <https://orcid.org/0000-0001-7097-700X>), Daniel Ludecke [ctb], Hadley Wickham [ctb], Michal Bojanowski [ctb], François Briatte [ctb]",
-      "Repository": "http://rspm/default/__linux__/focal/latest"
+      "Repository": "CRAN"
     },
     "later": {
       "Package": "later",
@@ -6298,7 +6301,7 @@
       "Version": "0.1.3.9000",
       "Source": "GitHub",
       "Title": "Applies Display Metadata to Analysis Results Datasets",
-      "Authors@R": "c( person(\"Becca\", \"Krouse\", , \"becca.z.krouse@gsk.com\", role = c(\"aut\", \"cre\")), person(\"Christina\", \"Fillmore\", , \"christina.e.fillmore@gsk.com\", role = \"aut\", comment = c(ORCID = \"0000-0003-0595-2302\")), person(\"GlaxoSmithKline Research & Development Limited\", role = c(\"cph\", \"fnd\")), person(\"Atorus Research LLC\", role = c(\"cph\", \"fnd\")), person(\"Ellis\", \"Hughes\", , \"ellis.h.hughes@gsk.com\", role = \"aut\", comment = c(ORCID = \"0000-0003-0637-4436\")), person(\"Karima\", \"Ahmad\", , \"karima.j.ahmad@gsk.com\", role = \"aut\", comment = c(ORCID = \"0000-0002-8784-1712\")), person(\"Shannon\", \"Haughton\", , \"shannon.l.haughton@gsk.com\", role = \"aut\") )",
+      "Authors@R": "c( person(\"Becca\", \"Krouse\", , \"becca.z.krouse@gsk.com\", role = c(\"aut\", \"cre\")), person(\"Christina\", \"Fillmore\", , \"christina.e.fillmore@gsk.com\", role = \"aut\", comment = c(ORCID = \"0000-0003-0595-2302\")), person(\"Ellis\", \"Hughes\", , \"ellis.h.hughes@gsk.com\", role = \"aut\", comment = c(ORCID = \"0000-0003-0637-4436\")), person(\"Karima\", \"Ahmad\", , \"karima.j.ahmad@gsk.com\", role = \"aut\", comment = c(ORCID = \"0000-0002-8784-1712\")), person(\"Shannon\", \"Haughton\", , \"shannon.l.haughton@gsk.com\", role = \"aut\"), person(\"Dragoș\", \"Moldovan-Grünfeld\", , \"dragos.v.moldovan-grunfeld@gsk.com\", role = \"aut\"), person(\"GlaxoSmithKline Research & Development Limited\", role = c(\"cph\", \"fnd\")), person(\"Atorus Research LLC\", role = c(\"cph\", \"fnd\")) )",
       "Description": "Creates a framework to store and apply display metadata to Analysis Results Datasets (ARDs). The use of 'tfrmt' allows users to define table format and styling without the data, and later apply the format to the data.",
       "License": "Apache License (>= 2)",
       "URL": "https://GSK-Biostatistics.github.io/tfrmt/, https://github.com/GSK-Biostatistics/tfrmt",
@@ -6341,14 +6344,14 @@
       "LazyData": "true",
       "Roxygen": "list(markdown = TRUE)",
       "RoxygenNote": "7.3.2",
-      "Author": "Becca Krouse [aut, cre], Christina Fillmore [aut] (ORCID: <https://orcid.org/0000-0003-0595-2302>), GlaxoSmithKline Research & Development Limited [cph, fnd], Atorus Research LLC [cph, fnd], Ellis Hughes [aut] (ORCID: <https://orcid.org/0000-0003-0637-4436>), Karima Ahmad [aut] (ORCID: <https://orcid.org/0000-0002-8784-1712>), Shannon Haughton [aut]",
+      "Author": "Becca Krouse [aut, cre], Christina Fillmore [aut] (<https://orcid.org/0000-0003-0595-2302>), Ellis Hughes [aut] (<https://orcid.org/0000-0003-0637-4436>), Karima Ahmad [aut] (<https://orcid.org/0000-0002-8784-1712>), Shannon Haughton [aut], Dragoș Moldovan-Grünfeld [aut], GlaxoSmithKline Research & Development Limited [cph, fnd], Atorus Research LLC [cph, fnd]",
       "Maintainer": "Becca Krouse <becca.z.krouse@gsk.com>",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteUsername": "GSK-Biostatistics",
       "RemoteRepo": "tfrmt",
-      "RemoteRef": "feat-card-prep-for-tfrmt",
-      "RemoteSha": "db7771d292194f6878ccd6309ba79869f48b6639"
+      "RemoteRef": "main",
+      "RemoteSha": "4f2958064a28df63d84ccbbda8ce73078722fe14"
     },
     "tibble": {
       "Package": "tibble",
@@ -7242,7 +7245,8 @@
       "URL": "https://github.com/vubiostat/r-yaml/",
       "BugReports": "https://github.com/vubiostat/r-yaml/issues",
       "NeedsCompilation": "yes",
-      "Repository": "CRAN"
+      "Repository": "RSPM",
+      "Encoding": "UTF-8"
     },
     "zip": {
       "Package": "zip",
