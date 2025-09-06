@@ -4,6 +4,9 @@
 #| include: false
 library(glue)
 library(countdown)
+library(tibble)
+library(admiral)
+library(lubridate)
 
 # Package hexes
 metacore_img <- "https://raw.githubusercontent.com/atorus-research/metacore/master/man/figures/metacore.PNG"
@@ -28,6 +31,7 @@ img_center_size <- 300
 -   By the end of this ADaM section you will have:
     - **Gained** an understanding of how to use `admiral`, `metatools/metacore`, and `xportr` packages to create       ADaMs
     - **Seen** code executed to create variables and records common to `ADSL` and `ADVS`.
+    - **Seen** small code snippets of certain functions with data
     - **Checked** in on our fav participant - Barb 
 :::
 
@@ -45,7 +49,7 @@ img_center_size <- 300
 ## Play by Play
 
 ::: incremental
--   🕙11:00 - 11:15 Set the Stage: Overview of processes, datasets, specs, packages, functions
+-   🕙11:00 - 11:15 Set the Stage: Overview of how we will work, datasets, specs, packages, functions
 
 -   🕥11:15 - 11:45 Subject-level dataset: `ADSL`
 
@@ -68,11 +72,11 @@ img_center_size <- 300
 
 ::: incremental
 
-*  processes
-*  Data
-*  Specs
+*  How we will work for the next 90 minutes
+*  Data (SDTMs, ADSL, and ADVS)
+*  Specs (Excel document with lots of tabs)
 *  pharmaverse packages
-*  functions
+*  Functions to make ADaM variables and records!!
 :::
 
 # How we will proceed today?
@@ -99,12 +103,14 @@ img_center_size <- 300
 <div style="text-align: center;"> <img src="./images/adsl.png" alt="adsl" style="width: 600px;"/> </div>
 
 * ADSL - Subject Level Dataset, i.e each subject has a record.  Focus on adding variables.
+* We will use SDTM data from the [pharmaversesdtm package](TBL)
 
 ## ADVS - Subject Level Dataset (dpi / needs fix)
 
 <div style="text-align: center;"> <img src="./images/adsl.png" alt="advs" style="width: 600px;"/> </div>
 
-* ADVS - Basic Data Structure (BDS) Dataset. Focus on adding records.
+* ADVS - Basic Data Structure (BDS) Dataset. Focus on adding records, but also some variables!
+* We will use SDTM data from the [pharmaversesdtm package](TBL)
 
 # Specs
 
@@ -118,7 +124,7 @@ img_center_size <- 300
   -   Two datasets, dataset labels and variable keys
   -   Variables - labels, lengths, types, linked to method
   -   Codelists!!
-  -   No VLMs
+  -   No VLMs 
 
 ## The core pharmaverse packages
 
@@ -210,8 +216,11 @@ spec_to_metacore(
   where_sep_sheet = FALSE,
   quiet = TRUE
 ) %>%
-  select_dataset("ADVS")
+  select_dataset("ADSL")
 ```
+
+* Takes a P21-like spec and makes it into an object we can easily access
+* `quiet` argument should be set to `TRUE` while developing your spec and ADaMs.
 
 ## Combine Parent and Supplementary Data (Lines: )
 
@@ -219,11 +228,9 @@ spec_to_metacore(
 dm_suppdm <- combine_supp(dm, suppdm)
 ```
 
-* One line of code to join two datasets!
-* Collecting non-standard data and linking to parent
+* One line of code to join two datasets: parent and supplementary!
+* Supps usually collectnon-standard data and linking to parent
 * Function is from `{metatools}`
-
-* Maybe a dm record linked to suppdm record here??
 
 ## Let's turn a `--DTC` to a `*DTM` variable (Lines: )
 
@@ -235,6 +242,32 @@ derive_vars_dtm(
   flag_imputation = "time"
 )
 ```
+
+## Example from documentation {.smaller}
+
+```{r}
+mhdt <- tribble(
+  ~MHSTDTC,
+  "2019-07-18T15:25:40",
+  "2019-07-18T15:25",
+  "2019-07-18",
+  "2019-02",
+  "2019",
+  "2019---07",
+  ""
+)
+
+derive_vars_dtm(
+ mhdt,
+ new_vars_prefix = "AST",
+ dtc = MHSTDTC,
+ date_imputation = "last",
+ time_imputation = "last",
+ highest_imputation = "M"
+)
+
+```
+
 
 ## Woah...there is more!!
 
@@ -305,6 +338,29 @@ derive_vars_duration(
   )
 ```
 
+## Example from documentation {.smaller}
+
+```{r}
+# Derive age in years
+data <- tribble(
+  ~USUBJID, ~BRTHDT, ~RANDDT,
+  "P01", ymd("1984-09-06"), ymd("2020-02-24"),
+  "P02", ymd("1985-01-01"), NA,
+  "P03", NA, ymd("2021-03-10"),
+  "P04", NA, NA
+)
+
+derive_vars_duration(data,
+  new_var = AAGE,
+  new_var_unit = AAGEU,
+  start_date = BRTHDT,
+  end_date = RANDDT,
+  out_unit = "years",
+  add_one = FALSE,
+  trunc_out = TRUE
+)
+```
+
 ## Ohhh there is more!!
 
 ::: {.codewindow style="font-size: 0.6em;"}
@@ -336,6 +392,8 @@ adsl16 %>%
   create_var_from_codelist(metacore, input_var = TRT01P, out_var = TRT01PN) %>%
   create_var_from_codelist(metacore, input_var = TRT01A, out_var = TRT01AN)
 ```
+
+* Numeric Variables like the above are helpful for sorting in TLFs.
 
 ## More details
 
@@ -379,7 +437,7 @@ d)  `derive_vars_exsdtc()`
 ## The Big Picture of ADVS
 
 * We have an ADVS script:
-  * Using `pharmaversesdtm` data: ...
+  * Using `pharmaversesdtm` data: `vs`
   * Uses the ADVS section of our spec file
   * Creating a **multiple records** for each subject
   * ADSL information included
@@ -447,6 +505,7 @@ derive_param_computed(
   constant_parameters = NULL,
   keep_nas = FALSE
 )
+```
 :::
 
 ## Let't derive DTYPE summary records
@@ -462,9 +521,6 @@ derive_summary_records(
   )
 )
 ```
-
-::: {.codewindow style="font-size: 0.6em;"}
-```r
 
 ## Let's restrict!
 
@@ -562,6 +618,3 @@ sessionInfo()
 }
 ```
 
-## R/Pharma ADaM Workshop Starting at 10:02 US EST
-
-![](waiting.jpg){.center}
