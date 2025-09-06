@@ -27,7 +27,7 @@ img_center_size <- 300
 ::: incremental
 -   By the end of this ADaM section you will have:
     - **Gained** an understanding of how to use `admiral`, `metatools/metacore`, and `xportr` packages to create       ADaMs
-    - **Seen** code executed to create ADaMs: `ADSL` and `ADVS`.
+    - **Seen** code executed to create variables and records common to `ADSL` and `ADVS`.
     - **Checked** in on our fav participant - Barb 
 :::
 
@@ -45,7 +45,7 @@ img_center_size <- 300
 ## Play by Play
 
 ::: incremental
--   🕙11:00 - 11:15 Set the Stage: Overview of datasets, specs, processes, packages, functions
+-   🕙11:00 - 11:15 Set the Stage: Overview of processes, datasets, specs, packages, functions
 
 -   🕥11:15 - 11:45 Subject-level dataset: `ADSL`
 
@@ -83,9 +83,9 @@ img_center_size <- 300
 ## How we will proceed today?
 
 ::: incremental
--   I will walk you through certain parts of the  `ADSL` and `ADVS` R sripts
-    -   Discussion on **certain** function and function arguments from [scripts](TBL)
-    -   Will pull up full function for more discussion.   
+-   I will walk you through certain parts of the  `ADSL` and `ADVS` R scripts
+    -   Discussion on **certain** functions and function arguments from [scripts](TBL)
+    -   Will pull up full function documentation for more discussion.   
 -   Important to move along quickly:
     -   Can discuss issues/questions in the break.
     -   Code should run out of the box - but have to wait to diagnose.
@@ -113,7 +113,7 @@ img_center_size <- 300
 ## Spec-details
 
 - Gives specifics on how we derive variables in the ADaMs (extreme traceability)
-- Not fit for purpose - just a helpful guide
+- These specs are not fit for purpose - just a helpful guide
 - What is in the the Specs:
   -   Two datasets, dataset labels and variable keys
   -   Variables - labels, lengths, types, linked to method
@@ -137,13 +137,18 @@ Focus on **preparing** the dataset as an xpt file to be sent to regulatory agenc
 
 ## pharmaverse plays nice!
 
+`r glue("<img src={dplyr_img} height='{img_bullet_size}' style='display:inline-block; vertical-align:middle; margin-right:0.3em;'/>")`
+`r glue("<img src={str_img} height='{img_bullet_size}' style='display:inline-block; vertical-align:middle; margin-right:0.3em;'/>")`
+`r glue("<img src={haven_img} height='{img_bullet_size}' style='display:inline-block; vertical-align:middle; margin-right:0.3em;'/>")`
+`r glue("<img src={lub_img} height='{img_bullet_size}' style='display:inline-block; vertical-align:middle; margin-right:0.3em;'/>")`
+
 ::: incremental
 - The ADaM code presented today utilizes all the previously mentioned packages, but also
 makes use of tidyverse and base R code.
 
 - If a function isn't meeting your needs or looks too cumbersome, then that is okay!
 
-- These packages are all modular and play well with others!
+- These packages are all modular and play well with others like 
 :::
 
 ## admiral {.smaller}
@@ -195,7 +200,7 @@ Most functions in admiral follow these conventions:
 * We have an ADSL script:
   * Using pharmaversesdtm data: dm, suppdm, ex, ae, vs, etc
   * Uses the ADSL section of our spec file
-  * Creating a single record for each subject
+  * Creating a single record for each subject with a lot of variables!!
   
 ## Reading in our spec for ADSL (Lines: )
 
