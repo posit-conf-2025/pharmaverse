@@ -39,10 +39,10 @@ img_center_size <- 300
 
 ::: incremental
 *   Basic knowledge of CDISC Standards (ADaM and SDTM Domains)
-*   Check out the [ADaM IG and other documents for CDISC](https://www.cdisc.org/standards/foundational/adam) 
-    *   These are great but tome-like!!
-* Check out [admiral](https://pharmaverse.github.io/admiral/cran-release/) and [admiraldiscovery](https://pharmaverse.github.io/admiraldiscovery/articles/reactable.html) for CDISC implementation
-    *   I always like to code immediately to understand a process!
+    *   Check out the [ADaM IG and other documents for CDISC](https://www.cdisc.org/standards/foundational/adam) 
+        *   These are great but tome-like!!
+    * Check out [admiral](https://pharmaverse.github.io/admiral/cran-release/) and [admiraldiscovery](https://pharmaverse.github.io/admiraldiscovery/articles/reactable.html) for CDISC implementation
+        *   I always like to code immediately to understand a process!
 *   🦺 But even lacking CDISC knowledge, we still think you will gain some great learning today! 🦺
 :::
 
@@ -89,7 +89,8 @@ img_center_size <- 300
 ::: incremental
 -   I will walk you through certain parts of the  `ADSL` and `ADVS` R scripts
     -   Discussion on **certain** functions and function arguments from [scripts](TBL)
-    -   Will pull up full function documentation for more discussion.   
+    -   Will pull up full function documentation for more discussion. 
+    -   When possible will have some play data and mini-runs of the function.
 -   Important to move along quickly:
     -   Can discuss issues/questions in the break.
     -   Code should run out of the box - but have to wait to diagnose.
