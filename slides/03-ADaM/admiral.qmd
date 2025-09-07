@@ -31,7 +31,7 @@ img_center_size <- 300
 -   By the end of this ADaM section you will have:
     - **Gained** an understanding of how to use `admiral`, `metatools/metacore`, and `xportr` packages to create       ADaMs
     - **Seen** code executed to create variables and records common to `ADSL` and `ADVS`.
-    - **Seen** small code snippets of certain functions with data
+    - **Seen** small code snippets of certain functions with play data.
     - **Checked** in on our fav participant - Barb 
 :::
 
@@ -42,8 +42,8 @@ img_center_size <- 300
 *   Check out the [ADaM IG and other documents for CDISC](https://www.cdisc.org/standards/foundational/adam) 
     *   These are great but tome-like!!
 * Check out [admiral](https://pharmaverse.github.io/admiral/cran-release/) and [admiraldiscovery](https://pharmaverse.github.io/admiraldiscovery/articles/reactable.html) for CDISC implementation
-    *   I always like to code immedialtely to understand a process!
-*   🦺 But even lacking CDSIC knowledge, we still think you will gain some great learnings today! 🦺
+    *   I always like to code immediately to understand a process!
+*   🦺 But even lacking CDISC knowledge, we still think you will gain some great learning today! 🦺
 :::
 
 ## Play by Play
@@ -175,7 +175,7 @@ Most functions in admiral follow these conventions:
 ::: {.incremental}
 
 * `var_` or `_vars_` functions add variable(s) to ADaMs
-* `_param_` functions add records to ADaMS
+* `_param_` functions add records to ADaMs
 * Other not following this convention typically do more advanced stuff...
 
 ::: 
@@ -229,7 +229,7 @@ dm_suppdm <- combine_supp(dm, suppdm)
 ```
 
 * One line of code to join two datasets: parent and supplementary!
-* Supps usually collectnon-standard data and linking to parent
+* Supps usually are a collection non-standard data and linking to parent
 * Function is from `{metatools}`
 
 ## Let's turn a `--DTC` to a `*DTM` variable (Lines: )
@@ -508,7 +508,7 @@ derive_param_computed(
 ```
 :::
 
-## Let't derive DTYPE summary records
+## Let's derive DTYPE summary records
 
 ```{.r code-line-numbers="1|2|3|4|5|6|7|8|9|10"}
 derive_summary_records(
@@ -583,7 +583,7 @@ at any time point?
 
 > -   [admiraldiscovery](https://pharmaverse.github.io/admiraldiscovery/)
 > -   [pharmaverse examples](https://github.com/pharmaverse/examples)
-> -   pgkdown sites for
+> -   pkgdown sites for
 >     [xportr](https://atorus-research.github.io/xportr/),
 >     [metatools](https://pharmaverse.github.io/metatools/),
 >     [metacore](https://atorus-research.github.io/metacore/) and
@@ -603,7 +603,7 @@ at any time point?
 > -   Finally, be sure to join our community on
 >     [Slack!](https://join.slack.com/t/pharmaverse/shared_invite/zt-yv5atkr4-Np2ytJ6W_QKz_4Olo7Jo9A)
 
-## Pacakges and Session Information
+## Packages and Session Information
 
 ```{r}
 #| class-output: hscroll
