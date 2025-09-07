@@ -104,14 +104,16 @@ img_center_size <- 300
 <div style="text-align: center;"> <img src="./images/adsl.png" alt="adsl" style="width: 600px;"/> </div>
 
 * ADSL - Subject Level Dataset, i.e each subject has a record.  Focus on adding variables.
-* We will use SDTM data from the [pharmaversesdtm package](TBL)
+* We will use SDTM data from the [pharmaversesdtm package](https://pharmaverse.github.io/pharmaversesdtm/)
+and the `ADSL` created in the script.  
+* Both datasets are also housed in the [pharmaverseadam package]
 
-## ADVS - Subject Level Dataset (dpi / needs fix)
+## ADVS - Subject Level Dataset
 
-<div style="text-align: center;"> <img src="./images/adsl.png" alt="advs" style="width: 600px;"/> </div>
+<div style="text-align: center;"> <img src="./images/advs.png" alt="advs" style="width: 600px;"/> </div>
 
 * ADVS - Basic Data Structure (BDS) Dataset. Focus on adding records, but also some variables!
-* We will use SDTM data from the [pharmaversesdtm package](TBL)
+* We will use SDTM data `vs` from the [pharmaversesdtm package]
 
 # Specs
 
