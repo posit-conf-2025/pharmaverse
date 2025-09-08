@@ -24,7 +24,7 @@ vs <- pharmaversesdtm::vs
 vs <- convert_blanks_to_na(vs)
 
 # ---- Load Specs for Metacore ----
-metacore <- spec_to_metacore(
+advs_spec <- spec_to_metacore(
   path = "slides/03-ADaM/metadata/posit_specs.xlsx",
   where_sep_sheet = FALSE,
   quiet = TRUE
@@ -279,17 +279,17 @@ advs <- advs %>%
     by_vars = exprs(PARAMCD)
   )
 
-get_control_term(metacore, variable = PARAM)
+get_control_term(advs_spec, variable = PARAM)
 
 advs <- advs %>%
   create_var_from_codelist(
-    metacore,
+    advs_spec,
     input_var = PARAMCD,
     out_var = PARAM,
     decode_to_code = FALSE # input_var is the code column of the codelist
   ) %>%
   create_var_from_codelist(
-    metacore,
+    advs_spec,
     input_var = PARAMCD,
     out_var = PARAMN
   )
@@ -304,16 +304,16 @@ dir <- tempdir() # Specify the directory for saving the XPT file
 
 # Apply metadata and perform checks
 advs_prefinal <- advs %>%
-  drop_unspec_vars(metacore) %>% # Drop unspecified variables from specs
-  check_variables(metacore, dataset_name = "ADVS") %>% # Check all variables specified are present and no more
-  order_cols(metacore) %>% # Orders the columns according to the spec
-  sort_by_key(metacore) # Sorts the rows by the sort keys
+  drop_unspec_vars(advs_spec) %>% # Drop unspecified variables from specs
+  check_variables(advs_spec, dataset_name = "ADVS") %>% # Check all variables specified are present and no more
+  order_cols(advs_spec) %>% # Orders the columns according to the spec
+  sort_by_key(advs_spec) # Sorts the rows by the sort keys
 
 # Apply apply labels, formats, and export the dataset to an XPT file.
 advs_final <- advs_prefinal %>%
-  xportr_type(metacore) %>%
-  xportr_length(metacore) %>%
-  xportr_label(metacore) %>%
-  xportr_format(metacore, domain = "ADVS") %>%
-  xportr_df_label(metacore, domain = "ADVS") %>%
-  xportr_write(file.path(dir, "advs.xpt"), metadata = metacore, domain = "ADVS")
+  xportr_type(advs_spec) %>%
+  xportr_length(advs_spec) %>%
+  xportr_label(advs_spec) %>%
+  xportr_format(advs_spec, domain = "ADVS") %>%
+  xportr_df_label(advs_spec, domain = "ADVS") %>%
+  xportr_write(file.path(dir, "advs.xpt"), metadata = advs_spec, domain = "ADVS")

@@ -319,6 +319,7 @@ derive_vars_merged(
 ```
 
 * Filter, join and rename is a common pattern in ADaMs.
+* `rlang::exprs()` is used in a lot of of admiral functions where...
 
 ## Whoa!!! Way more options!!
 
@@ -358,11 +359,11 @@ derive_vars_duration(
 ```{r}
 # Derive age in years
 data <- tribble(
-  ~USUBJID, ~BRTHDT, ~RANDDT,
-  "P01", ymd("1984-09-06"), ymd("2020-02-24"),
-  "P02", ymd("1985-01-01"), NA,
-  "P03", NA, ymd("2021-03-10"),
-  "P04", NA, NA
+  ~USUBJID, ~BRTHDT,           ~RANDDT,
+  "P01",    ymd("1984-09-06"), ymd("2020-02-24"),
+  "P02",    ymd("1985-01-01"), NA,
+  "P03",    NA,                ymd("2021-03-10"),
+  "P04",    NA,                NA
 )
 
 derive_vars_duration(data,
@@ -426,23 +427,13 @@ create_var_from_codelist(
 ```
 :::
 
-# Check in on Barb / Exercise
+# Check in on Barb / Exercise 
+
+🕚11:40 - 11:50
 
 ## Check in on Barb
 
 ## Check-in Exercise
-
-Which `admiral` function can be used to turn a `---DTC` variable into a
-`*DTM` variable
-
-::: incremental
-a)  `derive_vars_dtc()`
-b)  `derive_var_trtdurd()`
-c)  `derive_vars_dtm()`
-d)  `derive_vars_exsdtc()`
-
--   Correct Answer: c) `derive_vars_dtm()`
-:::
 
 # `ADVS`
 
@@ -578,6 +569,8 @@ advs <- advs_final %>%
 ## Check in on Barb
 
 ## Check-in Exercise
+
+🕦 12:20 - 12:30
 
 ## Questions and Resources
 

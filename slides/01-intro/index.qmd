@@ -38,4 +38,22 @@ Why are we here?
 
 ## Workshop outline
 
+## End to End with Barb!!
+
+<div style="text-align: left;"> <img src="barb.png" alt="Barb!" style="width: 200px;"/> </div>
+ 
+```{mermaid}
+%%| echo: FALSE
+flowchart LR
+  A[Raw] --> B[SDTM]
+  B[SDTM] --> C[ADaM]
+  C[ADaM] --> D[ARD]
+  D[ARD] --> E[TFL]
+```
+
+* Barb is on a journey from raw to TFL.
+* At various points we will be finding Barb in our data as we transform from Raw to TFL.
+
+
+
 

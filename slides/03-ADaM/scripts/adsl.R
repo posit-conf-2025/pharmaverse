@@ -17,7 +17,7 @@ library(metatools)
 library(xportr)
 
 # ---- Load Specs for Metacore ----
-metacore <- spec_to_metacore(
+adsl_spec <- spec_to_metacore(
   path = "slides/03-ADaM/metadata/posit_specs.xlsx",
   where_sep_sheet = FALSE,
   quiet = TRUE
@@ -274,25 +274,25 @@ adsl16 <- adsl15 %>%
 # Numeric Variables are from Spec File ----
 ## (AGEGR1N, RACEN, RACEGR1N, REGION1N, TRT01PN, TRT01AN)
 adsl17 <- adsl16 %>%
-  create_var_from_codelist(metacore, input_var = AGEGR1, out_var = AGEGR1N) %>%
-  create_var_from_codelist(metacore, input_var = RACE, out_var = RACEN) %>%
-  create_var_from_codelist(metacore, input_var = RACEGR1, out_var = RACEGR1N) %>%
-  create_var_from_codelist(metacore, input_var = REGION1, out_var = REGION1N) %>%
-  create_var_from_codelist(metacore, input_var = TRT01P, out_var = TRT01PN) %>%
-  create_var_from_codelist(metacore, input_var = TRT01A, out_var = TRT01AN)
+  create_var_from_codelist(adsl_spec, input_var = AGEGR1, out_var = AGEGR1N) %>%
+  create_var_from_codelist(adsl_spec, input_var = RACE, out_var = RACEN) %>%
+  create_var_from_codelist(adsl_spec, input_var = RACEGR1, out_var = RACEGR1N) %>%
+  create_var_from_codelist(adsl_spec, input_var = REGION1, out_var = REGION1N) %>%
+  create_var_from_codelist(adsl_spec, input_var = TRT01P, out_var = TRT01PN) %>%
+  create_var_from_codelist(adsl_spec, input_var = TRT01A, out_var = TRT01AN)
 
 # View(adsl17 %>% select(USUBJID, ends_with("N")))
 
 # Final Preparation ----
 ## Ordering, Sorting by Key, Labels, Types, Lengths, XPT ----
 adsl <- adsl17 %>%
-  drop_unspec_vars(metacore) %>% # Drop unspecified variables from specs
-  check_variables(metacore, dataset_name = "ADSL") %>% # Check all variables specified are present and no more
-  order_cols(metacore) %>% # Orders the columns according to the spec
-  sort_by_key(metacore) %>% # Sorts the rows by the sort keys
-  xportr_type(metacore) %>%
-  xportr_length(metacore) %>%
-  xportr_label(metacore) %>%
-  xportr_format(metacore) %>%
-  xportr_df_label(metacore, domain = "ADSL") %>%
-  xportr_write(path = "slides/03-ADaM/datasets/adsl.xpt", metadata = metacore)
+  drop_unspec_vars(adsl_spec) %>% # Drop unspecified variables from specs
+  check_variables(adsl_spec, dataset_name = "ADSL") %>% # Check all variables specified are present and no more
+  order_cols(adsl_spec) %>% # Orders the columns according to the spec
+  sort_by_key(adsl_spec) %>% # Sorts the rows by the sort keys
+  xportr_type(adsl_spec) %>%
+  xportr_length(adsl_spec) %>%
+  xportr_label(adsl_spec) %>%
+  xportr_format(adsl_spec) %>%
+  xportr_df_label(adsl_spec, domain = "ADSL") %>%
+  xportr_write(path = "slides/03-ADaM/datasets/adsl.xpt", metadata = adsl_spec)
