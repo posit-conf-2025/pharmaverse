@@ -291,7 +291,7 @@
 <section>
 <section id="ards-using-cards" class="title-slide slide level1 center">
 <h1>ARDs using {cards}</h1>
-<p><a href="https://insightsengineering.github.io/cards/"><img src="https://insightsengineering.github.io/cards/latest-tag/logo.png" align="center" height="300" alt="cards website"></a></p>
+<p><a href="https://insightsengineering.github.io/cards/"><img src="https://raw.githubusercontent.com/insightsengineering/cards/main/man/figures/logo.png" align="center" height="300" alt="cards website"></a></p>
 </section>
 <section id="cards-introduction" class="slide level2">
 <h2>{cards}: Introduction</h2>
@@ -513,6 +513,7 @@
 <div class="small">
 <ul>
 <li>includes <code>n</code>, <code>%</code>, <code>N</code> by default</li>
+<li><em>Any unobserved levels of the variables will be present in the resulting ARD.</em></li>
 </ul>
 </div>
 <div class="cell">
@@ -546,9 +547,6 @@
 <div class="cell-output cell-output-stderr">
 <pre><code>ℹ 4 more variables: context, fmt_fun, warning, error</code></pre>
 </div>
-</div>
-<div class="small">
-<p><em>Any unobserved levels of the variables will be present in the resulting ARD.</em></p>
 </div>
 </section>
 <section id="cards-other-summary-functions" class="slide level2">
@@ -804,7 +802,7 @@
 </ul>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_fa3a9340" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_f22a95f8" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">08</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -879,11 +877,13 @@
 </section>
 <section id="cardx-t-test-example-1" class="slide level2">
 <h2>{cardx} t-test Example</h2>
+<div class="small">
 <ul>
 <li><p><em>What to do if a method you need is not implemented?</em></p></li>
 <li><p>It’s simple to wrap existing frameworks to customize.</p></li>
 <li><p>One-sample t-test example utilizing <code>cards::ard_continuous()</code>.</p></li>
 </ul>
+</div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a></a>pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
 <span id="cb52-2"><a></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(ARM <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Xanomeline High Dose"</span>, <span class="st">"Xanomeline Low Dose"</span>)) <span class="sc">|&gt;</span></span>
@@ -913,9 +913,11 @@
 </section>
 <section id="cardx-t-test-example-2" class="slide level2">
 <h2>{cardx} t-test Example</h2>
+<div class="small">
 <ul>
 <li>How to modify if we need a two-sample test, or more generally accessing other columns in the data frame.</li>
 </ul>
+</div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a></a>pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
 <span id="cb56-2"><a></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(ARM <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Xanomeline High Dose"</span>, <span class="st">"Xanomeline Low Dose"</span>)) <span class="sc">|&gt;</span></span>
@@ -958,6 +960,7 @@
 </section>
 <section id="cardx-regression-1" class="slide level2">
 <h2>{cardx} Regression</h2>
+<div class="small">
 <p>The <code>cardx::ard_regression()</code> does <strong>a lot</strong> for us in the background.</p>
 <ul>
 <li>Identifies the variable from the regression terms (i.e.&nbsp;groups levels of the same variable)</li>
@@ -967,6 +970,7 @@
 <li>Contextually aware of slopes, odds ratios, hazard ratios, and incidence rate ratios</li>
 <li>And much <em><strong>much</strong></em> more.</li>
 </ul>
+</div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a></a><span class="fu">lm</span>(AGE <span class="sc">~</span> ARM, <span class="at">data =</span> cards<span class="sc">::</span>ADSL) <span class="sc">|&gt;</span></span>
 <span id="cb60-2"><a></a>  cardx<span class="sc">::</span><span class="fu">ard_regression</span>(<span class="at">add_estimate_to_reference_rows =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -987,7 +991,9 @@
 </section>
 <section id="when-things-go-wrong" class="slide level2">
 <h2>When things go wrong 😱</h2>
+<div class="small">
 <p>What happens when statistics are un-calculable?</p>
+</div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a></a>ard_gone_wrong <span class="ot">&lt;-</span> </span>
 <span id="cb62-2"><a></a>  cards<span class="sc">::</span>ADSL <span class="sc">|&gt;</span> </span>
