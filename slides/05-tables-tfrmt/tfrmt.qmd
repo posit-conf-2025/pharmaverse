@@ -641,6 +641,8 @@ print_to_gt(
 
 ## cards to tfrmt - How did we get here?
 
+::: {.small}
+
 {tfrmt} includes several helper functions to transform native {cards} output to display-ready data. Functionality includes:
 
 - Coalesce/rename the group and variable names/levels
@@ -650,6 +652,8 @@ print_to_gt(
 - Prepare big N rows for headers
 
 To explore, let's start with the result of our `cards::ard_stack()` call.
+
+:::
 
 ```{r}
 library(cards)
@@ -708,15 +712,28 @@ ard_demog_display
 
 ## cards to tfrmt
 
+::: {.small}
+
 Take a look at our "big N" (i.e. population counts) rows:
+
+:::
 
 ```{r}
 ard_demog_display |> 
   dplyr::filter(stat_variable %in% c("TRT01A", "..ard_total_n.."))
 ```
 
-First, we only need the counts themselves, not denominators or percentages. Second, we need to give these a unique stat name to distinguish them for the `big_n_structure` in {tfrmt}. We can use the `prep_big_n()` function for this:
+::: {.small} 
 
+First, we only need the counts themselves, not denominators or percentages. Second, we need to give these a unique stat name to distinguish them for the `big_n_structure` in {tfrmt}. 
+
+:::
+
+## cards to tfrmt
+
+::: {.small} 
+We can use the `prep_big_n()` function for this:
+:::
 ```{r}
 #| code-line-numbers: "5, 7, 8"
 
@@ -732,9 +749,10 @@ ard_demog_display |>
 
 ## cards to tfrmt
 
+::: {.small} 
+
 Finally, we can do any other necessary manipulations like relabeling or adding order variables before passing to `tfrmt()`.
-
-
+:::
 
 ```{r}
 #| output-location: "column"
