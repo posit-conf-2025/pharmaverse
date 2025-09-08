@@ -51,13 +51,13 @@ img_center_size <- 300
 ::: incremental
 -   🕙11:00 - 11:15 Set the Stage: Overview of how we will work, datasets, specs, packages, functions
 
--   🕥11:15 - 11:45 Subject-level dataset: `ADSL`
+-   🕥11:15 - 11:40 Subject-level dataset: `ADSL`
 
--   🕚11:45 - 11:50 Check in on Barb / Quick Q
+-   🕚11:40 - 11:50 Check in on Barb / Exercise
 
--   🕦11:50 - 12:25 Basic Data Structure: `ADVS`
+-   🕦11:50 - 12:20 Basic Data Structure: `ADVS`
 
--   🕚12:25 - 12:30 Check in on Barb / Quick Q
+-   🕚12:20 - 12:30 Check in on Barb / Exercise
 
 -   🕚12:30 Lunch!
 :::
@@ -72,7 +72,7 @@ img_center_size <- 300
 
 ::: incremental
 
-*  How we will work for the next 90 minutes
+*  How we will work for the next 90 minutes?
 *  Data (SDTMs, ADSL, and ADVS)
 *  Specs (Excel document with lots of tabs)
 *  pharmaverse packages
@@ -88,32 +88,38 @@ img_center_size <- 300
 
 ::: incremental
 -   I will walk you through certain parts of the  `ADSL` and `ADVS` R scripts
-    -   Discussion on **certain** functions and function arguments from [scripts](TBL)
-    -   Will pull up full function documentation for more discussion. 
+    - Let's take a quick peek at [scripts](TBL).
+    -   Discussion on **certain** functions and function arguments from [scripts](TBL) for deriving variables/records. 
+    -   Will pull up full function arguments to briefly highlight other powers. 
     -   When possible will have some play data and mini-runs of the function.
--   Important to move along quickly:
-    -   Can discuss issues/questions in the break.
-    -   Code should run out of the box - but have to wait to diagnose.
+-   Two exercises set up to help explore two key functions discussed:
+    - `derive_vars_dtm()`
+    - `derive_param_computed()`
+-   Brief notes on the code in script and exercises:
+    -   Code in scripts should run out of the box.
+    -   Exercises will need some lite updates.
+    -   3 folks not presenting can help diagnose issues. 
 :::
 
 
 # Datasets
 
-## ADSL - Subject Level Dataset (dpi / needs fix)
+## ADSL - Subject Level Dataset  
 
-<div style="text-align: center;"> <img src="./images/adsl.png" alt="adsl" style="width: 600px;"/> </div>
+<div style="text-align: center;"> <img src="./images/adsl.png" alt="adsl" style="width: 700px;"/> </div>
 
 * ADSL - Subject Level Dataset, i.e each subject has a record.  Focus on adding variables.
-* We will use SDTM data from the [pharmaversesdtm package](https://pharmaverse.github.io/pharmaversesdtm/)
-and the `ADSL` created in the script.  
-* Both datasets are also housed in the [pharmaverseadam package]
+* We will use SDTM data from the [pharmaversesdtm package](https://pharmaverse.github.io/pharmaversesdtm/).  
+* ADSL is available in the [pharmaverseadam package](https://pharmaverse.github.io/pharmaverseadam/)
 
-## ADVS - Subject Level Dataset
+## ADVS - Vital Signs Dataset
 
-<div style="text-align: center;"> <img src="./images/advs.png" alt="advs" style="width: 600px;"/> </div>
+<div style="text-align: center;"> <img src="./images/advs.png" alt="advs" style="width: 700px;"/> </div>
 
 * ADVS - Basic Data Structure (BDS) Dataset. Focus on adding records, but also some variables!
-* We will use SDTM data `vs` from the [pharmaversesdtm package]
+* We will use SDTM data `vs` from the [pharmaversesdtm package](https://pharmaverse.github.io/pharmaversesdtm/) and
+ADSL from [dataset](TBL) created by the `adsl.R` script.
+* ADVS is available in the [pharmaverseadam package](https://pharmaverse.github.io/pharmaverseadam/)
 
 # Specs
 
@@ -122,14 +128,18 @@ and the `ADSL` created in the script.
 ## Spec-details
 
 - Gives specifics on how we derive variables in the ADaMs (extreme traceability)
+- P21-like spec
+    - P21 is spec/data validation tool widely used in the industry for creating SDTMs
+    and ADaMs
 - These specs are not fit for purpose - just a helpful guide
 - What is in the the Specs:
   -   Two datasets, dataset labels and variable keys
   -   Variables - labels, lengths, types, linked to method
   -   Codelists!!
   -   No VLMs 
+- Let's take a quick peek at [metadata](TBL)
 
-## The core pharmaverse packages
+## The core pharmaverse packages for creating ADaMs
 
 `r glue("<img src={metacore_img} height='{img_bullet_size}' style='display:inline-block; vertical-align:middle; margin-right:0.3em;'/>")`
 `r glue("<img src={metatools_img} height='{img_bullet_size}' style='display:inline-block; vertical-align:middle; margin-right:0.3em;'/>")`
@@ -169,9 +179,7 @@ makes use of tidyverse and base R code.
 | admiral | derive_vars_dy()            | Create the relative study day |
 | admiral | derive_vars_dtm()           | Take a `---DTC` variable and turn it into a `---DTM` variable |
 | admiral | derive_vars_duration()      | Duration between timepoints |
-| admiral | restrict_derivation()       | HOF:  |
-| admiral | derive_var_extreme_flag()   | ... |
-
+| admiral | restrict_derivation()       | HOF: Execute a derivation on a subset of the input dataset. |
 
 Most functions in admiral follow these conventions:
 
@@ -179,7 +187,7 @@ Most functions in admiral follow these conventions:
 
 * `var_` or `_vars_` functions add variable(s) to ADaMs
 * `_param_` functions add records to ADaMs
-* Other not following this convention typically do more advanced stuff...
+* Other not following this convention typically execute more advanced stuff!!
 
 ::: 
 
@@ -195,14 +203,14 @@ Most functions in admiral follow these conventions:
 | xportr      | xportr_write()               | Write out an xpt file |
 
 * Most functions from these packages are about applying metadata from specs to your dataset.
-* xportr follows a standard naming convention.
+* xportr follows a standard naming convention with `xportr_`.
 
 # `ADSL`
 
-🕥 11:15 - 11:45
+🕥 11:15 - 11:40
 
 
-* Note: Referencing lines in file at each section (Lines: ##-##)
+* Note: Referencing lines in file at each section (ADSL Lines: ##-##)
 
 ## The Big Picture of ADSL
 
@@ -211,7 +219,7 @@ Most functions in admiral follow these conventions:
   * Uses the ADSL section of our spec file
   * Creating a single record for each subject with a lot of variables!!
   
-## Reading in our spec for ADSL (Lines: )
+## Reading in our spec for ADSL (ADSL Lines: )
 
 ```{.r}
 spec_to_metacore(
@@ -222,10 +230,12 @@ spec_to_metacore(
   select_dataset("ADSL")
 ```
 
-* Takes a P21-like spec and makes it into an object we can easily access
+* Takes a P21-like spec and makes it into an object we can easily access.
+  * P21 is spec/data validation tool widely used in the industry for creating SDTMs
+  and ADaMs
 * `quiet` argument should be set to `TRUE` while developing your spec and ADaMs.
 
-## Combine Parent and Supplementary Data (Lines: )
+## Combine Parent and Supplementary Data (ADSL Lines: )
 
 ```{.r}
 dm_suppdm <- combine_supp(dm, suppdm)
@@ -235,7 +245,7 @@ dm_suppdm <- combine_supp(dm, suppdm)
 * Supps usually are a collection non-standard data and linking to parent
 * Function is from `{metatools}`
 
-## Let's turn a `--DTC` to a `*DTM` variable (Lines: )
+## Let's turn a `--DTC` to a `*DTM` variable (ADSL Lines: )
 
 ```{.r code-line-numbers="1|2|3|4|5"}
 derive_vars_dtm(
@@ -248,7 +258,7 @@ derive_vars_dtm(
 
 ## Example from documentation {.smaller}
 
-```{r}
+```{r, message=FALSE}
 mhdt <- tribble(
   ~MHSTDTC,
   "2019-07-18T15:25:40",
@@ -292,7 +302,7 @@ derive_vars_dtm(
 ```
 :::
 
-## Let's get a merge  (Lines: )
+## Let's get a merge  (ADSL Lines: )
 
 ```{.r code-line-numbers="1|2|3|4|5|6|7|8|9|10"}
 derive_vars_merged(
@@ -307,6 +317,8 @@ derive_vars_merged(
   mode = "first",
 )
 ```
+
+* Filter, join and rename is a common pattern in ADaMs.
 
 ## Whoa!!! Way more options!!
 
@@ -331,7 +343,7 @@ derive_vars_merged(
 ```
 :::
 
-## Let's derive a Duration Variable (Lines: )
+## Let's derive a Duration Variable (ADSL Lines: )
 
 ```{.r code-line-numbers="1|2|3|4"}
 derive_vars_duration(
@@ -384,7 +396,7 @@ derive_vars_duration(
 ```
 :::
 
-## Let's apply Control Terms / Code Lists (Lines: )
+## Let's apply Control Terms / Code Lists (ADSL Lines: )
 
 ```{.r}
 adsl16 %>%
@@ -414,11 +426,11 @@ create_var_from_codelist(
 ```
 :::
 
-# Check in on Barb / Check in Question
+# Check in on Barb / Exercise
 
 ## Check in on Barb
 
-## Check-in Question
+## Check-in Exercise
 
 Which `admiral` function can be used to turn a `---DTC` variable into a
 `*DTM` variable
@@ -434,7 +446,7 @@ d)  `derive_vars_exsdtc()`
 
 # `ADVS`
 
-🕦11:30 - 12:30
+🕦11:50 - 12:20
 
 
 ## The Big Picture of ADVS
@@ -446,7 +458,7 @@ d)  `derive_vars_exsdtc()`
   * ADSL information included
   * Lot's of functions are repeated within the ADVS script used in ADSL script
 
-## Let's talk about lookup tables (Lines: )
+## Let's talk about lookup tables (ADVS Lines: )
 
 ```{.r code-line-numbers="1|2|3|4|5|6|7|8|9|10"}
   derive_vars_merged_lookup(
@@ -476,7 +488,7 @@ derive_vars_merged_lookup(
 ```
 :::
 
-## Let's add more records for each subject (Lines: )
+## Let's add more records for each subject (ADVS Lines: )
 
 ```{.r code-line-numbers="1|2|3|4|5|6|7|8|9|10"}
 derive_param_computed(
@@ -511,7 +523,7 @@ derive_param_computed(
 ```
 :::
 
-## Let's derive DTYPE summary records
+## Let's derive DTYPE summary records (ADVS Lines: )
 
 ```{.r code-line-numbers="1|2|3|4|5|6|7|8|9|10"}
 derive_summary_records(
@@ -525,7 +537,7 @@ derive_summary_records(
 )
 ```
 
-## Let's restrict!
+## Let's restrict! (ADVS Lines: )
 
 ```{.r code-line-numbers="1|2|3|4|5|6|7|8|9|10"}
 restrict_derivation(
@@ -543,7 +555,7 @@ restrict_derivation(
 )
 ```
 
-## Let's get that data read for regulatory agencies
+## Let's get that data read for regulatory agencies (ADVS Lines: )
 
 ```{.r code-line-numbers="1|2|3|4|5|6|7|8|9|10"}
 advs <- advs_final %>%
@@ -559,28 +571,13 @@ advs <- advs_final %>%
   xportr_write("datasets/advs.xpt", metadata = metacore, domain = "ADVS")
 ```
 
-# `ADVS` Quiz
+* Note similar code in ADSL!
 
-## Check-in 
+# Check in on Barb / Exercise
 
-Have a look to
-[{admiraldiscovery}](https://pharmaverse.github.io/admiraldiscovery/articles/reactable.html):
-Which `admiral` **wrapper** function could be used to derive "BSA" parameter
-at any time point?
+## Check in on Barb
 
-> > -   
-> >
-> >     a)  admiral::derive_param_bsa()
-> >
-> > -   
-> >
-> >     b)  admiral::compute_bsa()
-
-> -   Correct answer:
-> -   **a) the wrapper function admiral::derive_param_bsa()**
-
-> -   We could also use
->     `("admiral::derive_param_computed()")`
+## Check-in Exercise
 
 ## Questions and Resources
 
