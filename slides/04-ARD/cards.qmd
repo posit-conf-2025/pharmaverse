@@ -1,6 +1,6 @@
 # ARDs using {cards} 
 
-<a href="https://insightsengineering.github.io/cards/"><img src="https://insightsengineering.github.io/cards/latest-tag/logo.png" align="center" height="300" alt="cards website" /></a>
+<a href="https://insightsengineering.github.io/cards/"><img src="https://raw.githubusercontent.com/insightsengineering/cards/main/man/figures/logo.png" align="center" height="300" alt="cards website" /></a>
 
 ## {cards}: Introduction
 
@@ -118,6 +118,7 @@ pharmaverseadam::adsl |>
 
 ::: {.small}
 - includes `n`, `%`, `N` by default
+- _Any unobserved levels of the variables will be present in the resulting ARD._
 :::
 
 ```{r}
@@ -128,11 +129,6 @@ pharmaverseadam::adsl |>
     variables = AGEGR1
   ) 
 ```
-
-::: {.small}
-
-_Any unobserved levels of the variables will be present in the resulting ARD._
-:::
 
 
 ## {cards}: Other Summary Functions 
@@ -386,11 +382,15 @@ pharmaverseadam::adsl |>
 
 ## {cardx} t-test Example
 
+::: {.small}
+
 - _What to do if a method you need is not implemented?_
 
 - It's simple to wrap existing frameworks to customize.
 
 - One-sample t-test example utilizing `cards::ard_continuous()`.
+
+:::
 
 ```{r}
 #| message: true
@@ -405,7 +405,11 @@ pharmaverseadam::adsl |>
 
 ## {cardx} t-test Example
 
+::: {.small}
+
 - How to modify if we need a two-sample test, or more generally accessing other columns in the data frame.
+
+:::
 
 ```{r}
 #| message: true
@@ -433,6 +437,8 @@ pharmaverseadam::adsl |>
 
 ## {cardx} Regression
 
+::: {.small}
+
 The `cardx::ard_regression()` does **a lot** for us in the background.
 
 - Identifies the variable from the regression terms (i.e. groups levels of the same variable)
@@ -442,6 +448,8 @@ The `cardx::ard_regression()` does **a lot** for us in the background.
 - Contextually aware of slopes, odds ratios, hazard ratios, and incidence rate ratios
 - And much _**much**_ more.
 
+:::
+
 ```{r}
 lm(AGE ~ ARM, data = cards::ADSL) |>
   cardx::ard_regression(add_estimate_to_reference_rows = TRUE)
@@ -450,8 +458,11 @@ lm(AGE ~ ARM, data = cards::ADSL) |>
 
 ## When things go wrong 😱
 
+::: {.small}
+
 What happens when statistics are un-calculable? 
 
+:::
 ```{r}
 #| message: true
 ard_gone_wrong <- 
