@@ -33,11 +33,11 @@ options(width = 120)
 
 {{< include 05-ard-first.qmd >}}
 
-{{< include 08-print_engines.qmd >}}
+{{< include 06-print_engines.qmd >}}
 
 {{< include 07-adopt.qmd >}}
 
-<!-- Should I add an LLM section here? -->
+{{< include 08-LLMs.qmd >}}
 
 {{< include 09-summary.qmd >}}
 

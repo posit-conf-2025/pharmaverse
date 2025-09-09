@@ -74,17 +74,16 @@ tbl_strata(
 
 ::: small
 
-- Most of the tables we create in the pharma space come from a catalog of standard tables.
-
-- Custom or one-off tables are often quite difficult and time intensive to create.
+- Many tables we create in the pharma space come from a catalog of standard tables.
 
 - The {gtsummary} package makes it simple to break complex tables into their simple parts and cobble them together in the end.
 
-- Moreover, the internal structure of a gtsummary table is super simple: a data frame and instructions on how to print that data frame to make it cute.
-If needed, you can directly modify the underlying data frame with `modify_table_body()`.
+- Moreover, the internal structure of a gtsummary table is **super simple**: a data frame and instructions on how to print that data frame to make it cute.
+
+    If needed, you can directly modify the underlying data frame with `modify_table_body()`.
 
 ::: 
 
 ```{r}
-adsl |> tbl_summary(include = c(AGE, ETHNIC), by = ARM) |> purrr::pluck("table_body")
+tbl_summary(adsl, include = c(AGE, ETHNIC), by = ARM)$table_body
 ```

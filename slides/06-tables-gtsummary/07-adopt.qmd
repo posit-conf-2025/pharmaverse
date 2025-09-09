@@ -106,41 +106,34 @@ trial |>
 
 *Reduces padding and font size*
 
-Learn more at [http://www.danieldsjoberg.com/gtsummary/articles/themes.html](http://www.danieldsjoberg.com/gtsummary/articles/themes.html)
+Learn more at <http://www.danieldsjoberg.com/gtsummary/articles/themes.html>
 
 ## A pharma theme with {crane}
 
-::: {.columns}
+::::: columns
 ::: {.column width="70%"}
-
-At Roche, we've create a companion R package to {gtsummary}.
-The package exports a theme for our company: `crane::theme_gtsummary_roche()`.
+At Roche, we've create a companion R package to {gtsummary}. The package exports a theme for our company: `crane::theme_gtsummary_roche()`.
 :::
 
 ::: {.column width="30%"}
-
-<img src='https://raw.githubusercontent.com/insightsengineering/crane/main/man/figures/logo.png' align="right" height="220" />
-
+<img src="https://raw.githubusercontent.com/insightsengineering/crane/main/man/figures/logo.png" align="right" height="220"/>
 :::
-:::
+:::::
 
-- Sets a custom function for rounding percentages.
+-   Sets a custom function for rounding percentages.
 
-- Round all p-values to four decimal places.
+-   Round all p-values to four decimal places.
 
-- Adds post-processing to report `0` instead of `0 (0%)`.
+-   Adds post-processing to report `0` instead of `0 (0%)`.
 
-- All tables are printed with {flextable} and we add Roche-specific styling to the table. 
+-   All tables are printed with {flextable} and we add Roche-specific styling to the table.
 
+## What else is in {crane}? <img src="https://raw.githubusercontent.com/insightsengineering/crane/main/man/figures/logo.png" align="right" height="120"/>
 
-## What else is in {crane}? <img src="https://raw.githubusercontent.com/insightsengineering/crane/main/man/figures/logo.png" align="right" height="120" />
-
-::: {.small}
-
+::: small
 The package also exports functions to create common tables in the Roche TLG catalog.
 
 The `tbl_roche_summary()` function is a simple wrapper for `tbl_summary()`, but with Roche defaults
-
 :::
 
 ```{r}
@@ -154,12 +147,14 @@ adsl |>
   tbl_roche_summary(by = ARM, include = c(AGE, ETHNIC))
 ```
 
-## What else is in {crane}? <img src="https://raw.githubusercontent.com/insightsengineering/crane/main/man/figures/logo.png" align="right" height="120" />
+## What else is in {crane}? <img src="https://raw.githubusercontent.com/insightsengineering/crane/main/man/figures/logo.png" align="right" height="120"/>
 
-::: {.small}
+::: small
+At Roche, we report AEs differently than what you find in the FDA specs: we export `tbl_hierarchical_rate_and_count()`.
+:::
 
-At Roche, we report AEs differently than what you find in the FDA, so we export `tbl_hierarchical_rate_and_count()` that combines results from `tbl_hierarchical()` and `tbl_hierarchical_count()`.
-
+::: smaller
+-   A combo of {gtsummary} functions `tbl_hierarchical()` and `tbl_hierarchical_count()`.
 :::
 
 ```{r}
@@ -173,19 +168,19 @@ adae |>
   add_overall(last = TRUE)
 ```
 
-## What else is in {crane}? <img src="https://raw.githubusercontent.com/insightsengineering/crane/main/man/figures/logo.png" align="right" height="120" />
+## What else is in {crane}? <img src="https://raw.githubusercontent.com/insightsengineering/crane/main/man/figures/logo.png" align="right" height="120"/>
 
-::: {.small}
+::: small
+Lab values are summarized by visit and include the change from baseline.
 
-Lab values that are summarized by visit and include the change from baseline as well.
 This is a simple table that is just a `tbl_merge()` of the `AVAL` summary and the `CHG` summary.
-But the general structure appears enough times in our catalog, we make it simple for our programmers to create.
 
+But the general structure appears enough times in our catalog, we make it simple for our programmers to create.
 :::
 
 ```{r}
 #| label: tbl_baseline_chg
-#| output-location: "slide"
+#| eval: false
 adlb |> 
   dplyr::filter(PARAM == "Albumin (g/L)") |> 
   tbl_baseline_chg(
@@ -195,15 +190,22 @@ adlb |>
   )
 ```
 
-## cardinal collaboration  <img src="https://pharmaverse.github.io/cardinal/quarto/assets/images/logo/cardinal.png" align="right" height="120" />
+## What else is in {crane}? <img src="https://raw.githubusercontent.com/insightsengineering/crane/main/man/figures/logo.png" align="right" height="120"/>
+
+![](images/AVAL.png){fig-align="center" width="80%"}
+
+## What else is in {crane}? <img src="https://raw.githubusercontent.com/insightsengineering/crane/main/man/figures/logo.png" align="right" height="120"/>
+
+![](images/CHG.png){fig-align="center" width="80%"}
+
+## What else is in {crane}? <img src="https://raw.githubusercontent.com/insightsengineering/crane/main/man/figures/logo.png" align="right" height="120"/>
+
+![](images/Merge.png){fig-align="center" width="80%"}
+
+## cardinal collaboration <img src="https://pharmaverse.github.io/cardinal/quarto/assets/images/logo/cardinal.png" align="right" height="120"/>
 
 The cardinal initiative is an industry collaborative effort under the pharmaverse.
 
 The site includes examples for building ARDs and tables from the FDA Standard Safety Tables and Figures Integrated Guide using {cards} and {gtsummary}.
 
-
-
-<a href="https://pharmaverse.github.io/cardinal/#contributors" target="_blank"><img src='https://pharmaverse.github.io/cardinal/quarto/assets/images/logo/cardinal.png' align="center" height="320" /> Let's Go!</a>
-
-
-
+<a href="https://pharmaverse.github.io/cardinal/#contributors" target="_blank"><img src="https://pharmaverse.github.io/cardinal/quarto/assets/images/logo/cardinal.png" align="center" height="320"/> Let's Go!</a>

@@ -89,7 +89,7 @@ adsl |>
     .by = ARM,
     ard_continuous(
       variables = AGE,
-      fmt_fn = AGE ~ list(sd = 2)
+      fmt_fun = AGE ~ list(sd = 2)
     ),
     ard_categorical(variables = ETHNIC),
     ard_dichotomous(variables = FEMALE),
