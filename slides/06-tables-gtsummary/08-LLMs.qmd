@@ -1,0 +1,155 @@
+# ARDs + LLMs
+
+## How can LLMs help us within the {cards}+{gtsummary} framework?
+
+-   {gtsummary} is a widely used package, the publicly available LLMs write code out of the box: no additional training needed.
+
+> Act as a statistical programmer within the pharmaceutical industry, and provide me code to create tables in the R language using the gtsummary package.  
+Using the ADSL data set as an input, please provide the code for creating a demographics table that is split by treatment arm. Include the variables AGE and AGEGR1. AGE is a continuous summary, and include the mean, standard deviation, median and IQR. AGEGR1 is a categorical variable and include the count and percent in the summary.
+
+## How can LLMs help us within the ARD framework?
+
+The result! (using Gemini)
+
+``` r
+# Load necessary packages
+# If you don't have gtsummary installed, uncomment and run:
+# install.packages("gtsummary")
+# install.packages("dplyr") # Often useful with gtsummary for data manipulation
+
+library(gtsummary)
+library(dplyr)
+
+# --- Simulate ADSL Data ---
+# In a real-world scenario, you would load your actual ADSL data.
+# For demonstration purposes, we'll create a dummy ADSL dataset.
+set.seed(123) # for reproducibility
+
+adsl_data <- tibble(
+  USUBJID = paste0("SUBJ", 1:100),
+  TRT01A = sample(c("Placebo", "Treatment A", "Treatment B"), 100, replace = TRUE, prob = c(0.3, 0.4, 0.3)),
+  AGE = round(rnorm(100, mean = 55, sd = 10), 0),
+  AGEGR1 = cut(AGE,
+               breaks = c(0, 18, 65, Inf),
+               labels = c("<18", "18-65", ">65"),
+               right = FALSE)
+) %>%
+  # Ensure factors for proper ordering and handling by gtsummary
+  mutate(
+    TRT01A = factor(TRT01A, levels = c("Placebo", "Treatment A", "Treatment B")),
+    AGEGR1 = factor(AGEGR1, levels = c("<18", "18-65", ">65"))
+  )
+
+# --- Create the Demographics Table ---
+# Use tbl_summary to create the table, specifying:
+# - data: The ADSL dataset
+# - by: The variable to split the table by (treatment arm)
+# - include: The variables to include in the table
+# - type: How to summarize each variable (continuous vs. categorical)
+# - statistic: The specific statistics to display for each variable type
+
+demographics_table <-
+  adsl_data %>%
+  tbl_summary(
+    by = TRT01A, # Split the table by treatment arm
+    include = c(AGE, AGEGR1), # Include Age and Age Group variables
+    type = list(
+      AGE ~ "continuous",      # Specify AGE as continuous
+      AGEGR1 ~ "categorical"   # Specify AGEGR1 as categorical
+    ),
+    statistic = list(
+      # For continuous AGE, include mean (SD) and median (IQR)
+      AGE ~ "{mean} ({sd})",      # Mean (Standard Deviation)
+      AGE ~ "{median} ({p25}, {p75})", # Median (25th percentile, 75th percentile) - IQR
+      # For categorical AGEGR1, include count (percent)
+      AGEGR1 ~ "{n} ({p}%)"
+    ),
+    # Add labels for better readability
+    label = list(
+      AGE ~ "Age, years",
+      AGEGR1 ~ "Age Group, years"
+    ),
+    # Add a note explaining the statistics
+    missing = "no", # Do not show missing values row for this table
+    # Specify options for displaying missing data, formatting, etc.
+    # We are explicitly specifying all statistics for AGE, so we might not need "all_continuous()" or "all_categorical()",
+    # but they are good for default behavior if not all statistics are overridden.
+    # To combine mean (SD) and median (IQR) into a single row, you would list them separated by a comma
+    # in the statistic argument.
+    digits = all_continuous() ~ 1, # One decimal place for continuous variables
+  ) %>%
+  add_n() %>% # Add column for total N
+  add_p() %>% # Add p-value for group comparison (optional, but good for demographics)
+  modify_header(
+    list(
+      label ~ "**Characteristic**",
+      stat_by ~ "**{level}**\nN = {n}" # Customize column headers to show N
+    )
+  ) %>%
+  modify_footnote(
+    update = AGE ~ "Mean (SD); Median (IQR)"
+  ) %>%
+  # Add table title
+  modify_caption("**Table 1. Demographics by Treatment Arm**")
+
+# Print the table to see the output
+demographics_table
+
+# To export the table (e.g., to Word, PDF, HTML):
+# library(flextable) # for Word/PDF output
+# library(gt) # for HTML output (often used with gtsummary)
+
+# Example for Word:
+# demographics_table %>%
+#   as_flex_table() %>%
+#   flextable::save_as_docx(path = "demographics_table.docx")
+
+# Example for HTML:
+# demographics_table %>%
+#   as_gt() %>%
+#   gt::gtsave(filename = "demographics_table.html")
+
+# Example for RMarkdown/Quarto knitting (table will render directly):
+# You would simply include the 'demographics_table' object in your RMarkdown/Quarto chunk.
+```
+
+## How can LLMs help us within the ARD framework?
+
+ARDs can be represented in language-agnostic formats like JSON and YAML.
+
+A summary table has a representation that is readily digestible by your favorite LLM.
+
+```{r}
+#| output-location: slide
+dplyr::filter(pharmaverseadam::adsl, SAFFL == "Y") |> 
+  tbl_summary(
+    include = c(AGE, AGEGR1),
+    type = AGE ~ "continuous2",
+    statistic = AGE ~ c("{mean} ({sd})",  "{median} ({p25}, {p75})")
+  ) |> 
+  gather_ard() |> 
+  purrr::pluck("tbl_summary") |> 
+  apply_fmt_fun() |> 
+  cards::as_nested_list() |> 
+  jsonlite::toJSON(pretty = TRUE)
+```
+
+## How can LLMs help us within the ARD framework?
+
+Ask the LLM to write draft summary for you.
+
+> Below you will find a JSON representation of the results in the table. Act as a medical writer working at a pharmaceutical company and write a brief summary of the results.
+
+::::: fragment
+:::: small
+::: scrollable-text
+A total of 254 participants were enrolled in the study, distributed across three treatment arms: Placebo (N=86), Xanomeline High Dose (N=84), and Xanomeline Low Dose (N=84).
+
+Baseline demographics indicate that participants were generally similar across all treatment groups with respect to age. The mean age was approximately 75 years across the groups, with standard deviations ranging from 7.9 to 8.6 years. Specifically, the mean age (standard deviation) was 75.2 (8.6) years in the Placebo group, 74.4 (7.9) years in the Xanomeline High Dose group, and 75.7 (8.3) years in the Xanomeline Low Dose group. The median ages were also comparable: 76 years (IQR: 69, 82) for Placebo, 76 years (IQR: 70.5, 80) for Xanomeline High Dose, and 77.5 years (IQR: 71, 82) for Xanomeline Low Dose.
+
+Regarding age groups, the majority of participants in all treatment arms were over 64 years of age. Specifically, the proportion of participants aged \>64 years was 83.7% (n=72) in the Placebo group, 86.9% (n=73) in the Xanomeline High Dose group, and 90.5% (n=76) in the Xanomeline Low Dose group. The proportion of participants aged 18-64 years was 16.3% (n=14) in the Placebo group, 13.1% (n=11) in the Xanomeline High Dose group, and 9.5% (n=8) in the Xanomeline Low Dose group. There were no participants under 18 years of age.
+
+Overall, the demographic characteristics at baseline appear well-balanced across the treatment groups, suggesting that any observed differences in outcomes are less likely to be attributable to baseline age disparities.
+:::
+::::
+:::::
