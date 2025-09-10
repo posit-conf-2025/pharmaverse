@@ -35,6 +35,25 @@ img_center_size <- 300
     - **Checked** in on our fav participant - Barb 
 :::
 
+## End to End with Barb!!
+
+<div style="text-align: left;"> <img src="images/barb.png" alt="Barb!" style="width: 200px;"/> </div>
+ 
+```{mermaid}
+%%| echo: FALSE
+flowchart LR
+  A[Raw] --> B[SDTM]
+  B[SDTM] --> C[ADaM]
+  C[ADaM] --> D[ARD]
+  D[ARD] --> E[TFL]
+  
+%% Apply the custom class "highlight" to node B
+class C highlight;
+
+%% Define the style for the "highlight" class:
+classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;  
+```
+
 ## Assumptions
 
 ::: incremental
@@ -431,7 +450,30 @@ create_var_from_codelist(
 
 🕚11:40 - 11:50
 
-## Check in on Barb
+## Check in on Barb in ADSL
+
+:::: {.columns}
+
+::: {.column}
+<div style="text-align: left;"> <img src="images/barb.png" alt="Barb!" style="width: 200px;"/> </div>
+:::
+
+::: {.column}
+* USUBJID:  01-701-1034
+* RANDDT:   2014-07-01
+* TRTSDT:   2014-07-01
+* TRTSDTM:  2014-07-01 23:59:59
+* TRTEDT:   2014-12-30
+* TRTDURD:  183
+* EOSDT:    2014-12-30
+* EOSSTT:   COMPLETED
+:::
+
+::::
+
+
+
+
 
 ## Check-in Exercise
 
@@ -566,11 +608,35 @@ advs <- advs_final %>%
 
 # Check in on Barb / Exercise
 
-## Check in on Barb
+🕦 12:20 - 12:30
+
+## Check in on Barb in ADVS
+
+:::: {.columns}
+
+::: {.column}
+<div style="text-align: left;"> <img src="images/barb.png" alt="Barb!" style="width: 200px;"/> </div>
+:::
+
+::: {.column}
+* USUBJID:  01-701-1034
+* PARAM/PARAMCD: MAP / Mean Arterial Pressure (mmHg)
+* ABLFL/ADT: Y / 2014-07-01
+* BASE:   94.33333
+* BASETYPE: LAST: AFTER LYING DOWN FOR 5 MINUTES
+* AVIST/ADT:  WEEK 2 / LAST: AFTER LYING DOWN FOR 5 MINUTES
+* AVAL:   115.0
+* CHG:  20.6666667
+* PCHG: 21.9081272
+:::
+
+::::
+
 
 ## Check-in Exercise
 
-🕦 12:20 - 12:30
+* We are going to update the function `derive_vars_dtm()`
+
 
 ## Questions and Resources
 

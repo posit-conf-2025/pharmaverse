@@ -49,6 +49,12 @@ flowchart LR
   B[SDTM] --> C[ADaM]
   C[ADaM] --> D[ARD]
   D[ARD] --> E[TFL]
+  
+%% Apply the custom class "highlight" to node B
+class B highlight;
+
+%% Define the style for the "highlight" class:
+classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;  
 ```
 
 * Barb is on a journey from raw to TFL.
