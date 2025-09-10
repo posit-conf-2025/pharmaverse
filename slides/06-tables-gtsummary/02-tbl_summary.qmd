@@ -96,7 +96,7 @@ adsl |>
 #| output-location: "column"
 #| label: 'customize-summary1'
 adsl |> 
-  dplyr::filter(, startsWith(ARM, "Xanomeline")) |> 
+  dplyr::filter(startsWith(ARM, "Xanomeline")) |> 
   tbl_summary(
     include = c(AGE, ETHNIC, FEMALE),
     by = ARM,
@@ -120,7 +120,7 @@ adsl |>
 #| output-location: "column"
 #| label: 'customize-summary2'
 adsl |> 
-  dplyr::filter(, startsWith(ARM, "Xanomeline")) |> 
+  dplyr::filter(startsWith(ARM, "Xanomeline")) |> 
   tbl_summary(
     include = c(AGE, ETHNIC, FEMALE),
     by = ARM,
@@ -147,7 +147,7 @@ adsl |>
 #| output-location: "column"
 #| label: 'customize-summary3'
 adsl |> 
-  dplyr::filter(, startsWith(ARM, "Xanomeline")) |> 
+  dplyr::filter(startsWith(ARM, "Xanomeline")) |> 
   tbl_summary(
     include = c(AGE, ETHNIC, FEMALE),
     by = ARM,
@@ -182,7 +182,7 @@ adsl |>
 #| output-location: "column"
 #| label: 'customize-summary4'
 adsl |> 
-  dplyr::filter(, startsWith(ARM, "Xanomeline")) |> 
+  dplyr::filter(startsWith(ARM, "Xanomeline")) |> 
   tbl_summary(
     include = c(AGE, ETHNIC, FEMALE),
     by = ARM,
@@ -220,7 +220,7 @@ adsl |>
 #| output-location: "column"
 #| label: 'customize-summary5'
 adsl |> 
-  dplyr::filter(, startsWith(ARM, "Xanomeline")) |> 
+  dplyr::filter(startsWith(ARM, "Xanomeline")) |> 
   tbl_summary(
     include = c(AGE, ETHNIC, FEMALE),
     by = ARM,
