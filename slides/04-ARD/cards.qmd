@@ -1,5 +1,5 @@
 # ARDs using {cards} 
-
+ 
 <a href="https://insightsengineering.github.io/cards/"><img src="https://raw.githubusercontent.com/insightsengineering/cards/main/man/figures/logo.png" align="center" height="300" alt="cards website" /></a>
 
 ## {cards}: Introduction
@@ -14,6 +14,30 @@
 
 -   36k downloads per month 🤯
 
+## Data used in examples
+
+ADSL from `pharmaverseadam`
+```{r }
+#| code-fold: true
+
+adsl <- pharmaverseadam::adsl |> 
+  dplyr::filter(SAFFL=="Y") |> 
+  dplyr::mutate(ARM2 = ifelse(startsWith(ARM, "Xanomeline"), "Xanomeline", ARM))
+```
+
+ADAE from `pharmaverseadam`
+```{r }
+#| code-fold: true
+
+adae <- pharmaverseadam::adae |> 
+  dplyr::filter(SAFFL=="Y") |> 
+  dplyr::mutate(ARM2 = ifelse(startsWith(ARM, "Xanomeline"), "Xanomeline", ARM)) |> 
+  dplyr::filter(AESOC %in% unique(AESOC)[1:3]) |> 
+  dplyr::group_by(AESOC) |> 
+  dplyr::filter(AEDECOD %in% unique(AEDECOD)[1:3]) |> 
+  dplyr::ungroup()
+```
+
 
 ## {cards}: `ard_summary()`
 
@@ -22,7 +46,7 @@
 library(cards)
 
 # create ARD with default summary statistics
-pharmaverseadam::adsl |> 
+adsl |> 
   ard_summary(
     variables = AGE
   )
@@ -32,12 +56,12 @@ pharmaverseadam::adsl |>
 ## {cards}: `ard_summary()` by variable
 
 ::: {.small}
-- `by`: summary statistics are calculated by all combinations of the by variables, including unobserved factor levels
+`by`: summary statistics are calculated by all combinations of the by variables, including unobserved factor levels
 :::
 
 ```{r}
 #| message: true
-pharmaverseadam::adsl |> 
+adsl |> 
   ard_summary(
     variables = AGE,
     by = ARM         # stats by treatment arm
@@ -47,14 +71,15 @@ pharmaverseadam::adsl |>
 ## {cards}: `ard_summary()` statistics
 
 ::: {.small}
-- `statistic`: specify univariate summary statistics. Accepts _any_ function, base R, from a package, or user-defined.
+`statistic`: specify univariate summary statistics. Accepts _any_ function, base R, from a package, or user-defined.
 :::
 
 
 ```{r}
+#| message: true
 cv <- function(x)  sd(x, na.rm = TRUE)/mean(x, na.rm = TRUE)
 
-pharmaverseadam::adsl |> 
+adsl |> 
   ard_summary(  
     variables = AGE,
     by = ARM,
@@ -70,7 +95,8 @@ Customize the statistics returned for each variable
 :::
 
 ```{r}
-pharmaverseadam::adsl |> 
+#| message: true
+adsl |> 
   dplyr::mutate(AGE2 = AGE) |> 
   ard_summary(
     variables = c(AGE, AGE2),
@@ -88,7 +114,7 @@ Override the default formatting functions, method 1:
  
 ```{r}
 #| message: true
-pharmaverseadam::adsl |> 
+adsl |> 
   ard_summary(
     variables = AGE,
     by = ARM,                               
@@ -105,7 +131,7 @@ Override the default formatting functions, method 2:
 
 ```{r}
 #| message: true
-pharmaverseadam::adsl |> 
+adsl |> 
   ard_summary(
     variables = AGE,
     by = ARM,                               
@@ -123,7 +149,7 @@ pharmaverseadam::adsl |>
 
 ```{r}
 #| message: true
-pharmaverseadam::adsl |> 
+adsl |> 
   ard_tabulate(
     by = ARM,
     variables = AGEGR1
@@ -132,6 +158,8 @@ pharmaverseadam::adsl |>
 
 
 ## {cards}: Other Summary Functions 
+
+- `ard_tabulate_value()`: similar to `ard_tabulate()`, but for dichotomous tabulations
 
 - `ard_hierarchical()`: similar to `ard_tabulate()`, but built for nested tabulations, e.g. AE terms within SOC
 
@@ -162,7 +190,7 @@ Wrangling: `get_ard_statistics()`, `replace_null_statistic()`, etc.
 
 ```{r}
 #| message: true
-pharmaverseadam::adsl |> 
+adsl |> 
   ard_stack( 
     .by = ARM,      
     ard_summary(variables = AGE, statistic = ~ continuous_summary_fns(c("mean","sd"))), 
@@ -198,24 +226,16 @@ This function specializes in calculating **subject**-level rates.
 
 :::
 
-```{r}
-#| echo: FALSE
-
-adae <- pharmaverseadam::adae |> 
-  dplyr::filter(AESOC %in% unique(AESOC)[1:3]) |> 
-  dplyr::group_by(AESOC) |> 
-  dplyr::filter(AEDECOD %in% unique(AEDECOD)[1:3]) |> 
-  dplyr::ungroup()
-```
-
 ```{r} 
-ard_hierarchical(
-  data = adae |> dplyr::slice_tail(n = 1L, by = c(USUBJID, ARM, AESOC, AEDECOD)),
-  variables = c(AESOC, AEDECOD),
-  by = TRT01A,
-  id = USUBJID,
-  denominator = ADSL
-)
+#| message: true
+adae |> 
+  dplyr::slice_tail(n = 1L, by = c(USUBJID, ARM, AESOC, AEDECOD)) |> 
+  ard_hierarchical(
+    variables = c(AESOC, AEDECOD),
+    by = TRT01A,
+    id = USUBJID,
+    denominator = adsl
+  )
 ```
 
 ## {cards}: `ard_hierarchical_count` 
@@ -227,11 +247,12 @@ This function specializes in calculating **event**-level frequencies.
 :::
 
 ```{r}
-ard_hierarchical_count(
-  data = adae,
-  variables = c(AESOC, AEDECOD),
-  by = TRT01A
-)
+#| message: true
+adae |> 
+  ard_hierarchical_count( 
+    variables = c(AESOC, AEDECOD),
+    by = TRT01A
+  )
 ```
 
 ## Hierarchical summaries many ways
@@ -258,13 +279,13 @@ ard_hierarchical_count(
 
 ```{r}
 #| eval: FALSE
-ard_stack_hierarchical(
-  data = adae,
-  variables = c(AESOC, AEDECOD),
-  by = TRT01A,
-  id = USUBJID,
-  denominator = pharmaverseadam::adsl
-)
+adae |> 
+  ard_stack_hierarchical(
+    variables = c(AESOC, AEDECOD),
+    by = TRT01A,
+    id = USUBJID,
+    denominator = pharmaverseadam::adsl
+  )
 ```
 
 ```{r}
@@ -295,12 +316,12 @@ ard_hier |>
 
 ```{r}
 #| eval: FALSE
-ard_stack_hierarchical_count(
-  data = adae,
-  variables = c(AESOC, AEDECOD),
-  by = TRT01A, 
-  denominator = pharmaverseadam::adsl
-)
+adae |> 
+  ard_stack_hierarchical_count(
+    variables = c(AESOC, AEDECOD),
+    by = TRT01A, 
+    denominator = pharmaverseadam::adsl
+  )
 ```
 
 ```{r}
@@ -322,15 +343,18 @@ ard_hier_c |>
 
 ## Exercise 🏃‍➡️
 
-- Open `exercises/04-ARD-partB.R` 
+1. Navigate to Posit Cloud script `exercises/04-ARD-partB.R` 
 
-- Compute the nested AE tabulations as described
+2. Compute the nested AE tabulations as described.
+
+3. Add the "completed" sticky note to your laptop when complete.
+
 
 ```{r}
 #| echo: false
 #| cache: false
 library(countdown)
-countdown(minutes = 8, play_sound = TRUE)
+countdown(minutes = 10, play_sound = TRUE)
 ```
 
 
@@ -375,8 +399,7 @@ countdown(minutes = 8, play_sound = TRUE)
 
 ```{r}
 #| message: true
-pharmaverseadam::adsl |> 
-  dplyr::filter(ARM %in% c("Xanomeline High Dose", "Xanomeline Low Dose")) |>
+adsl |> 
   cardx::ard_stats_t_test(by = ARM, variables = AGE)
 ```
 
@@ -394,8 +417,7 @@ pharmaverseadam::adsl |>
 
 ```{r}
 #| message: true
-pharmaverseadam::adsl |> 
-  dplyr::filter(ARM %in% c("Xanomeline High Dose", "Xanomeline Low Dose")) |>
+adsl |> 
   cards::ard_summary(
     variables = AGE,
     statistic = everything() ~ list(t_test = \(x) t.test(x) |> broom::tidy())
@@ -413,8 +435,7 @@ pharmaverseadam::adsl |>
 
 ```{r}
 #| message: true
-pharmaverseadam::adsl |> 
-  dplyr::filter(ARM %in% c("Xanomeline High Dose", "Xanomeline Low Dose")) |>
+adsl |> 
   cards::ard_mvsummary(
     variables = AGE,
     statistic = 
@@ -451,7 +472,7 @@ The `cardx::ard_regression()` does **a lot** for us in the background.
 :::
 
 ```{r}
-lm(AGE ~ ARM, data = cards::ADSL) |>
+lm(AGE ~ ARM, data = adsl) |>
   cardx::ard_regression(add_estimate_to_reference_rows = TRUE)
 ```
 
@@ -466,8 +487,8 @@ What happens when statistics are un-calculable?
 ```{r}
 #| message: true
 ard_gone_wrong <- 
-  cards::ADSL |> 
-  cards::ard_summary(
+  adsl |> 
+  ard_summary(
     by = ARM,
     variable = AGEGR1,
     statistic = ~list(kurtosis = \(x) e1071::kurtosis(x))
