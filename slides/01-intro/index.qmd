@@ -35,7 +35,7 @@ cache: false
 
 ## Expected Background
 
-<!-- TOOD: Add info about attendees baseline knowledge -->
+<!-- TOOD: Add info about attendees baseline knowledge. BEN WILL ADD! -->
 
 ## Instructors
 
