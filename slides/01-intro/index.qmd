@@ -35,7 +35,16 @@ cache: false
 
 ## Expected Background
 
-<!-- TOOD: Add info about attendees baseline knowledge. BEN WILL ADD! -->
+::: incremental
+*   Basic knowledge of R and packages in the tidyverse 
+*   Basic knowledge of CDISC Standards (ADaM and SDTM Domains)
+    *   Check out the [ADaM IG and other documents for CDISC](https://www.cdisc.org/standards/foundational/adam) 
+        *   These are great but tome-like!!
+    * Check out [admiral](https://pharmaverse.github.io/admiral/cran-release/) and [admiraldiscovery](https://pharmaverse.github.io/admiraldiscovery/articles/reactable.html) for CDISC implementation
+        *   I always like to code immediately to understand a process!
+*   🦺 But even lacking CDISC knowledge, we still think you will gain some great learning today! 🦺
+:::
+
 
 ## Instructors
 
