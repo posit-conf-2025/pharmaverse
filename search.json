@@ -1,47 +1,5 @@
 [
   {
-    "objectID": "slides/07-submissions-wrapup/index.html#recap",
-    "href": "slides/07-submissions-wrapup/index.html#recap",
-    "title": "Submissions in R and Wrap-Up",
-    "section": "Recap",
-    "text": "Recap\nShow Barb moving along the E2E pathway\nDo a Q&A here? Their questions are probably more important than other items"
-  },
-  {
-    "objectID": "slides/07-submissions-wrapup/index.html#examples",
-    "href": "slides/07-submissions-wrapup/index.html#examples",
-    "title": "Submissions in R and Wrap-Up",
-    "section": "Examples",
-    "text": "Examples\nOpen the pharmaverse examples website"
-  },
-  {
-    "objectID": "slides/07-submissions-wrapup/index.html#llms",
-    "href": "slides/07-submissions-wrapup/index.html#llms",
-    "title": "Submissions in R and Wrap-Up",
-    "section": "LLMs",
-    "text": "LLMs\nAdd slides about AI integration, utility with the tools covered."
-  },
-  {
-    "objectID": "slides/07-submissions-wrapup/index.html#submissions-working-group",
-    "href": "slides/07-submissions-wrapup/index.html#submissions-working-group",
-    "title": "Submissions in R and Wrap-Up",
-    "section": "Submissions Working Group",
-    "text": "Submissions Working Group"
-  },
-  {
-    "objectID": "slides/07-submissions-wrapup/index.html#teal",
-    "href": "slides/07-submissions-wrapup/index.html#teal",
-    "title": "Submissions in R and Wrap-Up",
-    "section": "teal",
-    "text": "teal\nOpen the teal gallery and walk thorugh examples (not the code, but the end result)"
-  },
-  {
-    "objectID": "slides/07-submissions-wrapup/index.html#take-a-look-at-last-years-slides-and-copy-anything-relavant",
-    "href": "slides/07-submissions-wrapup/index.html#take-a-look-at-last-years-slides-and-copy-anything-relavant",
-    "title": "Submissions in R and Wrap-Up",
-    "section": "take a look at last year’s slides and copy anything relavant",
-    "text": "take a look at last year’s slides and copy anything relavant"
-  },
-  {
     "objectID": "slides/05-tables-tfrmt/tfrmt.html",
     "href": "slides/05-tables-tfrmt/tfrmt.html",
     "title": "A quick tour of the many uses of {tfrmt}",
