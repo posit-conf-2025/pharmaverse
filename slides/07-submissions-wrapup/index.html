@@ -7,8 +7,8 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.34">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.24">
 
   <title>End-to-End Submissions in R with the Pharmaverse – Submissions in R and Wrap-Up</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -29,7 +29,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-9ac147d61f1425c1c682ce6a015f58f6.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-556630f860dbdb15ddb2dc7e2cb50a88.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -135,8 +135,28 @@
 </div>
 
 </section>
-<section class="slide level2">
-
+<section id="recap" class="slide level2">
+<h2>Recap</h2>
+<p>Show Barb moving along the E2E pathway</p>
+<p>Do a Q&amp;A here? Their questions are probably more important than other items</p>
+</section>
+<section id="examples" class="slide level2">
+<h2>Examples</h2>
+<p>Open the pharmaverse examples website</p>
+</section>
+<section id="llms" class="slide level2">
+<h2>LLMs</h2>
+<p>Add slides about AI integration, utility with the tools covered.</p>
+</section>
+<section id="submissions-working-group" class="slide level2">
+<h2>Submissions Working Group</h2>
+</section>
+<section id="teal" class="slide level2">
+<h2>teal</h2>
+<p>Open the teal gallery and walk thorugh examples (not the code, but the end result)</p>
+</section>
+<section id="take-a-look-at-last-years-slides-and-copy-anything-relavant" class="slide level2">
+<h2>take a look at last year’s slides and copy anything relavant</h2>
 
 
 </section>
@@ -332,7 +352,7 @@
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -444,13 +464,14 @@
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

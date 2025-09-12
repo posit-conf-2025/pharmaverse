@@ -7,8 +7,8 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.34">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.24">
 
   <title>End-to-End Submissions in R with the Pharmaverse – ARDs (Analysis Results Datasets) in R</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -95,7 +95,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-9ac147d61f1425c1c682ce6a015f58f6.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-556630f860dbdb15ddb2dc7e2cb50a88.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -306,13 +306,13 @@
 <section id="cards-ard_summary" class="slide level2">
 <h2>{cards}: <code>ard_summary()</code></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(cards)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(cards)</span>
 <span id="cb1-2"><a></a></span>
 <span id="cb1-3"><a></a><span class="co"># create ARD with default summary statistics</span></span>
 <span id="cb1-4"><a></a>pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
 <span id="cb1-5"><a></a>  <span class="fu">ard_summary</span>(</span>
 <span id="cb1-6"><a></a>    <span class="at">variables =</span> AGE</span>
-<span id="cb1-7"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-7"><a></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>{cards} data frame: 8 x 8</code></pre>
 </div>
@@ -340,11 +340,11 @@
 </ul>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
 <span id="cb5-2"><a></a>  <span class="fu">ard_summary</span>(</span>
 <span id="cb5-3"><a></a>    <span class="at">variables =</span> AGE,</span>
 <span id="cb5-4"><a></a>    <span class="at">by =</span> ARM         <span class="co"># stats by treatment arm</span></span>
-<span id="cb5-5"><a></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-5"><a></a>  ) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>{cards} data frame: 32 x 10</code></pre>
 </div>
@@ -380,14 +380,14 @@
 </ul>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>cv <span class="ot">&lt;-</span> <span class="cf">function</span>(x)  <span class="fu">sd</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)<span class="sc">/</span><span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>cv <span class="ot">&lt;-</span> <span class="cf">function</span>(x)  <span class="fu">sd</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)<span class="sc">/</span><span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb11-2"><a></a></span>
 <span id="cb11-3"><a></a>pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
 <span id="cb11-4"><a></a>  <span class="fu">ard_summary</span>(  </span>
 <span id="cb11-5"><a></a>    <span class="at">variables =</span> AGE,</span>
 <span id="cb11-6"><a></a>    <span class="at">by =</span> ARM,</span>
 <span id="cb11-7"><a></a>    <span class="at">statistic =</span> <span class="sc">~</span> <span class="fu">list</span>(<span class="at">cv =</span> cv) <span class="co"># customize statistics</span></span>
-<span id="cb11-8"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-8"><a></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  group1 group1_level variable stat_name stat_label  stat
 1    ARM      Placebo      AGE        cv         cv 0.114
@@ -403,14 +403,14 @@
 <p>Customize the statistics returned for each variable</p>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
 <span id="cb13-2"><a></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">AGE2 =</span> AGE) <span class="sc">|&gt;</span> </span>
 <span id="cb13-3"><a></a>  <span class="fu">ard_summary</span>(</span>
 <span id="cb13-4"><a></a>    <span class="at">variables =</span> <span class="fu">c</span>(AGE, AGE2),</span>
 <span id="cb13-5"><a></a>    <span class="at">by =</span> ARM,</span>
 <span id="cb13-6"><a></a>    <span class="at">statistic =</span> <span class="fu">list</span>(<span class="at">AGE =</span> <span class="fu">list</span>(<span class="at">cv =</span> cv),</span>
 <span id="cb13-7"><a></a>                     <span class="at">AGE2 =</span> <span class="fu">continuous_summary_fns</span>(<span class="fu">c</span>(<span class="st">"mean"</span>,<span class="st">"median"</span>)))</span>
-<span id="cb13-8"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-8"><a></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   group1 group1_level variable stat_name stat_label   stat
 1     ARM      Placebo      AGE        cv         cv  0.114
@@ -434,13 +434,13 @@
 <p>Override the default formatting functions, method 1:</p>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
 <span id="cb15-2"><a></a>  <span class="fu">ard_summary</span>(</span>
 <span id="cb15-3"><a></a>    <span class="at">variables =</span> AGE,</span>
 <span id="cb15-4"><a></a>    <span class="at">by =</span> ARM,                               </span>
 <span id="cb15-5"><a></a>    <span class="at">fmt_fun =</span> <span class="sc">~</span><span class="fu">list</span>(<span class="at">mean =</span> <span class="dv">0</span>)                </span>
 <span id="cb15-6"><a></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb15-7"><a></a>  <span class="fu">apply_fmt_fun</span>() <span class="co"># add a character column of rounded results</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-7"><a></a>  <span class="fu">apply_fmt_fun</span>() <span class="co"># add a character column of rounded results</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>{cards} data frame: 32 x 11</code></pre>
 </div>
@@ -474,13 +474,13 @@
 <p>Override the default formatting functions, method 2:</p>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a>pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a>pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
 <span id="cb21-2"><a></a>  <span class="fu">ard_summary</span>(</span>
 <span id="cb21-3"><a></a>    <span class="at">variables =</span> AGE,</span>
 <span id="cb21-4"><a></a>    <span class="at">by =</span> ARM,                               </span>
 <span id="cb21-5"><a></a>  ) <span class="sc">|&gt;</span> </span>
 <span id="cb21-6"><a></a>  <span class="fu">update_ard_fmt_fun</span>(<span class="at">stat_names =</span> <span class="st">"mean"</span>, <span class="at">fmt_fun =</span> <span class="dv">0</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb21-7"><a></a>  <span class="fu">apply_fmt_fun</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-7"><a></a>  <span class="fu">apply_fmt_fun</span>() </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>{cards} data frame: 32 x 11</code></pre>
 </div>
@@ -517,11 +517,11 @@
 </ul>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a>pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a>pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
 <span id="cb27-2"><a></a>  <span class="fu">ard_tabulate</span>(</span>
 <span id="cb27-3"><a></a>    <span class="at">by =</span> ARM,</span>
 <span id="cb27-4"><a></a>    <span class="at">variables =</span> AGEGR1</span>
-<span id="cb27-5"><a></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb27-5"><a></a>  ) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>{cards} data frame: 24 x 11</code></pre>
 </div>
@@ -574,12 +574,12 @@
 </ul>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a>pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a>pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
 <span id="cb33-2"><a></a>  <span class="fu">ard_stack</span>( </span>
 <span id="cb33-3"><a></a>    <span class="at">.by =</span> ARM,      </span>
 <span id="cb33-4"><a></a>    <span class="fu">ard_summary</span>(<span class="at">variables =</span> AGE, <span class="at">statistic =</span> <span class="sc">~</span> <span class="fu">continuous_summary_fns</span>(<span class="fu">c</span>(<span class="st">"mean"</span>,<span class="st">"sd"</span>))), </span>
 <span id="cb33-5"><a></a>    <span class="fu">ard_tabulate</span>(<span class="at">variables =</span> AGEGR1, <span class="at">statistic =</span> <span class="sc">~</span> <span class="st">"p"</span>)</span>
-<span id="cb33-6"><a></a>  )  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb33-6"><a></a>  )  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>{cards} data frame: 28 x 11</code></pre>
 </div>
@@ -633,13 +633,13 @@
 </ul>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a><span class="fu">ard_hierarchical</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a><span class="fu">ard_hierarchical</span>(</span>
 <span id="cb39-2"><a></a>  <span class="at">data =</span> adae <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">slice_tail</span>(<span class="at">n =</span> <span class="dv">1</span>L, <span class="at">by =</span> <span class="fu">c</span>(USUBJID, ARM, AESOC, AEDECOD)),</span>
 <span id="cb39-3"><a></a>  <span class="at">variables =</span> <span class="fu">c</span>(AESOC, AEDECOD),</span>
 <span id="cb39-4"><a></a>  <span class="at">by =</span> TRT01A,</span>
 <span id="cb39-5"><a></a>  <span class="at">id =</span> USUBJID,</span>
 <span id="cb39-6"><a></a>  <span class="at">denominator =</span> ADSL</span>
-<span id="cb39-7"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb39-7"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   group1 group1_level group2 group2_level variable variable_level stat_name
 1  TRT01A      Placebo  AESOC    GASTROIN…  AEDECOD      DIARRHOEA         n
@@ -672,11 +672,11 @@
 <p>This function specializes in calculating <strong>event</strong>-level frequencies.</p>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a><span class="fu">ard_hierarchical_count</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a><span class="fu">ard_hierarchical_count</span>(</span>
 <span id="cb41-2"><a></a>  <span class="at">data =</span> adae,</span>
 <span id="cb41-3"><a></a>  <span class="at">variables =</span> <span class="fu">c</span>(AESOC, AEDECOD),</span>
 <span id="cb41-4"><a></a>  <span class="at">by =</span> TRT01A</span>
-<span id="cb41-5"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb41-5"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   group1 group1_level group2 group2_level variable variable_level stat_name
 1  TRT01A      Placebo  AESOC    GASTROIN…  AEDECOD      DIARRHOEA         n
@@ -725,13 +725,13 @@
 </ul>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a><span class="fu">ard_stack_hierarchical</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a><span class="fu">ard_stack_hierarchical</span>(</span>
 <span id="cb43-2"><a></a>  <span class="at">data =</span> adae,</span>
 <span id="cb43-3"><a></a>  <span class="at">variables =</span> <span class="fu">c</span>(AESOC, AEDECOD),</span>
 <span id="cb43-4"><a></a>  <span class="at">by =</span> TRT01A,</span>
 <span id="cb43-5"><a></a>  <span class="at">id =</span> USUBJID,</span>
 <span id="cb43-6"><a></a>  <span class="at">denominator =</span> pharmaverseadam<span class="sc">::</span>adsl</span>
-<span id="cb43-7"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb43-7"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -772,12 +772,12 @@
 </ul>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a></a><span class="fu">ard_stack_hierarchical_count</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a></a><span class="fu">ard_stack_hierarchical_count</span>(</span>
 <span id="cb45-2"><a></a>  <span class="at">data =</span> adae,</span>
 <span id="cb45-3"><a></a>  <span class="at">variables =</span> <span class="fu">c</span>(AESOC, AEDECOD),</span>
 <span id="cb45-4"><a></a>  <span class="at">by =</span> TRT01A, </span>
 <span id="cb45-5"><a></a>  <span class="at">denominator =</span> pharmaverseadam<span class="sc">::</span>adsl</span>
-<span id="cb45-6"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb45-6"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -802,7 +802,7 @@
 </ul>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_61aba582" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_dbbd4de2" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">08</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -847,9 +847,9 @@
 </ul>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a></a>pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a></a>pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
 <span id="cb48-2"><a></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(ARM <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Xanomeline High Dose"</span>, <span class="st">"Xanomeline Low Dose"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb48-3"><a></a>  cardx<span class="sc">::</span><span class="fu">ard_stats_t_test</span>(<span class="at">by =</span> ARM, <span class="at">variables =</span> AGE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb48-3"><a></a>  cardx<span class="sc">::</span><span class="fu">ard_stats_t_test</span>(<span class="at">by =</span> ARM, <span class="at">variables =</span> AGE)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>{cards} data frame: 14 x 9</code></pre>
 </div>
@@ -885,13 +885,13 @@
 </ul>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a></a>pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a></a>pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
 <span id="cb52-2"><a></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(ARM <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Xanomeline High Dose"</span>, <span class="st">"Xanomeline Low Dose"</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb52-3"><a></a>  cards<span class="sc">::</span><span class="fu">ard_summary</span>(</span>
 <span id="cb52-4"><a></a>    <span class="at">variables =</span> AGE,</span>
 <span id="cb52-5"><a></a>    <span class="at">statistic =</span> <span class="fu">everything</span>() <span class="sc">~</span> <span class="fu">list</span>(<span class="at">t_test =</span> \(x) <span class="fu">t.test</span>(x) <span class="sc">|&gt;</span> broom<span class="sc">::</span><span class="fu">tidy</span>())</span>
 <span id="cb52-6"><a></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb52-7"><a></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">context =</span> <span class="st">"t_test_one_sample"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb52-7"><a></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">context =</span> <span class="st">"t_test_one_sample"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>{cards} data frame: 8 x 8</code></pre>
 </div>
@@ -919,7 +919,7 @@
 </ul>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a></a>pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a></a>pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
 <span id="cb56-2"><a></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(ARM <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Xanomeline High Dose"</span>, <span class="st">"Xanomeline Low Dose"</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb56-3"><a></a>  cards<span class="sc">::</span><span class="fu">ard_mvsummary</span>(</span>
 <span id="cb56-4"><a></a>    <span class="at">variables =</span> AGE,</span>
@@ -927,7 +927,7 @@
 <span id="cb56-6"><a></a>      <span class="sc">~</span> <span class="fu">list</span>(<span class="at">t_test =</span> \(x, data, ...) <span class="fu">t.test</span>(x <span class="sc">~</span> data<span class="sc">$</span>ARM) <span class="sc">|&gt;</span> broom<span class="sc">::</span><span class="fu">tidy</span>())</span>
 <span id="cb56-7"><a></a>  ) <span class="sc">|&gt;</span> </span>
 <span id="cb56-8"><a></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">group1 =</span> <span class="st">"ARM"</span>, <span class="at">context =</span> <span class="st">"t_test_two_sample"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb56-9"><a></a>  cards<span class="sc">::</span><span class="fu">tidy_ard_column_order</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb56-9"><a></a>  cards<span class="sc">::</span><span class="fu">tidy_ard_column_order</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>{cards} data frame: 10 x 9</code></pre>
 </div>
@@ -972,8 +972,8 @@
 </ul>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a></a><span class="fu">lm</span>(AGE <span class="sc">~</span> ARM, <span class="at">data =</span> cards<span class="sc">::</span>ADSL) <span class="sc">|&gt;</span></span>
-<span id="cb60-2"><a></a>  cardx<span class="sc">::</span><span class="fu">ard_regression</span>(<span class="at">add_estimate_to_reference_rows =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a></a><span class="fu">lm</span>(AGE <span class="sc">~</span> ARM, <span class="at">data =</span> cards<span class="sc">::</span>ADSL) <span class="sc">|&gt;</span></span>
+<span id="cb60-2"><a></a>  cardx<span class="sc">::</span><span class="fu">ard_regression</span>(<span class="at">add_estimate_to_reference_rows =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   variable variable_level   context      stat_name stat_label      stat
 1       ARM        Placebo regressi…           term       term ARMPlace…
@@ -995,7 +995,7 @@
 <p>What happens when statistics are un-calculable?</p>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a></a>ard_gone_wrong <span class="ot">&lt;-</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a></a>ard_gone_wrong <span class="ot">&lt;-</span> </span>
 <span id="cb62-2"><a></a>  cards<span class="sc">::</span>ADSL <span class="sc">|&gt;</span> </span>
 <span id="cb62-3"><a></a>  cards<span class="sc">::</span><span class="fu">ard_summary</span>(</span>
 <span id="cb62-4"><a></a>    <span class="at">by =</span> ARM,</span>
@@ -1003,7 +1003,7 @@
 <span id="cb62-6"><a></a>    <span class="at">statistic =</span> <span class="sc">~</span><span class="fu">list</span>(<span class="at">kurtosis =</span> \(x) e1071<span class="sc">::</span><span class="fu">kurtosis</span>(x))</span>
 <span id="cb62-7"><a></a>  ) <span class="sc">|&gt;</span> </span>
 <span id="cb62-8"><a></a>  cards<span class="sc">::</span><span class="fu">replace_null_statistic</span>()</span>
-<span id="cb62-9"><a></a>ard_gone_wrong</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb62-9"><a></a>ard_gone_wrong</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>{cards} data frame: 3 x 10</code></pre>
 </div>
@@ -1018,7 +1018,7 @@
 </div>
 </div>
 <div class="fragment">
-<div class="sourceCode" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a></a>cards<span class="sc">::</span><span class="fu">print_ard_conditions</span>(ard_gone_wrong)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a></a>cards<span class="sc">::</span><span class="fu">print_ard_conditions</span>(ard_gone_wrong)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><img data-src="images/ard-error-msg.png"></p>
 </div>
 <aside class="notes">
@@ -1237,7 +1237,7 @@
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -1349,13 +1349,14 @@
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy
