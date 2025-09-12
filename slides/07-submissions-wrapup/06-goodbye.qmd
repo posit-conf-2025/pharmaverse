@@ -1,0 +1,54 @@
+# Thank you for being here!
+
+## Remember...
+
+The success of Pharmaverse and Open Source relies on the community!
+
+## How to contribute
+
+- Use the packages 
+
+- Write blogs, create templates
+
+- Submit Issues and/or Code
+
+  - documentation 
+  
+  - feature requests
+  
+  - Bug
+  
+- Join as a contributor – get in touch with the maintainer
+
+All types of contributions are welcome!
+
+
+
+## Discussion time
+
+[If time allows!]
+
+- Form a small group of 4-5 with your neighbors
+
+- Discuss the following questions 
+  
+  - What had you expected to learn today
+  
+  - What was learned at today
+  
+  - What will you be bringing back to your teams
+  
+  - What do we think is the skillset that will be required in the future
+  
+  - What do we see as benefits of ARDs
+  
+  - If you could tell yourself something 5 years ago, what would it be?
+
+
+## Post-workshop Survey
+
+- Your feedback is crucial! 
+
+- Data from the survey informs curriculum and format decisions for future conf workshops, and we really appreciate you taking the time to provide it
+
+< add link >
