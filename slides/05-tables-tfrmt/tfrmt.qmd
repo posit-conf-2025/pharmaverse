@@ -2,6 +2,16 @@
 
 ![](images/diagram-pkgs.png){fig-align="center"}
 
+## Objectives
+
+::: incremental
+-   By the end of this tables section you will have:
+    - Developed an understanding of how tfrmt supports table creation in multiple phases of the reporting process
+    - Seen examples of demographic and AE summary table formatting
+    - Gained an awareness of utilities for the transition from cards to tfrmt input data
+:::
+
+
 ## ARD-first Tables with {tfrmt} {.black-header}
 
 ```{css, echo=FALSE}
