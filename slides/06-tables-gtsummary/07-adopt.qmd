@@ -14,12 +14,13 @@
 
 ```{r}
 #| output-location: "column"
+#| label: "theme1"
 reset_gtsummary_theme()
 
-trial |> 
+adsl |> 
   tbl_summary(
-    by = trt, 
-    include = c(age, response)
+    by = ARM2, 
+    include = c(AGE, ETHNIC)
   ) |>
   modify_caption(
     "Default Theme"
@@ -33,10 +34,10 @@ trial |>
 reset_gtsummary_theme()
 theme_gtsummary_journal(journal = "jama")
 
-trial |> 
+adsl |> 
   tbl_summary(
-    by = trt, 
-    include = c(age, response)
+    by = ARM2, 
+    include = c(AGE, ETHNIC)
   ) |>
   modify_caption(
     "Journal Theme (JAMA)"
@@ -50,10 +51,10 @@ trial |>
 reset_gtsummary_theme()
 theme_gtsummary_language(language = "zh-tw")
 
-trial |> 
+adsl |> 
   tbl_summary(
-    by = trt, 
-    include = c(age, response)
+    by = ARM2, 
+    include = c(AGE, ETHNIC)
   ) |>
   add_p() |> 
   modify_caption(
@@ -96,10 +97,10 @@ trial |>
 reset_gtsummary_theme()
 theme_gtsummary_compact()
 
-trial |> 
+adsl |> 
   tbl_summary(
-    by = trt, 
-    include = c(age, response)
+    by = ARM2, 
+    include = c(AGE, ETHNIC)
   ) |>
   modify_caption("Compact Theme")
 ```
@@ -144,7 +145,7 @@ theme_gtsummary_printer("gt") # let's keep gt for printing tables
 
 adsl |> 
   dplyr::mutate(ETHNIC = forcats::fct_expand(ETHNIC, "REFUSED")) |> 
-  tbl_roche_summary(by = ARM, include = c(AGE, ETHNIC))
+  tbl_roche_summary(by = ARM2, include = c(AGE, ETHNIC))
 ```
 
 ## What else is in {crane}? <img src="https://raw.githubusercontent.com/insightsengineering/crane/main/man/figures/logo.png" align="right" height="120"/>
@@ -161,7 +162,7 @@ At Roche, we report AEs differently than what you find in the FDA specs: we expo
 #| label: tbl_hierarchical_rate_and_count
 adae |> 
   tbl_hierarchical_rate_and_count(
-    by = ARM,
+    by = ARM2,
     variables = c(AESOC, AEDECOD),
     denominator = adsl
   ) |>
@@ -184,7 +185,7 @@ But the general structure appears enough times in our catalog, we make it simple
 adlb |> 
   dplyr::filter(PARAM == "Albumin (g/L)") |> 
   tbl_baseline_chg(
-    by = "ARM",
+    by = "ARM2",
     baseline_level = "Baseline",
     denominator = adsl
   )

@@ -16,3 +16,23 @@ execute:
 cache: false
 --- 
 
+
+## Recap
+
+Show Barb moving along the E2E pathway
+
+Do a Q&A here? Their questions are probably more important than other items
+
+## Examples
+
+Open the pharmaverse examples website
+
+## LLMs
+
+Add slides about AI integration, utility with the tools covered.
+
+## teal
+
+Open the teal gallery and walk thorugh examples (not the code, but the end result)
+
+## take a look at last year's slides and copy anything relavant

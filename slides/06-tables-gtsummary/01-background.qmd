@@ -26,7 +26,7 @@
 
   - [1,600,000 installations]{.emphasis} from CRAN
   - 1,100 GitHub stars
-  - 1,000 citations in peer-reviewed journals
+  - 1,000 citations in peer-reviewed articles
   - 300 contributors 
   - 50 code contributors
   
