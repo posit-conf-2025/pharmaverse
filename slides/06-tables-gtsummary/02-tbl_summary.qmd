@@ -1,30 +1,26 @@
 # tbl_summary()
 
-## Prepare {pharmaverseadam} data
+## {pharmaverseadam} Dataa for Examples
 
 Reduced sizes of `adsl`, `adse`, `adlb`.
 Created `ad_onco` with oncologic outcomes.
 
-
 ```{r}
 #| message: false
-library(pharmaverseadam)
 library(tidyverse)
 
 adsl <- pharmaverseadam::adsl |> 
-  filter(ARM != "Screen Failure") |> 
-  select(USUBJID, ARM, AGE, ETHNIC, SEX, TRTDURD) |> 
-  mutate(FEMALE = SEX == "F") |> 
+  filter(SAFFL == "Y") |> 
+  mutate(ARM2 = word(ARM), FEMALE = SEX == "F") |> 
   labelled::set_variable_labels(FEMALE = "Female")
 
 adae <- pharmaverseadam::adae |> 
   filter(
     USUBJID %in% adsl$USUBJID,
     AESOC %in% c("CARDIAC DISORDERS", "EYE DISORDERS"),
-    AEDECOD %in% c("ATRIAL FLUTTER", "MYOCARDIAL INFARCTION",
-                   "EYE ALLERGY", "EYE SWELLING")
+    AEDECOD %in% c("ATRIAL FLUTTER", "MYOCARDIAL INFARCTION", "EYE ALLERGY", "EYE SWELLING")
   ) |> 
-  select(USUBJID, ARM, AEDECOD, AESOC, AEHLT, AESEV, AESER, AEREL)
+  mutate(ARM2 = word(ARM))
 
 adlb <- pharmaverseadam::adlb |> 
   filter(
@@ -32,8 +28,7 @@ adlb <- pharmaverseadam::adlb |>
     PARAM %in% c("Albumin (g/L)", "Bilirubin (umol/L)" , "Leukocytes (10^9/L)"),
     AVISIT %in% c("Baseline", "Week 12", "Week 24")
   ) |> 
-  select(USUBJID, ARM, AVISIT, AVISITN, PARCAT1, PARAM, PARAMCD, 
-         AVAL, AVALC, BASE, CHG)
+  mutate(ARM2 = word(ARM))
 
 # Construct an oncology outcomes dataset
 ad_onco <-
@@ -61,7 +56,7 @@ ad_onco <-
   ) |> 
   reduce(full_join, by = "USUBJID") |> 
   inner_join(adsl[c("USUBJID", "AGE", "ETHNIC", "ARM")], by = "USUBJID") |> 
-  mutate(ARM2 = word(ARM, 1))
+  mutate(ARM2 = word(ARM))
 ```
 
 ## Basic tbl_summary()
@@ -96,10 +91,10 @@ adsl |>
 #| output-location: "column"
 #| label: 'customize-summary1'
 adsl |> 
-  dplyr::filter(, startsWith(ARM, "Xanomeline")) |> 
+  dplyr::filter(startsWith(ARM, "Xanomeline")) |> 
   tbl_summary(
     include = c(AGE, ETHNIC, FEMALE),
-    by = ARM,
+    by = ARM2,
   )
 ```
 
@@ -120,10 +115,9 @@ adsl |>
 #| output-location: "column"
 #| label: 'customize-summary2'
 adsl |> 
-  dplyr::filter(, startsWith(ARM, "Xanomeline")) |> 
   tbl_summary(
     include = c(AGE, ETHNIC, FEMALE),
-    by = ARM,
+    by = ARM2,
     type = AGE ~ "continuous2",
   )
 ```
@@ -147,10 +141,9 @@ adsl |>
 #| output-location: "column"
 #| label: 'customize-summary3'
 adsl |> 
-  dplyr::filter(, startsWith(ARM, "Xanomeline")) |> 
   tbl_summary(
     include = c(AGE, ETHNIC, FEMALE),
-    by = ARM,
+    by = ARM2,
     type = AGE ~ "continuous2",
     statistic = 
       list(
@@ -182,10 +175,9 @@ adsl |>
 #| output-location: "column"
 #| label: 'customize-summary4'
 adsl |> 
-  dplyr::filter(, startsWith(ARM, "Xanomeline")) |> 
   tbl_summary(
     include = c(AGE, ETHNIC, FEMALE),
-    by = ARM,
+    by = ARM2,
     type = AGE ~ "continuous2",
     statistic = 
       list(
@@ -220,10 +212,9 @@ adsl |>
 #| output-location: "column"
 #| label: 'customize-summary5'
 adsl |> 
-  dplyr::filter(, startsWith(ARM, "Xanomeline")) |> 
   tbl_summary(
     include = c(AGE, ETHNIC, FEMALE),
-    by = ARM,
+    by = ARM2,
     type = AGE ~ "continuous2",
     statistic = 
       list(
@@ -292,7 +283,7 @@ This syntax is also used in {cards}, {cardx}, {crane}, and {gt}.
 #| code-line-numbers: "6"
 adsl |>
   tbl_summary(
-    by = ARM,
+    by = ARM2,
     include = c(AGE, ETHNIC, FEMALE)
   ) |> 
   add_overall(last = TRUE)
@@ -325,12 +316,10 @@ ad_onco |>
 ```{r}
 #| label: 'summary-modified'
 #| output-location: "column"
-#| code-line-numbers: "6,7,8,9,10,11,12,13,14,15,16"
+#| code-line-numbers: "5,6,7,8,9,10,11,12,13,14,15"
 tbl <-
-  adsl[c("ARM", "AGE", "ETHNIC", "FEMALE")] |> 
-  filter(startsWith(ARM, "Xanomeline")) |> 
-  tbl_summary(by = ARM, 
-              missing = "no") |>
+  adsl |> 
+  tbl_summary(by = ARM2, include = c("AGE", "ETHNIC", "FEMALE")) |>
   modify_header(
     stat_1 ~ "**Group A**",
     stat_2 ~ "**Group B**"
@@ -389,7 +378,7 @@ ad_onco |>
 #| code-line-numbers: "6"
 adsl |>
   tbl_summary(
-    by = ARM,
+    by = ARM2,
     include = c(AGE, ETHNIC, FEMALE)
   ) |> 
   add_stat(...)
@@ -414,8 +403,6 @@ adsl |>
 
 - Every gtsummary table saves the ARDs from each calculation
 
-- They can be extracted individually, or combined.
-
 :::
 
 ::: {.column width="70%"}
@@ -424,7 +411,7 @@ adsl |>
 #| label: 'summary-view-ard'
 #| message: true
 #| code-line-numbers: "2"
-tbl <- tbl_summary(adsl, by = "ARM", include = "AGE")
+tbl <- tbl_summary(adsl, by = "ARM2", include = "AGE")
 gather_ard(tbl)
 ```
 

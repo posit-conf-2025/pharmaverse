@@ -1,6 +1,8 @@
 ---
-title: "End-to-End Submissions<br>in R with the Pharmaverse"
-subtitle: "1-Day Workshop"
+title: "Welcome!"
+subtitle: "End-to-End Submissions<br>in R with the Pharmaverse"
+author: <code>posit::conf(2025)</code>
+date: 2025-09-16
 logo: "../../images/pharmaverse-hex.png"
 footer: "[https://posit-conf-2025.github.io/pharmaverse/](https://posit-conf-2025.github.io/pharmaverse/)" 
 editor: source
@@ -17,8 +19,27 @@ execute:
 cache: false
 --- 
 
+## End-to-End Submissions in R with the Pharmaverse
+
+* Find a seat where you can see the screen!
+
+<!-- TODO: Add link to posit cloud -->
+* Join the Posit Cloud workspace: 
+
+<!-- TODO: Add link to Slack channel -->
+* Join the Slack from 
+
+<!-- TODO: UPDATE WITH WIFI INFORMATION! -->
+* **WiFI**: Posit Conf 2024 | `conf2024`
+
+
+## Expected Background
+
+<!-- TOOD: Add info about attendees baseline knowledge -->
+
 ## Instructors
 
+<!-- TODO: Update this -->
 :::: {.columns}
 
 ::: {.column}
