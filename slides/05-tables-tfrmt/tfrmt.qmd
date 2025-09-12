@@ -747,6 +747,7 @@ print_to_gt(
 ::: {.column  width="47%"}
 
 Current data (`cards` output)
+
 ```{r}
 #| echo: false
 #| message: true
@@ -893,6 +894,8 @@ mock_tbl |>
 Take a look at our "big N" (i.e. population counts) rows:
 :::
 
+:::
+
 ```{r}
 #| echo: false
 ard_demog_00 |> 
@@ -901,7 +904,6 @@ ard_demog_00 |>
   tfrmt::prep_label() |> 
   dplyr::filter(stat_variable %in% c("ARM2", "..ard_total_n.."))
 ```
-
 
 ::: {.small}
 - First, we only need the counts themselves ('n'), not denominators or percentages ('N', '%') to display in the column headers. 
@@ -947,7 +949,11 @@ mock_tbl |>
 :::
 ## cards to tfrmt
 
+::: {.small} 
+
 Finally, we can do any other necessary manipulations like relabeling or adding order variables before passing to `tfrmt()`.
+
+:::
 
 ```{r}
 #| output-location: "column"

@@ -2,7 +2,7 @@
 ##
 
 ::: {.columns}
-::: {.column width="60%"}
+::: {.column width="65%"}
 
 ### How it started
 
@@ -24,10 +24,11 @@
 
 - The stats
 
-  - [1,500,000+ installations]{.emphasis} from CRAN
-  - 1,100+ GitHub stars
-  - 300+ contributors 
-  - 50+ code contributors
+  - [1,600,000 installations]{.emphasis} from CRAN
+  - 1,100 GitHub stars
+  - 1,000 citations in peer-reviewed articles
+  - 300 contributors 
+  - 50 code contributors
   
 - Won the 2021 American Statistical Association (ASA) Innovation in Programming Award
 
@@ -37,7 +38,7 @@
 :::
 
 :::
-::: {.column width="40%"}
+::: {.column width="35%"}
 
 <img src="images/gtsummary-logo.png" width="650"/>
 

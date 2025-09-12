@@ -74,38 +74,6 @@ We can simply use the ARD from the previous slide, and pass it to `tbl_ard_summa
 tbl_ard_summary(ard)
 ```
 
-
-## ARD-first Tables
-
-Now let's try a somewhat more complicated table.
-
-```{r}
-#| label: 'tbl_ard_summary2'
-#| output-location: "slide"
-#| code-line-numbers: "|2|4|7|17|18|19|21"
-adsl |> 
-  labelled::set_variable_labels(AGE = "Age, years") |> 
-  ard_stack( 
-    .by = ARM,
-    ard_continuous(
-      variables = AGE,
-      fmt_fn = AGE ~ list(sd = 2)
-    ),
-    ard_categorical(variables = ETHNIC),
-    ard_dichotomous(variables = FEMALE),
-    # add these for best-looking tables
-    .attributes = TRUE, 
-    .missing = TRUE 
-  ) |> 
-  tbl_ard_summary(
-    by = ARM,
-    type = all_continuous() ~ "continuous2",
-    statistic = all_continuous() ~ c("{mean} ({sd})", "{min} - {max}"),
-    missing = "no"
-  ) |> 
-  modify_caption("**Table 1. Subject Demographics**")
-```
-
 ## ARD-first Table *Shells*
 
 ```{r}
@@ -115,7 +83,7 @@ adsl |>
 adsl |> 
   labelled::set_variable_labels(AGE = "Age, years") |> 
   ard_stack( 
-    .by = ARM,
+    .by = ARM2,
     ard_categorical(variables = ETHNIC),
     # add these for best-looking tables
     .attributes = TRUE, 
@@ -123,7 +91,7 @@ adsl |>
   ) |> 
   cards::update_ard_fmt_fun(stat_names = c("n", "p"), fmt_fun = \(x) "xx") |> 
   tbl_ard_summary(
-    by = ARM,
+    by = ARM2,
     type = all_continuous() ~ "continuous2",
     statistic = all_continuous() ~ c("{mean} ({sd})", "{min} - {max}"),
     missing = "no"

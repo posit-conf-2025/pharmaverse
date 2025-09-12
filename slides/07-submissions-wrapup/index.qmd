@@ -16,3 +16,36 @@ execute:
 cache: false
 --- 
 
+
+# E2E Overview
+
+
+<!-- Show Barb moving along the E2E pathway -->
+
+<!-- Do a Q&A here? Their questions are probably more important than other items -->
+<!-- TODO: BEN will add -->
+{{< include 01-recap.qmd >}}
+
+
+<!-- Open the pharmaverse examples website -->
+<!-- TODO: Daniel will add -->
+<!-- {{< include 02-examples.qmd >}} -->
+
+<!-- TODO: BEN will add -->
+<!-- {{< include 03-submissions-wg.qmd >}} -->
+
+# Additional Tooling
+
+<!-- Add slides about AI integration, utility with the tools covered. -->
+<!-- TODO: Daniel will add -->
+<!-- {{< include 04-llm.qmd >}} -->
+
+<!-- Open the teal gallery and walk through examples (not the code, but the end result) -->
+<!-- TODO: Ram will add -->
+<!-- {{< include 05-teal.qmd >} -->
+
+<!-- TODO: Becca will add and will also add anything from last year we want to include -->
+<!-- {{< include 06-goodbye.qmd >}} -->
+
+
+

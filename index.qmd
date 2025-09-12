@@ -19,25 +19,7 @@ editor:
 
 ## Description
 
-<!-- TODO: UPDATE ABSTRACT -->
-
-Over the past 5 years, the pharmaverse was created and has blossomed
-into a booming community of organizations and package developers aimed
-at supporting R development with focus on the clinical reporting
-pipeline. Even within a world as standardized as regulatory submissions,
-organizations still tend to have sometimes vastly different requirements
-within their own processes.
-
-In this workshop, we’ll give a high level overview of the scope and
-tools available within the pharmaverse for the clinical pipeline,
-including tools for ADaM data set curation, creating Analysis Results
-Data Sets, and TLGs. To help attendees understand how there are
-different paradigms and pathways through the pharmaverse, we’ll take a
-tour through two to three different strategies available to support
-table, listing, and figure creation. Attendees of this workshop will
-walk away with an understanding of how the pharmaverse can help their
-organization and where they can look to learn more about the right tools
-to support their needs.
+Ready to optimize your regulatory submission process? This workshop offers a practical, end-to-end introduction to using R for a streamlined workflow from raw data to tables, listings, and graphs (TLGs). We'll dive into the power of key R packages from the Pharmaverse, starting with SDTM data preparation; learn to effortlessly map, transform, and validate your data to CDISC standards, ensuring both quality and compliance. Next, create ADaM datasets using modular and pipe-able syntax. Finally, get ready to generate compelling TLGs supported by Analysis Results Datasets (ARDs). We'll explore techniques for producing publication-ready output, customized to meet your specific reporting needs. Walk away with the skills to confidently use R for every stage of the submission process.
 
 ## Schedule
 
@@ -45,7 +27,7 @@ to support their needs.
 #| echo: false
 tibble::tribble(
   ~time, ~desc,
-  "09:00 - 9:30", "Introduction + Overview",
+  "09:00 - 9:30", "[Introduction + Overview](slides/01-intro/index.html)",
   "09:30 - 10:30", "[SDTM](slides/02-SDTM/index.html)", 
   "10:30 - 11:00", "*Coffee Break*",
   "11:00 - 12:30", "[ADaMs with {admiral} and friends](slides/03-ADaM/index.html)",
@@ -54,7 +36,7 @@ tibble::tribble(
   "14:15 - 15:00", "[Create Tables with {tfrmt}](slides/05-tables-tfrmt/index.html)",
   "15:00 - 15:30", "*Coffee Break*",
   "15:30 - 16:15", "[Create Tables with {gtsummary}](slides/06-tables-gtsummary/index.html)",
-  "16:15 - 17:00", "Other Topics Overview + Wrap-up"
+  "16:15 - 17:00", "[Other Topics Overview + Wrap-up](slides/07-submissions-wrapup/index.html)"
 ) |> 
   gt::gt() |> 
   gt::cols_align(align = "left") |> 
