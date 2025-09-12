@@ -178,17 +178,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#ards-using-cards" id="toc-ards-using-cards" class="nav-link active" data-scroll-target="#ards-using-cards">ARDs using {cards}</a>
   <ul class="collapse">
   <li><a href="#cards-introduction" id="toc-cards-introduction" class="nav-link" data-scroll-target="#cards-introduction">{cards}: Introduction</a></li>
+  <li><a href="#data-used-in-examples" id="toc-data-used-in-examples" class="nav-link" data-scroll-target="#data-used-in-examples">Data used in examples</a></li>
+  <li><a href="#cards-ard_tabulate" id="toc-cards-ard_tabulate" class="nav-link" data-scroll-target="#cards-ard_tabulate">{cards}: <code>ard_tabulate()</code></a></li>
+  <li><a href="#cards-ard_tabulate-1" id="toc-cards-ard_tabulate-1" class="nav-link" data-scroll-target="#cards-ard_tabulate-1">{cards}: <code>ard_tabulate()</code></a></li>
   <li><a href="#cards-ard_summary" id="toc-cards-ard_summary" class="nav-link" data-scroll-target="#cards-ard_summary">{cards}: <code>ard_summary()</code></a></li>
   <li><a href="#cards-ard_summary-by-variable" id="toc-cards-ard_summary-by-variable" class="nav-link" data-scroll-target="#cards-ard_summary-by-variable">{cards}: <code>ard_summary()</code> by variable</a></li>
   <li><a href="#cards-ard_summary-statistics" id="toc-cards-ard_summary-statistics" class="nav-link" data-scroll-target="#cards-ard_summary-statistics">{cards}: <code>ard_summary()</code> statistics</a></li>
   <li><a href="#cards-ard_summary-statistics-1" id="toc-cards-ard_summary-statistics-1" class="nav-link" data-scroll-target="#cards-ard_summary-statistics-1">{cards}: <code>ard_summary()</code> statistics</a></li>
   <li><a href="#cards-ard_summary-fmt_fun" id="toc-cards-ard_summary-fmt_fun" class="nav-link" data-scroll-target="#cards-ard_summary-fmt_fun">{cards}: <code>ard_summary()</code> fmt_fun</a></li>
-  <li><a href="#cards-ard_summary-fmt_fun-1" id="toc-cards-ard_summary-fmt_fun-1" class="nav-link" data-scroll-target="#cards-ard_summary-fmt_fun-1">{cards}: <code>ard_summary()</code> fmt_fun</a></li>
-  <li><a href="#cards-ard_tabulate" id="toc-cards-ard_tabulate" class="nav-link" data-scroll-target="#cards-ard_tabulate">{cards}: <code>ard_tabulate()</code></a></li>
   <li><a href="#cards-other-summary-functions" id="toc-cards-other-summary-functions" class="nav-link" data-scroll-target="#cards-other-summary-functions">{cards}: Other Summary Functions</a></li>
   <li><a href="#cards-other-functions" id="toc-cards-other-functions" class="nav-link" data-scroll-target="#cards-other-functions">{cards}: Other Functions</a></li>
   <li><a href="#cards-stacking-utilities" id="toc-cards-stacking-utilities" class="nav-link" data-scroll-target="#cards-stacking-utilities">{cards}: Stacking utilities</a></li>
-  <li><a href="#exercise-together" id="toc-exercise-together" class="nav-link" data-scroll-target="#exercise-together">Exercise 🏃‍➡️ (Together!)</a></li>
+  <li><a href="#quick-recap" id="toc-quick-recap" class="nav-link" data-scroll-target="#quick-recap">Quick recap!</a></li>
+  <li><a href="#quick-recap-1" id="toc-quick-recap-1" class="nav-link" data-scroll-target="#quick-recap-1">Quick recap!</a></li>
+  <li><a href="#quick-recap-2" id="toc-quick-recap-2" class="nav-link" data-scroll-target="#quick-recap-2">Quick recap!</a></li>
+  <li><a href="#quick-recap-3" id="toc-quick-recap-3" class="nav-link" data-scroll-target="#quick-recap-3">Quick recap!</a></li>
+  <li><a href="#quick-recap-4" id="toc-quick-recap-4" class="nav-link" data-scroll-target="#quick-recap-4">Quick recap!</a></li>
+  <li><a href="#quick-recap-5" id="toc-quick-recap-5" class="nav-link" data-scroll-target="#quick-recap-5">Quick recap!</a></li>
+  <li><a href="#quick-recap-6" id="toc-quick-recap-6" class="nav-link" data-scroll-target="#quick-recap-6">Quick recap!</a></li>
   <li><a href="#cards-hierarchical-summary-functions" id="toc-cards-hierarchical-summary-functions" class="nav-link" data-scroll-target="#cards-hierarchical-summary-functions">{cards}: Hierarchical Summary Functions</a></li>
   <li><a href="#cards-ard_hierarchical" id="toc-cards-ard_hierarchical" class="nav-link" data-scroll-target="#cards-ard_hierarchical">{cards}: <code>ard_hierarchical</code></a></li>
   <li><a href="#cards-ard_hierarchical_count" id="toc-cards-ard_hierarchical_count" class="nav-link" data-scroll-target="#cards-ard_hierarchical_count">{cards}: <code>ard_hierarchical_count</code></a></li>
@@ -227,28 +234,120 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>36k downloads per month 🤯</p></li>
 </ul>
 </section>
+<section id="data-used-in-examples" class="level2">
+<h2 class="anchored" data-anchor-id="data-used-in-examples">Data used in examples</h2>
+<p>ADSL from <code>pharmaverseadam</code></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>adsl <span class="ot">&lt;-</span> pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(SAFFL<span class="sc">==</span><span class="st">"Y"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">ARM2 =</span> <span class="fu">ifelse</span>(<span class="fu">startsWith</span>(ARM, <span class="st">"Xanomeline"</span>), <span class="st">"Xanomeline"</span>, ARM))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>ADAE from <code>pharmaverseadam</code></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>adae <span class="ot">&lt;-</span> pharmaverseadam<span class="sc">::</span>adae <span class="sc">|&gt;</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(SAFFL<span class="sc">==</span><span class="st">"Y"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">ARM2 =</span> <span class="fu">ifelse</span>(<span class="fu">startsWith</span>(ARM, <span class="st">"Xanomeline"</span>), <span class="st">"Xanomeline"</span>, ARM)) <span class="sc">|&gt;</span> </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(AESOC <span class="sc">%in%</span> <span class="fu">unique</span>(AESOC)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]) <span class="sc">|&gt;</span> </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(AESOC) <span class="sc">|&gt;</span> </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(AEDECOD <span class="sc">%in%</span> <span class="fu">unique</span>(AEDECOD)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]) <span class="sc">|&gt;</span> </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">ungroup</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="cards-ard_tabulate" class="level2">
+<h2 class="anchored" data-anchor-id="cards-ard_tabulate">{cards}: <code>ard_tabulate()</code></h2>
+<div class="small">
+<ul>
+<li>includes <code>n</code>, <code>%</code>, <code>N</code> by default</li>
+<li><em>Any unobserved levels of the variables will be present in the resulting ARD.</em></li>
+</ul>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cards)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>adsl <span class="sc">|&gt;</span> </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ard_tabulate</span>(</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">variables =</span> AGEGR1</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  ) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>{cards} data frame: 6 x 9</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  variable variable_level  context stat_name stat_label stat
+1   AGEGR1            &gt;64 tabulate         n          n  221
+2   AGEGR1            &gt;64 tabulate         N          N  254
+3   AGEGR1            &gt;64 tabulate         p          % 0.87
+4   AGEGR1          18-64 tabulate         n          n   33
+5   AGEGR1          18-64 tabulate         N          N  254
+6   AGEGR1          18-64 tabulate         p          % 0.13</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ 3 more variables: fmt_fun, warning, error</code></pre>
+</div>
+</div>
+</section>
+<section id="cards-ard_tabulate-1" class="level2">
+<h2 class="anchored" data-anchor-id="cards-ard_tabulate-1">{cards}: <code>ard_tabulate()</code></h2>
+<div class="small">
+<ul>
+<li>includes <code>n</code>, <code>%</code>, <code>N</code> by default</li>
+<li><em>Any unobserved levels of the variables will be present in the resulting ARD.</em></li>
+</ul>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>adsl <span class="sc">|&gt;</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ard_tabulate</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> ARM2,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">variables =</span> AGEGR1</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  ) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>{cards} data frame: 12 x 11</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   group1 group1_level variable variable_level stat_name stat_label  stat
+1    ARM2      Placebo   AGEGR1            &gt;64         n          n    72
+2    ARM2      Placebo   AGEGR1            &gt;64         N          N    86
+3    ARM2      Placebo   AGEGR1            &gt;64         p          % 0.837
+4    ARM2      Placebo   AGEGR1          18-64         n          n    14
+5    ARM2      Placebo   AGEGR1          18-64         N          N    86
+6    ARM2      Placebo   AGEGR1          18-64         p          % 0.163
+7    ARM2    Xanomeli…   AGEGR1            &gt;64         n          n   149
+8    ARM2    Xanomeli…   AGEGR1            &gt;64         N          N   168
+9    ARM2    Xanomeli…   AGEGR1            &gt;64         p          % 0.887
+10   ARM2    Xanomeli…   AGEGR1          18-64         n          n    19
+11   ARM2    Xanomeli…   AGEGR1          18-64         N          N   168
+12   ARM2    Xanomeli…   AGEGR1          18-64         p          % 0.113</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ 4 more variables: context, fmt_fun, warning, error</code></pre>
+</div>
+</div>
+</section>
 <section id="cards-ard_summary" class="level2">
 <h2 class="anchored" data-anchor-id="cards-ard_summary">{cards}: <code>ard_summary()</code></h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cards)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># create ARD with default summary statistics</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ard_summary</span>(</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">variables =</span> AGE</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create ARD with default summary statistics</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>adsl <span class="sc">|&gt;</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ard_summary</span>(</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">variables =</span> AGE</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>{cards} data frame: 8 x 8</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  variable context stat_name stat_label   stat fmt_fun
-1      AGE summary         N          N    306       0
-2      AGE summary      mean       Mean 75.088       1
-3      AGE summary        sd         SD  8.494       1
+1      AGE summary         N          N    254       0
+2      AGE summary      mean       Mean 75.087       1
+3      AGE summary        sd         SD  8.246       1
 4      AGE summary    median     Median     77       1
 5      AGE summary       p25         Q1     70       1
 6      AGE summary       p75         Q3     81       1
-7      AGE summary       min        Min     50       1
+7      AGE summary       min        Min     51       1
 8      AGE summary       max        Max     89       1</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
@@ -259,37 +358,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="cards-ard_summary-by-variable" class="level2">
 <h2 class="anchored" data-anchor-id="cards-ard_summary-by-variable">{cards}: <code>ard_summary()</code> by variable</h2>
 <div class="small">
-<ul>
-<li><code>by</code>: summary statistics are calculated by all combinations of the by variables, including unobserved factor levels</li>
-</ul>
+<p><code>by</code>: summary statistics are calculated by all combinations of the by variables, including unobserved factor levels</p>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ard_summary</span>(</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">variables =</span> AGE,</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> ARM         <span class="co"># stats by treatment arm</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  ) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>adsl <span class="sc">|&gt;</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ard_summary</span>(</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">variables =</span> AGE,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> ARM2         <span class="co"># stats by treatment arm</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  ) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>{cards} data frame: 32 x 10</code></pre>
+<pre><code>{cards} data frame: 16 x 10</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   group1 group1_level variable stat_name stat_label   stat
-1     ARM      Placebo      AGE         N          N     86
-2     ARM      Placebo      AGE      mean       Mean 75.209
-3     ARM      Placebo      AGE        sd         SD   8.59
-4     ARM      Placebo      AGE    median     Median     76
-5     ARM      Placebo      AGE       p25         Q1     69
-6     ARM      Placebo      AGE       p75         Q3     82
-7     ARM      Placebo      AGE       min        Min     52
-8     ARM      Placebo      AGE       max        Max     89
-9     ARM    Screen F…      AGE         N          N     52
-10    ARM    Screen F…      AGE      mean       Mean 75.096</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ 22 more rows</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ Use `print(n = ...)` to see more rows</code></pre>
+1    ARM2      Placebo      AGE         N          N     86
+2    ARM2      Placebo      AGE      mean       Mean 75.209
+3    ARM2      Placebo      AGE        sd         SD   8.59
+4    ARM2      Placebo      AGE    median     Median     76
+5    ARM2      Placebo      AGE       p25         Q1     69
+6    ARM2      Placebo      AGE       p75         Q3     82
+7    ARM2      Placebo      AGE       min        Min     52
+8    ARM2      Placebo      AGE       max        Max     89
+9    ARM2    Xanomeli…      AGE         N          N    168
+10   ARM2    Xanomeli…      AGE      mean       Mean 75.024
+11   ARM2    Xanomeli…      AGE        sd         SD   8.09
+12   ARM2    Xanomeli…      AGE    median     Median     77
+13   ARM2    Xanomeli…      AGE       p25         Q1     71
+14   ARM2    Xanomeli…      AGE       p75         Q3     81
+15   ARM2    Xanomeli…      AGE       min        Min     51
+16   ARM2    Xanomeli…      AGE       max        Max     88</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>ℹ 4 more variables: context, fmt_fun, warning, error</code></pre>
@@ -299,28 +396,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="cards-ard_summary-statistics" class="level2">
 <h2 class="anchored" data-anchor-id="cards-ard_summary-statistics">{cards}: <code>ard_summary()</code> statistics</h2>
 <div class="small">
-<ul>
-<li><code>statistic</code>: specify univariate summary statistics. Accepts <em>any</em> function, base R, from a package, or user-defined.</li>
-</ul>
+<p><code>statistic</code>: specify univariate summary statistics. Accepts <em>any</em> function, base R, from a package, or user-defined.</p>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cv <span class="ot">&lt;-</span> <span class="cf">function</span>(x)  <span class="fu">sd</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)<span class="sc">/</span><span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ard_summary</span>(  </span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">variables =</span> AGE,</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> ARM,</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">statistic =</span> <span class="sc">~</span> <span class="fu">list</span>(<span class="at">cv =</span> cv) <span class="co"># customize statistics</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>cv <span class="ot">&lt;-</span> <span class="cf">function</span>(x)  <span class="fu">sd</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)<span class="sc">/</span><span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>adsl <span class="sc">|&gt;</span> </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ard_summary</span>(  </span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">variables =</span> AGE,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> ARM2,</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">statistic =</span> <span class="sc">~</span> <span class="fu">list</span>(<span class="at">cv =</span> cv) <span class="co"># customize statistics</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>{cards} data frame: 4 x 10</code></pre>
+<pre><code>{cards} data frame: 2 x 10</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  group1 group1_level variable stat_name stat_label  stat
-1    ARM      Placebo      AGE        cv         cv 0.114
-2    ARM    Screen F…      AGE        cv         cv 0.129
-3    ARM    Xanomeli…      AGE        cv         cv 0.106
-4    ARM    Xanomeli…      AGE        cv         cv  0.11</code></pre>
+1   ARM2      Placebo      AGE        cv         cv 0.114
+2   ARM2    Xanomeli…      AGE        cv         cv 0.108</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>ℹ 4 more variables: context, fmt_fun, warning, error</code></pre>
@@ -333,31 +426,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Customize the statistics returned for each variable</p>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">AGE2 =</span> AGE) <span class="sc">|&gt;</span> </span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ard_summary</span>(</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">variables =</span> <span class="fu">c</span>(AGE, AGE2),</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> ARM,</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">statistic =</span> <span class="fu">list</span>(<span class="at">AGE =</span> <span class="fu">list</span>(<span class="at">cv =</span> cv),</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">AGE2 =</span> <span class="fu">continuous_summary_fns</span>(<span class="fu">c</span>(<span class="st">"mean"</span>,<span class="st">"median"</span>)))</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>adsl <span class="sc">|&gt;</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">AGE2 =</span> AGE) <span class="sc">|&gt;</span> </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ard_summary</span>(</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">variables =</span> <span class="fu">c</span>(AGE, AGE2),</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> ARM2,</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">statistic =</span> <span class="fu">list</span>(<span class="at">AGE =</span> <span class="fu">list</span>(<span class="at">cv =</span> cv),</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">AGE2 =</span> <span class="fu">continuous_summary_fns</span>(<span class="fu">c</span>(<span class="st">"mean"</span>,<span class="st">"median"</span>)))</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>{cards} data frame: 12 x 10</code></pre>
+<pre><code>{cards} data frame: 6 x 10</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   group1 group1_level variable stat_name stat_label   stat
-1     ARM      Placebo      AGE        cv         cv  0.114
-2     ARM      Placebo     AGE2      mean       Mean 75.209
-3     ARM      Placebo     AGE2    median     Median     76
-4     ARM    Screen F…      AGE        cv         cv  0.129
-5     ARM    Screen F…     AGE2      mean       Mean 75.096
-6     ARM    Screen F…     AGE2    median     Median     76
-7     ARM    Xanomeli…      AGE        cv         cv  0.106
-8     ARM    Xanomeli…     AGE2      mean       Mean 74.381
-9     ARM    Xanomeli…     AGE2    median     Median     76
-10    ARM    Xanomeli…      AGE        cv         cv   0.11
-11    ARM    Xanomeli…     AGE2      mean       Mean 75.667
-12    ARM    Xanomeli…     AGE2    median     Median   77.5</code></pre>
+<pre><code>  group1 group1_level variable stat_name stat_label   stat
+1   ARM2      Placebo      AGE        cv         cv  0.114
+2   ARM2      Placebo     AGE2      mean       Mean 75.209
+3   ARM2      Placebo     AGE2    median     Median     76
+4   ARM2    Xanomeli…      AGE        cv         cv  0.108
+5   ARM2    Xanomeli…     AGE2      mean       Mean 75.024
+6   ARM2    Xanomeli…     AGE2    median     Median     77</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>ℹ 4 more variables: context, fmt_fun, warning, error</code></pre>
@@ -367,118 +454,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="cards-ard_summary-fmt_fun" class="level2">
 <h2 class="anchored" data-anchor-id="cards-ard_summary-fmt_fun">{cards}: <code>ard_summary()</code> fmt_fun</h2>
 <div class="small">
-<p>Override the default formatting functions, method 1:</p>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ard_summary</span>(</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">variables =</span> AGE,</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> ARM,                               </span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">fmt_fun =</span> <span class="sc">~</span><span class="fu">list</span>(<span class="at">mean =</span> <span class="dv">0</span>)                </span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">apply_fmt_fun</span>() <span class="co"># add a character column of rounded results</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>{cards} data frame: 32 x 11</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   group1 group1_level variable stat_name stat_label   stat stat_fmt
-1     ARM      Placebo      AGE         N          N     86       86
-2     ARM      Placebo      AGE      mean       Mean 75.209       75
-3     ARM      Placebo      AGE        sd         SD   8.59      8.6
-4     ARM      Placebo      AGE    median     Median     76     76.0
-5     ARM      Placebo      AGE       p25         Q1     69     69.0
-6     ARM      Placebo      AGE       p75         Q3     82     82.0
-7     ARM      Placebo      AGE       min        Min     52     52.0
-8     ARM      Placebo      AGE       max        Max     89     89.0
-9     ARM    Screen F…      AGE         N          N     52       52
-10    ARM    Screen F…      AGE      mean       Mean 75.096       75</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ 22 more rows</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ Use `print(n = ...)` to see more rows</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ 4 more variables: context, fmt_fun, warning, error</code></pre>
-</div>
-</div>
-</section>
-<section id="cards-ard_summary-fmt_fun-1" class="level2">
-<h2 class="anchored" data-anchor-id="cards-ard_summary-fmt_fun-1">{cards}: <code>ard_summary()</code> fmt_fun</h2>
-<div class="small">
-<p>Override the default formatting functions, method 2:</p>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ard_summary</span>(</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">variables =</span> AGE,</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> ARM,                               </span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">update_ard_fmt_fun</span>(<span class="at">stat_names =</span> <span class="st">"mean"</span>, <span class="at">fmt_fun =</span> <span class="dv">0</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">apply_fmt_fun</span>() </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>{cards} data frame: 32 x 11</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   group1 group1_level variable stat_name stat_label   stat stat_fmt
-1     ARM      Placebo      AGE         N          N     86       86
-2     ARM      Placebo      AGE      mean       Mean 75.209       75
-3     ARM      Placebo      AGE        sd         SD   8.59      8.6
-4     ARM      Placebo      AGE    median     Median     76     76.0
-5     ARM      Placebo      AGE       p25         Q1     69     69.0
-6     ARM      Placebo      AGE       p75         Q3     82     82.0
-7     ARM      Placebo      AGE       min        Min     52     52.0
-8     ARM      Placebo      AGE       max        Max     89     89.0
-9     ARM    Screen F…      AGE         N          N     52       52
-10    ARM    Screen F…      AGE      mean       Mean 75.096       75</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ 22 more rows</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ Use `print(n = ...)` to see more rows</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ 4 more variables: context, fmt_fun, warning, error</code></pre>
-</div>
-</div>
-</section>
-<section id="cards-ard_tabulate" class="level2">
-<h2 class="anchored" data-anchor-id="cards-ard_tabulate">{cards}: <code>ard_tabulate()</code></h2>
-<div class="small">
 <ul>
-<li>includes <code>n</code>, <code>%</code>, <code>N</code> by default</li>
-<li><em>Any unobserved levels of the variables will be present in the resulting ARD.</em></li>
+<li>Override the default formatting functions</li>
+<li>Can also update later via <code>update_ard_fmt_fun()</code></li>
 </ul>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ard_tabulate</span>(</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> ARM,</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">variables =</span> AGEGR1</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  ) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>adsl <span class="sc">|&gt;</span> </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ard_summary</span>(</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">variables =</span> AGE,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> ARM2,                               </span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">fmt_fun =</span> <span class="sc">~</span><span class="fu">list</span>(<span class="at">mean =</span> <span class="dv">0</span>)                </span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">apply_fmt_fun</span>() <span class="co"># add a character column of rounded results</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>{cards} data frame: 24 x 11</code></pre>
+<pre><code>{cards} data frame: 16 x 11</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   group1 group1_level variable variable_level stat_name stat_label  stat
-1     ARM      Placebo   AGEGR1            &gt;64         n          n    72
-2     ARM      Placebo   AGEGR1            &gt;64         N          N    86
-3     ARM      Placebo   AGEGR1            &gt;64         p          % 0.837
-4     ARM      Placebo   AGEGR1          18-64         n          n    14
-5     ARM      Placebo   AGEGR1          18-64         N          N    86
-6     ARM      Placebo   AGEGR1          18-64         p          % 0.163
-7     ARM    Screen F…   AGEGR1            &gt;64         n          n    43
-8     ARM    Screen F…   AGEGR1            &gt;64         N          N    52
-9     ARM    Screen F…   AGEGR1            &gt;64         p          % 0.827
-10    ARM    Screen F…   AGEGR1          18-64         n          n     9</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ 14 more rows</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ Use `print(n = ...)` to see more rows</code></pre>
+<pre><code>   group1 group1_level variable stat_name stat_label   stat stat_fmt
+1    ARM2      Placebo      AGE         N          N     86       86
+2    ARM2      Placebo      AGE      mean       Mean 75.209       75
+3    ARM2      Placebo      AGE        sd         SD   8.59      8.6
+4    ARM2      Placebo      AGE    median     Median     76     76.0
+5    ARM2      Placebo      AGE       p25         Q1     69     69.0
+6    ARM2      Placebo      AGE       p75         Q3     82     82.0
+7    ARM2      Placebo      AGE       min        Min     52     52.0
+8    ARM2      Placebo      AGE       max        Max     89     89.0
+9    ARM2    Xanomeli…      AGE         N          N    168      168
+10   ARM2    Xanomeli…      AGE      mean       Mean 75.024       75
+11   ARM2    Xanomeli…      AGE        sd         SD   8.09      8.1
+12   ARM2    Xanomeli…      AGE    median     Median     77     77.0
+13   ARM2    Xanomeli…      AGE       p25         Q1     71     71.0
+14   ARM2    Xanomeli…      AGE       p75         Q3     81     81.0
+15   ARM2    Xanomeli…      AGE       min        Min     51     51.0
+16   ARM2    Xanomeli…      AGE       max        Max     88     88.0</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>ℹ 4 more variables: context, fmt_fun, warning, error</code></pre>
@@ -488,6 +497,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="cards-other-summary-functions" class="level2">
 <h2 class="anchored" data-anchor-id="cards-other-summary-functions">{cards}: Other Summary Functions</h2>
 <ul>
+<li><p><code>ard_tabulate_value()</code>: similar to <code>ard_tabulate()</code>, but for dichotomous tabulations</p></li>
 <li><p><code>ard_hierarchical()</code>: similar to <code>ard_tabulate()</code>, but built for nested tabulations, e.g.&nbsp;AE terms within SOC</p></li>
 <li><p><code>ard_mvsummary()</code>: similar to <code>ard_summary()</code>, for multivariate summaries. The function accepts other arguments like the full and subsetted (within the by groups) data sets.</p></li>
 <li><p><code>ard_missing()</code>: tabulates rates of missingness</p></li>
@@ -510,30 +520,142 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ard_stack</span>( </span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> ARM,      </span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ard_summary</span>(<span class="at">variables =</span> AGE, <span class="at">statistic =</span> <span class="sc">~</span> <span class="fu">continuous_summary_fns</span>(<span class="fu">c</span>(<span class="st">"mean"</span>,<span class="st">"sd"</span>))), </span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ard_tabulate</span>(<span class="at">variables =</span> AGEGR1, <span class="at">statistic =</span> <span class="sc">~</span> <span class="st">"p"</span>)</span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  )  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>adsl <span class="sc">|&gt;</span> </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ard_stack</span>( </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> ARM2,      </span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ard_summary</span>(<span class="at">variables =</span> AGE, <span class="at">statistic =</span> <span class="sc">~</span> <span class="fu">continuous_summary_fns</span>(<span class="fu">c</span>(<span class="st">"mean"</span>,<span class="st">"sd"</span>))), </span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ard_tabulate</span>(<span class="at">variables =</span> AGEGR1, <span class="at">statistic =</span> <span class="sc">~</span> <span class="st">"p"</span>)</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  )  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>{cards} data frame: 28 x 11</code></pre>
+<pre><code>{cards} data frame: 14 x 11</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   group1 group1_level variable variable_level stat_name stat_label   stat
-1     ARM      Placebo      AGE                     mean       Mean 75.209
-2     ARM      Placebo      AGE                       sd         SD   8.59
-3     ARM      Placebo   AGEGR1            &gt;64         p          %  0.837
-4     ARM      Placebo   AGEGR1          18-64         p          %  0.163
-5     ARM    Screen F…      AGE                     mean       Mean 75.096
-6     ARM    Screen F…      AGE                       sd         SD    9.7
-7     ARM    Screen F…   AGEGR1            &gt;64         p          %  0.827
-8     ARM    Screen F…   AGEGR1          18-64         p          %  0.173
-9     ARM    Xanomeli…      AGE                     mean       Mean 74.381
-10    ARM    Xanomeli…      AGE                       sd         SD  7.886</code></pre>
+1    ARM2      Placebo      AGE                     mean       Mean 75.209
+2    ARM2      Placebo      AGE                       sd         SD   8.59
+3    ARM2      Placebo   AGEGR1            &gt;64         p          %  0.837
+4    ARM2      Placebo   AGEGR1          18-64         p          %  0.163
+5    ARM2    Xanomeli…      AGE                     mean       Mean 75.024
+6    ARM2    Xanomeli…      AGE                       sd         SD   8.09
+7    ARM2    Xanomeli…   AGEGR1            &gt;64         p          %  0.887
+8    ARM2    Xanomeli…   AGEGR1          18-64         p          %  0.113
+9    &lt;NA&gt;                  ARM2        Placebo         n          n     86
+10   &lt;NA&gt;                  ARM2        Placebo         N          N    254
+11   &lt;NA&gt;                  ARM2        Placebo         p          %  0.339
+12   &lt;NA&gt;                  ARM2      Xanomeli…         n          n    168
+13   &lt;NA&gt;                  ARM2      Xanomeli…         N          N    254
+14   &lt;NA&gt;                  ARM2      Xanomeli…         p          %  0.661</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>ℹ 18 more rows</code></pre>
+<pre><code>ℹ 4 more variables: context, fmt_fun, warning, error</code></pre>
+</div>
+</div>
+</section>
+<section id="quick-recap" class="level2">
+<h2 class="anchored" data-anchor-id="quick-recap">Quick recap!</h2>
+<div class="small">
+<ul>
+<li>Let’s compute summaries for a demography table that includes age (AGE), age group (AGEGR1), and sex (SEX) by treatment (ARM2)</li>
+<li>First, we compute the continuous summaries for AGE by ARM2</li>
+</ul>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ard_summary</span>(</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> adsl,</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> ,</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">variables =</span> </span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="quick-recap-1" class="level2">
+<h2 class="anchored" data-anchor-id="quick-recap-1">Quick recap!</h2>
+<div class="small">
+<ul>
+<li>Let’s compute summaries for a demography table that includes age (AGE), age group (AGEGR1), and sex (SEX) by treatment (ARM2)</li>
+<li>First, we compute the continuous summaries for AGE by ARM2</li>
+</ul>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="fu">ard_summary</span>(</span>
+<span id="cb36-2"><a href="#cb36-2"></a>  <span class="at">data =</span> adsl,</span>
+<span id="cb36-3"><a href="#cb36-3"></a>  <span class="at">by =</span> ARM2,</span>
+<span id="cb36-4"><a href="#cb36-4"></a>  <span class="at">variables =</span> AGE </span>
+<span id="cb36-5"><a href="#cb36-5"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>{cards} data frame: 16 x 10</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   group1 group1_level variable stat_name stat_label   stat
+1    ARM2      Placebo      AGE         N          N     86
+2    ARM2      Placebo      AGE      mean       Mean 75.209
+3    ARM2      Placebo      AGE        sd         SD   8.59
+4    ARM2      Placebo      AGE    median     Median     76
+5    ARM2      Placebo      AGE       p25         Q1     69
+6    ARM2      Placebo      AGE       p75         Q3     82
+7    ARM2      Placebo      AGE       min        Min     52
+8    ARM2      Placebo      AGE       max        Max     89
+9    ARM2    Xanomeli…      AGE         N          N    168
+10   ARM2    Xanomeli…      AGE      mean       Mean 75.024
+11   ARM2    Xanomeli…      AGE        sd         SD   8.09
+12   ARM2    Xanomeli…      AGE    median     Median     77
+13   ARM2    Xanomeli…      AGE       p25         Q1     71
+14   ARM2    Xanomeli…      AGE       p75         Q3     81
+15   ARM2    Xanomeli…      AGE       min        Min     51
+16   ARM2    Xanomeli…      AGE       max        Max     88</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ 4 more variables: context, fmt_fun, warning, error</code></pre>
+</div>
+</div>
+</section>
+<section id="quick-recap-2" class="level2">
+<h2 class="anchored" data-anchor-id="quick-recap-2">Quick recap!</h2>
+<div class="small">
+<ul>
+<li>Let’s compute summaries for a demography table that includes age (AGE), age group (AGEGR1), and sex (SEX) by treatment (ARM2)</li>
+<li>Next, we compute the categorical summaries for AGEGR1 and SEX by ARM2</li>
+</ul>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ard_tabulate</span>(</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> adsl,</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> ,</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">variables =</span> </span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="quick-recap-3" class="level2">
+<h2 class="anchored" data-anchor-id="quick-recap-3">Quick recap!</h2>
+<div class="small">
+<ul>
+<li>Let’s compute summaries for a demography table that includes age (AGE), age group (AGEGR1), and sex (SEX) by treatment (ARM2)</li>
+<li>Next, we compute the categorical summaries for AGEGR1 and SEX by ARM2</li>
+</ul>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a><span class="fu">ard_tabulate</span>(</span>
+<span id="cb41-2"><a href="#cb41-2"></a>  <span class="at">data =</span> adsl,</span>
+<span id="cb41-3"><a href="#cb41-3"></a>  <span class="at">by =</span> ARM2,</span>
+<span id="cb41-4"><a href="#cb41-4"></a>  <span class="at">variables =</span> <span class="fu">c</span>(AGEGR1, SEX) </span>
+<span id="cb41-5"><a href="#cb41-5"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>{cards} data frame: 24 x 11</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   group1 group1_level variable variable_level stat_name stat_label  stat
+1    ARM2      Placebo   AGEGR1            &gt;64         n          n    72
+2    ARM2      Placebo   AGEGR1            &gt;64         N          N    86
+3    ARM2      Placebo   AGEGR1            &gt;64         p          % 0.837
+4    ARM2      Placebo   AGEGR1          18-64         n          n    14
+5    ARM2      Placebo   AGEGR1          18-64         N          N    86
+6    ARM2      Placebo   AGEGR1          18-64         p          % 0.163
+7    ARM2      Placebo      SEX              F         n          n    53
+8    ARM2      Placebo      SEX              F         N          N    86
+9    ARM2      Placebo      SEX              F         p          % 0.616
+10   ARM2      Placebo      SEX              M         n          n    33</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ 14 more rows</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>ℹ Use `print(n = ...)` to see more rows</code></pre>
@@ -543,12 +665,114 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="exercise-together" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-together">Exercise 🏃‍➡️ (Together!)</h2>
+<section id="quick-recap-4" class="level2">
+<h2 class="anchored" data-anchor-id="quick-recap-4">Quick recap!</h2>
+<div class="small">
+<p>Let’s compute summaries for a demography table that includes age (AGE), age group (AGEGR1), and sex (SEX) by treatment (ARM2) in a *single <code>ard_stack()</code> call, including:</p>
 <ul>
-<li>Open <code>exercises/04-ARD-partA.R</code></li>
-<li>Compute summaries for a demography table that includes AGE, SEX, and RACE.</li>
+<li><p>summaries by ARM2 as performed above</p></li>
+<li><p>continuous summaries from part A for AGE</p></li>
+<li><p>categorical summaries from part B for AGEGR1 and SEX</p></li>
 </ul>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ard_stack</span>(</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> adsl,</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">.by =</span> ARM2,</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add ard_* calls here</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="quick-recap-5" class="level2">
+<h2 class="anchored" data-anchor-id="quick-recap-5">Quick recap!</h2>
+<div class="small">
+<p>Let’s compute summaries for a demography table that includes age (AGE), age group (AGEGR1), and sex (SEX) by treatment (ARM2) in a *single <code>ard_stack()</code> call, including:</p>
+<ul>
+<li><p>summaries by ARM2 as performed above</p></li>
+<li><p>continuous summaries from part A for AGE</p></li>
+<li><p>categorical summaries from part B for AGEGR1 and SEX</p></li>
+</ul>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a><span class="fu">ard_stack</span>(</span>
+<span id="cb48-2"><a href="#cb48-2"></a>  <span class="at">data =</span> adsl,</span>
+<span id="cb48-3"><a href="#cb48-3"></a>  <span class="at">.by =</span> ARM2,</span>
+<span id="cb48-4"><a href="#cb48-4"></a>  <span class="fu">ard_continuous</span>(<span class="at">variables =</span> AGE),</span>
+<span id="cb48-5"><a href="#cb48-5"></a>  <span class="fu">ard_categorical</span>(<span class="at">variables =</span> <span class="fu">c</span>(AGEGR1, SEX))</span>
+<span id="cb48-6"><a href="#cb48-6"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>{cards} data frame: 46 x 11</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   group1 group1_level variable variable_level stat_name stat_label   stat
+1    ARM2      Placebo      AGE                        N          N     86
+2    ARM2      Placebo      AGE                     mean       Mean 75.209
+3    ARM2      Placebo      AGE                       sd         SD   8.59
+4    ARM2      Placebo      AGE                   median     Median     76
+5    ARM2      Placebo      AGE                      p25         Q1     69
+6    ARM2      Placebo      AGE                      p75         Q3     82
+7    ARM2      Placebo      AGE                      min        Min     52
+8    ARM2      Placebo      AGE                      max        Max     89
+9    ARM2      Placebo   AGEGR1            &gt;64         n          n     72
+10   ARM2      Placebo   AGEGR1            &gt;64         N          N     86</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ 36 more rows</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ 4 more variables: context, fmt_fun, warning, error</code></pre>
+</div>
+</div>
+</section>
+<section id="quick-recap-6" class="level2">
+<h2 class="anchored" data-anchor-id="quick-recap-6">Quick recap!</h2>
+<div class="small">
+<p>We can also add:</p>
+<ul>
+<li>Overall summaries for all variables</li>
+<li>Total N</li>
+</ul>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a><span class="fu">ard_stack</span>(</span>
+<span id="cb54-2"><a href="#cb54-2"></a>  <span class="at">data =</span> adsl,</span>
+<span id="cb54-3"><a href="#cb54-3"></a>  <span class="at">.by =</span> ARM2,</span>
+<span id="cb54-4"><a href="#cb54-4"></a>  <span class="fu">ard_continuous</span>(<span class="at">variables =</span> AGE),</span>
+<span id="cb54-5"><a href="#cb54-5"></a>  <span class="fu">ard_categorical</span>(<span class="at">variables =</span> <span class="fu">c</span>(AGEGR1, SEX)),</span>
+<span id="cb54-6"><a href="#cb54-6"></a>  <span class="at">.overall =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb54-7"><a href="#cb54-7"></a>  <span class="at">.total_n =</span> <span class="cn">TRUE</span></span>
+<span id="cb54-8"><a href="#cb54-8"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>{cards} data frame: 67 x 11</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   group1 group1_level variable variable_level stat_name stat_label   stat
+1    ARM2      Placebo      AGE                        N          N     86
+2    ARM2      Placebo      AGE                     mean       Mean 75.209
+3    ARM2      Placebo      AGE                       sd         SD   8.59
+4    ARM2      Placebo      AGE                   median     Median     76
+5    ARM2      Placebo      AGE                      p25         Q1     69
+6    ARM2      Placebo      AGE                      p75         Q3     82
+7    ARM2      Placebo      AGE                      min        Min     52
+8    ARM2      Placebo      AGE                      max        Max     89
+9    ARM2      Placebo   AGEGR1            &gt;64         n          n     72
+10   ARM2      Placebo   AGEGR1            &gt;64         N          N     86</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ 57 more rows</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ 4 more variables: context, fmt_fun, warning, error</code></pre>
+</div>
+</div>
 </section>
 <section id="cards-hierarchical-summary-functions" class="level2">
 <h2 class="anchored" data-anchor-id="cards-hierarchical-summary-functions">{cards}: Hierarchical Summary Functions</h2>
@@ -569,13 +793,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ard_hierarchical</span>(</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> adae <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">slice_tail</span>(<span class="at">n =</span> <span class="dv">1</span>L, <span class="at">by =</span> <span class="fu">c</span>(USUBJID, ARM, AESOC, AEDECOD)),</span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">variables =</span> <span class="fu">c</span>(AESOC, AEDECOD),</span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> TRT01A,</span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> USUBJID,</span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">denominator =</span> ADSL</span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>adae <span class="sc">|&gt;</span> </span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">slice_tail</span>(<span class="at">n =</span> <span class="dv">1</span>L, <span class="at">by =</span> <span class="fu">c</span>(USUBJID, ARM, AESOC, AEDECOD)) <span class="sc">|&gt;</span> </span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ard_hierarchical</span>(</span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">variables =</span> <span class="fu">c</span>(AESOC, AEDECOD),</span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> TRT01A,</span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">id =</span> USUBJID,</span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">denominator =</span> adsl</span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>{cards} data frame: 81 x 13</code></pre>
 </div>
@@ -620,11 +845,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This function specializes in calculating <strong>event</strong>-level frequencies.</p>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ard_hierarchical_count</span>(</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> adae,</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">variables =</span> <span class="fu">c</span>(AESOC, AEDECOD),</span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> TRT01A</span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>adae <span class="sc">|&gt;</span> </span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ard_hierarchical_count</span>( </span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">variables =</span> <span class="fu">c</span>(AESOC, AEDECOD),</span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> TRT01A</span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>{cards} data frame: 27 x 13</code></pre>
 </div>
@@ -685,13 +910,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ard_stack_hierarchical</span>(</span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> adae,</span>
-<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">variables =</span> <span class="fu">c</span>(AESOC, AEDECOD),</span>
-<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> TRT01A,</span>
-<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> USUBJID,</span>
-<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">denominator =</span> pharmaverseadam<span class="sc">::</span>adsl</span>
-<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>adae <span class="sc">|&gt;</span> </span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ard_stack_hierarchical</span>(</span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">variables =</span> <span class="fu">c</span>(AESOC, AEDECOD),</span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> TRT01A,</span>
+<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">id =</span> USUBJID,</span>
+<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">denominator =</span> pharmaverseadam<span class="sc">::</span>adsl</span>
+<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stderr">
@@ -738,12 +963,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ard_stack_hierarchical_count</span>(</span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> adae,</span>
-<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">variables =</span> <span class="fu">c</span>(AESOC, AEDECOD),</span>
-<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> TRT01A, </span>
-<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">denominator =</span> pharmaverseadam<span class="sc">::</span>adsl</span>
-<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>adae <span class="sc">|&gt;</span> </span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ard_stack_hierarchical_count</span>(</span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">variables =</span> <span class="fu">c</span>(AESOC, AEDECOD),</span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> TRT01A, </span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">denominator =</span> pharmaverseadam<span class="sc">::</span>adsl</span>
+<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stderr">
@@ -768,15 +993,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="exercise" class="level2">
 <h2 class="anchored" data-anchor-id="exercise">Exercise 🏃‍➡️</h2>
-<ul>
-<li><p>Open <code>exercises/04-ARD-partB.R</code></p></li>
-<li><p>Compute the nested AE tabulations as described</p></li>
-</ul>
+<ol type="1">
+<li><p>Navigate to Posit Cloud script <code>exercises/04-ARD.R</code></p></li>
+<li><p>Compute the nested AE tabulations as described.</p></li>
+<li><p>Add the “completed” sticky note to your laptop when complete.</p></li>
+</ol>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_25744fe8" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_b510ef87" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
-<code class="countdown-time"><span class="countdown-digits minutes">08</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+<code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 </div>
 </div>
@@ -823,28 +1049,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(ARM <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Xanomeline High Dose"</span>, <span class="st">"Xanomeline Low Dose"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>  cardx<span class="sc">::</span><span class="fu">ard_stats_t_test</span>(<span class="at">by =</span> ARM, <span class="at">variables =</span> AGE)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>adsl <span class="sc">|&gt;</span> </span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>  cardx<span class="sc">::</span><span class="fu">ard_stats_t_test</span>(<span class="at">by =</span> ARM2, <span class="at">variables =</span> AGE)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>{cards} data frame: 14 x 9</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   group1 variable   context   stat_name stat_label      stat
-1     ARM      AGE stats_t_…    estimate  Mean Dif…    -1.286
-2     ARM      AGE stats_t_…   estimate1  Group 1 …    74.381
-3     ARM      AGE stats_t_…   estimate2  Group 2 …    75.667
-4     ARM      AGE stats_t_…   statistic  t Statis…     -1.03
-5     ARM      AGE stats_t_…     p.value    p-value     0.304
-6     ARM      AGE stats_t_…   parameter  Degrees …   165.595
-7     ARM      AGE stats_t_…    conf.low  CI Lower…     -3.75
-8     ARM      AGE stats_t_…   conf.high  CI Upper…     1.179
-9     ARM      AGE stats_t_…      method     method Welch Tw…
-10    ARM      AGE stats_t_… alternative  alternat… two.sided
-11    ARM      AGE stats_t_…          mu    H0 Mean         0
-12    ARM      AGE stats_t_…      paired  Paired t…     FALSE
-13    ARM      AGE stats_t_…   var.equal  Equal Va…     FALSE
-14    ARM      AGE stats_t_…  conf.level  CI Confi…      0.95</code></pre>
+1    ARM2      AGE stats_t_…    estimate  Mean Dif…     0.185
+2    ARM2      AGE stats_t_…   estimate1  Group 1 …    75.209
+3    ARM2      AGE stats_t_…   estimate2  Group 2 …    75.024
+4    ARM2      AGE stats_t_…   statistic  t Statis…     0.166
+5    ARM2      AGE stats_t_…     p.value    p-value     0.868
+6    ARM2      AGE stats_t_…   parameter  Degrees …   162.643
+7    ARM2      AGE stats_t_…    conf.low  CI Lower…     -2.02
+8    ARM2      AGE stats_t_…   conf.high  CI Upper…     2.391
+9    ARM2      AGE stats_t_…      method     method Welch Tw…
+10   ARM2      AGE stats_t_… alternative  alternat… two.sided
+11   ARM2      AGE stats_t_…          mu    H0 Mean         0
+12   ARM2      AGE stats_t_…      paired  Paired t…     FALSE
+13   ARM2      AGE stats_t_…   var.equal  Equal Va…     FALSE
+14   ARM2      AGE stats_t_…  conf.level  CI Confi…      0.95</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>ℹ 3 more variables: fmt_fun, warning, error</code></pre>
@@ -861,24 +1086,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(ARM <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Xanomeline High Dose"</span>, <span class="st">"Xanomeline Low Dose"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>  cards<span class="sc">::</span><span class="fu">ard_summary</span>(</span>
-<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">variables =</span> AGE,</span>
-<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">statistic =</span> <span class="fu">everything</span>() <span class="sc">~</span> <span class="fu">list</span>(<span class="at">t_test =</span> \(x) <span class="fu">t.test</span>(x) <span class="sc">|&gt;</span> broom<span class="sc">::</span><span class="fu">tidy</span>())</span>
-<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">context =</span> <span class="st">"t_test_one_sample"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>adsl <span class="sc">|&gt;</span> </span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>  cards<span class="sc">::</span><span class="fu">ard_summary</span>(</span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">variables =</span> AGE,</span>
+<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">statistic =</span> <span class="fu">everything</span>() <span class="sc">~</span> <span class="fu">list</span>(<span class="at">t_test =</span> \(x) <span class="fu">t.test</span>(x) <span class="sc">|&gt;</span> broom<span class="sc">::</span><span class="fu">tidy</span>())</span>
+<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb85-6"><a href="#cb85-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">context =</span> <span class="st">"t_test_one_sample"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>{cards} data frame: 8 x 8</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  variable   context   stat_name stat_label      stat fmt_fun
-1      AGE t_test_o…    estimate   estimate    75.024       1
-2      AGE t_test_o…   statistic  statistic     120.2       1
+1      AGE t_test_o…    estimate   estimate    75.087       1
+2      AGE t_test_o…   statistic  statistic   145.119       1
 3      AGE t_test_o…     p.value    p.value         0       1
-4      AGE t_test_o…   parameter  parameter       167       1
-5      AGE t_test_o…    conf.low   conf.low    73.792       1
-6      AGE t_test_o…   conf.high  conf.high    76.256       1
+4      AGE t_test_o…   parameter  parameter       253       1
+5      AGE t_test_o…    conf.low   conf.low    74.068       1
+6      AGE t_test_o…   conf.high  conf.high    76.106       1
 7      AGE t_test_o…      method     method One Samp…    &lt;fn&gt;
 8      AGE t_test_o… alternative  alternat… two.sided    &lt;fn&gt;</code></pre>
 </div>
@@ -895,30 +1119,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
-<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(ARM <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Xanomeline High Dose"</span>, <span class="st">"Xanomeline Low Dose"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>  cards<span class="sc">::</span><span class="fu">ard_mvsummary</span>(</span>
-<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">variables =</span> AGE,</span>
-<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">statistic =</span> </span>
-<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a>      <span class="sc">~</span> <span class="fu">list</span>(<span class="at">t_test =</span> \(x, data, ...) <span class="fu">t.test</span>(x <span class="sc">~</span> data<span class="sc">$</span>ARM) <span class="sc">|&gt;</span> broom<span class="sc">::</span><span class="fu">tidy</span>())</span>
-<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb72-8"><a href="#cb72-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">group1 =</span> <span class="st">"ARM"</span>, <span class="at">context =</span> <span class="st">"t_test_two_sample"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb72-9"><a href="#cb72-9" aria-hidden="true" tabindex="-1"></a>  cards<span class="sc">::</span><span class="fu">tidy_ard_column_order</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>adsl <span class="sc">|&gt;</span> </span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>  cards<span class="sc">::</span><span class="fu">ard_mvsummary</span>(</span>
+<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">variables =</span> AGE,</span>
+<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">statistic =</span> </span>
+<span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a>      <span class="sc">~</span> <span class="fu">list</span>(<span class="at">t_test =</span> \(x, data, ...) <span class="fu">t.test</span>(x <span class="sc">~</span> data<span class="sc">$</span>ARM2) <span class="sc">|&gt;</span> broom<span class="sc">::</span><span class="fu">tidy</span>())</span>
+<span id="cb89-6"><a href="#cb89-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb89-7"><a href="#cb89-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">group1 =</span> <span class="st">"ARM2"</span>, <span class="at">context =</span> <span class="st">"t_test_two_sample"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb89-8"><a href="#cb89-8" aria-hidden="true" tabindex="-1"></a>  cards<span class="sc">::</span><span class="fu">tidy_ard_column_order</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>{cards} data frame: 10 x 9</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   group1 variable   context   stat_name stat_label      stat
-1     ARM      AGE t_test_t…    estimate   estimate    -1.286
-2     ARM      AGE t_test_t…   estimate1  estimate1    74.381
-3     ARM      AGE t_test_t…   estimate2  estimate2    75.667
-4     ARM      AGE t_test_t…   statistic  statistic     -1.03
-5     ARM      AGE t_test_t…     p.value    p.value     0.304
-6     ARM      AGE t_test_t…   parameter  parameter   165.595
-7     ARM      AGE t_test_t…    conf.low   conf.low     -3.75
-8     ARM      AGE t_test_t…   conf.high  conf.high     1.179
-9     ARM      AGE t_test_t…      method     method Welch Tw…
-10    ARM      AGE t_test_t… alternative  alternat… two.sided</code></pre>
+1    ARM2      AGE t_test_t…    estimate   estimate     0.185
+2    ARM2      AGE t_test_t…   estimate1  estimate1    75.209
+3    ARM2      AGE t_test_t…   estimate2  estimate2    75.024
+4    ARM2      AGE t_test_t…   statistic  statistic     0.166
+5    ARM2      AGE t_test_t…     p.value    p.value     0.868
+6    ARM2      AGE t_test_t…   parameter  parameter   162.643
+7    ARM2      AGE t_test_t…    conf.low   conf.low     -2.02
+8    ARM2      AGE t_test_t…   conf.high  conf.high     2.391
+9    ARM2      AGE t_test_t…      method     method Welch Tw…
+10   ARM2      AGE t_test_t… alternative  alternat… two.sided</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>ℹ 3 more variables: fmt_fun, warning, error</code></pre>
@@ -948,26 +1171,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(AGE <span class="sc">~</span> ARM, <span class="at">data =</span> cards<span class="sc">::</span>ADSL) <span class="sc">|&gt;</span></span>
-<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>  cardx<span class="sc">::</span><span class="fu">ard_regression</span>(<span class="at">add_estimate_to_reference_rows =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(AGE <span class="sc">~</span> ARM2, <span class="at">data =</span> adsl) <span class="sc">|&gt;</span></span>
+<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>  cardx<span class="sc">::</span><span class="fu">ard_regression</span>(<span class="at">add_estimate_to_reference_rows =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>{cards} data frame: 43 x 9</code></pre>
+<pre><code>{cards} data frame: 27 x 9</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   variable variable_level   context      stat_name stat_label      stat
-1       ARM        Placebo regressi…           term       term ARMPlace…
-2       ARM        Placebo regressi…      var_label      Label Descript…
-3       ARM        Placebo regressi…      var_class      Class character
-4       ARM        Placebo regressi…       var_type       Type categori…
-5       ARM        Placebo regressi…    var_nlevels   N Levels         3
-6       ARM        Placebo regressi…      contrasts  contrasts contr.tr…
-7       ARM        Placebo regressi… contrasts_type  Contrast… treatment
-8       ARM        Placebo regressi…  reference_row  referenc…      TRUE
-9       ARM        Placebo regressi…          label  Level La…   Placebo
-10      ARM        Placebo regressi…          n_obs     N Obs.        86</code></pre>
+1      ARM2        Placebo regressi…           term       term ARM2Plac…
+2      ARM2        Placebo regressi…      var_label      Label      ARM2
+3      ARM2        Placebo regressi…      var_class      Class character
+4      ARM2        Placebo regressi…       var_type       Type dichotom…
+5      ARM2        Placebo regressi…    var_nlevels   N Levels         2
+6      ARM2        Placebo regressi…      contrasts  contrasts contr.tr…
+7      ARM2        Placebo regressi… contrasts_type  Contrast… treatment
+8      ARM2        Placebo regressi…  reference_row  referenc…      TRUE
+9      ARM2        Placebo regressi…          label  Level La…   Placebo
+10     ARM2        Placebo regressi…          n_obs     N Obs.        86</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>ℹ 33 more rows</code></pre>
+<pre><code>ℹ 17 more rows</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>ℹ Use `print(n = ...)` to see more rows</code></pre>
@@ -983,30 +1206,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>What happens when statistics are un-calculable?</p>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>ard_gone_wrong <span class="ot">&lt;-</span> </span>
-<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>  cards<span class="sc">::</span>ADSL <span class="sc">|&gt;</span> </span>
-<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>  cards<span class="sc">::</span><span class="fu">ard_summary</span>(</span>
-<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> ARM,</span>
-<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">variable =</span> AGEGR1,</span>
-<span id="cb82-6"><a href="#cb82-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">statistic =</span> <span class="sc">~</span><span class="fu">list</span>(<span class="at">kurtosis =</span> \(x) e1071<span class="sc">::</span><span class="fu">kurtosis</span>(x))</span>
-<span id="cb82-7"><a href="#cb82-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb82-8"><a href="#cb82-8" aria-hidden="true" tabindex="-1"></a>  cards<span class="sc">::</span><span class="fu">replace_null_statistic</span>()</span>
-<span id="cb82-9"><a href="#cb82-9" aria-hidden="true" tabindex="-1"></a>ard_gone_wrong</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>ard_gone_wrong <span class="ot">&lt;-</span> </span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>  adsl <span class="sc">|&gt;</span> </span>
+<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ard_summary</span>(</span>
+<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> ARM2,</span>
+<span id="cb99-5"><a href="#cb99-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">variable =</span> AGEGR1,</span>
+<span id="cb99-6"><a href="#cb99-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">statistic =</span> <span class="sc">~</span><span class="fu">list</span>(<span class="at">kurtosis =</span> \(x) e1071<span class="sc">::</span><span class="fu">kurtosis</span>(x))</span>
+<span id="cb99-7"><a href="#cb99-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb99-8"><a href="#cb99-8" aria-hidden="true" tabindex="-1"></a>  cards<span class="sc">::</span><span class="fu">replace_null_statistic</span>()</span>
+<span id="cb99-9"><a href="#cb99-9" aria-hidden="true" tabindex="-1"></a>ard_gone_wrong</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>{cards} data frame: 3 x 10</code></pre>
+<pre><code>{cards} data frame: 2 x 10</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  group1 group1_level variable stat_name stat_label stat   warning     error
-1    ARM      Placebo   AGEGR1  kurtosis   kurtosis   NA argument… non-nume…
-2    ARM    Xanomeli…   AGEGR1  kurtosis   kurtosis   NA argument… non-nume…
-3    ARM    Xanomeli…   AGEGR1  kurtosis   kurtosis   NA argument… non-nume…</code></pre>
+1   ARM2      Placebo   AGEGR1  kurtosis   kurtosis   NA argument… non-nume…
+2   ARM2    Xanomeli…   AGEGR1  kurtosis   kurtosis   NA argument… non-nume…</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>ℹ 2 more variables: context, fmt_fun</code></pre>
 </div>
 </div>
 <div class="fragment">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>cards<span class="sc">::</span><span class="fu">print_ard_conditions</span>(ard_gone_wrong)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a>cards<span class="sc">::</span><span class="fu">print_ard_conditions</span>(ard_gone_wrong)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><img src="images/ard-error-msg.png" class="img-fluid"></p>
 </div>
 <div class="notes">

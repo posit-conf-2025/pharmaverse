@@ -138,16 +138,14 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#analysis-results-standard" id="toc-analysis-results-standard" class="nav-link active" data-scroll-target="#analysis-results-standard">Analysis Results Standard</a>
-  <ul class="collapse">
-  <li><a href="#analysis-results-standard-ars" id="toc-analysis-results-standard-ars" class="nav-link" data-scroll-target="#analysis-results-standard-ars">Analysis Results Standard (ARS)</a></li>
-  <li><a href="#analysis-results-standard-ars-1" id="toc-analysis-results-standard-ars-1" class="nav-link" data-scroll-target="#analysis-results-standard-ars-1">Analysis Results Standard (ARS)</a></li>
-  <li><a href="#analysis-results-standard-ars-2" id="toc-analysis-results-standard-ars-2" class="nav-link" data-scroll-target="#analysis-results-standard-ars-2">Analysis Results Standard (ARS)</a></li>
-  <li><a href="#analysis-results-standard-ars-3" id="toc-analysis-results-standard-ars-3" class="nav-link" data-scroll-target="#analysis-results-standard-ars-3">Analysis Results Standard (ARS)</a></li>
+  <li><a href="#ards-tables-a-dynamic-duo" id="toc-ards-tables-a-dynamic-duo" class="nav-link active" data-scroll-target="#ards-tables-a-dynamic-duo">ARDS 🤝 Tables: A Dynamic Duo</a></li>
+  <li><a href="#objectives" id="toc-objectives" class="nav-link" data-scroll-target="#objectives">Objectives</a></li>
+  <li><a href="#what-are-ards" id="toc-what-are-ards" class="nav-link" data-scroll-target="#what-are-ards">What are ARDs?</a></li>
   <li><a href="#analysis-results-data-ard" id="toc-analysis-results-data-ard" class="nav-link" data-scroll-target="#analysis-results-data-ard">Analysis Results Data (ARD)</a></li>
-  <li><a href="#analysis-results-data-ard-1" id="toc-analysis-results-data-ard-1" class="nav-link" data-scroll-target="#analysis-results-data-ard-1">Analysis Results Data (ARD)</a></li>
   <li><a href="#a-few-notes-about-ards" id="toc-a-few-notes-about-ards" class="nav-link" data-scroll-target="#a-few-notes-about-ards">A few notes about ARDs</a></li>
-  </ul></li>
+  <li><a href="#zooming-out-the-analysis-results-standard-ars" id="toc-zooming-out-the-analysis-results-standard-ars" class="nav-link" data-scroll-target="#zooming-out-the-analysis-results-standard-ars">Zooming Out: The Analysis Results Standard (ARS)</a></li>
+  <li><a href="#proposed-metadata-framework-in-the-ars" id="toc-proposed-metadata-framework-in-the-ars" class="nav-link" data-scroll-target="#proposed-metadata-framework-in-the-ars">Proposed Metadata Framework in the ARS</a></li>
+  <li><a href="#proposed-metadata-framework-in-the-ars-1" id="toc-proposed-metadata-framework-in-the-ars-1" class="nav-link" data-scroll-target="#proposed-metadata-framework-in-the-ars-1">Proposed Metadata Framework in the ARS</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/posit-conf-2025/pharmaverse/edit/main/slides/04-ARD/intro_to_ards.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/posit-conf-2025/pharmaverse/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -157,78 +155,40 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="analysis-results-standard" class="level1 page-columns page-full">
-<h1>Analysis Results Standard</h1>
-<section id="analysis-results-standard-ars" class="level2">
-<h2 class="anchored" data-anchor-id="analysis-results-standard-ars">Analysis Results Standard (ARS)</h2>
+<section id="ards-tables-a-dynamic-duo" class="level2">
+<h2 class="anchored" data-anchor-id="ards-tables-a-dynamic-duo">ARDS 🤝 Tables: A Dynamic Duo</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/ars-flow.png" class="fragment img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/ars-objectives.png" class="fragment img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="images/diagram-pkgs.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 </section>
-<section id="analysis-results-standard-ars-1" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="analysis-results-standard-ars-1">Analysis Results Standard (ARS)</h2>
+<section id="objectives" class="level2">
+<h2 class="anchored" data-anchor-id="objectives">Objectives</h2>
 <div class="incremental">
 <ul class="incremental">
-<li><p>Emerging standard for <strong>prospectively</strong> encoding statistical analysis reporting pipeline in a machine-readable format.</p></li>
-<li><p>Logical model that describes analysis results and associated metadata.</p></li>
-<li><p>Primary objectives:</p>
+<li>By the end of this ARD section you will have:
 <ul class="incremental">
-<li><p>Leverage analysis results <strong>metadata</strong> to drive <strong>automation</strong> of results</p></li>
-<li><p>Support storage, access, processing, traceability and reproducibility of results</p></li>
+<li>Developed an understanding of ARDs</li>
+<li>Seen examples of univariate and hierarachical calculations</li>
+<li>Gained an awareness of other possibilities in <code>cards</code> and statistical capabilities in <code>cardx</code></li>
 </ul></li>
 </ul>
 </div>
-
-<div class="no-row-height column-margin column-container"><div class="margin-aside">
-<ul>
-<li>Learn more at <a href="https://www.cdisc.org/events/webinar/analysis-results-standard-public-review">https://www.cdisc.org/events/webinar/analysis-results-standard-public-review</a></li>
-</ul>
-</div></div></section>
-<section id="analysis-results-standard-ars-2" class="level2">
-<h2 class="anchored" data-anchor-id="analysis-results-standard-ars-2">Analysis Results Standard (ARS)</h2>
-<p>Example ARS Flow</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/ars-example-flow.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<ul>
-<li>The ARS provides a metadata-driven infrastructure for analysis</li>
-</ul>
 </section>
-<section id="analysis-results-standard-ars-3" class="level2">
-<h2 class="anchored" data-anchor-id="analysis-results-standard-ars-3">Analysis Results Standard (ARS)</h2>
-<p>Example ARS Flow</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/ars-example-flow-with-hex.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<ul>
-<li><p>The ARS provides a metadata-driven infrastructure for analysis</p></li>
-<li><p>{cards} serves as the engine for the analysis</p></li>
-</ul>
-</section>
-<section id="analysis-results-data-ard" class="level2">
-<h2 class="anchored" data-anchor-id="analysis-results-data-ard">Analysis Results Data (ARD)</h2>
+<section id="what-are-ards" class="level2">
+<h2 class="anchored" data-anchor-id="what-are-ards">What are ARDs?</h2>
 <div class="incremental">
 <ul class="incremental">
-<li><p>Encodes statistical analysis outcomes in a machine-readable format.</p></li>
-<li><p>The ARD model specifies how statistical results are saved into a structured format.</p></li>
+<li><p>Dataset that stores key metadata and <em>raw results</em> from analysis</p></li>
+<li><p>May contained formatted values as well</p></li>
 <li><p>The ARD can be used to to subsequently create tables and figures.</p></li>
 <li><p>The ARD does <em>not</em> describe the layout of the results</p></li>
 </ul>
 </div>
 </section>
-<section id="analysis-results-data-ard-1" class="level2">
-<h2 class="anchored" data-anchor-id="analysis-results-data-ard-1">Analysis Results Data (ARD)</h2>
+<section id="analysis-results-data-ard" class="level2">
+<h2 class="anchored" data-anchor-id="analysis-results-data-ard">Analysis Results Data (ARD)</h2>
 <ul>
 <li>After the initial creation of an ARD, the results can later be re-used again and again for subsequent reporting needs.</li>
 </ul>
@@ -242,23 +202,58 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="a-few-notes-about-ards">A few notes about ARDs</h2>
 <div class="incremental">
 <ul class="incremental">
-<li><p>Rethinking QC</p>
+<li><p>ARDs give us the opportunity to <em>rethink</em> QC</p>
 <ul class="incremental">
-<li><p>QC can be focused on the raw value, not the formatted display</p>
+<li><p>QC can be focused on the raw value, as well as the formatted display</p>
 <ul class="incremental">
 <li><p>You don’t have to waste time trying to match formatting to match QC</p></li>
 <li><p>But…QC will be more sensitive to floating point</p></li>
 </ul></li>
 </ul></li>
-<li><p>Flexible data file types</p>
+<li><p>ARDs can be flexibly saved to different file types</p>
 <ul class="incremental">
-<li>ARD can be saved as a dataset (rds, xpt, etc) or json file</li>
+<li>For example: a dataset (rds, xpt, etc) or json file</li>
 </ul></li>
 </ul>
 </div>
-
-
 </section>
+<section id="zooming-out-the-analysis-results-standard-ars" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="zooming-out-the-analysis-results-standard-ars">Zooming Out: The Analysis Results Standard (ARS)</h2>
+<p><img src="images/ars-flow.png" class="img-fluid quarto-figure quarto-figure-center"> Objectives include:</p>
+<ul>
+<li>To leverage analysis results metadata to drive the automation of results</li>
+<li>To support storage, access, processing, traceability and reproducibility of results</li>
+</ul>
+
+<div class="no-row-height column-margin column-container"><div class="margin-aside">
+<ul>
+<li>Learn more at <a href="https://www.cdisc.org/events/webinar/analysis-results-standard-public-review">https://www.cdisc.org/events/webinar/analysis-results-standard-public-review</a></li>
+</ul>
+</div></div></section>
+<section id="proposed-metadata-framework-in-the-ars" class="level2">
+<h2 class="anchored" data-anchor-id="proposed-metadata-framework-in-the-ars">Proposed Metadata Framework in the ARS</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/ars-example-flow.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<ul>
+<li>The ARS provides a metadata-driven infrastructure for analysis</li>
+</ul>
+</section>
+<section id="proposed-metadata-framework-in-the-ars-1" class="level2">
+<h2 class="anchored" data-anchor-id="proposed-metadata-framework-in-the-ars-1">Proposed Metadata Framework in the ARS</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/ars-example-flow-with-hex.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<ul>
+<li><p>The ARS provides a metadata-driven infrastructure for analysis</p></li>
+<li><p>{cards} serves as the engine for the analysis</p></li>
+</ul>
+
+
 </section>
 
 </main> <!-- /main -->
