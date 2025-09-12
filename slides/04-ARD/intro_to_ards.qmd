@@ -1,57 +1,25 @@
-# Analysis Results Standard
+## ARDS 🤝 Tables: A Dynamic Duo 
 
-## Analysis Results Standard (ARS)
+![](images/diagram-pkgs.png){fig-align="center"}
 
-![](images/ars-flow.png){.fragment fig-align="center"}
+## Objectives
 
-![](images/ars-objectives.png){.fragment fig-align="center"}
-
-
-## Analysis Results Standard (ARS)
-
-::: {.incremental}
-
--   Emerging standard for **prospectively** encoding statistical analysis reporting pipeline in a machine-readable format.
-
--   Logical model that describes analysis results and associated metadata.
-
--   Primary objectives:
-
-    -   Leverage analysis results **metadata** to drive **automation** of results 
-  
-    -   Support storage, access, processing, traceability and reproducibility of results
-  
+::: incremental
+-   By the end of this ARD section you will have:
+    - Developed an understanding of ARDs
+    - Seen examples of univariate and hierarachical calculations
+    - Gained an awareness of other possibilities in `cards` and statistical capabilities in `cardx`
 :::
 
-::: aside
--   Learn more at [https://www.cdisc.org/events/webinar/analysis-results-standard-public-review](https://www.cdisc.org/events/webinar/analysis-results-standard-public-review) 
-:::
 
-## Analysis Results Standard (ARS)
 
-Example ARS Flow
+## What are ARDs?
 
-![](images/ars-example-flow.png){fig-align="center"}
+::: incremental
 
-- The ARS provides a metadata-driven infrastructure for analysis
+-   Dataset that stores key metadata and *raw results* from analysis
 
-## Analysis Results Standard (ARS)
-
-Example ARS Flow
-
-![](images/ars-example-flow-with-hex.png){fig-align="center"}
-
-- The ARS provides a metadata-driven infrastructure for analysis
-
-- {cards} serves as the engine for the analysis 
-
-## Analysis Results Data (ARD)
-
-::: {.incremental}
-
--   Encodes statistical analysis outcomes in a machine-readable format.
-
--   The ARD model specifies how statistical results are saved into a structured format.
+  - May contained formatted values as well
 
 -   The ARD can be used to to subsequently create tables and figures.
 
@@ -69,16 +37,43 @@ Example ARS Flow
 
 :::{.incremental}
 
--   Rethinking QC
+-   ARDs give us the opportunity to *rethink* QC
 
-    -   QC can be focused on the raw value, not the formatted display
+    -   QC can be focused on the raw value, as well as the formatted display
   
         -   You don’t have to waste time trying to match formatting to match QC
     
         -   But...QC will be more sensitive to floating point
     
--   Flexible data file types
+-   ARDs can be flexibly saved to different file types
 
-    -   ARD can be saved as a dataset (rds, xpt, etc) or json file
+    -   For example: a dataset (rds, xpt, etc) or json file
   
 :::
+
+## Zooming Out: The Analysis Results Standard (ARS) 
+
+![](images/ars-flow.png){fig-align="center"}
+Objectives include:
+
+-   To leverage analysis results metadata to drive the automation of results
+-   To support storage, access, processing, traceability and reproducibility of results
+
+::: aside
+-   Learn more at [https://www.cdisc.org/events/webinar/analysis-results-standard-public-review](https://www.cdisc.org/events/webinar/analysis-results-standard-public-review) 
+:::
+
+## Proposed Metadata Framework in the ARS
+
+![](images/ars-example-flow.png){fig-align="center"}
+
+- The ARS provides a metadata-driven infrastructure for analysis
+
+## Proposed Metadata Framework in the ARS
+
+![](images/ars-example-flow-with-hex.png){fig-align="center"}
+
+- The ARS provides a metadata-driven infrastructure for analysis
+
+- {cards} serves as the engine for the analysis 
+ 
