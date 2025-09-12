@@ -107,10 +107,15 @@ classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;
 
 ::: incremental
 -   I will walk you through certain parts of the  `ADSL` and `ADVS` R scripts
-    - Let's take a quick peek at [scripts](TBL).
-    -   Discussion on **certain** functions and function arguments from [scripts](TBL) for deriving variables/records. 
+    - Let's take a quick peek at [scripts](https://github.com/posit-conf-2025/pharmaverse/tree/main/slides/03-ADaM/scripts).
+    -   Discussion on **certain** functions and function arguments from [scripts](https://github.com/posit-conf-2025/pharmaverse/tree/main/slides/03-ADaM/scripts) for deriving variables/records. 
     -   Will pull up full function arguments to briefly highlight other powers. 
     -   When possible will have some play data and mini-runs of the function.
+:::
+
+## How we will proceed today continued?
+
+::: incremental
 -   Two exercises set up to help explore two key functions discussed:
     - `derive_vars_dtm()`
     - `derive_param_computed()`
@@ -156,7 +161,10 @@ ADSL from [dataset](TBL) created by the `adsl.R` script.
   -   Variables - labels, lengths, types, linked to method
   -   Codelists!!
   -   No VLMs 
-- Let's take a quick peek at [metadata](TBL)
+  
+## Spec-peek
+
+- Let's take a quick peek at [metadata](https://github.com/posit-conf-2025/pharmaverse/tree/main/slides/03-ADaM/metadata)
 
 ## The core pharmaverse packages for creating ADaMs
 
@@ -186,7 +194,7 @@ makes use of tidyverse and base R code.
 
 - If a function isn't meeting your needs or looks too cumbersome, then that is okay!
 
-- These packages are all modular and play well with others like 
+- These packages are all modular and play well with others. 
 :::
 
 ## admiral {.smaller}
@@ -210,7 +218,7 @@ Most functions in admiral follow these conventions:
 
 ::: 
 
-## metatools and xportr  {.smaller}
+## metacore, metatools and xportr  {.smaller}
 
 | Package | Function | Purpose |
 |----|----|----|
@@ -240,7 +248,7 @@ Most functions in admiral follow these conventions:
   
 ## Reading in our spec for ADSL (ADSL Lines: )
 
-```{.r}
+```{.r, code-line-numbers="1|2|3|4|5|6"}
 spec_to_metacore(
   path = "slides/03-ADaM/metadata/posit_specs.xlsx",
   where_sep_sheet = FALSE,
@@ -267,12 +275,31 @@ dm_suppdm <- combine_supp(dm, suppdm)
 ## Let's turn a `--DTC` to a `*DTM` variable (ADSL Lines: )
 
 ```{.r code-line-numbers="1|2|3|4|5"}
-derive_vars_dtm(
-  dtc = EXSTDTC,
-  new_vars_prefix = "EXST",
-  time_imputation = "last",
-  flag_imputation = "time"
+ex_ext <- ex %>%
+  derive_vars_dtm(
+    dtc = EXSTDTC,
+    new_vars_prefix = "EXST",
+    time_imputation = "last",
+    flag_imputation = "time"
 )
+```
+
+```{.r code-line-numbers="1|2|3|4|5"}
+ds_ext <- derive_vars_dt(
+  ds,
+  dtc = DSSTDTC,
+  new_vars_prefix = "DSST"
+)
+```
+
+```{.r code-line-numbers="1|2|3|4|5"}
+adsl11 <- adsl10 %>%
+  derive_vars_dt(
+    new_vars_prefix = "DTH",
+    dtc = DTHDTC,
+    highest_imputation = "M",
+    date_imputation = "first"
+  )
 ```
 
 ## Example from documentation {.smaller}
@@ -293,9 +320,9 @@ derive_vars_dtm(
  mhdt,
  new_vars_prefix = "AST",
  dtc = MHSTDTC,
+ highest_imputation = "M",
  date_imputation = "last",
  time_imputation = "last",
- highest_imputation = "M"
 )
 
 ```
@@ -456,10 +483,25 @@ create_var_from_codelist(
 
 ::: {.column}
 <div style="text-align: left;"> <img src="images/barb.png" alt="Barb!" style="width: 200px;"/> </div>
+
+```{mermaid}
+%%| echo: FALSE
+flowchart LR
+  B[SDTM] --> C[ADaM]
+  
+%% Apply the custom class "highlight" to node B
+class C highlight;
+
+%% Define the style for the "highlight" class:
+classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;  
+```
+
 :::
 
 ::: {.column}
 * USUBJID:  01-701-1034
+* SEX:      F
+* AGE:      77
 * RANDDT:   2014-07-01
 * TRTSDT:   2014-07-01
 * TRTSDTM:  2014-07-01 23:59:59
@@ -471,11 +513,34 @@ create_var_from_codelist(
 
 ::::
 
+## Check-in Exercise {.smaller}
 
+```{r, eval = FALSE}
+library(tibble)
+library(lubridate)
+library(admiral)
 
+posit_mh <- tribble(
+  ~USUBJID, ~MHSTDTC,
+  1,        "2019-07-18T15:25:40",
+  1,        "2019-07-18T15:25",
+  1,        "2019-07-18",
+  2,        "2024-02",
+  2,        "2019",
+  2,        "2019---07",
+  3,        ""
+)
 
+derive_vars_dtm(
+  dataset = posit_mh,
+  new_vars_prefix = "AST",
+  dtc = MHSTDTC,
+  highest_imputation = "M",
+  date_imputation = "????",
+  time_imputation = "????"
+)
+```
 
-## Check-in Exercise
 
 # `ADVS`
 

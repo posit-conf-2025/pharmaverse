@@ -1,0 +1,24 @@
+## Submissions Working Group
+
+### Mission
+
+* Easier R-based clinical trial regulatory submissions today
+    * by showing open examples of using current submission portals
+* Easier R-based clinical trial regulatory submissions tomorrow
+    * by collecting feedback and influencing future industry and agency decisions on system/process setup
+
+
+* Website: https://rconsortium.github.io/submissions-wg/
+* Slack: [Invite to Slack](https://join.slack.com/t/rconsortium/shared_invite/zt-3d9lsem69-M0JPhUsMsmkSCXHVQy9Lqw)
+
+
+## Pilots
+
+<div style="display: flex; justify-content: space-between; align-items: center;"> 
+<img src="images/pilot1.png" alt="Hex 1" style="max-width: 18%; height: auto;"> 
+<img src="images/pilot2.png" alt="Hex 2" style="max-width: 18%; height: auto;"> 
+<img src="images/pilot3.png" alt="Hex 3" style="max-width: 18%; height: auto;"> 
+<img src="images/pilot4a.png" alt="Hex 4a" style="max-width: 18%; height: auto;"> 
+<img src="images/pilot4b.png" alt="Hex 4b" style="max-width: 20%; height: auto;">
+<img src="images/pilot5.png" alt="Hex 5" style="max-width: 18%; height: auto;">
+</div>
