@@ -31,6 +31,8 @@ Open the pharmaverse examples website
 
 Add slides about AI integration, utility with the tools covered.
 
+## Submissions Working Group
+
 ## teal
 
 Open the teal gallery and walk thorugh examples (not the code, but the end result)
