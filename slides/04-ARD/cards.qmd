@@ -38,13 +38,45 @@ adae <- pharmaverseadam::adae |>
   dplyr::ungroup()
 ```
 
+## {cards}: `ard_tabulate()`
 
-## {cards}: `ard_summary()`
+::: {.small}
+- includes `n`, `%`, `N` by default
+- _Any unobserved levels of the variables will be present in the resulting ARD._
+:::
 
 ```{r}
 #| message: true
 library(cards)
 
+adsl |> 
+  ard_tabulate(
+    variables = AGEGR1
+  ) 
+```
+
+## {cards}: `ard_tabulate()`
+
+::: {.small}
+- includes `n`, `%`, `N` by default
+- _Any unobserved levels of the variables will be present in the resulting ARD._
+:::
+
+```{r}
+#| message: true
+adsl |> 
+  ard_tabulate(
+    by = ARM2,
+    variables = AGEGR1
+  ) 
+```
+
+
+## {cards}: `ard_summary()`
+
+```{r}
+#| message: true
+#| 
 # create ARD with default summary statistics
 adsl |> 
   ard_summary(
@@ -64,7 +96,7 @@ adsl |>
 adsl |> 
   ard_summary(
     variables = AGE,
-    by = ARM         # stats by treatment arm
+    by = ARM2         # stats by treatment arm
   ) 
 ```
 
@@ -82,7 +114,7 @@ cv <- function(x)  sd(x, na.rm = TRUE)/mean(x, na.rm = TRUE)
 adsl |> 
   ard_summary(  
     variables = AGE,
-    by = ARM,
+    by = ARM2,
     statistic = ~ list(cv = cv) # customize statistics
   )
 
@@ -100,7 +132,7 @@ adsl |>
   dplyr::mutate(AGE2 = AGE) |> 
   ard_summary(
     variables = c(AGE, AGE2),
-    by = ARM,
+    by = ARM2,
     statistic = list(AGE = list(cv = cv),
                      AGE2 = continuous_summary_fns(c("mean","median")))
   )
@@ -109,7 +141,8 @@ adsl |>
 ## {cards}: `ard_summary()` fmt_fun
 
 ::: {.small}
-Override the default formatting functions, method 1:
+- Override the default formatting functions
+- Can also update later via `update_ard_fmt_fun()`
 :::
  
 ```{r}
@@ -117,45 +150,11 @@ Override the default formatting functions, method 1:
 adsl |> 
   ard_summary(
     variables = AGE,
-    by = ARM,                               
+    by = ARM2,                               
     fmt_fun = ~list(mean = 0)                
   ) |> 
   apply_fmt_fun() # add a character column of rounded results
 ```
-
-## {cards}: `ard_summary()` fmt_fun
-
-::: {.small}
-Override the default formatting functions, method 2:
-:::
-
-```{r}
-#| message: true
-adsl |> 
-  ard_summary(
-    variables = AGE,
-    by = ARM,                               
-  ) |> 
-  update_ard_fmt_fun(stat_names = "mean", fmt_fun = 0) |> 
-  apply_fmt_fun() 
-```
-
-## {cards}: `ard_tabulate()`
-
-::: {.small}
-- includes `n`, `%`, `N` by default
-- _Any unobserved levels of the variables will be present in the resulting ARD._
-:::
-
-```{r}
-#| message: true
-adsl |> 
-  ard_tabulate(
-    by = ARM,
-    variables = AGEGR1
-  ) 
-```
-
 
 ## {cards}: Other Summary Functions 
 
@@ -192,16 +191,151 @@ Wrangling: `get_ard_statistics()`, `replace_null_statistic()`, etc.
 #| message: true
 adsl |> 
   ard_stack( 
-    .by = ARM,      
+    .by = ARM2,      
     ard_summary(variables = AGE, statistic = ~ continuous_summary_fns(c("mean","sd"))), 
     ard_tabulate(variables = AGEGR1, statistic = ~ "p")
   )  
 ```
 
-## Exercise 🏃‍➡️ (Together!)
+## Quick recap!
 
-- Open `exercises/04-ARD-partA.R` 
-- Compute summaries for a demography table that includes AGE, SEX, and RACE.
+::: {.small}
+- Let's compute summaries for a demography table that includes age (AGE), age group (AGEGR1), and sex (SEX) by treatment (ARM2)
+- First, we compute the continuous summaries for AGE by ARM2
+:::
+
+
+```{r}
+#| eval: false
+ard_summary(
+  data = adsl,
+  by = ,
+  variables = 
+)
+```
+
+
+## Quick recap!
+
+::: {.small}
+- Let's compute summaries for a demography table that includes age (AGE), age group (AGEGR1), and sex (SEX) by treatment (ARM2)
+- First, we compute the continuous summaries for AGE by ARM2
+:::
+
+```{r}
+#| message: true
+#| code-line-numbers: "3,4"
+ard_summary(
+  data = adsl,
+  by = ARM2,
+  variables = AGE 
+)
+```
+ 
+## Quick recap!
+
+::: {.small}
+- Let's compute summaries for a demography table that includes age (AGE), age group (AGEGR1), and sex (SEX) by treatment (ARM2)
+- Next, we compute the categorical summaries for AGEGR1 and SEX by ARM2
+::: 
+
+```{r}
+#| eval: false
+ard_tabulate(
+  data = adsl,
+  by = ,
+  variables = 
+)
+```
+
+
+## Quick recap!
+
+::: {.small}
+- Let's compute summaries for a demography table that includes age (AGE), age group (AGEGR1), and sex (SEX) by treatment (ARM2)
+- Next, we compute the categorical summaries for AGEGR1 and SEX by ARM2
+::: 
+```{r}
+#| message: true
+#| code-line-numbers: "3,4"
+ard_tabulate(
+  data = adsl,
+  by = ARM2,
+  variables = c(AGEGR1, SEX) 
+)
+```
+
+
+
+## Quick recap!
+
+::: {.small}
+Let's compute summaries for a demography table that includes age (AGE), age group (AGEGR1), and sex (SEX) by treatment (ARM2) in a *single `ard_stack()` call, including:
+
+  - summaries by ARM2 as performed above
+  
+  - continuous summaries from part A for AGE
+  
+  - categorical summaries from part B for AGEGR1 and SEX
+:::
+
+```{r}
+#| eval: false
+ard_stack(
+  data = adsl,
+  .by = ARM2,
+  
+  # add ard_* calls here
+  
+)
+```
+
+
+## Quick recap!
+
+::: {.small}
+Let's compute summaries for a demography table that includes age (AGE), age group (AGEGR1), and sex (SEX) by treatment (ARM2) in a *single `ard_stack()` call, including:
+
+  - summaries by ARM2 as performed above
+  
+  - continuous summaries from part A for AGE
+  
+  - categorical summaries from part B for AGEGR1 and SEX
+:::
+
+```{r}
+#| message: true
+#| code-line-numbers: "4,5"
+ard_stack(
+  data = adsl,
+  .by = ARM2,
+  ard_continuous(variables = AGE),
+  ard_categorical(variables = c(AGEGR1, SEX))
+)
+```
+
+## Quick recap!
+
+::: {.small}
+We can also add:
+
+- Overall summaries for all variables
+- Total N
+:::
+
+```{r}
+#| message: true
+#| code-line-numbers: "6,7"
+ard_stack(
+  data = adsl,
+  .by = ARM2,
+  ard_continuous(variables = AGE),
+  ard_categorical(variables = c(AGEGR1, SEX)),
+  .overall = TRUE,
+  .total_n = TRUE
+)
+```
+
 
 ## {cards}: Hierarchical Summary Functions
 
@@ -343,7 +477,7 @@ ard_hier_c |>
 
 ## Exercise 🏃‍➡️
 
-1. Navigate to Posit Cloud script `exercises/04-ARD-partB.R` 
+1. Navigate to Posit Cloud script `exercises/04-ARD.R` 
 
 2. Compute the nested AE tabulations as described.
 
@@ -400,7 +534,7 @@ countdown(minutes = 10, play_sound = TRUE)
 ```{r}
 #| message: true
 adsl |> 
-  cardx::ard_stats_t_test(by = ARM, variables = AGE)
+  cardx::ard_stats_t_test(by = ARM2, variables = AGE)
 ```
 
 ## {cardx} t-test Example
@@ -439,9 +573,9 @@ adsl |>
   cards::ard_mvsummary(
     variables = AGE,
     statistic = 
-      ~ list(t_test = \(x, data, ...) t.test(x ~ data$ARM) |> broom::tidy())
+      ~ list(t_test = \(x, data, ...) t.test(x ~ data$ARM2) |> broom::tidy())
   ) |> 
-  dplyr::mutate(group1 = "ARM", context = "t_test_two_sample") |> 
+  dplyr::mutate(group1 = "ARM2", context = "t_test_two_sample") |> 
   cards::tidy_ard_column_order()
 ```
 
@@ -472,7 +606,7 @@ The `cardx::ard_regression()` does **a lot** for us in the background.
 :::
 
 ```{r}
-lm(AGE ~ ARM, data = adsl) |>
+lm(AGE ~ ARM2, data = adsl) |>
   cardx::ard_regression(add_estimate_to_reference_rows = TRUE)
 ```
 
@@ -489,7 +623,7 @@ What happens when statistics are un-calculable?
 ard_gone_wrong <- 
   adsl |> 
   ard_summary(
-    by = ARM,
+    by = ARM2,
     variable = AGEGR1,
     statistic = ~list(kurtosis = \(x) e1071::kurtosis(x))
   ) |> 

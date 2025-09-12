@@ -3,7 +3,9 @@
 # For this exercise, we will use the AE ARD from the last section to
 # create a {tfrmt} table
 
-# Setup
+
+# Setup: run this first! --------------------------------------------------
+
 ## Load necessary packages
 library(cards)
 library(dplyr)
@@ -11,8 +13,13 @@ library(tidyr)
 library(tfrmt)
 
 ## Import & subset data
-adsl <- pharmaverseadam::adsl |> dplyr::filter(SAFFL == "Y")
+adsl <- pharmaverseadam::adsl |> 
+  dplyr::filter(SAFFL=="Y") |> 
+  dplyr::mutate(ARM2 = ifelse(startsWith(ARM, "Xanomeline"), "Xanomeline", ARM))
+
 adae <- pharmaverseadam::adae |> 
+  dplyr::filter(SAFFL=="Y") |> 
+  dplyr::mutate(ARM2 = ifelse(startsWith(ARM, "Xanomeline"), "Xanomeline", ARM)) |> 
   dplyr::filter(AESOC %in% unique(AESOC)[1:3]) |> 
   dplyr::group_by(AESOC) |> 
   dplyr::filter(AEDECOD %in% unique(AEDECOD)[1:3]) |> 
@@ -22,24 +29,26 @@ adae <- pharmaverseadam::adae |>
 ard_ae <- ard_stack_hierarchical(
   data = adae,
   variables = c(AESOC, AEDECOD),
-  by = TRT01A, 
+  by = ARM2, 
   id = USUBJID,
   denominator = adsl,
   over_variables = TRUE,
   statistic = ~ c("n", "p")
 ) 
 
-# Exercise:
+
+# Exercise ----------------------------------------------------------------
 
 # A. Convert `cards` object into a tidy data frame ready for {tfrmt}. 
 #    Nothing to do besides run each step & explore the output!
 
 ard_ae_tidy <- ard_ae |> 
   shuffle_card(fill_hierarchical_overall = "ANY EVENT") |> 
-  prep_big_n(vars = "TRT01A") |> 
+  prep_big_n(vars = "ARM2") |> 
   prep_hierarchical_fill(vars = c("AESOC","AEDECOD"),
-                     fill_from = "left")|> 
+                       fill_from_left = TRUE)|> 
   dplyr::select(-c(context, stat_label, stat_variable)) 
+
 
 # B. Create a basic tfrmt, filling in the missing variable names
 
@@ -64,18 +73,19 @@ ae_tfrmt <- tfrmt(
 print_to_gt(ae_tfrmt,
             ard_ae_tidy)
 
+
 # C. Switch the order of the columns so Placebo is last
 
 ae_tfrmt <- ae_tfrmt |> 
   tfrmt(
     col_plan = col_plan(
       "Placebo",
-      contains("High Dose"),
-      contains("Low Dose")
+      "Xanomeline"
     )
   )  
 
 print_to_gt(ae_tfrmt, ard_ae_tidy)
+
 
 # D. Add a title and source note for the table
 

@@ -1,22 +1,31 @@
-# Exercise: Adverse Events summaries using {cards}
+# ARD Exercise: Adverse Events summaries using {cards}
+
+
+# Setup: run this first! --------------------------------------------------
 
 # Load necessary packages
 library(cards) 
 
 # Import & subset data
-adsl <- pharmaverseadam::adsl |> dplyr::filter(SAFFL == "Y")
+adsl <- pharmaverseadam::adsl |> 
+  dplyr::filter(SAFFL=="Y") |> 
+  dplyr::mutate(ARM2 = ifelse(startsWith(ARM, "Xanomeline"), "Xanomeline", ARM))
+
 adae <- pharmaverseadam::adae |> 
-  dplyr::filter(AESOC %in% unique(AESOC)[1:3]) |> 
+  dplyr::filter(SAFFL=="Y") |> 
+  dplyr::mutate(ARM2 = ifelse(startsWith(ARM, "Xanomeline"), "Xanomeline", ARM))
+dplyr::filter(AESOC %in% unique(AESOC)[1:3]) |> 
   dplyr::group_by(AESOC) |> 
   dplyr::filter(AEDECOD %in% unique(AEDECOD)[1:3]) |> 
   dplyr::ungroup()
 
-# Exercise:
+
+# Exercise ----------------------------------------------------------------
 
 # A. Calculate the number and percentage of *unique* subjects with at least one AE:
 #  - By each SOC (AESOC)
 #  - By each Preferred term (AEDECOD) within SOC (AESOC)
-# By every combination of treatment group (TRT01A) 
+# By every combination of treatment group (ARM2) 
 
 ard_stack_hierarchical(
   data = ,
