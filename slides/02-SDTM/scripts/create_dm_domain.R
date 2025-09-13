@@ -18,7 +18,7 @@ library(sdtm.oak)
 library(dplyr)
 
 # Read CT Specification
-study_ct <- read.csv("./metadata/sdtm_ct.csv")
+study_ct <- read.csv("slides/02-SDTM/metadata/sdtm_ct.csv")
 
 # Read in raw data
 ds_raw <- pharmaverseraw::ds_raw 
