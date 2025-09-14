@@ -213,7 +213,8 @@
 <li class="fragment"><strong>Gained</strong> an understanding of how to use <code>admiral</code>, <code>metatools/metacore</code>, and <code>xportr</code> packages to create ADaMs</li>
 <li class="fragment"><strong>Seen</strong> code executed to create variables and records common to <code>ADSL</code> and <code>ADVS</code>.</li>
 <li class="fragment"><strong>Seen</strong> small code snippets of certain functions with play data.</li>
-<li class="fragment"><strong>Checked</strong> in on our fav participant - Barb</li>
+<li class="fragment"><strong>Checked</strong> in on our fav participant - Barb.</li>
+<li class="fragment"><strong>Completed</strong> two short exercises using functions from admiral package.</li>
 </ul></li>
 </ul>
 </section>
@@ -310,6 +311,7 @@ classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;
 <li class="fragment">Brief notes on the code in script and exercises:
 <ul>
 <li class="fragment">Code in scripts should run out of the box.</li>
+<li class="fragment">You can run now, but if something doesn’t work let’s fix at the exercises.</li>
 <li class="fragment">Exercises will need some minor updates.</li>
 <li class="fragment">3 folks not presenting can help diagnose issues during exercises.</li>
 </ul></li>
@@ -363,8 +365,7 @@ classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;
 <ul>
 <li>Two datasets, dataset labels and variable keys</li>
 <li>Variables - labels, lengths, types, linked to method</li>
-<li>Codelists!!</li>
-<li>No VLMs</li>
+<li>Codelists / Control Terms!!</li>
 </ul></li>
 </ul>
 </section>
@@ -516,31 +517,32 @@ classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;
 <ul>
 <li>We have an <code>ADSL</code> script:</li>
 </ul>
-<pre><code>* Using `{pharmaversesdtm}` data: `dm`, `suppdm`, `ex`, `ae`, `vs`, etc
-* Uses the `ADSL` section of our spec file
-* Creating a single record for each subject with a lot of variables!!
-* Write out an xpt file for regulatory send-off!</code></pre>
+<ul>
+<li class="fragment">Using <code>{pharmaversesdtm}</code> data: <code>dm</code>, <code>suppdm</code>, <code>ex</code>, <code>ae</code>, <code>vs</code>, etc</li>
+<li class="fragment">Uses the <code>ADSL</code> section of our spec file</li>
+<li class="fragment">Creating a single record for each subject with a lot of variables.</li>
+<li class="fragment">306 observations and 54 variables.</li>
+<li class="fragment">Write out an xpt file for regulatory send-off!</li>
+</ul>
 </section>
 <section id="reading-in-our-spec-for-adsl" class="slide level2">
 <h2>Reading in our spec for <code>ADSL</code> <sup>1</sup></h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-code-line-numbers="1|2|3|4|5|6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">spec_to_metacore</span>(</span>
-<span id="cb2-2"><a></a>  <span class="at">path =</span> <span class="st">"slides/03-ADaM/metadata/posit_specs.xlsx"</span>,</span>
-<span id="cb2-3"><a></a>  <span class="at">where_sep_sheet =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb2-4"><a></a>  <span class="at">quiet =</span> <span class="cn">TRUE</span></span>
-<span id="cb2-5"><a></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb2-6"><a></a>  <span class="fu">select_dataset</span>(<span class="st">"ADSL"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-code-line-numbers="1|2|3|4|5|6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>adsl_spec <span class="ot">&lt;-</span> <span class="fu">spec_to_metacore</span>(</span>
+<span id="cb1-2"><a></a>  <span class="at">path =</span> <span class="st">"slides/03-ADaM/metadata/posit_specs.xlsx"</span>,</span>
+<span id="cb1-3"><a></a>  <span class="at">where_sep_sheet =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1-4"><a></a>  <span class="at">quiet =</span> <span class="cn">TRUE</span></span>
+<span id="cb1-5"><a></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-6"><a></a>  <span class="fu">select_dataset</span>(<span class="st">"ADSL"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
-<li>Takes a P21-like spec and makes it into an object we can easily access.
-<ul>
-<li>P21 is spec/data validation tool widely used in the industry for creating SDTMs and ADaMs</li>
-</ul></li>
+<li>Takes a P21-like spec and makes it into an object we can easily access.</li>
+<li><code>where_sep_sheet</code> - option to tell if the information for the dataset is in a separate sheet, like in older p21 specs or in a single sheet like newer p21 specs</li>
 <li><code>quiet</code> argument should be set to <code>TRUE</code> while developing your spec and ADaMs.</li>
 <li>Same call in ADVS script.</li>
 </ul>
 <aside><ol class="aside-footnotes"><li id="fn1"><p>Lines: 20-25 </p></li></ol></aside></section>
 <section id="combine-parent-and-supplementary-data" class="slide level2">
 <h2>Combine Parent and Supplementary Data <sup>1</sup></h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>dm_suppdm <span class="ot">&lt;-</span> <span class="fu">combine_supp</span>(dm, suppdm)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>dm_suppdm <span class="ot">&lt;-</span> <span class="fu">combine_supp</span>(dm, suppdm)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>One line of code to join two datasets: parent and supplementary!</li>
 <li>Supps usually are a collection non-standard data and linking to parent</li>
@@ -549,48 +551,48 @@ classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;
 <aside><ol class="aside-footnotes"><li id="fn2"><p>Lines: 53</p></li></ol></aside></section>
 <section id="lets-turn-a---dtc-to-a-dtm-or-dt-variable" class="slide level2">
 <h2>Let’s turn a <code>--DTC</code> to a <code>*DTM</code> or <code>*DT</code> variable <sup>1</sup></h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-code-line-numbers="1|2|3|4|5|6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>ex_ext <span class="ot">&lt;-</span> ex <span class="sc">%&gt;%</span></span>
-<span id="cb4-2"><a></a>  <span class="fu">derive_vars_dtm</span>(</span>
-<span id="cb4-3"><a></a>    <span class="at">dtc =</span> EXSTDTC,</span>
-<span id="cb4-4"><a></a>    <span class="at">new_vars_prefix =</span> <span class="st">"EXST"</span>,</span>
-<span id="cb4-5"><a></a>    <span class="at">time_imputation =</span> <span class="st">"last"</span>,</span>
-<span id="cb4-6"><a></a>    <span class="at">flag_imputation =</span> <span class="st">"time"</span></span>
-<span id="cb4-7"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-code-line-numbers="1|2|3|4|5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>ds_ext <span class="ot">&lt;-</span> <span class="fu">derive_vars_dt</span>(</span>
-<span id="cb5-2"><a></a>  ds,</span>
-<span id="cb5-3"><a></a>  <span class="at">dtc =</span> DSSTDTC,</span>
-<span id="cb5-4"><a></a>  <span class="at">new_vars_prefix =</span> <span class="st">"DSST"</span></span>
-<span id="cb5-5"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" data-code-line-numbers="1|2|3|4|5|6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>adsl11 <span class="ot">&lt;-</span> adsl10 <span class="sc">%&gt;%</span></span>
-<span id="cb6-2"><a></a>  <span class="fu">derive_vars_dt</span>(</span>
-<span id="cb6-3"><a></a>    <span class="at">new_vars_prefix =</span> <span class="st">"DTH"</span>,</span>
-<span id="cb6-4"><a></a>    <span class="at">dtc =</span> DTHDTC,</span>
-<span id="cb6-5"><a></a>    <span class="at">highest_imputation =</span> <span class="st">"M"</span>,</span>
-<span id="cb6-6"><a></a>    <span class="at">date_imputation =</span> <span class="st">"first"</span></span>
-<span id="cb6-7"><a></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-code-line-numbers="1|2|3|4|5|6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>ex_ext <span class="ot">&lt;-</span> ex <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a></a>  <span class="fu">derive_vars_dtm</span>(</span>
+<span id="cb3-3"><a></a>    <span class="at">dtc =</span> EXSTDTC,</span>
+<span id="cb3-4"><a></a>    <span class="at">new_vars_prefix =</span> <span class="st">"EXST"</span>,</span>
+<span id="cb3-5"><a></a>    <span class="at">time_imputation =</span> <span class="st">"last"</span>,</span>
+<span id="cb3-6"><a></a>    <span class="at">flag_imputation =</span> <span class="st">"time"</span></span>
+<span id="cb3-7"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-code-line-numbers="1|2|3|4|5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>ds_ext <span class="ot">&lt;-</span> <span class="fu">derive_vars_dt</span>(</span>
+<span id="cb4-2"><a></a>  ds,</span>
+<span id="cb4-3"><a></a>  <span class="at">dtc =</span> DSSTDTC,</span>
+<span id="cb4-4"><a></a>  <span class="at">new_vars_prefix =</span> <span class="st">"DSST"</span></span>
+<span id="cb4-5"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-code-line-numbers="1|2|3|4|5|6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>adsl11 <span class="ot">&lt;-</span> adsl10 <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a></a>  <span class="fu">derive_vars_dt</span>(</span>
+<span id="cb5-3"><a></a>    <span class="at">dtc =</span> DTHDTC,</span>
+<span id="cb5-4"><a></a>    <span class="at">new_vars_prefix =</span> <span class="st">"DTH"</span>,</span>
+<span id="cb5-5"><a></a>    <span class="at">highest_imputation =</span> <span class="st">"M"</span>,</span>
+<span id="cb5-6"><a></a>    <span class="at">date_imputation =</span> <span class="st">"first"</span></span>
+<span id="cb5-7"><a></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <aside><ol class="aside-footnotes"><li id="fn3"><p>Lines: 57-69, 132-136, 198-204</p></li></ol></aside></section>
 <section id="example-from-documentation" class="slide level2 smaller">
 <h2>Example from documentation</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>mhdt <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb7-2"><a></a>  <span class="sc">~</span>MHSTDTC,</span>
-<span id="cb7-3"><a></a>  <span class="st">"2019-07-18T15:25:40"</span>,</span>
-<span id="cb7-4"><a></a>  <span class="st">"2019-07-18T15:25"</span>,</span>
-<span id="cb7-5"><a></a>  <span class="st">"2019-07-18"</span>,</span>
-<span id="cb7-6"><a></a>  <span class="st">"2019-02"</span>,</span>
-<span id="cb7-7"><a></a>  <span class="st">"2019"</span>,</span>
-<span id="cb7-8"><a></a>  <span class="st">"2019---07"</span>,</span>
-<span id="cb7-9"><a></a>  <span class="st">""</span></span>
-<span id="cb7-10"><a></a>)</span>
-<span id="cb7-11"><a></a></span>
-<span id="cb7-12"><a></a><span class="fu">derive_vars_dtm</span>(</span>
-<span id="cb7-13"><a></a> mhdt,</span>
-<span id="cb7-14"><a></a> <span class="at">new_vars_prefix =</span> <span class="st">"AST"</span>,</span>
-<span id="cb7-15"><a></a> <span class="at">dtc =</span> MHSTDTC,</span>
-<span id="cb7-16"><a></a> <span class="at">highest_imputation =</span> <span class="st">"M"</span>,</span>
-<span id="cb7-17"><a></a> <span class="at">date_imputation =</span> <span class="st">"last"</span>,</span>
-<span id="cb7-18"><a></a> <span class="at">time_imputation =</span> <span class="st">"last"</span>,</span>
-<span id="cb7-19"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>mhdt <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb6-2"><a></a>  <span class="sc">~</span>MHSTDTC,</span>
+<span id="cb6-3"><a></a>  <span class="st">"2019-07-18T15:25:40"</span>,</span>
+<span id="cb6-4"><a></a>  <span class="st">"2019-07-18T15:25"</span>,</span>
+<span id="cb6-5"><a></a>  <span class="st">"2019-07-18"</span>,</span>
+<span id="cb6-6"><a></a>  <span class="st">"2019-02"</span>,</span>
+<span id="cb6-7"><a></a>  <span class="st">"2019"</span>,</span>
+<span id="cb6-8"><a></a>  <span class="st">"2019---07"</span>,</span>
+<span id="cb6-9"><a></a>  <span class="st">""</span></span>
+<span id="cb6-10"><a></a>)</span>
+<span id="cb6-11"><a></a></span>
+<span id="cb6-12"><a></a><span class="fu">derive_vars_dtm</span>(</span>
+<span id="cb6-13"><a></a> mhdt,</span>
+<span id="cb6-14"><a></a> <span class="at">new_vars_prefix =</span> <span class="st">"AST"</span>,</span>
+<span id="cb6-15"><a></a> <span class="at">dtc =</span> MHSTDTC,</span>
+<span id="cb6-16"><a></a> <span class="at">highest_imputation =</span> <span class="st">"M"</span>,</span>
+<span id="cb6-17"><a></a> <span class="at">date_imputation =</span> <span class="st">"last"</span>,</span>
+<span id="cb6-18"><a></a> <span class="at">time_imputation =</span> <span class="st">"last"</span>,</span>
+<span id="cb6-19"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7 × 4
   MHSTDTC               ASTDTM              ASTDTF ASTTMF
@@ -608,23 +610,39 @@ classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;
 <section id="woahthere-is-more" class="slide level2">
 <h2>Woah…there is more!!</h2>
 <div class="codewindow" style="font-size: 0.6em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">derive_vars_dtm</span>(</span>
-<span id="cb9-2"><a></a>  dataset,</span>
-<span id="cb9-3"><a></a>  new_vars_prefix,</span>
-<span id="cb9-4"><a></a>  dtc,</span>
-<span id="cb9-5"><a></a>  <span class="at">highest_imputation =</span> <span class="st">"h"</span>,</span>
-<span id="cb9-6"><a></a>  <span class="at">date_imputation =</span> <span class="st">"first"</span>,</span>
-<span id="cb9-7"><a></a>  <span class="at">time_imputation =</span> <span class="st">"first"</span>,</span>
-<span id="cb9-8"><a></a>  <span class="at">flag_imputation =</span> <span class="st">"auto"</span>,</span>
-<span id="cb9-9"><a></a>  <span class="at">min_dates =</span> <span class="cn">NULL</span>,</span>
-<span id="cb9-10"><a></a>  <span class="at">max_dates =</span> <span class="cn">NULL</span>,</span>
-<span id="cb9-11"><a></a>  <span class="at">preserve =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb9-12"><a></a>  <span class="at">ignore_seconds_flag =</span> <span class="cn">FALSE</span></span>
-<span id="cb9-13"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">derive_vars_dtm</span>(</span>
+<span id="cb8-2"><a></a>  dataset,</span>
+<span id="cb8-3"><a></a>  new_vars_prefix,</span>
+<span id="cb8-4"><a></a>  dtc,</span>
+<span id="cb8-5"><a></a>  <span class="at">highest_imputation =</span> <span class="st">"h"</span>,</span>
+<span id="cb8-6"><a></a>  <span class="at">date_imputation =</span> <span class="st">"first"</span>,</span>
+<span id="cb8-7"><a></a>  <span class="at">time_imputation =</span> <span class="st">"first"</span>,</span>
+<span id="cb8-8"><a></a>  <span class="at">flag_imputation =</span> <span class="st">"auto"</span>,</span>
+<span id="cb8-9"><a></a>  <span class="at">min_dates =</span> <span class="cn">NULL</span>,</span>
+<span id="cb8-10"><a></a>  <span class="at">max_dates =</span> <span class="cn">NULL</span>,</span>
+<span id="cb8-11"><a></a>  <span class="at">preserve =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb8-12"><a></a>  <span class="at">ignore_seconds_flag =</span> <span class="cn">FALSE</span></span>
+<span id="cb8-13"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="lets-get-a-merge" class="slide level2">
-<h2>Let’s get a merge <sup>1</sup></h2>
+<section id="a-simple-merge" class="slide level2">
+<h2>A Simple merge <sup>1</sup></h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" data-code-line-numbers="1|2|3|4|5|6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>adsl10 <span class="ot">&lt;-</span> adsl09 <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a></a>  <span class="fu">derive_vars_merged</span>(</span>
+<span id="cb9-3"><a></a>    <span class="at">dataset_add =</span> ds_ext,</span>
+<span id="cb9-4"><a></a>    <span class="at">by_vars =</span> <span class="fu">exprs</span>(STUDYID, USUBJID),</span>
+<span id="cb9-5"><a></a>    <span class="at">new_vars =</span> <span class="fu">exprs</span>(<span class="at">RANDDT =</span> DSSTDT),</span>
+<span id="cb9-6"><a></a>    <span class="at">filter_add =</span> DSDECOD <span class="sc">==</span> <span class="st">"RANDOMIZED"</span>,</span>
+<span id="cb9-7"><a></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Filter, arrange, join and rename is a common pattern in ADaMs.</li>
+<li><code>by_vars</code> are going to be the shared variables to connect the two datasets</li>
+<li>In admiral, all arguments which can be set to multiple variables, a calculation, or an assignment must be started with <code>rlang::exprs()</code>.</li>
+<li>Check out <a href="https://pharmaverse.github.io/admiral/cran-release/articles/concepts_conventions.html#exprs">Programming Concepts and Conventions</a></li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn4"><p>Lines: 187-194</p></li></ol></aside></section>
+<section id="lets-get-a-more-complicated-merge" class="slide level2">
+<h2>Let’s get a more complicated merge <sup>1</sup></h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" data-code-line-numbers="1|2|3|4|5|6|7|8|9|10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="fu">derive_vars_merged</span>(</span>
 <span id="cb10-2"><a></a>  <span class="at">dataset_add =</span> ex_ext,</span>
 <span id="cb10-3"><a></a>  <span class="at">by_vars =</span> <span class="fu">exprs</span>(STUDYID, USUBJID),</span>
@@ -637,10 +655,10 @@ classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;
 <span id="cb10-10"><a></a>  <span class="at">mode =</span> <span class="st">"first"</span>,</span>
 <span id="cb10-11"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
-<li>Filter, arrange, join and rename is a common pattern in ADaMs.</li>
-<li><code>rlang::exprs()</code> is used in a lot of of admiral functions where…</li>
+<li><code>order</code> - for each by group the first or last observation from the additional dataset is selected with respect to the specified order.</li>
+<li><code>mode</code> - Determines if the first or last observation is selected</li>
 </ul>
-<aside><ol class="aside-footnotes"><li id="fn4"><p>Lines: 72-84, and more!!</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn5"><p>Lines: 72-84, and more!!</p></li></ol></aside></section>
 <section id="whoa-way-more-options" class="slide level2">
 <h2>Whoa!!! Way more options!!</h2>
 <div class="codewindow" style="font-size: 0.6em;">
@@ -669,7 +687,7 @@ classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;
 <span id="cb12-3"><a></a>    <span class="at">start_date =</span> TRTSDT,</span>
 <span id="cb12-4"><a></a>    <span class="at">end_date =</span> DTHDT</span>
 <span id="cb12-5"><a></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<aside><ol class="aside-footnotes"><li id="fn5"><p>Lines: 122-126</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn6"><p>Lines: 122-126</p></li></ol></aside></section>
 <section id="example-from-documentation-1" class="slide level2 smaller">
 <h2>Example from documentation</h2>
 <div class="cell">
@@ -720,19 +738,26 @@ classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;
 <span id="cb15-13"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
+<section id="duration-versus-interval" class="slide level2">
+<h2>Duration versus Interval</h2>
+<ul>
+<li><p>The lubridate package calculates two types of spans between two dates: duration and interval. While these calculations are largely the same, when the unit of the time period is month or year the result can be slightly different.</p></li>
+<li><p>The difference arises from the ambiguity in the length of “1 month” or “1 year”. Months may have 31, 30, 28, or 29 days, and years are 365 days and 366 during leap years. Durations and intervals help solve the ambiguity in these measures.</p></li>
+</ul>
+</section>
 <section id="lets-apply-control-terms-code-lists" class="slide level2">
 <h2>Let’s apply Control Terms / Code Lists <sup>1</sup></h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>adsl16 <span class="sc">%&gt;%</span></span>
-<span id="cb16-2"><a></a>  <span class="fu">create_var_from_codelist</span>(metacore, <span class="at">input_var =</span> AGEGR1, <span class="at">out_var =</span> AGEGR1N) <span class="sc">%&gt;%</span></span>
-<span id="cb16-3"><a></a>  <span class="fu">create_var_from_codelist</span>(metacore, <span class="at">input_var =</span> RACE, <span class="at">out_var =</span> RACEN) <span class="sc">%&gt;%</span></span>
-<span id="cb16-4"><a></a>  <span class="fu">create_var_from_codelist</span>(metacore, <span class="at">input_var =</span> RACEGR1, <span class="at">out_var =</span> RACEGR1N) <span class="sc">%&gt;%</span></span>
-<span id="cb16-5"><a></a>  <span class="fu">create_var_from_codelist</span>(metacore, <span class="at">input_var =</span> REGION1, <span class="at">out_var =</span> REGION1N) <span class="sc">%&gt;%</span></span>
-<span id="cb16-6"><a></a>  <span class="fu">create_var_from_codelist</span>(metacore, <span class="at">input_var =</span> TRT01P, <span class="at">out_var =</span> TRT01PN) <span class="sc">%&gt;%</span></span>
-<span id="cb16-7"><a></a>  <span class="fu">create_var_from_codelist</span>(metacore, <span class="at">input_var =</span> TRT01A, <span class="at">out_var =</span> TRT01AN)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb16-2"><a></a>  <span class="fu">create_var_from_codelist</span>(adsl_spec, <span class="at">input_var =</span> AGEGR1, <span class="at">out_var =</span> AGEGR1N) <span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a></a>  <span class="fu">create_var_from_codelist</span>(adsl_spec, <span class="at">input_var =</span> RACE, <span class="at">out_var =</span> RACEN) <span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a></a>  <span class="fu">create_var_from_codelist</span>(adsl_spec, <span class="at">input_var =</span> RACEGR1, <span class="at">out_var =</span> RACEGR1N) <span class="sc">%&gt;%</span></span>
+<span id="cb16-5"><a></a>  <span class="fu">create_var_from_codelist</span>(adsl_spec, <span class="at">input_var =</span> REGION1, <span class="at">out_var =</span> REGION1N) <span class="sc">%&gt;%</span></span>
+<span id="cb16-6"><a></a>  <span class="fu">create_var_from_codelist</span>(adsl_spec, <span class="at">input_var =</span> TRT01P, <span class="at">out_var =</span> TRT01PN) <span class="sc">%&gt;%</span></span>
+<span id="cb16-7"><a></a>  <span class="fu">create_var_from_codelist</span>(adsl_spec, <span class="at">input_var =</span> TRT01A, <span class="at">out_var =</span> TRT01AN)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>Numeric Variables like the above are helpful for sorting options in Tables.</li>
 </ul>
-<aside><ol class="aside-footnotes"><li id="fn6"><p>Lines: 276-282</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn7"><p>Lines: 276-282</p></li></ol></aside></section>
 <section id="more-details" class="slide level2">
 <h2>More details</h2>
 <div class="codewindow" style="font-size: 0.6em;">
@@ -766,6 +791,7 @@ classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;
 <div>
 <pre class="mermaid mermaid-js">flowchart LR
   B[SDTM] --&gt; C[ADaM]
+  C[ADaM] --&gt; D[ARDs/TFLs]
   
 %% Apply the custom class "highlight" to node B
 class C highlight;
@@ -782,29 +808,24 @@ classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;
 <ul>
 <li>USUBJID: 01-701-1034</li>
 <li>SEX: F</li>
-<li>AGE: 77 ::: incremental</li>
-<li>derive_vars_dt()
-<ul>
+<li>AGE: 77</li>
 <li>RANDDT: 2014-07-01</li>
 <li>TRTSDT: 2014-07-01</li>
 <li>TRTSDTM: 2014-07-01 23:59:59</li>
 <li>TRTEDT: 2014-12-30</li>
-</ul></li>
-<li>derive_vars_duration()
-<ul>
 <li>TRTDURD: 183</li>
-</ul></li>
-<li>derive_vars_merged()
-<ul>
 <li>EOSDT: 2014-12-30</li>
 <li>EOSSTT: COMPLETED</li>
-</ul></li>
 </ul>
 </div></div>
-<p>::::</p>
 </section>
 <section id="check-in-exercise" class="slide level2 smaller">
 <h2>Check-in Exercise</h2>
+<ul>
+<li>Impute the date and time to be last month/day and 23:59:59</li>
+<li>Two arguments to update: <code>????</code></li>
+<li>Check out admiral <a href="https://pharmaverse.github.io/admiral/cran-release/reference/derive_vars_dtm.html"><code>derive_vars_dtm()</code></a> documentation</li>
+</ul>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="fu">library</span>(tibble)</span>
 <span id="cb18-2"><a></a><span class="fu">library</span>(lubridate)</span>
@@ -830,11 +851,50 @@ classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;
 <span id="cb18-22"><a></a>  <span class="at">time_imputation =</span> <span class="st">"????"</span></span>
 <span id="cb18-23"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+</section>
+<section id="check-in-exercise-solution" class="slide level2 smaller">
+<h2>Check-in Exercise Solution</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>posit_mh <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb19-2"><a></a>  <span class="sc">~</span>USUBJID, <span class="sc">~</span>MHSTDTC,</span>
+<span id="cb19-3"><a></a>  <span class="dv">1</span>,        <span class="st">"2019-07-18T15:25:40"</span>,</span>
+<span id="cb19-4"><a></a>  <span class="dv">1</span>,        <span class="st">"2019-07-18T15:25"</span>,</span>
+<span id="cb19-5"><a></a>  <span class="dv">1</span>,        <span class="st">"2019-07-18"</span>,</span>
+<span id="cb19-6"><a></a>  <span class="dv">2</span>,        <span class="st">"2024-02"</span>,</span>
+<span id="cb19-7"><a></a>  <span class="dv">2</span>,        <span class="st">"2019"</span>,</span>
+<span id="cb19-8"><a></a>  <span class="dv">2</span>,        <span class="st">"2019---07"</span>,</span>
+<span id="cb19-9"><a></a>  <span class="dv">3</span>,        <span class="st">""</span></span>
+<span id="cb19-10"><a></a>)</span>
+<span id="cb19-11"><a></a></span>
+<span id="cb19-12"><a></a><span class="fu">derive_vars_dtm</span>(</span>
+<span id="cb19-13"><a></a>  <span class="at">dataset =</span> posit_mh,</span>
+<span id="cb19-14"><a></a>  <span class="at">new_vars_prefix =</span> <span class="st">"AST"</span>,</span>
+<span id="cb19-15"><a></a>  <span class="at">dtc =</span> MHSTDTC,</span>
+<span id="cb19-16"><a></a>  <span class="at">highest_imputation =</span> <span class="st">"M"</span>,</span>
+<span id="cb19-17"><a></a>  <span class="at">date_imputation =</span> <span class="st">"last"</span>,</span>
+<span id="cb19-18"><a></a>  <span class="at">time_imputation =</span> <span class="st">"last"</span></span>
+<span id="cb19-19"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7 × 5
+  USUBJID MHSTDTC               ASTDTM              ASTDTF ASTTMF
+    &lt;dbl&gt; &lt;chr&gt;                 &lt;dttm&gt;              &lt;chr&gt;  &lt;chr&gt; 
+1       1 "2019-07-18T15:25:40" 2019-07-18 15:25:40 &lt;NA&gt;   &lt;NA&gt;  
+2       1 "2019-07-18T15:25"    2019-07-18 15:25:59 &lt;NA&gt;   S     
+3       1 "2019-07-18"          2019-07-18 23:59:59 &lt;NA&gt;   H     
+4       2 "2024-02"             2024-02-29 23:59:59 D      H     
+5       2 "2019"                2019-12-31 23:59:59 M      H     
+6       2 "2019---07"           2019-12-31 23:59:59 M      H     
+7       3 ""                    NA                  &lt;NA&gt;   &lt;NA&gt;  </code></pre>
+</div>
+</div>
 </section></section>
 <section>
 <section id="advs" class="title-slide slide level1 center">
 <h1><code>ADVS</code></h1>
 <p>🕦11:50 - 12:20</p>
+<ul>
+<li>Note: Referencing lines in file at each section with a footnote (Lines: ##-##)</li>
+</ul>
 </section>
 <section id="the-big-picture-of-advs" class="slide level2">
 <h2>The Big Picture of ADVS</h2>
@@ -842,115 +902,167 @@ classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;
 <li>We have an ADVS script:
 <ul>
 <li>Using <code>pharmaversesdtm</code> data: <code>vs</code></li>
-<li>Uses the ADVS section of our spec file</li>
-<li>Creating a <strong>multiple records</strong> for each subject</li>
-<li><code>ADSL</code> information included</li>
-<li>Lot’s of functions are repeated within the ADVS script used in <code>ADSL</code> script</li>
+<li>Using the ADVS section of our spec file.</li>
+<li>Creating <strong>multiple records</strong> for each subject.</li>
+<li>Some <code>ADSL</code> variables included.</li>
+<li>60K records and 106 variables.</li>
+<li>Lot’s of functions are repeated within the <code>ADVS</code> script used in <code>ADSL</code> script.</li>
 </ul></li>
 </ul>
 </section>
-<section id="lets-talk-about-lookup-tables-advs-lines" class="slide level2">
-<h2>Let’s talk about lookup tables (ADVS Lines: )</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19" data-code-line-numbers="1|2|3|4|5|6|7|8|9|10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>  <span class="fu">derive_vars_merged_lookup</span>(</span>
-<span id="cb19-2"><a></a>    <span class="at">dataset_add =</span> param_lookup,</span>
-<span id="cb19-3"><a></a>    <span class="at">new_vars =</span> <span class="fu">exprs</span>(PARAMCD),</span>
-<span id="cb19-4"><a></a>    <span class="at">by_vars =</span> <span class="fu">exprs</span>(VSTESTCD),</span>
-<span id="cb19-5"><a></a>    <span class="at">print_not_mapped =</span> <span class="cn">TRUE</span> </span>
-<span id="cb19-6"><a></a>  ) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
+<section id="lets-talk-about-lookup-tables" class="slide level2">
+<h2>Let’s talk about lookup tables <sup>1</sup></h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21" data-code-line-numbers="1|2|3|4|5|6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a>  <span class="fu">derive_vars_merged_lookup</span>(</span>
+<span id="cb21-2"><a></a>    <span class="at">dataset_add =</span> param_lookup,</span>
+<span id="cb21-3"><a></a>    <span class="at">new_vars =</span> <span class="fu">exprs</span>(PARAMCD),</span>
+<span id="cb21-4"><a></a>    <span class="at">by_vars =</span> <span class="fu">exprs</span>(VSTESTCD),</span>
+<span id="cb21-5"><a></a>    <span class="at">print_not_mapped =</span> <span class="cn">TRUE</span> </span>
+<span id="cb21-6"><a></a>  ) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Moving from <code>**TEST/**TESTCD</code> to <code>PARAM/PARAMCD</code>.</li>
+<li>More information in the <code>PARAM/PARAMCD</code> - useful for displays.</li>
+<li>Can be used for other lookup tables, e.g.&nbsp;Grading/Toxicity.</li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn8"><p>Lines: 72-80</p></li></ol></aside></section>
 <section id="a-fuller-look" class="slide level2">
 <h2>A Fuller Look!</h2>
 <div class="codewindow" style="font-size: 0.6em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">derive_vars_merged_lookup</span>(</span>
-<span id="cb20-2"><a></a>  dataset,</span>
-<span id="cb20-3"><a></a>  dataset_add,</span>
-<span id="cb20-4"><a></a>  by_vars,</span>
-<span id="cb20-5"><a></a>  <span class="at">order =</span> <span class="cn">NULL</span>,</span>
-<span id="cb20-6"><a></a>  <span class="at">new_vars =</span> <span class="cn">NULL</span>,</span>
-<span id="cb20-7"><a></a>  <span class="at">mode =</span> <span class="cn">NULL</span>,</span>
-<span id="cb20-8"><a></a>  <span class="at">filter_add =</span> <span class="cn">NULL</span>,</span>
-<span id="cb20-9"><a></a>  <span class="at">check_type =</span> <span class="st">"warning"</span>,</span>
-<span id="cb20-10"><a></a>  <span class="at">duplicate_msg =</span> <span class="cn">NULL</span>,</span>
-<span id="cb20-11"><a></a>  <span class="at">print_not_mapped =</span> <span class="cn">TRUE</span></span>
-<span id="cb20-12"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="fu">derive_vars_merged_lookup</span>(</span>
+<span id="cb22-2"><a></a>  dataset,</span>
+<span id="cb22-3"><a></a>  dataset_add,</span>
+<span id="cb22-4"><a></a>  by_vars,</span>
+<span id="cb22-5"><a></a>  <span class="at">order =</span> <span class="cn">NULL</span>,</span>
+<span id="cb22-6"><a></a>  <span class="at">new_vars =</span> <span class="cn">NULL</span>,</span>
+<span id="cb22-7"><a></a>  <span class="at">mode =</span> <span class="cn">NULL</span>,</span>
+<span id="cb22-8"><a></a>  <span class="at">filter_add =</span> <span class="cn">NULL</span>,</span>
+<span id="cb22-9"><a></a>  <span class="at">check_type =</span> <span class="st">"warning"</span>,</span>
+<span id="cb22-10"><a></a>  <span class="at">duplicate_msg =</span> <span class="cn">NULL</span>,</span>
+<span id="cb22-11"><a></a>  <span class="at">print_not_mapped =</span> <span class="cn">TRUE</span></span>
+<span id="cb22-12"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="lets-add-more-records-for-each-subject-advs-lines" class="slide level2">
-<h2>Let’s add more records for each subject (ADVS Lines: )</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21" data-code-line-numbers="1|2|3|4|5|6|7|8|9|10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="fu">derive_param_computed</span>(</span>
-<span id="cb21-2"><a></a>  <span class="at">by_vars =</span> <span class="fu">exprs</span>(STUDYID, USUBJID, VISIT, VISITNUM, ADT, ADY, VSTPT, VSTPTNUM),</span>
-<span id="cb21-3"><a></a>  <span class="at">parameters =</span> <span class="st">"WEIGHT"</span>,</span>
-<span id="cb21-4"><a></a>  <span class="at">set_values_to =</span> <span class="fu">exprs</span>(</span>
-<span id="cb21-5"><a></a>    <span class="at">AVAL =</span> AVAL.WEIGHT <span class="sc">/</span> (AVAL.HEIGHT <span class="sc">/</span> <span class="dv">100</span>)<span class="sc">^</span><span class="dv">2</span>,</span>
-<span id="cb21-6"><a></a>    <span class="at">PARAMCD =</span> <span class="st">"BMI"</span>,</span>
-<span id="cb21-7"><a></a>    <span class="at">PARAM =</span> <span class="st">"Body Mass Index (kg/m^2)"</span>,</span>
-<span id="cb21-8"><a></a>    <span class="at">AVALU =</span> <span class="st">"kg/m^2"</span></span>
-<span id="cb21-9"><a></a>  ),</span>
-<span id="cb21-10"><a></a>  <span class="at">constant_parameters =</span> <span class="fu">c</span>(<span class="st">"HEIGHT"</span>),</span>
-<span id="cb21-11"><a></a>  <span class="at">constant_by_vars =</span> <span class="fu">exprs</span>(USUBJID)</span>
-<span id="cb21-12"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
+<section id="lets-add-more-records-for-each-subject" class="slide level2">
+<h2>Let’s add more records for each subject <sup>1</sup></h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23" data-code-line-numbers="1|2|3|4|5|6|7|8|9|10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a>advs <span class="ot">&lt;-</span> advs <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a></a>  <span class="fu">derive_param_computed</span>(</span>
+<span id="cb23-3"><a></a>    <span class="at">by_vars =</span> <span class="fu">exprs</span>(STUDYID, USUBJID, VISIT, VISITNUM, ADT, ADY, VSTPT, VSTPTNUM),</span>
+<span id="cb23-4"><a></a>    <span class="at">parameters =</span> <span class="st">"WEIGHT"</span>,</span>
+<span id="cb23-5"><a></a>    <span class="at">set_values_to =</span> <span class="fu">exprs</span>(</span>
+<span id="cb23-6"><a></a>      <span class="at">AVAL =</span> AVAL.WEIGHT <span class="sc">/</span> (AVAL.HEIGHT <span class="sc">/</span> <span class="dv">100</span>)<span class="sc">^</span><span class="dv">2</span>,</span>
+<span id="cb23-7"><a></a>      <span class="at">PARAMCD =</span> <span class="st">"BMI"</span>,</span>
+<span id="cb23-8"><a></a>      <span class="at">PARAM =</span> <span class="st">"Body Mass Index (kg/m^2)"</span>,</span>
+<span id="cb23-9"><a></a>      <span class="at">AVALU =</span> <span class="st">"kg/m^2"</span></span>
+<span id="cb23-10"><a></a>    ),</span>
+<span id="cb23-11"><a></a>    <span class="at">constant_parameters =</span> <span class="fu">c</span>(<span class="st">"HEIGHT"</span>),</span>
+<span id="cb23-12"><a></a>    <span class="at">constant_by_vars =</span> <span class="fu">exprs</span>(USUBJID)</span>
+<span id="cb23-13"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<aside><ol class="aside-footnotes"><li id="fn9"><p>Lines: 100-111</p></li></ol></aside></section>
 <section id="only-two-arguments-not-used" class="slide level2">
 <h2>Only two arguments not used!</h2>
 <div class="codewindow" style="font-size: 0.6em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="fu">derive_param_computed</span>(</span>
-<span id="cb22-2"><a></a>  <span class="at">dataset =</span> <span class="cn">NULL</span>,</span>
-<span id="cb22-3"><a></a>  <span class="at">dataset_add =</span> <span class="cn">NULL</span>,</span>
-<span id="cb22-4"><a></a>  by_vars,</span>
-<span id="cb22-5"><a></a>  parameters,</span>
-<span id="cb22-6"><a></a>  set_values_to,</span>
-<span id="cb22-7"><a></a>  <span class="at">filter =</span> <span class="cn">NULL</span>,</span>
-<span id="cb22-8"><a></a>  <span class="at">constant_by_vars =</span> <span class="cn">NULL</span>,</span>
-<span id="cb22-9"><a></a>  <span class="at">constant_parameters =</span> <span class="cn">NULL</span>,</span>
-<span id="cb22-10"><a></a>  <span class="at">keep_nas =</span> <span class="cn">FALSE</span></span>
-<span id="cb22-11"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="fu">derive_param_computed</span>(</span>
+<span id="cb24-2"><a></a>  <span class="at">dataset =</span> <span class="cn">NULL</span>,</span>
+<span id="cb24-3"><a></a>  <span class="at">dataset_add =</span> <span class="cn">NULL</span>,</span>
+<span id="cb24-4"><a></a>  by_vars,</span>
+<span id="cb24-5"><a></a>  parameters,</span>
+<span id="cb24-6"><a></a>  set_values_to,</span>
+<span id="cb24-7"><a></a>  <span class="at">filter =</span> <span class="cn">NULL</span>,</span>
+<span id="cb24-8"><a></a>  <span class="at">constant_by_vars =</span> <span class="cn">NULL</span>,</span>
+<span id="cb24-9"><a></a>  <span class="at">constant_parameters =</span> <span class="cn">NULL</span>,</span>
+<span id="cb24-10"><a></a>  <span class="at">keep_nas =</span> <span class="cn">FALSE</span></span>
+<span id="cb24-11"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="lets-derive-dtype-summary-records-advs-lines" class="slide level2">
-<h2>Let’s derive DTYPE summary records (ADVS Lines: )</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23" data-code-line-numbers="1|2|3|4|5|6|7|8|9|10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="fu">derive_summary_records</span>(</span>
-<span id="cb23-2"><a></a>    <span class="at">dataset_add =</span> advs_2, </span>
-<span id="cb23-3"><a></a>    <span class="at">by_vars =</span> <span class="fu">exprs</span>(STUDYID, USUBJID, <span class="sc">!!!</span>adsl_vars, PARAMCD, AVISITN, AVISIT, ADT, ADY, AVALU),</span>
-<span id="cb23-4"><a></a>    <span class="at">filter_add =</span> <span class="sc">!</span><span class="fu">is.na</span>(AVAL),</span>
-<span id="cb23-5"><a></a>    <span class="at">set_values_to =</span> <span class="fu">exprs</span>(</span>
-<span id="cb23-6"><a></a>      <span class="at">AVAL =</span> <span class="fu">mean</span>(AVAL),</span>
-<span id="cb23-7"><a></a>      <span class="at">DTYPE =</span> <span class="st">"AVERAGE"</span></span>
-<span id="cb23-8"><a></a>  )</span>
-<span id="cb23-9"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="lets-restrict-advs-lines" class="slide level2">
-<h2>Let’s restrict! (ADVS Lines: )</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24" data-code-line-numbers="1|2|3|4|5|6|7|8|9|10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="fu">restrict_derivation</span>(</span>
-<span id="cb24-2"><a></a>  <span class="at">derivation =</span> derive_var_extreme_flag,</span>
-<span id="cb24-3"><a></a>  <span class="at">args =</span> <span class="fu">params</span>(</span>
-<span id="cb24-4"><a></a>    <span class="at">by_vars =</span> <span class="fu">exprs</span>(STUDYID, USUBJID, BASETYPE, PARAMCD),</span>
-<span id="cb24-5"><a></a>    <span class="at">order =</span> <span class="fu">exprs</span>(ADT, VISITNUM, VSSEQ),</span>
-<span id="cb24-6"><a></a>    <span class="at">new_var =</span> ABLFL,</span>
-<span id="cb24-7"><a></a>    <span class="at">mode =</span> <span class="st">"last"</span>, <span class="co"># Determines of the first or last observation is flagged</span></span>
-<span id="cb24-8"><a></a>    <span class="co"># Below arguments are default values and not necessary to add in our case</span></span>
-<span id="cb24-9"><a></a>    <span class="at">true_value =</span> <span class="st">"Y"</span></span>
-<span id="cb24-10"><a></a>  ),</span>
-<span id="cb24-11"><a></a>  <span class="at">filter =</span> (<span class="sc">!</span><span class="fu">is.na</span>(AVAL) <span class="sc">&amp;</span></span>
-<span id="cb24-12"><a></a>    ADT <span class="sc">&lt;=</span> TRTSDT <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(BASETYPE) <span class="sc">&amp;</span> <span class="fu">is.na</span>(DTYPE))</span>
-<span id="cb24-13"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="lets-get-that-data-read-for-regulatory-agencies-advs-lines" class="slide level2">
-<h2>Let’s get that data read for regulatory agencies (ADVS Lines: )</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25" data-code-line-numbers="1|2|3|4|5|6|7|8|9|10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a>advs <span class="ot">&lt;-</span> advs_final <span class="sc">%&gt;%</span></span>
-<span id="cb25-2"><a></a>  <span class="fu">drop_unspec_vars</span>(metacore) <span class="sc">%&gt;%</span> <span class="co"># Drop unspecified variables from specs</span></span>
-<span id="cb25-3"><a></a>  <span class="fu">check_variables</span>(metacore, <span class="at">dataset_name =</span> <span class="st">"ADVS"</span>) <span class="sc">%&gt;%</span> <span class="co"># Check all variables specified are present and no more</span></span>
-<span id="cb25-4"><a></a>  <span class="fu">order_cols</span>(metacore) <span class="sc">%&gt;%</span> <span class="co"># Orders the columns according to the spec</span></span>
-<span id="cb25-5"><a></a>  <span class="fu">sort_by_key</span>(metacore) <span class="sc">%&gt;%</span> <span class="co"># Sorts the rows by the sort keys</span></span>
-<span id="cb25-6"><a></a>  <span class="fu">xportr_type</span>(metacore) <span class="sc">%&gt;%</span></span>
-<span id="cb25-7"><a></a>  <span class="fu">xportr_length</span>(metacore) <span class="sc">%&gt;%</span></span>
-<span id="cb25-8"><a></a>  <span class="fu">xportr_label</span>(metacore) <span class="sc">%&gt;%</span></span>
-<span id="cb25-9"><a></a>  <span class="fu">xportr_format</span>(metacore, <span class="at">domain =</span> <span class="st">"ADVS"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb25-10"><a></a>  <span class="fu">xportr_df_label</span>(metacore, <span class="at">domain =</span> <span class="st">"ADVS"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb25-11"><a></a>  <span class="fu">xportr_write</span>(<span class="st">"datasets/advs.xpt"</span>, <span class="at">metadata =</span> metacore, <span class="at">domain =</span> <span class="st">"ADVS"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="lets-derive-dtype-summary-records" class="slide level2">
+<h2>Let’s derive DTYPE summary records <sup>1</sup></h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25" data-code-line-numbers="1|2|3|4|5|6|7|8|9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a><span class="fu">derive_summary_records</span>(</span>
+<span id="cb25-2"><a></a>    <span class="at">dataset_add =</span> advs_2, </span>
+<span id="cb25-3"><a></a>    <span class="at">by_vars =</span> <span class="fu">exprs</span>(STUDYID, USUBJID, <span class="sc">!!!</span>adsl_vars, PARAMCD, AVISITN, AVISIT, ADT, ADY, AVALU),</span>
+<span id="cb25-4"><a></a>    <span class="at">filter_add =</span> <span class="sc">!</span><span class="fu">is.na</span>(AVAL),</span>
+<span id="cb25-5"><a></a>    <span class="at">set_values_to =</span> <span class="fu">exprs</span>(</span>
+<span id="cb25-6"><a></a>      <span class="at">AVAL =</span> <span class="fu">mean</span>(AVAL),</span>
+<span id="cb25-7"><a></a>      <span class="at">DTYPE =</span> <span class="st">"AVERAGE"</span></span>
+<span id="cb25-8"><a></a>  )</span>
+<span id="cb25-9"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
-<li>Note similar code in <code>ADSL</code>!</li>
+<li>A DTYPE variable indicates a record within a parameter has been imputed or modified, DTYPE will indicate the method used to populate the analysis value, e.g AVERAGE, MAXIMUM, MINIMUM, LOCF, PHANTOM.</li>
 </ul>
-</section></section>
+<aside><ol class="aside-footnotes"><li id="fn10"><p>Lines: 144-153</p></li></ol></aside></section>
+<section id="lets-restrict" class="slide level2">
+<h2>Let’s restrict! <sup>1</sup></h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26" data-code-line-numbers="1|2|3|4|5|6|7|8|9|10|11|12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a><span class="fu">restrict_derivation</span>(</span>
+<span id="cb26-2"><a></a>  <span class="at">derivation =</span> derive_var_extreme_flag,</span>
+<span id="cb26-3"><a></a>  <span class="at">args =</span> <span class="fu">params</span>(</span>
+<span id="cb26-4"><a></a>    <span class="at">by_vars =</span> <span class="fu">exprs</span>(STUDYID, USUBJID, BASETYPE, PARAMCD),</span>
+<span id="cb26-5"><a></a>    <span class="at">order =</span> <span class="fu">exprs</span>(ADT, VISITNUM, VSSEQ),</span>
+<span id="cb26-6"><a></a>    <span class="at">new_var =</span> ABLFL,</span>
+<span id="cb26-7"><a></a>    <span class="at">mode =</span> <span class="st">"last"</span>,</span>
+<span id="cb26-8"><a></a>    <span class="at">true_value =</span> <span class="st">"Y"</span></span>
+<span id="cb26-9"><a></a>  ),</span>
+<span id="cb26-10"><a></a>  <span class="at">filter =</span> (<span class="sc">!</span><span class="fu">is.na</span>(AVAL) <span class="sc">&amp;</span></span>
+<span id="cb26-11"><a></a>    ADT <span class="sc">&lt;=</span> TRTSDT <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(BASETYPE) <span class="sc">&amp;</span> <span class="fu">is.na</span>(DTYPE))</span>
+<span id="cb26-12"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Check out <a href="https://pharmaverse.github.io/admiral/cran-release/articles/higher_order.html">Higher Order Functions</a> for more information.</li>
+<li><code>call_derivation()</code> is super handy iF you are doing similar calls with same function, but just changing one or two arguments.</li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn11"><p>Lines: 196-210</p></li></ol></aside></section>
+<section id="lets-add-a-base-variable" class="slide level2">
+<h2>Let’s add a BASE variable <sup>1</sup></h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27" data-code-line-numbers="1|2|3|4|5|6|7|"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a>advs <span class="ot">&lt;-</span> <span class="fu">derive_var_base</span>(</span>
+<span id="cb27-2"><a></a>  advs,</span>
+<span id="cb27-3"><a></a>  <span class="at">by_vars =</span> <span class="fu">exprs</span>(STUDYID, USUBJID, PARAMCD, BASETYPE),</span>
+<span id="cb27-4"><a></a>  <span class="at">source_var =</span> AVAL,</span>
+<span id="cb27-5"><a></a>  <span class="at">new_var =</span> BASE,</span>
+<span id="cb27-6"><a></a>  <span class="co"># Below arguments are default values and not necessary to add in our case</span></span>
+<span id="cb27-7"><a></a>  <span class="at">filter =</span> ABLFL <span class="sc">==</span> <span class="st">"Y"</span></span>
+<span id="cb27-8"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Used to calculate CHG and PCHG variables</li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn12"><p>Lines: 210-217</p></li></ol></aside></section>
+<section id="lets-add-an-analysis-sequence-variable" class="slide level2">
+<h2>Let’s add an Analysis Sequence Variable <sup>1</sup></h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28" data-code-line-numbers="1|2|3|4|5|6|7|"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a>advs <span class="ot">&lt;-</span> <span class="fu">derive_var_obs_number</span>(</span>
+<span id="cb28-2"><a></a>  advs,</span>
+<span id="cb28-3"><a></a>  <span class="at">new_var =</span> ASEQ,</span>
+<span id="cb28-4"><a></a>  <span class="at">by_vars =</span> <span class="fu">exprs</span>(STUDYID, USUBJID),</span>
+<span id="cb28-5"><a></a>  <span class="at">order =</span> <span class="fu">exprs</span>(PARAMCD, ADT, AVISITN, VISITNUM, ATPTN, DTYPE),</span>
+<span id="cb28-6"><a></a>  <span class="at">check_type =</span> <span class="st">"error"</span></span>
+<span id="cb28-7"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>ASEQ uniquely indexes records within a subject within an ADaM dataset.</li>
+<li>ASEQ is useful for traceability when the dataset is used as input to another ADaM dataset</li>
+<li><code>check_type</code> - If “message”, “warning” or “error” is specified, the specified message is issued if the observations of the input dataset are not unique with respect to the by variables and the order.</li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn13"><p>Lines: 262-268</p></li></ol></aside></section>
+<section id="lets-get-that-adam-ready-for-regulatory-agencies" class="slide level2">
+<h2>Let’s get that ADaM ready for regulatory agencies <sup>1</sup></h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29" data-code-line-numbers="1|2|3|4|5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a>advs_prefinal <span class="ot">&lt;-</span> advs <span class="sc">%&gt;%</span></span>
+<span id="cb29-2"><a></a>  <span class="fu">drop_unspec_vars</span>(advs_spec) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-3"><a></a>  <span class="fu">check_variables</span>(advs_spec, <span class="at">dataset_name =</span> <span class="st">"ADVS"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-4"><a></a>  <span class="fu">order_cols</span>(advs_spec) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-5"><a></a>  <span class="fu">sort_by_key</span>(advs_spec) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Functions from <code>{metatools}</code></li>
+<li>Note similar code in <code>ADSL</code> script!</li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn14"><p>Lines: 305-310</p></li></ol></aside></section>
+<section id="lets-get-that-data-read-for-regulatory-agencies" class="slide level2">
+<h2>Let’s get that data read for regulatory agencies <sup>1</sup></h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30" data-code-line-numbers="1|2|3|4|5|6|7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a></a>advs_final <span class="ot">&lt;-</span> advs_prefinal <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a></a>  <span class="fu">xportr_type</span>(advs_spec) <span class="sc">%&gt;%</span></span>
+<span id="cb30-3"><a></a>  <span class="fu">xportr_length</span>(advs_spec) <span class="sc">%&gt;%</span></span>
+<span id="cb30-4"><a></a>  <span class="fu">xportr_label</span>(advs_spec) <span class="sc">%&gt;%</span></span>
+<span id="cb30-5"><a></a>  <span class="fu">xportr_format</span>(advs_spec, <span class="at">domain =</span> <span class="st">"ADVS"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb30-6"><a></a>  <span class="fu">xportr_df_label</span>(advs_spec, <span class="at">domain =</span> <span class="st">"ADVS"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb30-7"><a></a>  <span class="fu">xportr_write</span>(<span class="fu">file.path</span>(dir, <span class="st">"advs.xpt"</span>), <span class="at">metadata =</span> advs_spec, <span class="at">domain =</span> <span class="st">"ADVS"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Functions from <code>{xportr}</code></li>
+<li>Note similar code in <code>ADSL</code> script!</li>
+<li><code>domain</code> is needed depending on how <code>metacore</code> object is created.</li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn15"><p>Lines: 313-319</p></li></ol></aside></section></section>
 <section>
 <section id="check-in-on-barb-exercise-1" class="title-slide slide level1 center">
 <h1>Check in on Barb / Exercise</h1>
@@ -963,25 +1075,98 @@ classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;
 <div style="text-align: left;">
 <img src="images/barb.png" alt="Barb!" style="width: 200px;">
 </div>
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  B[SDTM] --&gt; C[ADaM]
+  C[ADaM] --&gt; D[ARDs/TFLs]
+  
+%% Apply the custom class "highlight" to node B
+class C highlight;
+
+%% Define the style for the "highlight" class:
+classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;  
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 </div><div class="column">
 <ul>
 <li>USUBJID: 01-701-1034</li>
 <li>PARAM/PARAMCD: MAP / Mean Arterial Pressure (mmHg)</li>
 <li>ABLFL/ADT: Y / 2014-07-01</li>
 <li>BASE: 94.33333</li>
-<li>BASETYPE: LAST: AFTER LYING DOWN FOR 5 MINUTES</li>
-<li>AVIST/ADT: WEEK 2 / LAST: AFTER LYING DOWN FOR 5 MINUTES</li>
+<li>AVIST/ADT: WEEK 2 / 2014-07-15</li>
 <li>AVAL: 115.0</li>
 <li>CHG: 20.6666667</li>
 <li>PCHG: 21.9081272</li>
 </ul>
 </div></div>
 </section>
-<section id="check-in-exercise-1" class="slide level2">
+<section id="check-in-exercise-1" class="slide level2 smaller">
 <h2>Check-in Exercise</h2>
 <ul>
-<li>We are going to update the function <code>derive_vars_dtm()</code></li>
+<li>We are going to update the function <code>derive_param_computed()</code> for Mean Arterial Pressure.</li>
+<li>Formula: <span class="math display">\[ \frac{2DIABP + SYSBP}{3} \]</span></li>
 </ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31" data-code-line-numbers="1|2|3|4|5|6|7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a>ADVS <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb31-2"><a></a>  <span class="sc">~</span>USUBJID,      <span class="sc">~</span>PARAMCD, <span class="sc">~</span>PARAM,                            <span class="sc">~</span>AVALU,  <span class="sc">~</span>AVAL, <span class="sc">~</span>VISIT,</span>
+<span id="cb31-3"><a></a>  <span class="st">"01-701-1015"</span>, <span class="st">"DIABP"</span>,  <span class="st">"Diastolic Blood Pressure (mmHg)"</span>, <span class="st">"mmHg"</span>,    <span class="dv">51</span>, <span class="st">"BASELINE"</span>,</span>
+<span id="cb31-4"><a></a>  <span class="st">"01-701-1015"</span>, <span class="st">"SYSBP"</span>,  <span class="st">"Systolic Blood Pressure (mmHg)"</span>,  <span class="st">"mmHg"</span>,   <span class="dv">121</span>, <span class="st">"BASELINE"</span>,</span>
+<span id="cb31-5"><a></a>  <span class="st">"01-701-1028"</span>, <span class="st">"DIABP"</span>,  <span class="st">"Diastolic Blood Pressure (mmHg)"</span>, <span class="st">"mmHg"</span>,    <span class="dv">79</span>, <span class="st">"BASELINE"</span>,</span>
+<span id="cb31-6"><a></a>  <span class="st">"01-701-1028"</span>, <span class="st">"SYSBP"</span>,  <span class="st">"Systolic Blood Pressure (mmHg)"</span>,  <span class="st">"mmHg"</span>,   <span class="dv">130</span>, <span class="st">"BASELINE"</span>,</span>
+<span id="cb31-7"><a></a>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32" data-code-line-numbers="1|2|3|4|5|6|7|8|9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a><span class="fu">derive_param_computed</span>(</span>
+<span id="cb32-2"><a></a>  ADVS,</span>
+<span id="cb32-3"><a></a>  <span class="at">by_vars =</span> <span class="fu">exprs</span>(USUBJID, VISIT),</span>
+<span id="cb32-4"><a></a>  <span class="at">parameters =</span> <span class="fu">c</span>(<span class="st">"????"</span>, <span class="st">"????"</span>),</span>
+<span id="cb32-5"><a></a>  <span class="at">set_values_to =</span> <span class="fu">exprs</span>(</span>
+<span id="cb32-6"><a></a>    <span class="at">AVAL =</span> (AVAL.SYSBP <span class="sc">+</span> ?? <span class="sc">*</span> AVAL.DIABP) <span class="sc">/</span> ??,</span>
+<span id="cb32-7"><a></a>    <span class="at">PARAMCD =</span> <span class="st">"MAP"</span>,</span>
+<span id="cb32-8"><a></a>    <span class="at">PARAM =</span> <span class="st">"Mean Arterial Pressure (mmHg)"</span>,</span>
+<span id="cb32-9"><a></a>    <span class="at">AVALU =</span> <span class="st">"mmHg"</span>,</span>
+<span id="cb32-10"><a></a>  )</span>
+<span id="cb32-11"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="check-in-exercise-solution-1" class="slide level2 smaller">
+<h2>Check-in Exercise Solution</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a>ADVS <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb33-2"><a></a>  <span class="sc">~</span>USUBJID,      <span class="sc">~</span>PARAMCD, <span class="sc">~</span>PARAM,                            <span class="sc">~</span>AVALU,  <span class="sc">~</span>AVAL, <span class="sc">~</span>VISIT,</span>
+<span id="cb33-3"><a></a>  <span class="st">"01-701-1015"</span>, <span class="st">"DIABP"</span>,  <span class="st">"Diastolic Blood Pressure (mmHg)"</span>, <span class="st">"mmHg"</span>,    <span class="dv">51</span>, <span class="st">"BASELINE"</span>,</span>
+<span id="cb33-4"><a></a>  <span class="st">"01-701-1015"</span>, <span class="st">"SYSBP"</span>,  <span class="st">"Systolic Blood Pressure (mmHg)"</span>,  <span class="st">"mmHg"</span>,   <span class="dv">121</span>, <span class="st">"BASELINE"</span>,</span>
+<span id="cb33-5"><a></a>  <span class="st">"01-701-1028"</span>, <span class="st">"DIABP"</span>,  <span class="st">"Diastolic Blood Pressure (mmHg)"</span>, <span class="st">"mmHg"</span>,    <span class="dv">79</span>, <span class="st">"BASELINE"</span>,</span>
+<span id="cb33-6"><a></a>  <span class="st">"01-701-1028"</span>, <span class="st">"SYSBP"</span>,  <span class="st">"Systolic Blood Pressure (mmHg)"</span>,  <span class="st">"mmHg"</span>,   <span class="dv">130</span>, <span class="st">"BASELINE"</span>,</span>
+<span id="cb33-7"><a></a>) </span>
+<span id="cb33-8"><a></a></span>
+<span id="cb33-9"><a></a><span class="fu">derive_param_computed</span>(</span>
+<span id="cb33-10"><a></a>  ADVS,</span>
+<span id="cb33-11"><a></a>  <span class="at">by_vars =</span> <span class="fu">exprs</span>(USUBJID, VISIT),</span>
+<span id="cb33-12"><a></a>  <span class="at">parameters =</span> <span class="fu">c</span>(<span class="st">"SYSBP"</span>, <span class="st">"DIABP"</span>),</span>
+<span id="cb33-13"><a></a>  <span class="at">set_values_to =</span> <span class="fu">exprs</span>(</span>
+<span id="cb33-14"><a></a>    <span class="at">AVAL =</span> (AVAL.SYSBP <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> AVAL.DIABP) <span class="sc">/</span> <span class="dv">3</span>,</span>
+<span id="cb33-15"><a></a>    <span class="at">PARAMCD =</span> <span class="st">"MAP"</span>,</span>
+<span id="cb33-16"><a></a>    <span class="at">PARAM =</span> <span class="st">"Mean Arterial Pressure (mmHg)"</span>,</span>
+<span id="cb33-17"><a></a>    <span class="at">AVALU =</span> <span class="st">"mmHg"</span>,</span>
+<span id="cb33-18"><a></a>  )</span>
+<span id="cb33-19"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 6
+  USUBJID     PARAMCD PARAM                           AVALU  AVAL VISIT   
+  &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt;                           &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;   
+1 01-701-1015 DIABP   Diastolic Blood Pressure (mmHg) mmHg   51   BASELINE
+2 01-701-1015 SYSBP   Systolic Blood Pressure (mmHg)  mmHg  121   BASELINE
+3 01-701-1028 DIABP   Diastolic Blood Pressure (mmHg) mmHg   79   BASELINE
+4 01-701-1028 SYSBP   Systolic Blood Pressure (mmHg)  mmHg  130   BASELINE
+5 01-701-1015 MAP     Mean Arterial Pressure (mmHg)   mmHg   74.3 BASELINE
+6 01-701-1028 MAP     Mean Arterial Pressure (mmHg)   mmHg   96   BASELINE</code></pre>
+</div>
+</div>
 </section>
 <section id="questions-and-resources" class="slide level2">
 <h2>Questions and Resources</h2>
@@ -1011,42 +1196,42 @@ classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;
 <section id="packages-and-session-information" class="slide level2">
 <h2>Packages and Session Information</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a><span class="fu">sessionInfo</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a></a><span class="fu">sessionInfo</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode numberSource hscroll number-lines code-with-copy"><code class="sourceCode"><span id="cb27-1"><a></a>R version 4.5.1 (2025-06-13)</span>
-<span id="cb27-2"><a></a>Platform: x86_64-pc-linux-gnu</span>
-<span id="cb27-3"><a></a>Running under: Ubuntu 24.04.3 LTS</span>
-<span id="cb27-4"><a></a></span>
-<span id="cb27-5"><a></a>Matrix products: default</span>
-<span id="cb27-6"><a></a>BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 </span>
-<span id="cb27-7"><a></a>LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0</span>
-<span id="cb27-8"><a></a></span>
-<span id="cb27-9"><a></a>locale:</span>
-<span id="cb27-10"><a></a> [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       </span>
-<span id="cb27-11"><a></a> [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   </span>
-<span id="cb27-12"><a></a> [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          </span>
-<span id="cb27-13"><a></a>[10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   </span>
-<span id="cb27-14"><a></a></span>
-<span id="cb27-15"><a></a>time zone: UTC</span>
-<span id="cb27-16"><a></a>tzcode source: system (glibc)</span>
-<span id="cb27-17"><a></a></span>
-<span id="cb27-18"><a></a>attached base packages:</span>
-<span id="cb27-19"><a></a>[1] stats     graphics  grDevices datasets  utils     methods   base     </span>
-<span id="cb27-20"><a></a></span>
-<span id="cb27-21"><a></a>other attached packages:</span>
-<span id="cb27-22"><a></a>[1] lubridate_1.9.4 admiral_1.3.1   tibble_3.3.0    countdown_0.4.0</span>
-<span id="cb27-23"><a></a>[5] glue_1.8.0     </span>
-<span id="cb27-24"><a></a></span>
-<span id="cb27-25"><a></a>loaded via a namespace (and not attached):</span>
-<span id="cb27-26"><a></a> [1] jsonlite_2.0.0    dplyr_1.1.4       compiler_4.5.1    renv_1.1.5       </span>
-<span id="cb27-27"><a></a> [5] tidyselect_1.2.1  xml2_1.3.8        stringr_1.5.1     tidyr_1.3.1      </span>
-<span id="cb27-28"><a></a> [9] yaml_2.3.10       fastmap_1.2.0     R6_2.6.1          generics_0.1.4   </span>
-<span id="cb27-29"><a></a>[13] admiraldev_1.3.1  knitr_1.50        pillar_1.11.0     rlang_1.1.6      </span>
-<span id="cb27-30"><a></a>[17] utf8_1.2.6        stringi_1.8.7     roxygen2_7.3.2    xfun_0.52        </span>
-<span id="cb27-31"><a></a>[21] timechange_0.3.0  cli_3.6.5         withr_3.0.2       magrittr_2.0.3   </span>
-<span id="cb27-32"><a></a>[25] digest_0.6.37     hms_1.1.3         lifecycle_1.0.4   vctrs_0.6.5      </span>
-<span id="cb27-33"><a></a>[29] evaluate_1.0.4    rmarkdown_2.29    purrr_1.1.0       tools_4.5.1      </span>
-<span id="cb27-34"><a></a>[33] pkgconfig_2.0.3   htmltools_0.5.8.1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode numberSource hscroll number-lines code-with-copy"><code class="sourceCode"><span id="cb36-1"><a></a>R version 4.5.1 (2025-06-13)</span>
+<span id="cb36-2"><a></a>Platform: x86_64-pc-linux-gnu</span>
+<span id="cb36-3"><a></a>Running under: Ubuntu 24.04.3 LTS</span>
+<span id="cb36-4"><a></a></span>
+<span id="cb36-5"><a></a>Matrix products: default</span>
+<span id="cb36-6"><a></a>BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 </span>
+<span id="cb36-7"><a></a>LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0</span>
+<span id="cb36-8"><a></a></span>
+<span id="cb36-9"><a></a>locale:</span>
+<span id="cb36-10"><a></a> [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       </span>
+<span id="cb36-11"><a></a> [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   </span>
+<span id="cb36-12"><a></a> [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          </span>
+<span id="cb36-13"><a></a>[10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   </span>
+<span id="cb36-14"><a></a></span>
+<span id="cb36-15"><a></a>time zone: UTC</span>
+<span id="cb36-16"><a></a>tzcode source: system (glibc)</span>
+<span id="cb36-17"><a></a></span>
+<span id="cb36-18"><a></a>attached base packages:</span>
+<span id="cb36-19"><a></a>[1] stats     graphics  grDevices datasets  utils     methods   base     </span>
+<span id="cb36-20"><a></a></span>
+<span id="cb36-21"><a></a>other attached packages:</span>
+<span id="cb36-22"><a></a>[1] lubridate_1.9.4 admiral_1.3.1   tibble_3.3.0    countdown_0.4.0</span>
+<span id="cb36-23"><a></a>[5] glue_1.8.0     </span>
+<span id="cb36-24"><a></a></span>
+<span id="cb36-25"><a></a>loaded via a namespace (and not attached):</span>
+<span id="cb36-26"><a></a> [1] jsonlite_2.0.0    dplyr_1.1.4       compiler_4.5.1    renv_1.1.5       </span>
+<span id="cb36-27"><a></a> [5] tidyselect_1.2.1  xml2_1.3.8        stringr_1.5.1     tidyr_1.3.1      </span>
+<span id="cb36-28"><a></a> [9] yaml_2.3.10       fastmap_1.2.0     R6_2.6.1          generics_0.1.4   </span>
+<span id="cb36-29"><a></a>[13] admiraldev_1.3.1  knitr_1.50        pillar_1.11.0     rlang_1.1.6      </span>
+<span id="cb36-30"><a></a>[17] utf8_1.2.6        stringi_1.8.7     roxygen2_7.3.2    xfun_0.52        </span>
+<span id="cb36-31"><a></a>[21] timechange_0.3.0  cli_3.6.5         withr_3.0.2       magrittr_2.0.3   </span>
+<span id="cb36-32"><a></a>[25] digest_0.6.37     hms_1.1.3         lifecycle_1.0.4   vctrs_0.6.5      </span>
+<span id="cb36-33"><a></a>[29] evaluate_1.0.4    rmarkdown_2.29    purrr_1.1.0       tools_4.5.1      </span>
+<span id="cb36-34"><a></a>[33] pkgconfig_2.0.3   htmltools_0.5.8.1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div class="cell">
