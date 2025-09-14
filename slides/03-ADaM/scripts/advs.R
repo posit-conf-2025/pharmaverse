@@ -191,8 +191,6 @@ advs <- derive_basetype_records(
   )
 )
 
-count(advs, ATPT, ATPTN, BASETYPE)
-
 advs <- restrict_derivation(
   advs,
   derivation = derive_var_extreme_flag,

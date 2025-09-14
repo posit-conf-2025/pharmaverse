@@ -1,7 +1,7 @@
 ---
 title: "ARDs (Analysis Results Datasets) in R"
 logo: "../../images/pharmaverse-hex.png"
-footer: "[https://posit-conf-2025.github.io/pharmaverse/](https://posit-conf-2025.github.io/pharmaverse/)" 
+footer:  "[Pharmaverse Workshop (pos.it/pharmaverse-conf25)](https://posit-conf-2025.github.io/pharmaverse/)"
 editor: source
 engine: knitr
 format: 
@@ -15,6 +15,11 @@ execute:
   freeze: false
 cache: false
 --- 
+
+```{r}
+#| echo: false
+options(width = 200)
+```
 
 {{< include intro_to_ards.qmd >}}
 

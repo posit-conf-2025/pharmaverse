@@ -1,3 +1,17 @@
+## ARDS 🤝 Tables: A Dynamic Duo 
+
+![](images/diagram-pkgs.png){fig-align="center"}
+
+## Objectives
+
+::: incremental
+-   By the end of this tables section you will have:
+    - Developed an understanding of how tfrmt supports table creation in multiple phases of the reporting process
+    - Seen examples of demographic and AE summary table formatting
+    - Gained an awareness of utilities for the transition from cards to tfrmt input data
+:::
+
+
 ## ARD-first Tables with {tfrmt} {.black-header}
 
 ```{css, echo=FALSE}
@@ -28,6 +42,32 @@
 :::
 
 :::
+
+
+
+## There's also an app!  {.black-header} 
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+![](images/tfrmtbuilder-hex.png){align="center" height="500"}
+:::
+
+::: {.column}
+- Point-and-click interface for {tfrmt}
+
+- Ability to create new or modify existing display
+
+- Eases learning curve for new users
+
+- Empowers non-programmers
+
+- More here: [https://gsk-biostatistics.github.io/tfrmtbuilder/](https://gsk-biostatistics.github.io/tfrmtbuilder/)
+:::
+
+:::
+
 
 
 ## The {tfrmt} object
@@ -307,6 +347,8 @@ tfrmt_demog |>
 
 -   You can export the table to a variety of formats using `gt::gt_save()`
 
+-   Check out {docorator} too 😊 at [https://gsk-biostatistics.github.io/docorator/](https://gsk-biostatistics.github.io/docorator/)
+
 ![](images/gtsave.png){fig-align="center"}
 
 
@@ -317,27 +359,23 @@ tfrmt_demog |>
 ```{r}
 #| echo: false
 
-adsl <- pharmaverseadam::adsl |>
-  dplyr::filter(SAFFL == "Y") |> 
-  dplyr::mutate(
-    TRT01A = ifelse(!TRT01A == "Placebo", "Active", TRT01A)
-  )
+adsl <- pharmaverseadam::adsl |> 
+  dplyr::filter(SAFFL=="Y") |> 
+  dplyr::mutate(ARM2 = ifelse(startsWith(ARM, "Xanomeline"), "Xanomeline", ARM))
 
 ard_demog <- cards::ard_stack(
   data = adsl,
-  .by = TRT01A,
+  .by = ARM2,
   cards::ard_continuous( variables = AGE,
                          statistic = ~ cards::continuous_summary_fns(c("median", "p25", "p75"))),
-  cards::ard_categorical(variables = c(AGEGR1, SEX), statistic = ~ c("n","p")),
-  .overall = TRUE,
-  .total_n = TRUE
+  cards::ard_categorical(variables = c(AGEGR1, SEX), statistic = ~ c("n","p"))
 ) 
 
 ard_demog <- ard_demog |> 
   tfrmt::shuffle_card(fill_overall = "Overall") |> 
   tfrmt::prep_combine_vars(c("AGE","AGEGR1","SEX")) |> 
   tfrmt::prep_label() |> 
-  tfrmt::prep_big_n(vars  = "TRT01A")|>
+  tfrmt::prep_big_n(vars  = "ARM2")|>
   dplyr::mutate(label = dplyr::case_when(
                   stat_name %in% c("p25","p75") ~ "[Q1, Q3]", 
                   TRUE ~ label
@@ -372,33 +410,97 @@ gt_style_slides <- function(x){
 }
 ```
 
-
-::: {.fragment}
-
-```{r}  
-head(ard_demog)
-```
-
-:::
-
-<br>
-
-::: {.fragment}
-
-
-```{r}  
-#| eval: false
-
-tfrmt_demog <- tfrmt(
+```{r}
+#| echo: false
+mock_tbl <- tfrmt(
   group = stat_variable, 
   label = label, 
-  column = TRT01A,
+  column = ARM2,
   param = stat_name,
   value = stat, 
-  sorting_cols = c(ord1, ord2) 
-)
+  sorting_cols = c(ord1, ord2),
+  big_n = big_n_structure(
+    param_val = "bigN",
+    n_frmt = frmt("<br>N = xx")
+  )
+  ,
+  col_plan = col_plan(
+    Placebo,
+    Xanomeline,
+    - starts_with("ord")
+  ),
+  body_plan = body_plan(
+    frmt_structure(
+      group_val = ".default", 
+      label_val = ".default", 
+      frmt("x.xx")),
+    frmt_structure(
+      group_val = ".default", 
+      label_val = ".default",
+      frmt_combine("{n} ({p}%)",
+                   n = frmt("xx"),
+                   p = frmt("xx.x", transform = ~ . *100)
+                   
+      )
+    ),
+    frmt_structure(
+      group_val = ".default", 
+      label_val = "Median",
+      frmt("xx.x")
+    ),
+    
+    frmt_structure(
+      group_val = ".default",
+      label_val = ".default",
+      frmt_combine(
+        expression = "[{p25}, {p75}]",                
+        p25 = frmt("xx.x"),                     
+        p75 = frmt("xx.x")                      
+      )
+    )
+  ),
+  col_style_plan = col_style_plan(
+    col_style_structure(
+      col = c("Placebo", 
+              "Xanomeline"),
+      align = " "
+    )
+  ),
+  footnote_plan = footnote_plan(
+    footnote_structure(
+      "Pooled High and Low Dose",
+      column_val = "Xanomeline"
+    )
+  ),
+  title = "Demographic Table",
+  subtitle = "Safety Population"
+) |> 
+  print_mock_gt(ard_demog)|> 
+   gt_style_slides()
 
+mock_tbl
 ```
+
+## Ensure placement of all values (Main)
+
+::: {.columns}
+::: {.column width="47%"}
+```{r}  
+print(ard_demog)
+```
+:::
+
+::: {.column width="6%"}
+:::
+
+::: {.column width="47%"}
+
+```{r}  
+#| echo: false
+
+mock_tbl
+```
+:::
 
 :::
 
@@ -411,7 +513,7 @@ tfrmt_demog <- tfrmt(
 tfrmt_demog <- tfrmt(
   group = stat_variable, 
   label = label, 
-  column = TRT01A,
+  column = ARM2,
   param = stat_name,
   value = stat, 
   sorting_cols = c(ord1, ord2) 
@@ -455,7 +557,7 @@ tfrmt_demog <- tfrmt_demog |>
   tfrmt(
     col_plan = col_plan(
       Placebo,
-      Active,
+      Xanomeline,
       - starts_with("ord")
     )
   )
@@ -566,7 +668,7 @@ tfrmt_demog <- tfrmt_demog |>
     col_style_plan = col_style_plan(
       col_style_structure(
         col = c("Placebo", 
-                "Active"),
+                "Xanomeline"),
         align = " "
       )
     )
@@ -591,7 +693,7 @@ tfrmt_demog <- tfrmt_demog |>
     footnote_plan = footnote_plan(
       footnote_structure(
         "Pooled High and Low Dose",
-        column_val = "Active"
+        column_val = "Xanomeline"
       )
     )
   )
@@ -639,137 +741,252 @@ print_to_gt(
 
 * Templating 
 
-## cards to tfrmt - How did we get here?
+# cards to tfrmt - How did we get here?
+
+
+# cards to tfrmt helpers
 
 ::: {.small}
 
-{tfrmt} includes several helper functions to transform native {cards} output to display-ready data. Functionality includes:
-
-- Coalesce/rename the group and variable names/levels
-- Unlist the list-columns
-- Prepare row group and label columns
-- Fill missing variable values in a hierarchy
-- Prepare big N rows for headers
-
-To explore, let's start with the result of our `cards::ard_stack()` call.
+- {tfrmt} includes several helper functions to transform native {cards} output to display-ready data. 
+- We need to get from the `cards` output on the left to the data frame on the right
 
 :::
 
+::: {.columns}
+::: {.column  width="47%"}
+
+Current data (`cards` output)
+
 ```{r}
-library(cards)
- 
-ard_demog <- cards::ard_stack(
+#| echo: false
+#| message: true
+ard_demog_00 <- cards::ard_stack(
   data = adsl,
-  .by = TRT01A,
+  .by = ARM2,
   cards::ard_continuous( variables = AGE,
                          statistic = ~ cards::continuous_summary_fns(c("median", "p25", "p75"))),
-  cards::ard_categorical(variables = c(AGEGR1, SEX), statistic = ~ c("n","p")),
-  .overall = TRUE,
-  .total_n = TRUE
+  cards::ard_categorical(variables = c(AGEGR1, SEX), statistic = ~ c("n","p"))
 ) 
 
+ard_demog_00
+```
+:::
+
+::: {.column width="6%"}
+:::
+
+::: {.column width="47%"}
+
+Goal data (`tfrmt` input)
+```{r}
+#| echo: false
+ard_demog
 ```
 
+:::
+:::
 ## cards to tfrmt
 
+::: {.small}
 First, let's "shuffle" the results into a tidy data frame:
+:::
+
+
+:::{.columns}
+
+::: {.column width="55%"}
 
 ```{r}
-ard_demog_display <- ard_demog |> 
+ard_demog_00 |> 
   tfrmt::shuffle_card(fill_overall = "Overall") 
 
-ard_demog_display
 ```
+
+:::
+
+::: {.column width="5%"}
+:::
+
+::: {.column width="40%"}
+
+```{r}
+#| echo: false
+mock_tbl |> 
+  gt::tab_options(table.font.size = 16)
+```
+
+:::
+
+:::
+
+::: {.small}
+- Notice that our variables have been spread wide and are no longer named `group1`, `group1_level`, etc. 
+- But we want to get all of our row variables (AGE, AGEGR1, SEX) into a single, stacked column
+:::
 
 ## cards to tfrmt
 
-Since the variable values are now spread wide, we want to collapse them into a single column named `variable_level`. 
+::: {.small}
+- We want to get all of our row variables (AGE, AGEGR1, SEX) into a single, stacked column
+- We can collapse them into a single column named `variable_level`
+:::
+
+::: {.columns}
+
+::: {.column width="55%"}
 
 ```{r}
 #| code-line-numbers: "3"
-
-ard_demog_display <- ard_demog |> 
+#| 
+ard_demog_00 |> 
   tfrmt::shuffle_card(fill_overall = "Overall") |> 
   tfrmt::prep_combine_vars(c("AGE","AGEGR1","SEX"))
 
-ard_demog_display
 ```
 
-## cards to tfrmt
+:::
 
-Next, we create a row label ("label" column) for the table that is either the category (i.e. `variable_level`) for categorical variables, or the stat name for continuous variables.
+::: {.column width="5%"}
+:::
+
+::: {.column width="40%"}
 
 ```{r}
-#| code-line-numbers: "4"
-
-ard_demog_display <- ard_demog |> 
-  tfrmt::shuffle_card(fill_overall = "Overall") |> 
-  tfrmt::prep_combine_vars(c("AGE","AGEGR1","SEX")) |> 
-  tfrmt::prep_label()
-
-ard_demog_display
+#| echo: false
+mock_tbl |> 
+  gt::tab_options(table.font.size = 16)
 ```
+
+:::
+:::
+
+::: {.small}
+- Notice the row labels in the mock. It's a combination of `variable_level` and `stat_label` for categorical and continuous variables, respectively
+:::
 
 ## cards to tfrmt
 
 ::: {.small}
-
-Take a look at our "big N" (i.e. population counts) rows:
-
+Next, we create a row label ("label" column) for the table that is either the category (i.e. `variable_level`) for categorical variables, or the stat name for continuous variables.
 :::
 
+
+::: {.columns}
+
+::: {.column width="55%"}
 ```{r}
-ard_demog_display |> 
-  dplyr::filter(stat_variable %in% c("TRT01A", "..ard_total_n.."))
+#| code-line-numbers: "4"
+ard_demog_00 |> 
+  tfrmt::shuffle_card(fill_overall = "Overall") |> 
+  tfrmt::prep_combine_vars(c("AGE","AGEGR1","SEX")) |> 
+  tfrmt::prep_label()
+```
+:::
+
+::: {.column width="5%"}
+:::
+
+::: {.column width="40%"}
+
+```{r}
+#| echo: false
+mock_tbl |> 
+  gt::tab_options(table.font.size = 16)
 ```
 
-::: {.small} 
-
-First, we only need the counts themselves, not denominators or percentages. Second, we need to give these a unique stat name to distinguish them for the `big_n_structure` in {tfrmt}. 
-
+:::
 :::
 
 ## cards to tfrmt
 
-::: {.small} 
-We can use the `prep_big_n()` function for this:
+::: {.small}
+Take a look at our "big N" (i.e. population counts) rows:
 :::
-```{r}
-#| code-line-numbers: "5, 7, 8"
 
-ard_demog_display <- ard_demog |> 
+:::
+
+```{r}
+#| echo: false
+ard_demog_00 |> 
   tfrmt::shuffle_card(fill_overall = "Overall") |> 
   tfrmt::prep_combine_vars(c("AGE","AGEGR1","SEX")) |> 
   tfrmt::prep_label() |> 
-  tfrmt::prep_big_n(vars = "TRT01A")
-
-ard_demog_display |> 
-  dplyr::filter(stat_variable %in% c("TRT01A", "..ard_total_n.."))
+  dplyr::filter(stat_variable %in% c("ARM2", "..ard_total_n.."))
 ```
 
+::: {.small}
+- First, we only need the counts themselves ('n'), not denominators or percentages ('N', '%') to display in the column headers. 
+- Second, we need to give these a unique stat name to distinguish them for the `big_n_structure` in {tfrmt}. 
+::: 
+
+## cards to tfrmt
+
+::: {.small}
+- First, we only need the counts themselves ('n'), not denominators or percentages ('N', '%'). 
+- Second, we need to give these a unique stat name to distinguish them for the `big_n_structure` in {tfrmt}. 
+::: 
+
+::: {.columns}
+
+::: {.column width="55%"}
+```{r}
+#| code-line-numbers: "5"
+
+ard_demog_display <- ard_demog_00 |> 
+  tfrmt::shuffle_card(fill_overall = "Overall") |> 
+  tfrmt::prep_combine_vars(c("AGE","AGEGR1","SEX")) |> 
+  tfrmt::prep_label() |> 
+  tfrmt::prep_big_n(vars = "ARM2")
+
+ard_demog_display |> 
+  dplyr::filter(stat_variable %in% c("ARM2", "..ard_total_n.."))
+```
+:::
+
+::: {.column width="5%"}
+:::
+
+::: {.column width="40%"}
+
+```{r}
+#| echo: false
+mock_tbl |> 
+  gt::tab_options(table.font.size = 16)
+```
+
+:::
+:::
 ## cards to tfrmt
 
 ::: {.small} 
 
 Finally, we can do any other necessary manipulations like relabeling or adding order variables before passing to `tfrmt()`.
+
 :::
 
 ```{r}
 #| output-location: "column"
 ard_demog_display <- ard_demog_display |> 
+  
+   # give Q1/Q3 the same row label so they appear on the same row
   dplyr::mutate(label = dplyr::case_when(
-    stat_name %in% c("p25","p75") ~ "[Q1, Q3]", # put these on 1 line
+    stat_name %in% c("p25","p75") ~ "[Q1, Q3]",
     TRUE ~ label
   ),
-  # relabel
+  
+  # make variable names look nice
   stat_variable = dplyr::case_match(
     stat_variable,
     "AGE" ~ "Age (years)",
     "AGEGR1" ~ "Age Group",
     "SEX" ~ "Sex"
   ) ) |> 
-  dplyr::select(-c(context, stat_label, variable_level)) |>  # drop unneeded vars
-  # make order vars
+  
+  # remove unnecessary variables
+  dplyr::select(-c(context, stat_label, variable_level)) |>
+  
+  # create order variables
   dplyr::mutate(ord1 = as.numeric(
     factor(stat_variable, 
            levels = c("Age (years)", "Age Group", "Sex"))),
@@ -784,36 +1001,17 @@ print_to_gt(tfrmt_demog, ard_demog_display)|>
 ```
 
 
-# The {tfrmtbuilder} App  {.black-header} 
-
-:::: {.columns}
-
-::: {.column width="50%"}
-
-![](images/tfrmtbuilder-hex.png){fig-align="center"}
-:::
-
-::: {.column}
-- Point-and-click interface for {tfrmt}
-
-- Ability to create new or modify existing display
-
-- Eases learning curve for new users
-
-- Empowers non-programmers
-:::
-
-:::
-
 ## Exercise 🏃‍➡️ (Together!)
 
-- Open R file `exercises/05-tables-tfrmt.R`
+1. Navigate to Posit Cloud script `exercises/05-tables-tfrmt.R`
 
-- Create and modify the AE table as described
+2. Create and modify the AE table as described.
+
+3. Add the "completed" sticky note to your laptop when complete.
 
 ```{r}
 #| echo: false
 #| cache: false
 library(countdown)
-countdown(minutes = 8, play_sound = TRUE)
+countdown(minutes = 10, play_sound = TRUE)
 ```
