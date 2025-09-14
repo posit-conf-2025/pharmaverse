@@ -38,24 +38,13 @@ here::here("exercises/03-ADaM.R") |>
   cat(sep = "\n")
 ```
 
-## `04-ARD-partA.R`
+## `04-ARD.R`
 
 ```{r}
 #| echo: false
 #| class-output: "sourceCode r"
 
-here::here("exercises/04-ARD-partA.R") |> 
-  readLines() |> 
-  cat(sep = "\n")
-```
-
-## `04-ARD-partB.R`
-
-```{r}
-#| echo: false
-#| class-output: "sourceCode r"
-
-here::here("exercises/04-ARD-partB.R") |> 
+here::here("exercises/04-ARD.R") |> 
   readLines() |> 
   cat(sep = "\n")
 ```
@@ -118,24 +107,13 @@ here::here("exercises/answers/03-ADaM-answer.R") |>
   cat(sep = "\n")
 ```
 
-## `04-ARD-partA.R`
+## `04-ARD.R`
 
 ```{r}
 #| echo: false
 #| class-output: "sourceCode r"
 
-here::here("exercises/answers/04-ARD-partA-answer.R") |> 
-  readLines() |> 
-  cat(sep = "\n")
-```
-
-## `04-ARD-partB.R`
-
-```{r}
-#| echo: false
-#| class-output: "sourceCode r"
-
-here::here("exercises/answers/04-ARD-partB-answer.R") |> 
+here::here("exercises/answers/04-ARD-answer.R") |> 
   readLines() |> 
   cat(sep = "\n")
 ```
