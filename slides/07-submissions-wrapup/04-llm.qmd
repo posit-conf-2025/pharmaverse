@@ -121,6 +121,9 @@ A summary table has a representation that is readily digestible by your favorite
 
 ```{r}
 #| output-location: slide
+library(cards)
+library(gtsummary)
+
 dplyr::filter(pharmaverseadam::adsl, SAFFL == "Y") |> 
   tbl_summary(
     include = c(AGE, AGEGR1),
@@ -129,8 +132,8 @@ dplyr::filter(pharmaverseadam::adsl, SAFFL == "Y") |>
   ) |> 
   gather_ard() |> 
   purrr::pluck("tbl_summary") |> 
-  cards::apply_fmt_fun() |> 
-  cards::as_nested_list() |> 
+  apply_fmt_fun() |> 
+  as_nested_list() |> 
   jsonlite::toJSON(pretty = TRUE)
 ```
 
