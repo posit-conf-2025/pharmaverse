@@ -36,9 +36,7 @@ cache: false
 
 # Additional Tooling
 
-<!-- Add slides about AI integration, utility with the tools covered. -->
-<!-- TODO: Daniel will add -->
-<!-- {{< include 04-llm.qmd >}} -->
+{{< include 04-llm.qmd >}}
 
 <!-- Open the teal gallery and walk through examples (not the code, but the end result) -->
 <!-- TODO: Ram will add -->
