@@ -1,0 +1,19 @@
+{
+  "hash": "8618b6b40b6ac9775cc28f8ac137150f",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Submissions in R and Wrap-Up\"\nlogo: \"../../images/pharmaverse-hex.png\"\nfooter: \"[https://posit-conf-2025.github.io/pharmaverse/](https://posit-conf-2025.github.io/pharmaverse/)\" \neditor: source\nengine: knitr\nformat: \n  revealjs: \n    theme: ../slides.scss\n    transition: fade\n    slide-number: true\n    chalkboard: true\nexecute:\n  echo: true\n  freeze: false\ncache: false\n--- \n\n\n\n\n# E2E Overview\n\n\n<!-- Show Barb moving along the E2E pathway -->\n\n<!-- Do a Q&A here? Their questions are probably more important than other items -->\n<!-- TODO: BEN will add -->\n\n\n\n\n\n\n<!-- Open the pharmaverse examples website -->\n<!-- TODO: Daniel will add -->\n<!-- {{< include 02-examples.qmd >}} -->\n\n<!-- TODO: BEN will add -->\n<!-- {{< include 03-submissions-wg.qmd >}} -->\n\n# Additional Tooling\n\n<!-- Add slides about AI integration, utility with the tools covered. -->\n<!-- TODO: Daniel will add -->\n<!-- {{< include 04-llm.qmd >}} -->\n\n<!-- Open the teal gallery and walk through examples (not the code, but the end result) -->\n<!-- TODO: Ram will add -->\n<!-- {{< include 05-teal.qmd >} -->\n\n<!-- TODO: Becca will add and will also add anything from last year we want to include -->\n<!-- {{< include 06-goodbye.qmd >}} -->\n\n\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {
+      "include-after-body": [
+        "\n<script>\n  // htmlwidgets need to know to resize themselves when slides are shown/hidden.\n  // Fire the \"slideenter\" event (handled by htmlwidgets.js) when the current\n  // slide changes (different for each slide format).\n  (function () {\n    // dispatch for htmlwidgets\n    function fireSlideEnter() {\n      const event = window.document.createEvent(\"Event\");\n      event.initEvent(\"slideenter\", true, true);\n      window.document.dispatchEvent(event);\n    }\n\n    function fireSlideChanged(previousSlide, currentSlide) {\n      fireSlideEnter();\n\n      // dispatch for shiny\n      if (window.jQuery) {\n        if (previousSlide) {\n          window.jQuery(previousSlide).trigger(\"hidden\");\n        }\n        if (currentSlide) {\n          window.jQuery(currentSlide).trigger(\"shown\");\n        }\n      }\n    }\n\n    // hookup for slidy\n    if (window.w3c_slidy) {\n      window.w3c_slidy.add_observer(function (slide_num) {\n        // slide_num starts at position 1\n        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);\n      });\n    }\n\n  })();\n</script>\n\n"
+      ]
+    },
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

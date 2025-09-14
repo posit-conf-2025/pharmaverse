@@ -21,12 +21,10 @@ list(tbl_n, tbl_age) |>
 
 ```{r}
 #| label: 'tbl_stack'
-tbl_drug_a <- adsl |> 
-  filter(ARM2 == "Placebo") |> 
-  tbl_summary(include = c(AGE, ETHNIC), missing = "no")
-tbl_drug_b <- adsl |> 
-  filter(ARM2 == "Xanomeline") |> 
-  tbl_summary(include = c(AGE, ETHNIC), missing = "no")
+tbl_drug_a <- filter(adsl, ARM2 == "Placebo") |> 
+  tbl_summary(include = ETHNIC)
+tbl_drug_b <- filter(adsl, ARM2 == "Xanomeline") |> 
+  tbl_summary(include = ETHNIC)
 
 # stack the two tables 
 list(tbl_drug_a, tbl_drug_b) |> 
@@ -34,33 +32,33 @@ list(tbl_drug_a, tbl_drug_b) |>
   modify_header(all_stat_cols() ~ "**Summary Statistics**")
 ```
 
-## tbl_strata() for stratified tables
+<!-- ## tbl_strata() for stratified tables -->
 
-```{r}
-tbl_strata(
-  adsl, 
-  strata = ARM2, 
-  ~ .x |> 
-    tbl_wide_summary(include = c(ETHNIC, FEMALE))
-)
-```
+<!-- ```{r} -->
+<!-- tbl_strata( -->
+<!--   adsl,  -->
+<!--   strata = ARM2,  -->
+<!--   ~ .x |>  -->
+<!--     tbl_wide_summary(include = c(ETHNIC, FEMALE)) -->
+<!-- ) -->
+<!-- ``` -->
 
-The default is to combine stratified tables with `tbl_merge()`.
+<!-- The default is to combine stratified tables with `tbl_merge()`. -->
 
 
-## tbl_strata() for stratified tables
+<!-- ## tbl_strata() for stratified tables -->
 
-We can also stack the tables.
+<!-- We can also stack the tables. -->
 
-```{r}
-tbl_strata(
-  adsl, 
-  strata = ARM2, 
-  ~ .x |> 
-    tbl_summary(include = ETHNIC),
-  .combine_with = "tbl_stack"
-)
-```
+<!-- ```{r} -->
+<!-- tbl_strata( -->
+<!--   adsl,  -->
+<!--   strata = ARM2,  -->
+<!--   ~ .x |>  -->
+<!--     tbl_summary(include = ETHNIC), -->
+<!--   .combine_with = "tbl_stack" -->
+<!-- ) -->
+<!-- ``` -->
 
 ## Define custom function `tbl_cmh()`
 
@@ -72,17 +70,15 @@ tbl_strata(
 
 ## Cobbling Tables Together
 
-::: small
-
-- Many tables we create in the pharma space come from a catalog of standard tables.
-
 - The {gtsummary} package makes it simple to break complex tables into their simple parts and cobble them together in the end.
 
-- Moreover, the internal structure of a gtsummary table is **super simple**: a data frame and instructions on how to print that data frame to make it cute.
+- Moreover, the internal structure of a gtsummary table is **super simple**: 
 
-    If needed, you can directly modify the underlying data frame with `modify_table_body()`.
+    - A data frame
+    
+    - Instructions to print that data frame to make it cute.
 
-::: 
+- Modify the underlying data frame directly with `modify_table_body()`.
 
 ```{r}
 tbl_summary(adsl, include = c(AGE, ETHNIC), by = ARM2) |> 

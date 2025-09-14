@@ -1,6 +1,6 @@
 # tbl_summary()
 
-## {pharmaverseadam} Dataa for Examples
+## {pharmaverseadam} Data for Examples
 
 Reduced sizes of `adsl`, `adse`, `adlb`.
 Created `ad_onco` with oncologic outcomes.
@@ -91,7 +91,6 @@ adsl |>
 #| output-location: "column"
 #| label: 'customize-summary1'
 adsl |> 
-  dplyr::filter(startsWith(ARM, "Xanomeline")) |> 
   tbl_summary(
     include = c(AGE, ETHNIC, FEMALE),
     by = ARM2,
@@ -273,8 +272,6 @@ This syntax is also used in {cards}, {cardx}, {crane}, and {gt}.
 
 -   `modify_*()` [modify]{.emphasis} table headers, spanning headers, footnotes, and more
 
--   `bold_*()/italicize_*()` [style]{.emphasis} labels, variable levels, significant p-values
-
 ## Update tbl_summary() with add\_\*()  {auto-animate="true"}
 
 ```{r}
@@ -295,7 +292,7 @@ adsl |>
 
 ```{r}
 #| output-location: "column"
-#| code-line-numbers: "8,9"
+#| code-line-numbers: "7,8,9"
 #| label: 'summary-with-p'
 ad_onco |>
   tbl_summary(
@@ -305,9 +302,11 @@ ad_onco |>
   ) |> 
   add_n() |> 
   add_p(
-    pvalue_fun = label_style_pvalue(digits = 2)
+    pvalue_fun = \(x) round(x, 2)
   )
 ```
+
+-   `add_n()`: adds a column non-missing counts
 
 -   `add_p()`: adds a column of p-values
 
@@ -316,7 +315,7 @@ ad_onco |>
 ```{r}
 #| label: 'summary-modified'
 #| output-location: "column"
-#| code-line-numbers: "5,6,7,8,9,10,11,12,13,14,15"
+#| code-line-numbers: "4,5,6,7,8,9,10,11,12,13,14"
 tbl <-
   adsl |> 
   tbl_summary(by = ARM2, include = c("AGE", "ETHNIC", "FEMALE")) |>
@@ -394,29 +393,6 @@ adsl |>
 :::
 :::
 
-## Where are the ARDs?
-
-::: {.columns .v-center-container}
-::: {.column width="30%"}
-
-- ARDs are the backbone for all calculations in gtsummary
-
-- Every gtsummary table saves the ARDs from each calculation
-
-:::
-
-::: {.column width="70%"}
-
-```{r}
-#| label: 'summary-view-ard'
-#| message: true
-#| code-line-numbers: "2"
-tbl <- tbl_summary(adsl, by = "ARM2", include = "AGE")
-gather_ard(tbl)
-```
-
-:::
-:::
 
 ## Add-on functions in {gtsummary}
 
@@ -426,9 +402,9 @@ See the documentation at <http://www.danieldsjoberg.com/gtsummary/reference/inde
 
 And a detailed `tbl_summary()` vignette at <http://www.danieldsjoberg.com/gtsummary/articles/tbl_summary.html>
 
-## {gtsummary} Exercise 1
+## {gtsummary} Exercise
 
-1. Navigate to Posit Cloud script `04-gtsummary_exercise1.R`.
+1. Navigate to Posit Cloud script `06-tables-gtsummary.R`.
 
 2. Create the table outlined in the script.
 
@@ -437,7 +413,51 @@ And a detailed `tbl_summary()` vignette at <http://www.danieldsjoberg.com/gtsumm
 ```{r}
 #| echo: false
 #| cache: false
-countdown(minutes = 10)
+countdown(minutes = 7)
+```
+
+## {gtsummary} Exercise
+
+```{r}
+#| echo: false
+
+## Import data
+df_gtsummary_exercise <- pharmaverseadam::adsl |>
+  filter(SAFFL == "Y") |>
+  left_join(
+    pharmaverseadam::advs |>
+      filter(PARAMCD %in% c("BMI", "HEIGHT", "WEIGHT"), !is.na(AVAL)) |>
+      arrange(ADY) |>
+      slice(1, .by = c(USUBJID, PARAMCD)) |>
+      pivot_wider(id_cols = USUBJID, names_from = PARAMCD, values_from = AVAL),
+    by = "USUBJID"
+  ) |>
+  select(USUBJID, TRT01A, AGE, AGEGR1, SEX, RACE, ETHNIC, BMI, HEIGHT, WEIGHT) |>
+  labelled::set_variable_labels(
+    BMI = "BMI",
+    HEIGHT = "Height, cm",
+    WEIGHT = "Weight, kg"
+  )
+```
+
+```{r}
+#| code-line-numbers: "|4|6|7|8|9|10|13"
+#| output-location: slide
+tbl <-
+  df_gtsummary_exercise |>
+  # ensure the age groups print in the correct order
+  mutate(AGEGR1 = factor(AGEGR1, levels = c("18-64", ">64"))) |>
+  tbl_summary(
+    by = TRT01A,
+    include = c(AGE, AGEGR1, SEX, RACE, ETHNIC, BMI, HEIGHT, WEIGHT), 
+    type = all_continuous() ~ "continuous2", # all continuous variables should be summarized as multi-row
+    statistic = all_continuous() ~ c("{mean} ({sd})", "{median} ({p25}, {p75})", "{min}, {max}"), # change the statistics for all continuous variables
+    label = list(AGEGR1 = "Age Group"), # add a label for AGEGR1
+  ) |>
+  # add a header above the 'Xanomeline' treatments. We used `show_header_names()` to know the column names
+  modify_spanning_header(c(stat_2, stat_3) ~ "**Active Treatment**")
+
+tbl
 ```
 
 <!-- ## Cross-tabulation with tbl_cross() -->

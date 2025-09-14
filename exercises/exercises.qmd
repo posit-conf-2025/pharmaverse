@@ -1,0 +1,141 @@
+---
+title: "Exercises + Solutions"
+editor: source
+---
+
+# Exercises
+
+## `01-intro.R`
+
+```{r}
+#| echo: false
+#| class-output: "sourceCode r"
+
+here::here("exercises/01-intro.R") |> 
+  readLines() |> 
+  cat(sep = "\n")
+```
+
+## `02-SDTM.R`
+
+```{r}
+#| echo: false
+#| class-output: "sourceCode r"
+
+here::here("exercises/02-SDTM.R") |> 
+  readLines() |> 
+  cat(sep = "\n")
+```
+
+## `03-ADaM.R`
+
+```{r}
+#| echo: false
+#| class-output: "sourceCode r"
+
+here::here("exercises/03-ADaM.R") |> 
+  readLines() |> 
+  cat(sep = "\n")
+```
+
+## `04-ARD.R`
+
+```{r}
+#| echo: false
+#| class-output: "sourceCode r"
+
+here::here("exercises/04-ARD.R") |> 
+  readLines() |> 
+  cat(sep = "\n")
+```
+
+## `05-tables-tfrmt.R`
+
+```{r}
+#| echo: false
+#| class-output: "sourceCode r"
+
+here::here("exercises/05-tables-tfrmt.R") |> 
+  readLines() |> 
+  cat(sep = "\n")
+```
+
+## `06-tables-gtsummary.R`
+
+```{r}
+#| echo: false
+#| class-output: "sourceCode r"
+
+here::here("exercises/06-tables-gtsummary.R") |> 
+  readLines() |> 
+  cat(sep = "\n")
+```
+
+
+# Solutions
+
+## `01-intro.R`
+
+```{r}
+#| echo: false
+#| class-output: "sourceCode r"
+
+here::here("exercises/answers/01-intro-answer.R") |> 
+  readLines() |> 
+  cat(sep = "\n")
+```
+
+## `02-SDTM.R`
+
+```{r}
+#| echo: false
+#| class-output: "sourceCode r"
+
+here::here("exercises/answers/02-SDTM-answer.R") |> 
+  readLines() |> 
+  cat(sep = "\n")
+```
+
+## `03-ADaM.R`
+
+```{r}
+#| echo: false
+#| class-output: "sourceCode r"
+
+here::here("exercises/answers/03-ADaM-answer.R") |> 
+  readLines() |> 
+  cat(sep = "\n")
+```
+
+## `04-ARD.R`
+
+```{r}
+#| echo: false
+#| class-output: "sourceCode r"
+
+here::here("exercises/answers/04-ARD-answer.R") |> 
+  readLines() |> 
+  cat(sep = "\n")
+```
+
+## `05-tables-tfrmt.R`
+
+```{r}
+#| echo: false
+#| class-output: "sourceCode r"
+
+here::here("exercises/answers/05-tables-tfrmt-answer.R") |> 
+  readLines() |> 
+  cat(sep = "\n")
+```
+
+## `06-tables-gtsummary.R`
+
+```{r}
+#| echo: false
+#| class-output: "sourceCode r"
+
+here::here("exercises/answers/06-tables-gtsummary-answer.R") |> 
+  readLines() |> 
+  cat(sep = "\n")
+```

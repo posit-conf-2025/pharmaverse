@@ -4,7 +4,7 @@ project:
   render:
     - "*.qmd"
     - "!slides/**/[0-9]*.qmd"
-  
+
 website:
   page-navigation: true
   title: "End-to-End Submissions in R with the Pharmaverse"
@@ -33,6 +33,7 @@ website:
        text: Home
      - href: communications.qmd
        text: Communications
+     - href: exercises/exercises.qmd
      - href: license.qmd
 
 format:

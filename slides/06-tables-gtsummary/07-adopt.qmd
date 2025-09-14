@@ -1,6 +1,12 @@
 # Adopt {gtsummary}
 
-## Adopt {gtsummary} with a company theme
+## How to Adopt {gtsummary}
+
+#### Write functions
+
+-  Use {gtsummary} functions to build new functions will be key for adoption.   
+
+#### Create a theme
 
 -   A [theme]{.emphasis} is a set of customization preferences that can be easily set and reused.
 
@@ -8,165 +14,34 @@
 
 -   Themes control more [fine-grained customization]{.emphasis} not available via arguments or helper functions
 
--   Easily use one of the [available themes]{.emphasis}, or [create your own]{.emphasis}
+## Extension Package:{crane} <img src="https://raw.githubusercontent.com/insightsengineering/crane/main/man/figures/logo.png" align="right" height="120"/>
 
-## {gtsummary} default theme
+The first function we added to {crane} was `tbl_roche_summary()`: a _thin_ wrapper for `gtsummary::tbl_summary()`.
 
-```{r}
-#| output-location: "column"
-#| label: "theme1"
-reset_gtsummary_theme()
+::: {.small}
 
-adsl |> 
-  tbl_summary(
-    by = ARM2, 
-    include = c(AGE, ETHNIC)
-  ) |>
-  modify_caption(
-    "Default Theme"
-  )
-```
+- Continuous variables default to `continuous2`.
 
-## {gtsummary} theme_gtsummary_journal()
+- `tbl_summary(missing*)` arguments have been changed to `tbl_roche_summary(nonmissing*)`.
 
-```{r}
-#| output-location: "column"
-reset_gtsummary_theme()
-theme_gtsummary_journal(journal = "jama")
+    - We highlight non-missing counts over missing counts, which are the default in {gtsummary}
+    
+- Counts represented by `0 (0%)` print as `0`.
 
-adsl |> 
-  tbl_summary(
-    by = ARM2, 
-    include = c(AGE, ETHNIC)
-  ) |>
-  modify_caption(
-    "Journal Theme (JAMA)"
-  )
-```
-
-## {gtsummary} theme_gtsummary_language()
-
-```{r}
-#| output-location: "column"
-reset_gtsummary_theme()
-theme_gtsummary_language(language = "zh-tw")
-
-adsl |> 
-  tbl_summary(
-    by = ARM2, 
-    include = c(AGE, ETHNIC)
-  ) |>
-  add_p() |> 
-  modify_caption(
-    "Language Theme (Chinese)"
-  )
-```
-
-**Language options:**
-
-:::::: {.columns style="font-size:0.65em"}
-::: {.column width="30%"}
--   German
--   English
--   Spanish
--   French
--   Gujarati
--   Hindi
-:::
-
-::: {.column width="30%"}
--   Icelandic
--   Japanese
--   Korean
--   Marathi
--   Dutch
-:::
-
-::: {.column width="30%"}
--   Norwegian
--   Portuguese
--   Swedish
--   Chinese Simplified
--   Chinese Traditional
-:::
-::::::
-
-## {gtsummary} theme_gtsummary_compact()
-
-```{r}
-reset_gtsummary_theme()
-theme_gtsummary_compact()
-
-adsl |> 
-  tbl_summary(
-    by = ARM2, 
-    include = c(AGE, ETHNIC)
-  ) |>
-  modify_caption("Compact Theme")
-```
-
-*Reduces padding and font size*
-
-Learn more at <http://www.danieldsjoberg.com/gtsummary/articles/themes.html>
-
-## A pharma theme with {crane}
-
-::::: columns
-::: {.column width="70%"}
-At Roche, we've create a companion R package to {gtsummary}. The package exports a theme for our company: `crane::theme_gtsummary_roche()`.
-:::
-
-::: {.column width="30%"}
-<img src="https://raw.githubusercontent.com/insightsengineering/crane/main/man/figures/logo.png" align="right" height="220"/>
-:::
-:::::
-
--   Sets a custom function for rounding percentages.
-
--   Round all p-values to four decimal places.
-
--   Adds post-processing to report `0` instead of `0 (0%)`.
-
--   All tables are printed with {flextable} and we add Roche-specific styling to the table.
-
-## What else is in {crane}? <img src="https://raw.githubusercontent.com/insightsengineering/crane/main/man/figures/logo.png" align="right" height="120"/>
-
-::: small
-The package also exports functions to create common tables in the Roche TLG catalog.
-
-The `tbl_roche_summary()` function is a simple wrapper for `tbl_summary()`, but with Roche defaults
 :::
 
 ```{r}
 #| label: tbl-roche-summary
+#| output-location: slide
 library(crane)
-theme_gtsummary_roche()
-theme_gtsummary_printer("gt") # let's keep gt for printing tables 
 
 adsl |> 
   dplyr::mutate(ETHNIC = forcats::fct_expand(ETHNIC, "REFUSED")) |> 
-  tbl_roche_summary(by = ARM2, include = c(AGE, ETHNIC))
-```
-
-## What else is in {crane}? <img src="https://raw.githubusercontent.com/insightsengineering/crane/main/man/figures/logo.png" align="right" height="120"/>
-
-::: small
-At Roche, we report AEs differently than what you find in the FDA specs: we export `tbl_hierarchical_rate_and_count()`.
-:::
-
-::: smaller
--   A combo of {gtsummary} functions `tbl_hierarchical()` and `tbl_hierarchical_count()`.
-:::
-
-```{r}
-#| label: tbl_hierarchical_rate_and_count
-adae |> 
-  tbl_hierarchical_rate_and_count(
-    by = ARM2,
-    variables = c(AESOC, AEDECOD),
-    denominator = adsl
-  ) |>
-  add_overall(last = TRUE)
+  tbl_roche_summary(
+    by = ARM2, 
+    include = c(AGE, ETHNIC),
+    nonmissing = "always"
+  )
 ```
 
 ## What else is in {crane}? <img src="https://raw.githubusercontent.com/insightsengineering/crane/main/man/figures/logo.png" align="right" height="120"/>
@@ -193,6 +68,10 @@ adlb |>
 
 ## What else is in {crane}? <img src="https://raw.githubusercontent.com/insightsengineering/crane/main/man/figures/logo.png" align="right" height="120"/>
 
+![](images/Black.png){fig-align="center" width="80%"}
+
+## What else is in {crane}? <img src="https://raw.githubusercontent.com/insightsengineering/crane/main/man/figures/logo.png" align="right" height="120"/>
+
 ![](images/AVAL.png){fig-align="center" width="80%"}
 
 ## What else is in {crane}? <img src="https://raw.githubusercontent.com/insightsengineering/crane/main/man/figures/logo.png" align="right" height="120"/>
@@ -202,6 +81,136 @@ adlb |>
 ## What else is in {crane}? <img src="https://raw.githubusercontent.com/insightsengineering/crane/main/man/figures/logo.png" align="right" height="120"/>
 
 ![](images/Merge.png){fig-align="center" width="80%"}
+
+<!-- ## {gtsummary} default theme -->
+
+<!-- ```{r} -->
+<!-- #| output-location: "column" -->
+<!-- #| label: "theme1" -->
+<!-- reset_gtsummary_theme() -->
+
+<!-- adsl |>  -->
+<!--   tbl_summary( -->
+<!--     by = ARM2,  -->
+<!--     include = c(AGE, ETHNIC) -->
+<!--   ) |> -->
+<!--   modify_caption( -->
+<!--     "Default Theme" -->
+<!--   ) -->
+<!-- ``` -->
+
+<!-- ## {gtsummary} theme_gtsummary_journal() -->
+
+<!-- ```{r} -->
+<!-- #| output-location: "column" -->
+<!-- reset_gtsummary_theme() -->
+<!-- theme_gtsummary_journal(journal = "jama") -->
+
+<!-- adsl |>  -->
+<!--   tbl_summary( -->
+<!--     by = ARM2,  -->
+<!--     include = c(AGE, ETHNIC) -->
+<!--   ) |> -->
+<!--   modify_caption( -->
+<!--     "Journal Theme (JAMA)" -->
+<!--   ) -->
+<!-- ``` -->
+
+<!-- ## {gtsummary} theme_gtsummary_language() -->
+
+<!-- ```{r} -->
+<!-- #| output-location: "column" -->
+<!-- reset_gtsummary_theme() -->
+<!-- theme_gtsummary_language(language = "zh-tw") -->
+
+<!-- adsl |>  -->
+<!--   tbl_summary( -->
+<!--     by = ARM2,  -->
+<!--     include = c(AGE, ETHNIC) -->
+<!--   ) |> -->
+<!--   add_p() |>  -->
+<!--   modify_caption( -->
+<!--     "Language Theme (Chinese)" -->
+<!--   ) -->
+<!-- ``` -->
+
+<!-- **Language options:** -->
+
+<!-- :::::: {.columns style="font-size:0.65em"} -->
+<!-- ::: {.column width="30%"} -->
+<!-- -   German -->
+<!-- -   English -->
+<!-- -   Spanish -->
+<!-- -   French -->
+<!-- -   Gujarati -->
+<!-- -   Hindi -->
+<!-- ::: -->
+
+<!-- ::: {.column width="30%"} -->
+<!-- -   Icelandic -->
+<!-- -   Japanese -->
+<!-- -   Korean -->
+<!-- -   Marathi -->
+<!-- -   Dutch -->
+<!-- ::: -->
+
+<!-- ::: {.column width="30%"} -->
+<!-- -   Norwegian -->
+<!-- -   Portuguese -->
+<!-- -   Swedish -->
+<!-- -   Chinese Simplified -->
+<!-- -   Chinese Traditional -->
+<!-- ::: -->
+<!-- :::::: -->
+
+<!-- ## {gtsummary} theme_gtsummary_compact() -->
+
+<!-- ```{r} -->
+<!-- reset_gtsummary_theme() -->
+<!-- theme_gtsummary_compact() -->
+
+<!-- adsl |>  -->
+<!--   tbl_summary( -->
+<!--     by = ARM2,  -->
+<!--     include = c(AGE, ETHNIC) -->
+<!--   ) |> -->
+<!--   modify_caption("Compact Theme") -->
+<!-- ``` -->
+
+<!-- *Reduces padding and font size* -->
+
+<!-- Learn more at <http://www.danieldsjoberg.com/gtsummary/articles/themes.html> -->
+
+## A pharma theme with {crane}
+
+Our theme is implemented in `crane::theme_gtsummary_roche()`
+
+Primary changes include:
+
+-   Sets a custom function for [rounding percentages]{.emphasis}.
+
+-   Round all [p-values]{.emphasis} to four decimal places.
+
+-   [Headers]{.emphasis} default to presenting with bold and include N in parenthesis, e.g. `'Placebo  \n (N = 184)'`.
+
+-   All tables are printed with [{flextable}]{.emphasis} and we add Roche-specific styling to the table.
+
+-   Update the default [font, font size, table borders, cell padding, etc.]{.emphasis} to meet our guidelines.
+
+## What else is in {crane}? <img src="https://raw.githubusercontent.com/insightsengineering/crane/main/man/figures/logo.png" align="right" height="120"/>
+
+```{r}
+#| output-location: column
+theme_gtsummary_roche()
+
+adsl |> 
+  dplyr::mutate(ETHNIC = forcats::fct_expand(ETHNIC, "REFUSED")) |> 
+  tbl_roche_summary(
+    by = ARM2, 
+    include = c(AGE, ETHNIC),
+    nonmissing = "always"
+  )
+```
 
 ## cardinal collaboration <img src="https://pharmaverse.github.io/cardinal/quarto/assets/images/logo/cardinal.png" align="right" height="120"/>
 

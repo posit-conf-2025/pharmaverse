@@ -37,7 +37,7 @@ options(width = 120)
 
 {{< include 07-adopt.qmd >}}
 
-{{< include 08-LLMs.qmd >}}
+<!-- {{< include 08-LLMs.qmd >}} -->
 
 {{< include 09-summary.qmd >}}
 
