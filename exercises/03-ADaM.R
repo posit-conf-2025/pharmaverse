@@ -26,7 +26,8 @@ derive_vars_dtm(
 )
 
 # Exercise 2
-# Update set_values_to argument for the formual
+# Update the parameters argument
+# Update set_values_to argument for the formula
 # MAP Formula: MAP = (SYSBP + 2*DIABP) / 3
 
 
@@ -41,7 +42,7 @@ ADVS <- tribble(
 derive_param_computed(
   ADVS,
   by_vars = exprs(USUBJID, VISIT),
-  parameters = c("SYSBP", "DIABP"),
+  parameters = c("????", "????"),
   set_values_to = exprs(
     AVAL = (AVAL.SYSBP + ?? * AVAL.DIABP) / ??,
     PARAMCD = "MAP",

@@ -32,7 +32,8 @@ img_center_size <- 300
     - **Gained** an understanding of how to use `admiral`, `metatools/metacore`, and `xportr` packages to create       ADaMs
     - **Seen** code executed to create variables and records common to `ADSL` and `ADVS`.
     - **Seen** small code snippets of certain functions with play data.
-    - **Checked** in on our fav participant - Barb 
+    - **Checked** in on our fav participant - Barb.
+    - **Completed** two short exercises using functions from admiral package.
 :::
 
 ## Play by Play to achieve our Objectives
@@ -114,6 +115,7 @@ classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;
     - `derive_param_computed()` at end of `ADVS`.
 -   Brief notes on the code in script and exercises:
     -   Code in scripts should run out of the box.
+    -   You can run now, but if something doesn't work let's fix at the exercises.
     -   Exercises will need some minor updates.
     -   3 folks not presenting can help diagnose issues during exercises. 
 :::
@@ -152,8 +154,7 @@ classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;
 - What is in the the Specs:
   -   Two datasets, dataset labels and variable keys
   -   Variables - labels, lengths, types, linked to method
-  -   Codelists!!
-  -   No VLMs 
+  -   Codelists / Control Terms!!
   
 ## Spec-peek
 
@@ -240,17 +241,18 @@ Most functions in admiral follow these conventions:
 
 ::: {.incremental}
   
-    * Using `{pharmaversesdtm}` data: `dm`, `suppdm`, `ex`, `ae`, `vs`, etc
-    * Uses the `ADSL` section of our spec file
-    * Creating a single record for each subject with a lot of variables!!
-    * Write out an xpt file for regulatory send-off!
+  * Using `{pharmaversesdtm}` data: `dm`, `suppdm`, `ex`, `ae`, `vs`, etc
+  * Uses the `ADSL` section of our spec file
+  * Creating a single record for each subject with a lot of variables.
+  * 306 observations and 54 variables.
+  * Write out an xpt file for regulatory send-off!
   
 :::
 
 ## Reading in our spec for `ADSL` ^[Lines: 20-25 ]
 
 ```{.r code-line-numbers="1|2|3|4|5|6"}
-spec_to_metacore(
+adsl_spec <- spec_to_metacore(
   path = "slides/03-ADaM/metadata/posit_specs.xlsx",
   where_sep_sheet = FALSE,
   quiet = TRUE
@@ -259,8 +261,7 @@ spec_to_metacore(
 ```
 
 * Takes a P21-like spec and makes it into an object we can easily access.
-  * P21 is spec/data validation tool widely used in the industry for creating SDTMs
-  and ADaMs
+* `where_sep_sheet` - option to tell if the information for the dataset is in a separate sheet, like in older p21 specs or in a single sheet like newer p21 specs
 * `quiet` argument should be set to `TRUE` while developing your spec and ADaMs.
 * Same call in ADVS script.
 
@@ -297,8 +298,8 @@ ds_ext <- derive_vars_dt(
 ```{.r code-line-numbers="1|2|3|4|5|6"}
 adsl11 <- adsl10 %>%
   derive_vars_dt(
-    new_vars_prefix = "DTH",
     dtc = DTHDTC,
+    new_vars_prefix = "DTH",
     highest_imputation = "M",
     date_imputation = "first"
   )
@@ -350,7 +351,25 @@ derive_vars_dtm(
 ```
 :::
 
-## Let's get a merge  ^[Lines: 72-84, and more!!]
+## A Simple merge ^[Lines: 187-194]
+
+```{.r code-line-numbers="1|2|3|4|5|6"}
+adsl10 <- adsl09 %>%
+  derive_vars_merged(
+    dataset_add = ds_ext,
+    by_vars = exprs(STUDYID, USUBJID),
+    new_vars = exprs(RANDDT = DSSTDT),
+    filter_add = DSDECOD == "RANDOMIZED",
+  )
+```
+
+* Filter, arrange, join and rename is a common pattern in ADaMs.
+* `by_vars` are going to be the shared variables to connect the two datasets
+* In admiral, all arguments which can be set to multiple variables, a calculation, or an assignment must be started with `rlang::exprs()`.
+* Check out [Programming Concepts and Conventions](https://pharmaverse.github.io/admiral/cran-release/articles/concepts_conventions.html#exprs)
+
+
+## Let's get a more complicated merge  ^[Lines: 72-84, and more!!]
 
 ```{.r code-line-numbers="1|2|3|4|5|6|7|8|9|10"}
 derive_vars_merged(
@@ -366,8 +385,8 @@ derive_vars_merged(
 )
 ```
 
-* Filter, arrange, join and rename is a common pattern in ADaMs.
-* `rlang::exprs()` is used in a lot of of admiral functions where...
+* `order` - for each by group the first or last observation from the additional dataset is selected with respect to the specified order.
+* `mode` - Determines if the first or last observation is selected
 
 ## Whoa!!! Way more options!!
 
@@ -445,16 +464,22 @@ derive_vars_duration(
 ```
 :::
 
+## Duration versus Interval
+
+* The lubridate package calculates two types of spans between two dates: duration and interval. While these calculations are largely the same, when the unit of the time period is month or year the result can be slightly different.
+
+* The difference arises from the ambiguity in the length of "1 month" or "1 year". Months may have 31, 30, 28, or 29 days, and years are 365 days and 366 during leap years. Durations and intervals help solve the ambiguity in these measures.
+
 ## Let's apply Control Terms / Code Lists ^[Lines: 276-282]
 
 ```{.r}
 adsl16 %>%
-  create_var_from_codelist(metacore, input_var = AGEGR1, out_var = AGEGR1N) %>%
-  create_var_from_codelist(metacore, input_var = RACE, out_var = RACEN) %>%
-  create_var_from_codelist(metacore, input_var = RACEGR1, out_var = RACEGR1N) %>%
-  create_var_from_codelist(metacore, input_var = REGION1, out_var = REGION1N) %>%
-  create_var_from_codelist(metacore, input_var = TRT01P, out_var = TRT01PN) %>%
-  create_var_from_codelist(metacore, input_var = TRT01A, out_var = TRT01AN)
+  create_var_from_codelist(adsl_spec, input_var = AGEGR1, out_var = AGEGR1N) %>%
+  create_var_from_codelist(adsl_spec, input_var = RACE, out_var = RACEN) %>%
+  create_var_from_codelist(adsl_spec, input_var = RACEGR1, out_var = RACEGR1N) %>%
+  create_var_from_codelist(adsl_spec, input_var = REGION1, out_var = REGION1N) %>%
+  create_var_from_codelist(adsl_spec, input_var = TRT01P, out_var = TRT01PN) %>%
+  create_var_from_codelist(adsl_spec, input_var = TRT01A, out_var = TRT01AN)
 ```
 
 * Numeric Variables like the above are helpful for sorting options in Tables.
@@ -490,6 +515,7 @@ create_var_from_codelist(
 %%| echo: FALSE
 flowchart LR
   B[SDTM] --> C[ADaM]
+  C[ADaM] --> D[ARDs/TFLs]
   
 %% Apply the custom class "highlight" to node B
 class C highlight;
@@ -505,23 +531,22 @@ classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;
 * USUBJID:  01-701-1034
 * SEX:      F
 * AGE:      77
-::: incremental
-* derive_vars_dt()
-  * RANDDT:   2014-07-01
-  * TRTSDT:   2014-07-01
-  * TRTSDTM:  2014-07-01 23:59:59
-  * TRTEDT:   2014-12-30
-* derive_vars_duration()
-  * TRTDURD:  183
-* derive_vars_merged()
-  * EOSDT:    2014-12-30
-  * EOSSTT:   COMPLETED
-:::
-:::
+* RANDDT:   2014-07-01
+* TRTSDT:   2014-07-01
+* TRTSDTM:  2014-07-01 23:59:59
+* TRTEDT:   2014-12-30
+* TRTDURD:  183
+* EOSDT:    2014-12-30
+* EOSSTT:   COMPLETED
 
+:::
 ::::
 
 ## Check-in Exercise {.smaller}
+
+* Impute the date and time to be last month/day and 23:59:59
+* Two arguments to update: `????`
+* Check out admiral [`derive_vars_dtm()`](https://pharmaverse.github.io/admiral/cran-release/reference/derive_vars_dtm.html) documentation
 
 ```{r, eval = FALSE}
 library(tibble)
@@ -549,24 +574,52 @@ derive_vars_dtm(
 )
 ```
 
+## Check-in Exercise Solution {.smaller}
+
+```{r}
+posit_mh <- tribble(
+  ~USUBJID, ~MHSTDTC,
+  1,        "2019-07-18T15:25:40",
+  1,        "2019-07-18T15:25",
+  1,        "2019-07-18",
+  2,        "2024-02",
+  2,        "2019",
+  2,        "2019---07",
+  3,        ""
+)
+
+derive_vars_dtm(
+  dataset = posit_mh,
+  new_vars_prefix = "AST",
+  dtc = MHSTDTC,
+  highest_imputation = "M",
+  date_imputation = "last",
+  time_imputation = "last"
+)
+
+```
+
 
 # `ADVS`
 
 🕦11:50 - 12:20
+
+* Note: Referencing lines in file at each section with a footnote (Lines: ##-##)
 
 
 ## The Big Picture of ADVS
 
 * We have an ADVS script:
   * Using `pharmaversesdtm` data: `vs`
-  * Uses the ADVS section of our spec file
-  * Creating a **multiple records** for each subject
-  * `ADSL` information included
-  * Lot's of functions are repeated within the ADVS script used in `ADSL` script
+  * Using the ADVS section of our spec file.
+  * Creating **multiple records** for each subject.
+  * Some `ADSL` variables included.
+  * 60K records and 106 variables.
+  * Lot's of functions are repeated within the `ADVS` script used in `ADSL` script.
 
-## Let's talk about lookup tables (ADVS Lines: )
+## Let's talk about lookup tables ^[Lines: 72-80]
 
-```{.r code-line-numbers="1|2|3|4|5|6|7|8|9|10"}
+```{.r code-line-numbers="1|2|3|4|5|6"}
   derive_vars_merged_lookup(
     dataset_add = param_lookup,
     new_vars = exprs(PARAMCD),
@@ -574,6 +627,10 @@ derive_vars_dtm(
     print_not_mapped = TRUE 
   ) 
 ```
+
+* Moving from `**TEST/**TESTCD` to `PARAM/PARAMCD`.
+* More information in the `PARAM/PARAMCD` - useful for displays.
+* Can be used for other lookup tables, e.g. Grading/Toxicity.
 
 ## A Fuller Look!
 
@@ -594,20 +651,21 @@ derive_vars_merged_lookup(
 ```
 :::
 
-## Let's add more records for each subject (ADVS Lines: )
+## Let's add more records for each subject ^[Lines: 100-111]
 
 ```{.r code-line-numbers="1|2|3|4|5|6|7|8|9|10"}
-derive_param_computed(
-  by_vars = exprs(STUDYID, USUBJID, VISIT, VISITNUM, ADT, ADY, VSTPT, VSTPTNUM),
-  parameters = "WEIGHT",
-  set_values_to = exprs(
-    AVAL = AVAL.WEIGHT / (AVAL.HEIGHT / 100)^2,
-    PARAMCD = "BMI",
-    PARAM = "Body Mass Index (kg/m^2)",
-    AVALU = "kg/m^2"
-  ),
-  constant_parameters = c("HEIGHT"),
-  constant_by_vars = exprs(USUBJID)
+advs <- advs %>%
+  derive_param_computed(
+    by_vars = exprs(STUDYID, USUBJID, VISIT, VISITNUM, ADT, ADY, VSTPT, VSTPTNUM),
+    parameters = "WEIGHT",
+    set_values_to = exprs(
+      AVAL = AVAL.WEIGHT / (AVAL.HEIGHT / 100)^2,
+      PARAMCD = "BMI",
+      PARAM = "Body Mass Index (kg/m^2)",
+      AVALU = "kg/m^2"
+    ),
+    constant_parameters = c("HEIGHT"),
+    constant_by_vars = exprs(USUBJID)
 )
 ```
 
@@ -629,9 +687,9 @@ derive_param_computed(
 ```
 :::
 
-## Let's derive DTYPE summary records (ADVS Lines: )
+## Let's derive DTYPE summary records ^[Lines: 144-153]
 
-```{.r code-line-numbers="1|2|3|4|5|6|7|8|9|10"}
+```{.r code-line-numbers="1|2|3|4|5|6|7|8|9"}
 derive_summary_records(
     dataset_add = advs_2, 
     by_vars = exprs(STUDYID, USUBJID, !!!adsl_vars, PARAMCD, AVISITN, AVISIT, ADT, ADY, AVALU),
@@ -643,17 +701,20 @@ derive_summary_records(
 )
 ```
 
-## Let's restrict! (ADVS Lines: )
+* A DTYPE variable indicates a record within a parameter has been imputed or modified, 
+DTYPE will indicate the method used to populate the analysis value, e.g AVERAGE,
+MAXIMUM, MINIMUM, LOCF, PHANTOM.
 
-```{.r code-line-numbers="1|2|3|4|5|6|7|8|9|10"}
+## Let's restrict! ^[Lines: 196-210]
+
+```{.r code-line-numbers="1|2|3|4|5|6|7|8|9|10|11|12"}
 restrict_derivation(
   derivation = derive_var_extreme_flag,
   args = params(
     by_vars = exprs(STUDYID, USUBJID, BASETYPE, PARAMCD),
     order = exprs(ADT, VISITNUM, VSSEQ),
     new_var = ABLFL,
-    mode = "last", # Determines of the first or last observation is flagged
-    # Below arguments are default values and not necessary to add in our case
+    mode = "last",
     true_value = "Y"
   ),
   filter = (!is.na(AVAL) &
@@ -661,23 +722,71 @@ restrict_derivation(
 )
 ```
 
-## Let's get that data read for regulatory agencies (ADVS Lines: )
+* Check out [Higher Order Functions](https://pharmaverse.github.io/admiral/cran-release/articles/higher_order.html)
+for more information. 
+* `call_derivation()` is super handy iF you are doing similar calls with same function,
+but just changing one or two arguments.
 
-```{.r code-line-numbers="1|2|3|4|5|6|7|8|9|10"}
-advs <- advs_final %>%
-  drop_unspec_vars(metacore) %>% # Drop unspecified variables from specs
-  check_variables(metacore, dataset_name = "ADVS") %>% # Check all variables specified are present and no more
-  order_cols(metacore) %>% # Orders the columns according to the spec
-  sort_by_key(metacore) %>% # Sorts the rows by the sort keys
-  xportr_type(metacore) %>%
-  xportr_length(metacore) %>%
-  xportr_label(metacore) %>%
-  xportr_format(metacore, domain = "ADVS") %>%
-  xportr_df_label(metacore, domain = "ADVS") %>%
-  xportr_write("datasets/advs.xpt", metadata = metacore, domain = "ADVS")
+## Let's add a BASE variable ^[Lines: 210-217]
+
+```{.r code-line-numbers="1|2|3|4|5|6|7|"}
+advs <- derive_var_base(
+  advs,
+  by_vars = exprs(STUDYID, USUBJID, PARAMCD, BASETYPE),
+  source_var = AVAL,
+  new_var = BASE,
+  # Below arguments are default values and not necessary to add in our case
+  filter = ABLFL == "Y"
+)
 ```
 
-* Note similar code in `ADSL`!
+* Used to calculate CHG and PCHG variables
+
+## Let's add an Analysis Sequence Variable ^[Lines: 262-268]
+
+```{.r code-line-numbers="1|2|3|4|5|6|7|"}
+advs <- derive_var_obs_number(
+  advs,
+  new_var = ASEQ,
+  by_vars = exprs(STUDYID, USUBJID),
+  order = exprs(PARAMCD, ADT, AVISITN, VISITNUM, ATPTN, DTYPE),
+  check_type = "error"
+)
+```
+
+* ASEQ uniquely indexes records within a subject within an ADaM dataset.
+* ASEQ is useful for traceability when the dataset is used as input to another ADaM dataset
+* `check_type` - If "message", "warning" or "error" is specified, the specified message 
+is issued if the observations of the input dataset are not unique with respect to the by variables and the order.
+
+## Let's get that ADaM ready for regulatory agencies ^[Lines: 305-310]
+
+```{.r code-line-numbers="1|2|3|4|5"}
+advs_prefinal <- advs %>%
+  drop_unspec_vars(advs_spec) %>% 
+  check_variables(advs_spec, dataset_name = "ADVS") %>% 
+  order_cols(advs_spec) %>% 
+  sort_by_key(advs_spec) 
+```
+
+* Functions from `{metatools}`
+* Note similar code in `ADSL` script!
+
+## Let's get that data read for regulatory agencies ^[Lines: 313-319]
+
+```{.r code-line-numbers="1|2|3|4|5|6|7"}
+advs_final <- advs_prefinal %>%
+  xportr_type(advs_spec) %>%
+  xportr_length(advs_spec) %>%
+  xportr_label(advs_spec) %>%
+  xportr_format(advs_spec, domain = "ADVS") %>%
+  xportr_df_label(advs_spec, domain = "ADVS") %>%
+  xportr_write(file.path(dir, "advs.xpt"), metadata = advs_spec, domain = "ADVS")
+```
+
+* Functions from `{xportr}`
+* Note similar code in `ADSL` script!
+* `domain` is needed depending on how `metacore` object is created.
 
 # Check in on Barb / Exercise
 
@@ -689,6 +798,20 @@ advs <- advs_final %>%
 
 ::: {.column}
 <div style="text-align: left;"> <img src="images/barb.png" alt="Barb!" style="width: 200px;"/> </div>
+
+```{mermaid}
+%%| echo: FALSE
+flowchart LR
+  B[SDTM] --> C[ADaM]
+  C[ADaM] --> D[ARDs/TFLs]
+  
+%% Apply the custom class "highlight" to node B
+class C highlight;
+
+%% Define the style for the "highlight" class:
+classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;  
+```
+
 :::
 
 ::: {.column}
@@ -696,8 +819,7 @@ advs <- advs_final %>%
 * PARAM/PARAMCD: MAP / Mean Arterial Pressure (mmHg)
 * ABLFL/ADT: Y / 2014-07-01
 * BASE:   94.33333
-* BASETYPE: LAST: AFTER LYING DOWN FOR 5 MINUTES
-* AVIST/ADT:  WEEK 2 / LAST: AFTER LYING DOWN FOR 5 MINUTES
+* AVIST/ADT:  WEEK 2 / 2014-07-15
 * AVAL:   115.0
 * CHG:  20.6666667
 * PCHG: 21.9081272
@@ -706,10 +828,58 @@ advs <- advs_final %>%
 ::::
 
 
-## Check-in Exercise
+## Check-in Exercise {.smaller}
 
-* We are going to update the function `derive_vars_dtm()`
+* We are going to update the function `derive_param_computed()` for Mean Arterial Pressure.
+* Formula: $$ \frac{2DIABP + SYSBP}{3} $$
 
+```{.r code-line-numbers="1|2|3|4|5|6|7"}
+ADVS <- tribble(
+  ~USUBJID,      ~PARAMCD, ~PARAM,                            ~AVALU,  ~AVAL, ~VISIT,
+  "01-701-1015", "DIABP",  "Diastolic Blood Pressure (mmHg)", "mmHg",    51, "BASELINE",
+  "01-701-1015", "SYSBP",  "Systolic Blood Pressure (mmHg)",  "mmHg",   121, "BASELINE",
+  "01-701-1028", "DIABP",  "Diastolic Blood Pressure (mmHg)", "mmHg",    79, "BASELINE",
+  "01-701-1028", "SYSBP",  "Systolic Blood Pressure (mmHg)",  "mmHg",   130, "BASELINE",
+) 
+```
+
+```{.r code-line-numbers="1|2|3|4|5|6|7|8|9"}
+derive_param_computed(
+  ADVS,
+  by_vars = exprs(USUBJID, VISIT),
+  parameters = c("????", "????"),
+  set_values_to = exprs(
+    AVAL = (AVAL.SYSBP + ?? * AVAL.DIABP) / ??,
+    PARAMCD = "MAP",
+    PARAM = "Mean Arterial Pressure (mmHg)",
+    AVALU = "mmHg",
+  )
+)
+```
+
+## Check-in Exercise Solution {.smaller}
+
+```{r}
+ADVS <- tribble(
+  ~USUBJID,      ~PARAMCD, ~PARAM,                            ~AVALU,  ~AVAL, ~VISIT,
+  "01-701-1015", "DIABP",  "Diastolic Blood Pressure (mmHg)", "mmHg",    51, "BASELINE",
+  "01-701-1015", "SYSBP",  "Systolic Blood Pressure (mmHg)",  "mmHg",   121, "BASELINE",
+  "01-701-1028", "DIABP",  "Diastolic Blood Pressure (mmHg)", "mmHg",    79, "BASELINE",
+  "01-701-1028", "SYSBP",  "Systolic Blood Pressure (mmHg)",  "mmHg",   130, "BASELINE",
+) 
+
+derive_param_computed(
+  ADVS,
+  by_vars = exprs(USUBJID, VISIT),
+  parameters = c("SYSBP", "DIABP"),
+  set_values_to = exprs(
+    AVAL = (AVAL.SYSBP + 2 * AVAL.DIABP) / 3,
+    PARAMCD = "MAP",
+    PARAM = "Mean Arterial Pressure (mmHg)",
+    AVALU = "mmHg",
+  )
+)
+```
 
 ## Questions and Resources
 
