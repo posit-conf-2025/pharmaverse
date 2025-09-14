@@ -129,7 +129,7 @@ dplyr::filter(pharmaverseadam::adsl, SAFFL == "Y") |>
   ) |> 
   gather_ard() |> 
   purrr::pluck("tbl_summary") |> 
-  apply_fmt_fun() |> 
+  cards::apply_fmt_fun() |> 
   cards::as_nested_list() |> 
   jsonlite::toJSON(pretty = TRUE)
 ```
