@@ -539,46 +539,39 @@
     "text": "By the end of this ADaM section you will have:\n\nGained an understanding of how to use admiral, metatools/metacore, and xportr packages to create ADaMs\nSeen code executed to create variables and records common to ADSL and ADVS.\nSeen small code snippets of certain functions with play data.\nChecked in on our fav participant - Barb"
   },
   {
+    "objectID": "slides/03-ADaM/admiral.html#play-by-play-to-achieve-our-objectives",
+    "href": "slides/03-ADaM/admiral.html#play-by-play-to-achieve-our-objectives",
+    "title": "Set the Stage",
+    "section": "Play by Play to achieve our Objectives",
+    "text": "Play by Play to achieve our Objectives\n\n\n🕙11:00 - 11:15 Set the Stage: Overview of how we will work, datasets, specs, packages, functions\n🕥11:15 - 11:40 Subject-level dataset: ADSL\n🕚11:40 - 11:50 Check in on Barb / Exercise\n🕦11:50 - 12:20 Basic Data Structure: ADVS\n🕚12:20 - 12:30 Check in on Barb / Exercise\n🕚12:30 Lunch!"
+  },
+  {
     "objectID": "slides/03-ADaM/admiral.html#end-to-end-with-barb",
     "href": "slides/03-ADaM/admiral.html#end-to-end-with-barb",
     "title": "Set the Stage",
     "section": "End to End with Barb!!",
-    "text": "End to End with Barb!!\n\n\n\n\n\n\n\n\nflowchart LR\n  A[Raw] --&gt; B[SDTM]\n  B[SDTM] --&gt; C[ADaM]\n  C[ADaM] --&gt; D[ARD]\n  D[ARD] --&gt; E[TFL]\n  \n%% Apply the custom class \"highlight\" to node B\nclass C highlight;\n\n%% Define the style for the \"highlight\" class:\nclassDef highlight fill:#F9B, stroke:#333, stroke-width:2px;"
-  },
-  {
-    "objectID": "slides/03-ADaM/admiral.html#assumptions",
-    "href": "slides/03-ADaM/admiral.html#assumptions",
-    "title": "Set the Stage",
-    "section": "Assumptions",
-    "text": "Assumptions\n\n\nBasic knowledge of CDISC Standards (ADaM and SDTM Domains)\n\nCheck out the ADaM IG and other documents for CDISC\n\nThese are great but tome-like!!\n\nCheck out admiral and admiraldiscovery for CDISC implementation\n\nI always like to code immediately to understand a process!\n\n\n🦺 But even lacking CDISC knowledge, we still think you will gain some great learning today! 🦺"
-  },
-  {
-    "objectID": "slides/03-ADaM/admiral.html#play-by-play",
-    "href": "slides/03-ADaM/admiral.html#play-by-play",
-    "title": "Set the Stage",
-    "section": "Play by Play",
-    "text": "Play by Play\n\n\n🕙11:00 - 11:15 Set the Stage: Overview of how we will work, datasets, specs, packages, functions\n🕥11:15 - 11:40 Subject-level dataset: ADSL\n🕚11:40 - 11:50 Check in on Barb / Exercise\n🕦11:50 - 12:20 Basic Data Structure: ADVS\n🕚12:20 - 12:30 Check in on Barb / Exercise\n🕚12:30 Lunch!"
+    "text": "End to End with Barb!!\n\n\n\n\n\n\n\n\nflowchart LR\n  A[Raw] --&gt; B[SDTM]\n  B[SDTM] --&gt; C[ADaM]\n  C[ADaM] --&gt; D[ARD]\n  D[ARD] --&gt; E[TFL]\n  \n%% Apply the custom class \"highlight\" to node B\nclass C highlight;\n\n%% Define the style for the \"highlight\" class:\nclassDef highlight fill:#F9B, stroke:#333, stroke-width:2px;  \n\n\n\n\n\n\n\nWe are going to take a glimpse of where Barb is in ADSL and ADVS"
   },
   {
     "objectID": "slides/03-ADaM/admiral.html#set-the-stage-1",
     "href": "slides/03-ADaM/admiral.html#set-the-stage-1",
     "title": "Set the Stage",
     "section": "Set the Stage",
-    "text": "Set the Stage\n\n\nHow we will work for the next 90 minutes?\nData (SDTMs, ADSL, and ADVS)\nSpecs (Excel document with lots of tabs)\npharmaverse packages\nFunctions to make ADaM variables and records!!"
+    "text": "Set the Stage\n\n\nHow we will work for the next 90 minutes?\nData (SDTMs, ADSL, and ADVS)\nSpecs (Excel document with lots of tabs)\npharmaverse packages\n\nplaying nice with tidyverse and base R!!\n\nFunctions to make ADaM variables and records."
   },
   {
     "objectID": "slides/03-ADaM/admiral.html#how-we-will-proceed-today-1",
     "href": "slides/03-ADaM/admiral.html#how-we-will-proceed-today-1",
     "title": "Set the Stage",
     "section": "How we will proceed today?",
-    "text": "How we will proceed today?\n\n\nI will walk you through certain parts of the ADSL and ADVS R scripts\n\nLet’s take a quick peek at scripts.\nDiscussion on certain functions and function arguments from scripts for deriving variables/records.\nWill pull up full function arguments to briefly highlight other powers.\nWhen possible will have some play data and mini-runs of the function."
+    "text": "How we will proceed today?\n\n\nI will pull out certain functions of the ADSL and ADVS R scripts.\n\nLet’s take a quick peek at the scripts.\nI will discuss certain functions and function arguments from scripts for deriving variables/records.\nWill pull up full function arguments to briefly highlight other powers. 💡\nWhen possible will have some play data and mini-runs of the function. 🏸"
   },
   {
     "objectID": "slides/03-ADaM/admiral.html#how-we-will-proceed-today-continued",
     "href": "slides/03-ADaM/admiral.html#how-we-will-proceed-today-continued",
     "title": "Set the Stage",
     "section": "How we will proceed today continued?",
-    "text": "How we will proceed today continued?\n\n\nTwo exercises set up to help explore two key functions discussed:\n\nderive_vars_dtm()\nderive_param_computed()\n\nBrief notes on the code in script and exercises:\n\nCode in scripts should run out of the box.\nExercises will need some lite updates.\n3 folks not presenting can help diagnose issues."
+    "text": "How we will proceed today continued?\n\n\nTwo exercises set up to help explore two key functions discussed:\n\nderive_vars_dtm() at end of ADSL.\nderive_param_computed() at end of ADVS.\n\nBrief notes on the code in script and exercises:\n\nCode in scripts should run out of the box.\nExercises will need some minor updates.\n3 folks not presenting can help diagnose issues during exercises."
   },
   {
     "objectID": "slides/03-ADaM/admiral.html#adsl---subject-level-dataset",
@@ -592,14 +585,14 @@
     "href": "slides/03-ADaM/admiral.html#advs---vital-signs-dataset",
     "title": "Set the Stage",
     "section": "ADVS - Vital Signs Dataset",
-    "text": "ADVS - Vital Signs Dataset\n\n\n\n\nADVS - Basic Data Structure (BDS) Dataset. Focus on adding records, but also some variables!\nWe will use SDTM data vs from the pharmaversesdtm package and ADSL from dataset created by the adsl.R script.\nADVS is available in the pharmaverseadam package"
+    "text": "ADVS - Vital Signs Dataset\n\n\n\n\nADVS - Is a Basic Data Structure (BDS) Dataset. Focus on adding records, but also some variables!\nWe will use SDTM data vs from the pharmaversesdtm package and ADSL from dataset created by the adsl.R script.\nADVS is available in the pharmaverseadam package"
   },
   {
     "objectID": "slides/03-ADaM/admiral.html#spec-details",
     "href": "slides/03-ADaM/admiral.html#spec-details",
     "title": "Set the Stage",
     "section": "Spec-details",
-    "text": "Spec-details\n\nGives specifics on how we derive variables in the ADaMs (extreme traceability)\nP21-like spec\n\nP21 is spec/data validation tool widely used in the industry for creating SDTMs and ADaMs\n\nThese specs are not fit for purpose - just a helpful guide\nWhat is in the the Specs:\n\nTwo datasets, dataset labels and variable keys\nVariables - labels, lengths, types, linked to method\nCodelists!!\nNo VLMs"
+    "text": "Spec-details\n\nGives specifics on how we derive variables in the ADaMs (extreme traceability)\nP21-like spec\n\nP21 is spec/data validation tool widely used in the industry for creating and validating SDTMs and ADaMs.\n\nThese specs are not fit for purpose - just a helpful guide\nWhat is in the the Specs:\n\nTwo datasets, dataset labels and variable keys\nVariables - labels, lengths, types, linked to method\nCodelists!!\nNo VLMs"
   },
   {
     "objectID": "slides/03-ADaM/admiral.html#spec-peek",
@@ -641,28 +634,28 @@
     "href": "slides/03-ADaM/admiral.html#the-big-picture-of-adsl",
     "title": "Set the Stage",
     "section": "The Big Picture of ADSL",
-    "text": "The Big Picture of ADSL\n\nWe have an ADSL script:\n\nUsing pharmaversesdtm data: dm, suppdm, ex, ae, vs, etc\nUses the ADSL section of our spec file\nCreating a single record for each subject with a lot of variables!!"
+    "text": "The Big Picture of ADSL\n\nWe have an ADSL script:\n\n\n* Using `{pharmaversesdtm}` data: `dm`, `suppdm`, `ex`, `ae`, `vs`, etc\n* Uses the `ADSL` section of our spec file\n* Creating a single record for each subject with a lot of variables!!\n* Write out an xpt file for regulatory send-off!"
   },
   {
-    "objectID": "slides/03-ADaM/admiral.html#reading-in-our-spec-for-adsl-adsl-lines",
-    "href": "slides/03-ADaM/admiral.html#reading-in-our-spec-for-adsl-adsl-lines",
+    "objectID": "slides/03-ADaM/admiral.html#reading-in-our-spec-for-adsl",
+    "href": "slides/03-ADaM/admiral.html#reading-in-our-spec-for-adsl",
     "title": "Set the Stage",
-    "section": "Reading in our spec for ADSL (ADSL Lines: )",
-    "text": "Reading in our spec for ADSL (ADSL Lines: )\n{.r, code-line-numbers=\"1|2|3|4|5|6\"} spec_to_metacore(   path = \"slides/03-ADaM/metadata/posit_specs.xlsx\",   where_sep_sheet = FALSE,   quiet = TRUE ) %&gt;%   select_dataset(\"ADSL\")\n\nTakes a P21-like spec and makes it into an object we can easily access.\n\nP21 is spec/data validation tool widely used in the industry for creating SDTMs and ADaMs\n\nquiet argument should be set to TRUE while developing your spec and ADaMs."
+    "section": "Reading in our spec for ADSL 1",
+    "text": "Reading in our spec for ADSL 1\nspec_to_metacore(\n  path = \"slides/03-ADaM/metadata/posit_specs.xlsx\",\n  where_sep_sheet = FALSE,\n  quiet = TRUE\n) %&gt;%\n  select_dataset(\"ADSL\")\n\nTakes a P21-like spec and makes it into an object we can easily access.\n\nP21 is spec/data validation tool widely used in the industry for creating SDTMs and ADaMs\n\nquiet argument should be set to TRUE while developing your spec and ADaMs.\nSame call in ADVS script."
   },
   {
-    "objectID": "slides/03-ADaM/admiral.html#combine-parent-and-supplementary-data-adsl-lines",
-    "href": "slides/03-ADaM/admiral.html#combine-parent-and-supplementary-data-adsl-lines",
+    "objectID": "slides/03-ADaM/admiral.html#combine-parent-and-supplementary-data",
+    "href": "slides/03-ADaM/admiral.html#combine-parent-and-supplementary-data",
     "title": "Set the Stage",
-    "section": "Combine Parent and Supplementary Data (ADSL Lines: )",
-    "text": "Combine Parent and Supplementary Data (ADSL Lines: )\ndm_suppdm &lt;- combine_supp(dm, suppdm)\n\nOne line of code to join two datasets: parent and supplementary!\nSupps usually are a collection non-standard data and linking to parent\nFunction is from {metatools}"
+    "section": "Combine Parent and Supplementary Data 2",
+    "text": "Combine Parent and Supplementary Data 2\ndm_suppdm &lt;- combine_supp(dm, suppdm)\n\nOne line of code to join two datasets: parent and supplementary!\nSupps usually are a collection non-standard data and linking to parent\nFunction is from {metatools}"
   },
   {
-    "objectID": "slides/03-ADaM/admiral.html#lets-turn-a---dtc-to-a-dtm-variable-adsl-lines",
-    "href": "slides/03-ADaM/admiral.html#lets-turn-a---dtc-to-a-dtm-variable-adsl-lines",
+    "objectID": "slides/03-ADaM/admiral.html#lets-turn-a---dtc-to-a-dtm-or-dt-variable",
+    "href": "slides/03-ADaM/admiral.html#lets-turn-a---dtc-to-a-dtm-or-dt-variable",
     "title": "Set the Stage",
-    "section": "Let’s turn a --DTC to a *DTM variable (ADSL Lines: )",
-    "text": "Let’s turn a --DTC to a *DTM variable (ADSL Lines: )\nex_ext &lt;- ex %&gt;%\n  derive_vars_dtm(\n    dtc = EXSTDTC,\n    new_vars_prefix = \"EXST\",\n    time_imputation = \"last\",\n    flag_imputation = \"time\"\n)\nds_ext &lt;- derive_vars_dt(\n  ds,\n  dtc = DSSTDTC,\n  new_vars_prefix = \"DSST\"\n)\nadsl11 &lt;- adsl10 %&gt;%\n  derive_vars_dt(\n    new_vars_prefix = \"DTH\",\n    dtc = DTHDTC,\n    highest_imputation = \"M\",\n    date_imputation = \"first\"\n  )"
+    "section": "Let’s turn a --DTC to a *DTM or *DT variable 3",
+    "text": "Let’s turn a --DTC to a *DTM or *DT variable 3\nex_ext &lt;- ex %&gt;%\n  derive_vars_dtm(\n    dtc = EXSTDTC,\n    new_vars_prefix = \"EXST\",\n    time_imputation = \"last\",\n    flag_imputation = \"time\"\n)\nds_ext &lt;- derive_vars_dt(\n  ds,\n  dtc = DSSTDTC,\n  new_vars_prefix = \"DSST\"\n)\nadsl11 &lt;- adsl10 %&gt;%\n  derive_vars_dt(\n    new_vars_prefix = \"DTH\",\n    dtc = DTHDTC,\n    highest_imputation = \"M\",\n    date_imputation = \"first\"\n  )"
   },
   {
     "objectID": "slides/03-ADaM/admiral.html#example-from-documentation",
@@ -679,11 +672,11 @@
     "text": "Woah…there is more!!\n\nderive_vars_dtm(\n  dataset,\n  new_vars_prefix,\n  dtc,\n  highest_imputation = \"h\",\n  date_imputation = \"first\",\n  time_imputation = \"first\",\n  flag_imputation = \"auto\",\n  min_dates = NULL,\n  max_dates = NULL,\n  preserve = FALSE,\n  ignore_seconds_flag = FALSE\n)"
   },
   {
-    "objectID": "slides/03-ADaM/admiral.html#lets-get-a-merge-adsl-lines",
-    "href": "slides/03-ADaM/admiral.html#lets-get-a-merge-adsl-lines",
+    "objectID": "slides/03-ADaM/admiral.html#lets-get-a-merge",
+    "href": "slides/03-ADaM/admiral.html#lets-get-a-merge",
     "title": "Set the Stage",
-    "section": "Let’s get a merge (ADSL Lines: )",
-    "text": "Let’s get a merge (ADSL Lines: )\nderive_vars_merged(\n  dataset_add = ex_ext,\n  by_vars = exprs(STUDYID, USUBJID),\n  order = exprs(EXSTDTM, EXSEQ),\n  new_vars = exprs(TRTSDTM = EXSTDTM, TRTSTMF = EXSTTMF),\n  filter_add = (EXDOSE &gt; 0 |\n    (EXDOSE == 0 &\n      str_detect(EXTRT, \"PLACEBO\"))) &\n    !is.na(EXSTDTM),\n  mode = \"first\",\n)\n\nFilter, join and rename is a common pattern in ADaMs.\nrlang::exprs() is used in a lot of of admiral functions where…"
+    "section": "Let’s get a merge 4",
+    "text": "Let’s get a merge 4\nderive_vars_merged(\n  dataset_add = ex_ext,\n  by_vars = exprs(STUDYID, USUBJID),\n  order = exprs(EXSTDTM, EXSEQ),\n  new_vars = exprs(TRTSDTM = EXSTDTM, TRTSTMF = EXSTTMF),\n  filter_add = (EXDOSE &gt; 0 |\n    (EXDOSE == 0 &\n      str_detect(EXTRT, \"PLACEBO\"))) &\n    !is.na(EXSTDTM),\n  mode = \"first\",\n)\n\nFilter, arrange, join and rename is a common pattern in ADaMs.\nrlang::exprs() is used in a lot of of admiral functions where…"
   },
   {
     "objectID": "slides/03-ADaM/admiral.html#whoa-way-more-options",
@@ -693,11 +686,11 @@
     "text": "Whoa!!! Way more options!!\n\nderive_vars_merged(\n  dataset,\n  dataset_add,\n  by_vars,\n  order = NULL,\n  new_vars = NULL,\n  filter_add = NULL,\n  mode = NULL,\n  exist_flag = NULL,\n  true_value = \"Y\",\n  false_value = NA_character_,\n  missing_values = NULL,\n  check_type = \"warning\",\n  duplicate_msg = NULL,\n  relationship = NULL\n)"
   },
   {
-    "objectID": "slides/03-ADaM/admiral.html#lets-derive-a-duration-variable-adsl-lines",
-    "href": "slides/03-ADaM/admiral.html#lets-derive-a-duration-variable-adsl-lines",
+    "objectID": "slides/03-ADaM/admiral.html#lets-derive-a-duration-variable",
+    "href": "slides/03-ADaM/admiral.html#lets-derive-a-duration-variable",
     "title": "Set the Stage",
-    "section": "Let’s derive a Duration Variable (ADSL Lines: )",
-    "text": "Let’s derive a Duration Variable (ADSL Lines: )\nderive_vars_duration(\n    new_var = DTHADY,\n    start_date = TRTSDT,\n    end_date = DTHDT\n  )"
+    "section": "Let’s derive a Duration Variable 5",
+    "text": "Let’s derive a Duration Variable 5\nderive_vars_duration(\n    new_var = DTHADY,\n    start_date = TRTSDT,\n    end_date = DTHDT\n  )"
   },
   {
     "objectID": "slides/03-ADaM/admiral.html#example-from-documentation-1",
@@ -714,11 +707,11 @@
     "text": "Ohhh there is more!!\n\nderive_vars_duration(\n  dataset,\n  new_var,\n  new_var_unit = NULL,\n  start_date,\n  end_date,\n  in_unit = \"days\",\n  out_unit = \"DAYS\",\n  floor_in = TRUE,\n  add_one = TRUE,\n  trunc_out = FALSE,\n  type = \"duration\"\n)"
   },
   {
-    "objectID": "slides/03-ADaM/admiral.html#lets-apply-control-terms-code-lists-adsl-lines",
-    "href": "slides/03-ADaM/admiral.html#lets-apply-control-terms-code-lists-adsl-lines",
+    "objectID": "slides/03-ADaM/admiral.html#lets-apply-control-terms-code-lists",
+    "href": "slides/03-ADaM/admiral.html#lets-apply-control-terms-code-lists",
     "title": "Set the Stage",
-    "section": "Let’s apply Control Terms / Code Lists (ADSL Lines: )",
-    "text": "Let’s apply Control Terms / Code Lists (ADSL Lines: )\nadsl16 %&gt;%\n  create_var_from_codelist(metacore, input_var = AGEGR1, out_var = AGEGR1N) %&gt;%\n  create_var_from_codelist(metacore, input_var = RACE, out_var = RACEN) %&gt;%\n  create_var_from_codelist(metacore, input_var = RACEGR1, out_var = RACEGR1N) %&gt;%\n  create_var_from_codelist(metacore, input_var = REGION1, out_var = REGION1N) %&gt;%\n  create_var_from_codelist(metacore, input_var = TRT01P, out_var = TRT01PN) %&gt;%\n  create_var_from_codelist(metacore, input_var = TRT01A, out_var = TRT01AN)\n\nNumeric Variables like the above are helpful for sorting in TLFs."
+    "section": "Let’s apply Control Terms / Code Lists 6",
+    "text": "Let’s apply Control Terms / Code Lists 6\nadsl16 %&gt;%\n  create_var_from_codelist(metacore, input_var = AGEGR1, out_var = AGEGR1N) %&gt;%\n  create_var_from_codelist(metacore, input_var = RACE, out_var = RACEN) %&gt;%\n  create_var_from_codelist(metacore, input_var = RACEGR1, out_var = RACEGR1N) %&gt;%\n  create_var_from_codelist(metacore, input_var = REGION1, out_var = REGION1N) %&gt;%\n  create_var_from_codelist(metacore, input_var = TRT01P, out_var = TRT01PN) %&gt;%\n  create_var_from_codelist(metacore, input_var = TRT01A, out_var = TRT01AN)\n\nNumeric Variables like the above are helpful for sorting options in Tables."
   },
   {
     "objectID": "slides/03-ADaM/admiral.html#more-details",
@@ -732,7 +725,7 @@
     "href": "slides/03-ADaM/admiral.html#check-in-on-barb-in-adsl",
     "title": "Set the Stage",
     "section": "Check in on Barb in ADSL",
-    "text": "Check in on Barb in ADSL\n\n\n\n\n\n\n\n\n\n\nflowchart LR\n  B[SDTM] --&gt; C[ADaM]\n  \n%% Apply the custom class \"highlight\" to node B\nclass C highlight;\n\n%% Define the style for the \"highlight\" class:\nclassDef highlight fill:#F9B, stroke:#333, stroke-width:2px;  \n\n\n\n\n\n\n\n\nUSUBJID: 01-701-1034\nSEX: F\nAGE: 77\nRANDDT: 2014-07-01\nTRTSDT: 2014-07-01\nTRTSDTM: 2014-07-01 23:59:59\nTRTEDT: 2014-12-30\nTRTDURD: 183\nEOSDT: 2014-12-30\nEOSSTT: COMPLETED"
+    "text": "Check in on Barb in ADSL\n\n\n\n\n\n\n\n\n\n\nflowchart LR\n  B[SDTM] --&gt; C[ADaM]\n  \n%% Apply the custom class \"highlight\" to node B\nclass C highlight;\n\n%% Define the style for the \"highlight\" class:\nclassDef highlight fill:#F9B, stroke:#333, stroke-width:2px;  \n\n\n\n\n\n\n\n\nUSUBJID: 01-701-1034\nSEX: F\nAGE: 77 ::: incremental\nderive_vars_dt()\n\nRANDDT: 2014-07-01\nTRTSDT: 2014-07-01\nTRTSDTM: 2014-07-01 23:59:59\nTRTEDT: 2014-12-30\n\nderive_vars_duration()\n\nTRTDURD: 183\n\nderive_vars_merged()\n\nEOSDT: 2014-12-30\nEOSSTT: COMPLETED\n\n\n\n\n::::"
   },
   {
     "objectID": "slides/03-ADaM/admiral.html#check-in-exercise",
@@ -833,6 +826,13 @@
     "text": "Packages and Session Information\n\nsessionInfo()\n\nR version 4.5.1 (2025-06-13)\nPlatform: x86_64-pc-linux-gnu\nRunning under: Ubuntu 24.04.3 LTS\n\nMatrix products: default\nBLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 \nLAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0\n\nlocale:\n [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       \n [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   \n [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          \n[10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   \n\ntime zone: UTC\ntzcode source: system (glibc)\n\nattached base packages:\n[1] stats     graphics  grDevices datasets  utils     methods   base     \n\nother attached packages:\n[1] lubridate_1.9.4 admiral_1.3.1   tibble_3.3.0    countdown_0.4.0\n[5] glue_1.8.0     \n\nloaded via a namespace (and not attached):\n [1] jsonlite_2.0.0    dplyr_1.1.4       compiler_4.5.1    renv_1.1.5       \n [5] tidyselect_1.2.1  xml2_1.3.8        stringr_1.5.1     tidyr_1.3.1      \n [9] yaml_2.3.10       fastmap_1.2.0     R6_2.6.1          generics_0.1.4   \n[13] admiraldev_1.3.1  knitr_1.50        htmlwidgets_1.6.4 pillar_1.11.0    \n[17] rlang_1.1.6       utf8_1.2.6        stringi_1.8.7     roxygen2_7.3.2   \n[21] xfun_0.52         timechange_0.3.0  cli_3.6.5         withr_3.0.2      \n[25] magrittr_2.0.3    digest_0.6.37     hms_1.1.3         lifecycle_1.0.4  \n[29] vctrs_0.6.5       evaluate_1.0.4    rmarkdown_2.29    purrr_1.1.0      \n[33] tools_4.5.1       pkgconfig_2.0.3   htmltools_0.5.8.1"
   },
   {
+    "objectID": "slides/03-ADaM/admiral.html#footnotes",
+    "href": "slides/03-ADaM/admiral.html#footnotes",
+    "title": "Set the Stage",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nLines: 20-25 ↩︎\nLines: 53↩︎\nLines: 57-69, 132-136, 198-204↩︎\nLines: 72-84, and more!!↩︎\nLines: 122-126↩︎\nLines: 276-282↩︎"
+  },
+  {
     "objectID": "slides/01-intro/index.html#end-to-end-submissions-in-r-with-the-pharmaverse",
     "href": "slides/01-intro/index.html#end-to-end-submissions-in-r-with-the-pharmaverse",
     "title": "Welcome!",
@@ -844,7 +844,7 @@
     "href": "slides/01-intro/index.html#expected-background",
     "title": "Welcome!",
     "section": "Expected Background",
-    "text": "Expected Background"
+    "text": "Expected Background\n\nBasic knowledge of R and packages in the tidyverse\nBasic knowledge of CDISC Standards (ADaM and SDTM Domains)\n\nCheck out the ADaM IG and other documents for CDISC\n\nThese are great but tome-like!!\n\nCheck out admiral and admiraldiscovery for CDISC implementation\n\nI always like to code immediately to understand a process!\n\n\n🦺 But even lacking CDISC knowledge, we still think you will gain some great learning today! 🦺"
   },
   {
     "objectID": "slides/01-intro/index.html#instructors",
@@ -1208,46 +1208,39 @@
     "text": "Objectives\n\nBy the end of this ADaM section you will have:\n\nGained an understanding of how to use admiral, metatools/metacore, and xportr packages to create ADaMs\nSeen code executed to create variables and records common to ADSL and ADVS.\nSeen small code snippets of certain functions with play data.\nChecked in on our fav participant - Barb"
   },
   {
+    "objectID": "slides/03-ADaM/index.html#play-by-play-to-achieve-our-objectives",
+    "href": "slides/03-ADaM/index.html#play-by-play-to-achieve-our-objectives",
+    "title": "ADaMs with {admiral} and friends",
+    "section": "Play by Play to achieve our Objectives",
+    "text": "Play by Play to achieve our Objectives\n\n🕙11:00 - 11:15 Set the Stage: Overview of how we will work, datasets, specs, packages, functions\n🕥11:15 - 11:40 Subject-level dataset: ADSL\n🕚11:40 - 11:50 Check in on Barb / Exercise\n🕦11:50 - 12:20 Basic Data Structure: ADVS\n🕚12:20 - 12:30 Check in on Barb / Exercise\n🕚12:30 Lunch!"
+  },
+  {
     "objectID": "slides/03-ADaM/index.html#end-to-end-with-barb",
     "href": "slides/03-ADaM/index.html#end-to-end-with-barb",
     "title": "ADaMs with {admiral} and friends",
     "section": "End to End with Barb!!",
-    "text": "End to End with Barb!!\n\n\n\n\n\n\n\n\nflowchart LR\n  A[Raw] --&gt; B[SDTM]\n  B[SDTM] --&gt; C[ADaM]\n  C[ADaM] --&gt; D[ARD]\n  D[ARD] --&gt; E[TFL]\n  \n%% Apply the custom class \"highlight\" to node B\nclass C highlight;\n\n%% Define the style for the \"highlight\" class:\nclassDef highlight fill:#F9B, stroke:#333, stroke-width:2px;"
-  },
-  {
-    "objectID": "slides/03-ADaM/index.html#assumptions",
-    "href": "slides/03-ADaM/index.html#assumptions",
-    "title": "ADaMs with {admiral} and friends",
-    "section": "Assumptions",
-    "text": "Assumptions\n\nBasic knowledge of CDISC Standards (ADaM and SDTM Domains)\n\nCheck out the ADaM IG and other documents for CDISC\n\nThese are great but tome-like!!\n\nCheck out admiral and admiraldiscovery for CDISC implementation\n\nI always like to code immediately to understand a process!\n\n\n🦺 But even lacking CDISC knowledge, we still think you will gain some great learning today! 🦺"
-  },
-  {
-    "objectID": "slides/03-ADaM/index.html#play-by-play",
-    "href": "slides/03-ADaM/index.html#play-by-play",
-    "title": "ADaMs with {admiral} and friends",
-    "section": "Play by Play",
-    "text": "Play by Play\n\n🕙11:00 - 11:15 Set the Stage: Overview of how we will work, datasets, specs, packages, functions\n🕥11:15 - 11:40 Subject-level dataset: ADSL\n🕚11:40 - 11:50 Check in on Barb / Exercise\n🕦11:50 - 12:20 Basic Data Structure: ADVS\n🕚12:20 - 12:30 Check in on Barb / Exercise\n🕚12:30 Lunch!"
+    "text": "End to End with Barb!!\n\n\n\n\n\n\n\n\nflowchart LR\n  A[Raw] --&gt; B[SDTM]\n  B[SDTM] --&gt; C[ADaM]\n  C[ADaM] --&gt; D[ARD]\n  D[ARD] --&gt; E[TFL]\n  \n%% Apply the custom class \"highlight\" to node B\nclass C highlight;\n\n%% Define the style for the \"highlight\" class:\nclassDef highlight fill:#F9B, stroke:#333, stroke-width:2px;  \n\n\n\n\n\n\n\nWe are going to take a glimpse of where Barb is in ADSL and ADVS"
   },
   {
     "objectID": "slides/03-ADaM/index.html#set-the-stage-1",
     "href": "slides/03-ADaM/index.html#set-the-stage-1",
     "title": "ADaMs with {admiral} and friends",
     "section": "Set the Stage",
-    "text": "Set the Stage\n\nHow we will work for the next 90 minutes?\nData (SDTMs, ADSL, and ADVS)\nSpecs (Excel document with lots of tabs)\npharmaverse packages\nFunctions to make ADaM variables and records!!"
+    "text": "Set the Stage\n\nHow we will work for the next 90 minutes?\nData (SDTMs, ADSL, and ADVS)\nSpecs (Excel document with lots of tabs)\npharmaverse packages\n\nplaying nice with tidyverse and base R!!\n\nFunctions to make ADaM variables and records."
   },
   {
     "objectID": "slides/03-ADaM/index.html#how-we-will-proceed-today-1",
     "href": "slides/03-ADaM/index.html#how-we-will-proceed-today-1",
     "title": "ADaMs with {admiral} and friends",
     "section": "How we will proceed today?",
-    "text": "How we will proceed today?\n\nI will walk you through certain parts of the ADSL and ADVS R scripts\n\nLet’s take a quick peek at scripts.\nDiscussion on certain functions and function arguments from scripts for deriving variables/records.\nWill pull up full function arguments to briefly highlight other powers.\nWhen possible will have some play data and mini-runs of the function."
+    "text": "How we will proceed today?\n\nI will pull out certain functions of the ADSL and ADVS R scripts.\n\nLet’s take a quick peek at the scripts.\nI will discuss certain functions and function arguments from scripts for deriving variables/records.\nWill pull up full function arguments to briefly highlight other powers. 💡\nWhen possible will have some play data and mini-runs of the function. 🏸"
   },
   {
     "objectID": "slides/03-ADaM/index.html#how-we-will-proceed-today-continued",
     "href": "slides/03-ADaM/index.html#how-we-will-proceed-today-continued",
     "title": "ADaMs with {admiral} and friends",
     "section": "How we will proceed today continued?",
-    "text": "How we will proceed today continued?\n\nTwo exercises set up to help explore two key functions discussed:\n\nderive_vars_dtm()\nderive_param_computed()\n\nBrief notes on the code in script and exercises:\n\nCode in scripts should run out of the box.\nExercises will need some lite updates.\n3 folks not presenting can help diagnose issues."
+    "text": "How we will proceed today continued?\n\nTwo exercises set up to help explore two key functions discussed:\n\nderive_vars_dtm() at end of ADSL.\nderive_param_computed() at end of ADVS.\n\nBrief notes on the code in script and exercises:\n\nCode in scripts should run out of the box.\nExercises will need some minor updates.\n3 folks not presenting can help diagnose issues during exercises."
   },
   {
     "objectID": "slides/03-ADaM/index.html#adsl---subject-level-dataset",
@@ -1261,14 +1254,14 @@
     "href": "slides/03-ADaM/index.html#advs---vital-signs-dataset",
     "title": "ADaMs with {admiral} and friends",
     "section": "ADVS - Vital Signs Dataset",
-    "text": "ADVS - Vital Signs Dataset\n\n\n\n\nADVS - Basic Data Structure (BDS) Dataset. Focus on adding records, but also some variables!\nWe will use SDTM data vs from the pharmaversesdtm package and ADSL from dataset created by the adsl.R script.\nADVS is available in the pharmaverseadam package"
+    "text": "ADVS - Vital Signs Dataset\n\n\n\n\nADVS - Is a Basic Data Structure (BDS) Dataset. Focus on adding records, but also some variables!\nWe will use SDTM data vs from the pharmaversesdtm package and ADSL from dataset created by the adsl.R script.\nADVS is available in the pharmaverseadam package"
   },
   {
     "objectID": "slides/03-ADaM/index.html#spec-details",
     "href": "slides/03-ADaM/index.html#spec-details",
     "title": "ADaMs with {admiral} and friends",
     "section": "Spec-details",
-    "text": "Spec-details\n\nGives specifics on how we derive variables in the ADaMs (extreme traceability)\nP21-like spec\n\nP21 is spec/data validation tool widely used in the industry for creating SDTMs and ADaMs\n\nThese specs are not fit for purpose - just a helpful guide\nWhat is in the the Specs:\n\nTwo datasets, dataset labels and variable keys\nVariables - labels, lengths, types, linked to method\nCodelists!!\nNo VLMs"
+    "text": "Spec-details\n\nGives specifics on how we derive variables in the ADaMs (extreme traceability)\nP21-like spec\n\nP21 is spec/data validation tool widely used in the industry for creating and validating SDTMs and ADaMs.\n\nThese specs are not fit for purpose - just a helpful guide\nWhat is in the the Specs:\n\nTwo datasets, dataset labels and variable keys\nVariables - labels, lengths, types, linked to method\nCodelists!!\nNo VLMs"
   },
   {
     "objectID": "slides/03-ADaM/index.html#spec-peek",
@@ -1310,28 +1303,28 @@
     "href": "slides/03-ADaM/index.html#the-big-picture-of-adsl",
     "title": "ADaMs with {admiral} and friends",
     "section": "The Big Picture of ADSL",
-    "text": "The Big Picture of ADSL\n\nWe have an ADSL script:\n\nUsing pharmaversesdtm data: dm, suppdm, ex, ae, vs, etc\nUses the ADSL section of our spec file\nCreating a single record for each subject with a lot of variables!!"
+    "text": "The Big Picture of ADSL\n\nWe have an ADSL script:\n\n* Using `{pharmaversesdtm}` data: `dm`, `suppdm`, `ex`, `ae`, `vs`, etc\n* Uses the `ADSL` section of our spec file\n* Creating a single record for each subject with a lot of variables!!\n* Write out an xpt file for regulatory send-off!"
   },
   {
-    "objectID": "slides/03-ADaM/index.html#reading-in-our-spec-for-adsl-adsl-lines",
-    "href": "slides/03-ADaM/index.html#reading-in-our-spec-for-adsl-adsl-lines",
+    "objectID": "slides/03-ADaM/index.html#reading-in-our-spec-for-adsl",
+    "href": "slides/03-ADaM/index.html#reading-in-our-spec-for-adsl",
     "title": "ADaMs with {admiral} and friends",
-    "section": "Reading in our spec for ADSL (ADSL Lines: )",
-    "text": "Reading in our spec for ADSL (ADSL Lines: )\n{.r, code-line-numbers=\"1|2|3|4|5|6\"} spec_to_metacore(   path = \"slides/03-ADaM/metadata/posit_specs.xlsx\",   where_sep_sheet = FALSE,   quiet = TRUE ) %&gt;%   select_dataset(\"ADSL\")\n\nTakes a P21-like spec and makes it into an object we can easily access.\n\nP21 is spec/data validation tool widely used in the industry for creating SDTMs and ADaMs\n\nquiet argument should be set to TRUE while developing your spec and ADaMs."
+    "section": "Reading in our spec for ADSL 1",
+    "text": "Reading in our spec for ADSL 1\nspec_to_metacore(\n  path = \"slides/03-ADaM/metadata/posit_specs.xlsx\",\n  where_sep_sheet = FALSE,\n  quiet = TRUE\n) %&gt;%\n  select_dataset(\"ADSL\")\n\nTakes a P21-like spec and makes it into an object we can easily access.\n\nP21 is spec/data validation tool widely used in the industry for creating SDTMs and ADaMs\n\nquiet argument should be set to TRUE while developing your spec and ADaMs.\nSame call in ADVS script.\n\nLines: 20-25"
   },
   {
-    "objectID": "slides/03-ADaM/index.html#combine-parent-and-supplementary-data-adsl-lines",
-    "href": "slides/03-ADaM/index.html#combine-parent-and-supplementary-data-adsl-lines",
+    "objectID": "slides/03-ADaM/index.html#combine-parent-and-supplementary-data",
+    "href": "slides/03-ADaM/index.html#combine-parent-and-supplementary-data",
     "title": "ADaMs with {admiral} and friends",
-    "section": "Combine Parent and Supplementary Data (ADSL Lines: )",
-    "text": "Combine Parent and Supplementary Data (ADSL Lines: )\ndm_suppdm &lt;- combine_supp(dm, suppdm)\n\nOne line of code to join two datasets: parent and supplementary!\nSupps usually are a collection non-standard data and linking to parent\nFunction is from {metatools}"
+    "section": "Combine Parent and Supplementary Data 1",
+    "text": "Combine Parent and Supplementary Data 1\ndm_suppdm &lt;- combine_supp(dm, suppdm)\n\nOne line of code to join two datasets: parent and supplementary!\nSupps usually are a collection non-standard data and linking to parent\nFunction is from {metatools}\n\nLines: 53"
   },
   {
-    "objectID": "slides/03-ADaM/index.html#lets-turn-a---dtc-to-a-dtm-variable-adsl-lines",
-    "href": "slides/03-ADaM/index.html#lets-turn-a---dtc-to-a-dtm-variable-adsl-lines",
+    "objectID": "slides/03-ADaM/index.html#lets-turn-a---dtc-to-a-dtm-or-dt-variable",
+    "href": "slides/03-ADaM/index.html#lets-turn-a---dtc-to-a-dtm-or-dt-variable",
     "title": "ADaMs with {admiral} and friends",
-    "section": "Let’s turn a --DTC to a *DTM variable (ADSL Lines: )",
-    "text": "Let’s turn a --DTC to a *DTM variable (ADSL Lines: )\nex_ext &lt;- ex %&gt;%\n  derive_vars_dtm(\n    dtc = EXSTDTC,\n    new_vars_prefix = \"EXST\",\n    time_imputation = \"last\",\n    flag_imputation = \"time\"\n)\nds_ext &lt;- derive_vars_dt(\n  ds,\n  dtc = DSSTDTC,\n  new_vars_prefix = \"DSST\"\n)\nadsl11 &lt;- adsl10 %&gt;%\n  derive_vars_dt(\n    new_vars_prefix = \"DTH\",\n    dtc = DTHDTC,\n    highest_imputation = \"M\",\n    date_imputation = \"first\"\n  )"
+    "section": "Let’s turn a --DTC to a *DTM or *DT variable 1",
+    "text": "Let’s turn a --DTC to a *DTM or *DT variable 1\nex_ext &lt;- ex %&gt;%\n  derive_vars_dtm(\n    dtc = EXSTDTC,\n    new_vars_prefix = \"EXST\",\n    time_imputation = \"last\",\n    flag_imputation = \"time\"\n)\nds_ext &lt;- derive_vars_dt(\n  ds,\n  dtc = DSSTDTC,\n  new_vars_prefix = \"DSST\"\n)\nadsl11 &lt;- adsl10 %&gt;%\n  derive_vars_dt(\n    new_vars_prefix = \"DTH\",\n    dtc = DTHDTC,\n    highest_imputation = \"M\",\n    date_imputation = \"first\"\n  )\nLines: 57-69, 132-136, 198-204"
   },
   {
     "objectID": "slides/03-ADaM/index.html#example-from-documentation",
@@ -1348,11 +1341,11 @@
     "text": "Woah…there is more!!\n\nderive_vars_dtm(\n  dataset,\n  new_vars_prefix,\n  dtc,\n  highest_imputation = \"h\",\n  date_imputation = \"first\",\n  time_imputation = \"first\",\n  flag_imputation = \"auto\",\n  min_dates = NULL,\n  max_dates = NULL,\n  preserve = FALSE,\n  ignore_seconds_flag = FALSE\n)"
   },
   {
-    "objectID": "slides/03-ADaM/index.html#lets-get-a-merge-adsl-lines",
-    "href": "slides/03-ADaM/index.html#lets-get-a-merge-adsl-lines",
+    "objectID": "slides/03-ADaM/index.html#lets-get-a-merge",
+    "href": "slides/03-ADaM/index.html#lets-get-a-merge",
     "title": "ADaMs with {admiral} and friends",
-    "section": "Let’s get a merge (ADSL Lines: )",
-    "text": "Let’s get a merge (ADSL Lines: )\nderive_vars_merged(\n  dataset_add = ex_ext,\n  by_vars = exprs(STUDYID, USUBJID),\n  order = exprs(EXSTDTM, EXSEQ),\n  new_vars = exprs(TRTSDTM = EXSTDTM, TRTSTMF = EXSTTMF),\n  filter_add = (EXDOSE &gt; 0 |\n    (EXDOSE == 0 &\n      str_detect(EXTRT, \"PLACEBO\"))) &\n    !is.na(EXSTDTM),\n  mode = \"first\",\n)\n\nFilter, join and rename is a common pattern in ADaMs.\nrlang::exprs() is used in a lot of of admiral functions where…"
+    "section": "Let’s get a merge 1",
+    "text": "Let’s get a merge 1\nderive_vars_merged(\n  dataset_add = ex_ext,\n  by_vars = exprs(STUDYID, USUBJID),\n  order = exprs(EXSTDTM, EXSEQ),\n  new_vars = exprs(TRTSDTM = EXSTDTM, TRTSTMF = EXSTTMF),\n  filter_add = (EXDOSE &gt; 0 |\n    (EXDOSE == 0 &\n      str_detect(EXTRT, \"PLACEBO\"))) &\n    !is.na(EXSTDTM),\n  mode = \"first\",\n)\n\nFilter, arrange, join and rename is a common pattern in ADaMs.\nrlang::exprs() is used in a lot of of admiral functions where…\n\nLines: 72-84, and more!!"
   },
   {
     "objectID": "slides/03-ADaM/index.html#whoa-way-more-options",
@@ -1362,11 +1355,11 @@
     "text": "Whoa!!! Way more options!!\n\nderive_vars_merged(\n  dataset,\n  dataset_add,\n  by_vars,\n  order = NULL,\n  new_vars = NULL,\n  filter_add = NULL,\n  mode = NULL,\n  exist_flag = NULL,\n  true_value = \"Y\",\n  false_value = NA_character_,\n  missing_values = NULL,\n  check_type = \"warning\",\n  duplicate_msg = NULL,\n  relationship = NULL\n)"
   },
   {
-    "objectID": "slides/03-ADaM/index.html#lets-derive-a-duration-variable-adsl-lines",
-    "href": "slides/03-ADaM/index.html#lets-derive-a-duration-variable-adsl-lines",
+    "objectID": "slides/03-ADaM/index.html#lets-derive-a-duration-variable",
+    "href": "slides/03-ADaM/index.html#lets-derive-a-duration-variable",
     "title": "ADaMs with {admiral} and friends",
-    "section": "Let’s derive a Duration Variable (ADSL Lines: )",
-    "text": "Let’s derive a Duration Variable (ADSL Lines: )\nderive_vars_duration(\n    new_var = DTHADY,\n    start_date = TRTSDT,\n    end_date = DTHDT\n  )"
+    "section": "Let’s derive a Duration Variable 1",
+    "text": "Let’s derive a Duration Variable 1\nderive_vars_duration(\n    new_var = DTHADY,\n    start_date = TRTSDT,\n    end_date = DTHDT\n  )\nLines: 122-126"
   },
   {
     "objectID": "slides/03-ADaM/index.html#example-from-documentation-1",
@@ -1383,11 +1376,11 @@
     "text": "Ohhh there is more!!\n\nderive_vars_duration(\n  dataset,\n  new_var,\n  new_var_unit = NULL,\n  start_date,\n  end_date,\n  in_unit = \"days\",\n  out_unit = \"DAYS\",\n  floor_in = TRUE,\n  add_one = TRUE,\n  trunc_out = FALSE,\n  type = \"duration\"\n)"
   },
   {
-    "objectID": "slides/03-ADaM/index.html#lets-apply-control-terms-code-lists-adsl-lines",
-    "href": "slides/03-ADaM/index.html#lets-apply-control-terms-code-lists-adsl-lines",
+    "objectID": "slides/03-ADaM/index.html#lets-apply-control-terms-code-lists",
+    "href": "slides/03-ADaM/index.html#lets-apply-control-terms-code-lists",
     "title": "ADaMs with {admiral} and friends",
-    "section": "Let’s apply Control Terms / Code Lists (ADSL Lines: )",
-    "text": "Let’s apply Control Terms / Code Lists (ADSL Lines: )\nadsl16 %&gt;%\n  create_var_from_codelist(metacore, input_var = AGEGR1, out_var = AGEGR1N) %&gt;%\n  create_var_from_codelist(metacore, input_var = RACE, out_var = RACEN) %&gt;%\n  create_var_from_codelist(metacore, input_var = RACEGR1, out_var = RACEGR1N) %&gt;%\n  create_var_from_codelist(metacore, input_var = REGION1, out_var = REGION1N) %&gt;%\n  create_var_from_codelist(metacore, input_var = TRT01P, out_var = TRT01PN) %&gt;%\n  create_var_from_codelist(metacore, input_var = TRT01A, out_var = TRT01AN)\n\nNumeric Variables like the above are helpful for sorting in TLFs."
+    "section": "Let’s apply Control Terms / Code Lists 1",
+    "text": "Let’s apply Control Terms / Code Lists 1\nadsl16 %&gt;%\n  create_var_from_codelist(metacore, input_var = AGEGR1, out_var = AGEGR1N) %&gt;%\n  create_var_from_codelist(metacore, input_var = RACE, out_var = RACEN) %&gt;%\n  create_var_from_codelist(metacore, input_var = RACEGR1, out_var = RACEGR1N) %&gt;%\n  create_var_from_codelist(metacore, input_var = REGION1, out_var = REGION1N) %&gt;%\n  create_var_from_codelist(metacore, input_var = TRT01P, out_var = TRT01PN) %&gt;%\n  create_var_from_codelist(metacore, input_var = TRT01A, out_var = TRT01AN)\n\nNumeric Variables like the above are helpful for sorting options in Tables.\n\nLines: 276-282"
   },
   {
     "objectID": "slides/03-ADaM/index.html#more-details",
@@ -1401,7 +1394,7 @@
     "href": "slides/03-ADaM/index.html#check-in-on-barb-in-adsl",
     "title": "ADaMs with {admiral} and friends",
     "section": "Check in on Barb in ADSL",
-    "text": "Check in on Barb in ADSL\n\n\n\n\n\n\n\n\n\n\nflowchart LR\n  B[SDTM] --&gt; C[ADaM]\n  \n%% Apply the custom class \"highlight\" to node B\nclass C highlight;\n\n%% Define the style for the \"highlight\" class:\nclassDef highlight fill:#F9B, stroke:#333, stroke-width:2px;  \n\n\n\n\n\n\n\n\nUSUBJID: 01-701-1034\nSEX: F\nAGE: 77\nRANDDT: 2014-07-01\nTRTSDT: 2014-07-01\nTRTSDTM: 2014-07-01 23:59:59\nTRTEDT: 2014-12-30\nTRTDURD: 183\nEOSDT: 2014-12-30\nEOSSTT: COMPLETED"
+    "text": "Check in on Barb in ADSL\n\n\n\n\n\n\n\n\n\n\nflowchart LR\n  B[SDTM] --&gt; C[ADaM]\n  \n%% Apply the custom class \"highlight\" to node B\nclass C highlight;\n\n%% Define the style for the \"highlight\" class:\nclassDef highlight fill:#F9B, stroke:#333, stroke-width:2px;  \n\n\n\n\n\n\n\n\nUSUBJID: 01-701-1034\nSEX: F\nAGE: 77 ::: incremental\nderive_vars_dt()\n\nRANDDT: 2014-07-01\nTRTSDT: 2014-07-01\nTRTSDTM: 2014-07-01 23:59:59\nTRTEDT: 2014-12-30\n\nderive_vars_duration()\n\nTRTDURD: 183\n\nderive_vars_merged()\n\nEOSDT: 2014-12-30\nEOSSTT: COMPLETED\n\n\n\n::::"
   },
   {
     "objectID": "slides/03-ADaM/index.html#check-in-exercise",
