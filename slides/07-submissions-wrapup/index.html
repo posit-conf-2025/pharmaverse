@@ -28,6 +28,72 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-556630f860dbdb15ddb2dc7e2cb50a88.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -171,13 +237,380 @@
 </section></section>
 <section id="additional-tooling" class="title-slide slide level1 center">
 <h1>Additional Tooling</h1>
-<!-- Add slides about AI integration, utility with the tools covered. -->
-<!-- TODO: Daniel will add -->
-<!-- {{< include 04-llm.qmd >}} -->
+
+</section>
+
+<section>
+<section id="ards-llms" class="title-slide slide level1 center">
+<h1>ARDs + LLMs</h1>
+
+</section>
+<section id="how-can-llms-help-us-within-the-cardsgtsummary-framework" class="slide level2">
+<h2>How can LLMs help us within the {cards}+{gtsummary} framework?</h2>
+<ul>
+<li>{gtsummary} is a widely used package, the publicly available LLMs write code out of the box: no additional training needed.</li>
+</ul>
+<blockquote>
+<p>Act as a statistical programmer within the pharmaceutical industry, and provide me code to create tables in the R language using the gtsummary package.<br>
+Using the ADSL data set as an input, please provide the code for creating a demographics table that is split by treatment arm. Include the variables AGE and AGEGR1. AGE is a continuous summary, and include the mean, standard deviation, median and IQR. AGEGR1 is a categorical variable and include the count and percent in the summary.</p>
+</blockquote>
+</section>
+<section id="how-can-llms-help-us-within-the-ard-framework" class="slide level2">
+<h2>How can LLMs help us within the ARD framework?</h2>
+<p>The result! (using Gemini)</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="co"># Load necessary packages</span></span>
+<span id="cb1-2"><a></a><span class="co"># If you don't have gtsummary installed, uncomment and run:</span></span>
+<span id="cb1-3"><a></a><span class="co"># install.packages("gtsummary")</span></span>
+<span id="cb1-4"><a></a><span class="co"># install.packages("dplyr") # Often useful with gtsummary for data manipulation</span></span>
+<span id="cb1-5"><a></a></span>
+<span id="cb1-6"><a></a><span class="fu">library</span>(gtsummary)</span>
+<span id="cb1-7"><a></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-8"><a></a></span>
+<span id="cb1-9"><a></a><span class="co"># --- Simulate ADSL Data ---</span></span>
+<span id="cb1-10"><a></a><span class="co"># In a real-world scenario, you would load your actual ADSL data.</span></span>
+<span id="cb1-11"><a></a><span class="co"># For demonstration purposes, we'll create a dummy ADSL dataset.</span></span>
+<span id="cb1-12"><a></a><span class="fu">set.seed</span>(<span class="dv">123</span>) <span class="co"># for reproducibility</span></span>
+<span id="cb1-13"><a></a></span>
+<span id="cb1-14"><a></a>adsl_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb1-15"><a></a>  <span class="at">USUBJID =</span> <span class="fu">paste0</span>(<span class="st">"SUBJ"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>),</span>
+<span id="cb1-16"><a></a>  <span class="at">TRT01A =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"Placebo"</span>, <span class="st">"Treatment A"</span>, <span class="st">"Treatment B"</span>), <span class="dv">100</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.3</span>, <span class="fl">0.4</span>, <span class="fl">0.3</span>)),</span>
+<span id="cb1-17"><a></a>  <span class="at">AGE =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">55</span>, <span class="at">sd =</span> <span class="dv">10</span>), <span class="dv">0</span>),</span>
+<span id="cb1-18"><a></a>  <span class="at">AGEGR1 =</span> <span class="fu">cut</span>(AGE,</span>
+<span id="cb1-19"><a></a>               <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">18</span>, <span class="dv">65</span>, <span class="cn">Inf</span>),</span>
+<span id="cb1-20"><a></a>               <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"&lt;18"</span>, <span class="st">"18-65"</span>, <span class="st">"&gt;65"</span>),</span>
+<span id="cb1-21"><a></a>               <span class="at">right =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-22"><a></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-23"><a></a>  <span class="co"># Ensure factors for proper ordering and handling by gtsummary</span></span>
+<span id="cb1-24"><a></a>  <span class="fu">mutate</span>(</span>
+<span id="cb1-25"><a></a>    <span class="at">TRT01A =</span> <span class="fu">factor</span>(TRT01A, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Placebo"</span>, <span class="st">"Treatment A"</span>, <span class="st">"Treatment B"</span>)),</span>
+<span id="cb1-26"><a></a>    <span class="at">AGEGR1 =</span> <span class="fu">factor</span>(AGEGR1, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"&lt;18"</span>, <span class="st">"18-65"</span>, <span class="st">"&gt;65"</span>))</span>
+<span id="cb1-27"><a></a>  )</span>
+<span id="cb1-28"><a></a></span>
+<span id="cb1-29"><a></a><span class="co"># --- Create the Demographics Table ---</span></span>
+<span id="cb1-30"><a></a><span class="co"># Use tbl_summary to create the table, specifying:</span></span>
+<span id="cb1-31"><a></a><span class="co"># - data: The ADSL dataset</span></span>
+<span id="cb1-32"><a></a><span class="co"># - by: The variable to split the table by (treatment arm)</span></span>
+<span id="cb1-33"><a></a><span class="co"># - include: The variables to include in the table</span></span>
+<span id="cb1-34"><a></a><span class="co"># - type: How to summarize each variable (continuous vs. categorical)</span></span>
+<span id="cb1-35"><a></a><span class="co"># - statistic: The specific statistics to display for each variable type</span></span>
+<span id="cb1-36"><a></a></span>
+<span id="cb1-37"><a></a>demographics_table <span class="ot">&lt;-</span></span>
+<span id="cb1-38"><a></a>  adsl_data <span class="sc">%&gt;%</span></span>
+<span id="cb1-39"><a></a>  <span class="fu">tbl_summary</span>(</span>
+<span id="cb1-40"><a></a>    <span class="at">by =</span> TRT01A, <span class="co"># Split the table by treatment arm</span></span>
+<span id="cb1-41"><a></a>    <span class="at">include =</span> <span class="fu">c</span>(AGE, AGEGR1), <span class="co"># Include Age and Age Group variables</span></span>
+<span id="cb1-42"><a></a>    <span class="at">type =</span> <span class="fu">list</span>(</span>
+<span id="cb1-43"><a></a>      AGE <span class="sc">~</span> <span class="st">"continuous"</span>,      <span class="co"># Specify AGE as continuous</span></span>
+<span id="cb1-44"><a></a>      AGEGR1 <span class="sc">~</span> <span class="st">"categorical"</span>   <span class="co"># Specify AGEGR1 as categorical</span></span>
+<span id="cb1-45"><a></a>    ),</span>
+<span id="cb1-46"><a></a>    <span class="at">statistic =</span> <span class="fu">list</span>(</span>
+<span id="cb1-47"><a></a>      <span class="co"># For continuous AGE, include mean (SD) and median (IQR)</span></span>
+<span id="cb1-48"><a></a>      AGE <span class="sc">~</span> <span class="st">"{mean} ({sd})"</span>,      <span class="co"># Mean (Standard Deviation)</span></span>
+<span id="cb1-49"><a></a>      AGE <span class="sc">~</span> <span class="st">"{median} ({p25}, {p75})"</span>, <span class="co"># Median (25th percentile, 75th percentile) - IQR</span></span>
+<span id="cb1-50"><a></a>      <span class="co"># For categorical AGEGR1, include count (percent)</span></span>
+<span id="cb1-51"><a></a>      AGEGR1 <span class="sc">~</span> <span class="st">"{n} ({p}%)"</span></span>
+<span id="cb1-52"><a></a>    ),</span>
+<span id="cb1-53"><a></a>    <span class="co"># Add labels for better readability</span></span>
+<span id="cb1-54"><a></a>    <span class="at">label =</span> <span class="fu">list</span>(</span>
+<span id="cb1-55"><a></a>      AGE <span class="sc">~</span> <span class="st">"Age, years"</span>,</span>
+<span id="cb1-56"><a></a>      AGEGR1 <span class="sc">~</span> <span class="st">"Age Group, years"</span></span>
+<span id="cb1-57"><a></a>    ),</span>
+<span id="cb1-58"><a></a>    <span class="co"># Add a note explaining the statistics</span></span>
+<span id="cb1-59"><a></a>    <span class="at">missing =</span> <span class="st">"no"</span>, <span class="co"># Do not show missing values row for this table</span></span>
+<span id="cb1-60"><a></a>    <span class="co"># Specify options for displaying missing data, formatting, etc.</span></span>
+<span id="cb1-61"><a></a>    <span class="co"># We are explicitly specifying all statistics for AGE, so we might not need "all_continuous()" or "all_categorical()",</span></span>
+<span id="cb1-62"><a></a>    <span class="co"># but they are good for default behavior if not all statistics are overridden.</span></span>
+<span id="cb1-63"><a></a>    <span class="co"># To combine mean (SD) and median (IQR) into a single row, you would list them separated by a comma</span></span>
+<span id="cb1-64"><a></a>    <span class="co"># in the statistic argument.</span></span>
+<span id="cb1-65"><a></a>    <span class="at">digits =</span> <span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="dv">1</span>, <span class="co"># One decimal place for continuous variables</span></span>
+<span id="cb1-66"><a></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb1-67"><a></a>  <span class="fu">add_n</span>() <span class="sc">%&gt;%</span> <span class="co"># Add column for total N</span></span>
+<span id="cb1-68"><a></a>  <span class="fu">add_p</span>() <span class="sc">%&gt;%</span> <span class="co"># Add p-value for group comparison (optional, but good for demographics)</span></span>
+<span id="cb1-69"><a></a>  <span class="fu">modify_header</span>(</span>
+<span id="cb1-70"><a></a>    <span class="fu">list</span>(</span>
+<span id="cb1-71"><a></a>      label <span class="sc">~</span> <span class="st">"**Characteristic**"</span>,</span>
+<span id="cb1-72"><a></a>      stat_by <span class="sc">~</span> <span class="st">"**{level}**</span><span class="sc">\n</span><span class="st">N = {n}"</span> <span class="co"># Customize column headers to show N</span></span>
+<span id="cb1-73"><a></a>    )</span>
+<span id="cb1-74"><a></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb1-75"><a></a>  <span class="fu">modify_footnote</span>(</span>
+<span id="cb1-76"><a></a>    <span class="at">update =</span> AGE <span class="sc">~</span> <span class="st">"Mean (SD); Median (IQR)"</span></span>
+<span id="cb1-77"><a></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb1-78"><a></a>  <span class="co"># Add table title</span></span>
+<span id="cb1-79"><a></a>  <span class="fu">modify_caption</span>(<span class="st">"**Table 1. Demographics by Treatment Arm**"</span>)</span>
+<span id="cb1-80"><a></a></span>
+<span id="cb1-81"><a></a><span class="co"># Print the table to see the output</span></span>
+<span id="cb1-82"><a></a>demographics_table</span>
+<span id="cb1-83"><a></a></span>
+<span id="cb1-84"><a></a><span class="co"># To export the table (e.g., to Word, PDF, HTML):</span></span>
+<span id="cb1-85"><a></a><span class="co"># library(flextable) # for Word/PDF output</span></span>
+<span id="cb1-86"><a></a><span class="co"># library(gt) # for HTML output (often used with gtsummary)</span></span>
+<span id="cb1-87"><a></a></span>
+<span id="cb1-88"><a></a><span class="co"># Example for Word:</span></span>
+<span id="cb1-89"><a></a><span class="co"># demographics_table %&gt;%</span></span>
+<span id="cb1-90"><a></a><span class="co">#   as_flex_table() %&gt;%</span></span>
+<span id="cb1-91"><a></a><span class="co">#   flextable::save_as_docx(path = "demographics_table.docx")</span></span>
+<span id="cb1-92"><a></a></span>
+<span id="cb1-93"><a></a><span class="co"># Example for HTML:</span></span>
+<span id="cb1-94"><a></a><span class="co"># demographics_table %&gt;%</span></span>
+<span id="cb1-95"><a></a><span class="co">#   as_gt() %&gt;%</span></span>
+<span id="cb1-96"><a></a><span class="co">#   gt::gtsave(filename = "demographics_table.html")</span></span>
+<span id="cb1-97"><a></a></span>
+<span id="cb1-98"><a></a><span class="co"># Example for RMarkdown/Quarto knitting (table will render directly):</span></span>
+<span id="cb1-99"><a></a><span class="co"># You would simply include the 'demographics_table' object in your RMarkdown/Quarto chunk.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="how-can-llms-help-us-within-the-ard-framework-1" class="slide level2">
+<h2>How can LLMs help us within the ARD framework?</h2>
+<p>ARDs can be represented in language-agnostic formats like JSON and YAML.</p>
+<p>A summary table has a representation that is readily digestible by your favorite LLM.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">library</span>(cards)</span>
+<span id="cb2-2"><a></a><span class="fu">library</span>(gtsummary)</span>
+<span id="cb2-3"><a></a></span>
+<span id="cb2-4"><a></a>dplyr<span class="sc">::</span><span class="fu">filter</span>(pharmaverseadam<span class="sc">::</span>adsl, SAFFL <span class="sc">==</span> <span class="st">"Y"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb2-5"><a></a>  <span class="fu">tbl_summary</span>(</span>
+<span id="cb2-6"><a></a>    <span class="at">include =</span> <span class="fu">c</span>(AGE, AGEGR1),</span>
+<span id="cb2-7"><a></a>    <span class="at">type =</span> AGE <span class="sc">~</span> <span class="st">"continuous2"</span>,</span>
+<span id="cb2-8"><a></a>    <span class="at">statistic =</span> AGE <span class="sc">~</span> <span class="fu">c</span>(<span class="st">"{mean} ({sd})"</span>,  <span class="st">"{median} ({p25}, {p75})"</span>)</span>
+<span id="cb2-9"><a></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb2-10"><a></a>  <span class="fu">gather_ard</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb2-11"><a></a>  purrr<span class="sc">::</span><span class="fu">pluck</span>(<span class="st">"tbl_summary"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb2-12"><a></a>  <span class="fu">apply_fmt_fun</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb2-13"><a></a>  <span class="fu">as_nested_list</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb2-14"><a></a>  jsonlite<span class="sc">::</span><span class="fu">toJSON</span>(<span class="at">pretty =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+</section>
+<section id="how-can-llms-help-us-within-the-ard-framework-1-output" class="slide level2 output-location-slide"><h2>How can LLMs help us within the ARD framework?</h2><div class="cell output-location-slide">
+<div class="cell-output cell-output-stdout">
+<pre><code>{
+  "variable": {
+    "AGEGR1": {
+      "variable_level": {
+        "&gt;64": {
+          "stat_name": {
+            "n": {
+              "stat": [221],
+              "stat_fmt": ["221"],
+              "warning": {},
+              "error": {},
+              "context": ["tabulate"]
+            },
+            "N": {
+              "stat": [254],
+              "stat_fmt": ["254"],
+              "warning": {},
+              "error": {},
+              "context": ["tabulate"]
+            },
+            "p": {
+              "stat": [0.8701],
+              "stat_fmt": ["87"],
+              "warning": {},
+              "error": {},
+              "context": ["tabulate"]
+            }
+          }
+        },
+        "18-64": {
+          "stat_name": {
+            "n": {
+              "stat": [33],
+              "stat_fmt": ["33"],
+              "warning": {},
+              "error": {},
+              "context": ["tabulate"]
+            },
+            "N": {
+              "stat": [254],
+              "stat_fmt": ["254"],
+              "warning": {},
+              "error": {},
+              "context": ["tabulate"]
+            },
+            "p": {
+              "stat": [0.1299],
+              "stat_fmt": ["13"],
+              "warning": {},
+              "error": {},
+              "context": ["tabulate"]
+            }
+          }
+        }
+      },
+      "stat_name": {
+        "label": {
+          "stat": ["Pooled Age Group 1"],
+          "stat_fmt": ["Pooled Age Group 1"],
+          "warning": {},
+          "error": {},
+          "context": ["attributes"]
+        },
+        "class": {
+          "stat": ["character"],
+          "stat_fmt": {},
+          "warning": {},
+          "error": {},
+          "context": ["attributes"]
+        },
+        "N_obs": {
+          "stat": [254],
+          "stat_fmt": ["254"],
+          "warning": {},
+          "error": {},
+          "context": ["missing"]
+        },
+        "N_miss": {
+          "stat": [0],
+          "stat_fmt": ["0"],
+          "warning": {},
+          "error": {},
+          "context": ["missing"]
+        },
+        "N_nonmiss": {
+          "stat": [254],
+          "stat_fmt": ["254"],
+          "warning": {},
+          "error": {},
+          "context": ["missing"]
+        },
+        "p_miss": {
+          "stat": [0],
+          "stat_fmt": ["0"],
+          "warning": {},
+          "error": {},
+          "context": ["missing"]
+        },
+        "p_nonmiss": {
+          "stat": [1],
+          "stat_fmt": ["100"],
+          "warning": {},
+          "error": {},
+          "context": ["missing"]
+        }
+      }
+    },
+    "AGE": {
+      "stat_name": {
+        "mean": {
+          "stat": [75.0866],
+          "stat_fmt": ["75"],
+          "warning": {},
+          "error": {},
+          "context": ["summary"]
+        },
+        "sd": {
+          "stat": [8.2462],
+          "stat_fmt": ["8"],
+          "warning": {},
+          "error": {},
+          "context": ["summary"]
+        },
+        "median": {
+          "stat": [77],
+          "stat_fmt": ["77"],
+          "warning": {},
+          "error": {},
+          "context": ["summary"]
+        },
+        "p25": {
+          "stat": [70],
+          "stat_fmt": ["70"],
+          "warning": {},
+          "error": {},
+          "context": ["summary"]
+        },
+        "p75": {
+          "stat": [81],
+          "stat_fmt": ["81"],
+          "warning": {},
+          "error": {},
+          "context": ["summary"]
+        },
+        "label": {
+          "stat": ["Age"],
+          "stat_fmt": ["Age"],
+          "warning": {},
+          "error": {},
+          "context": ["attributes"]
+        },
+        "class": {
+          "stat": ["numeric"],
+          "stat_fmt": {},
+          "warning": {},
+          "error": {},
+          "context": ["attributes"]
+        },
+        "N_obs": {
+          "stat": [254],
+          "stat_fmt": ["254"],
+          "warning": {},
+          "error": {},
+          "context": ["missing"]
+        },
+        "N_miss": {
+          "stat": [0],
+          "stat_fmt": ["0"],
+          "warning": {},
+          "error": {},
+          "context": ["missing"]
+        },
+        "N_nonmiss": {
+          "stat": [254],
+          "stat_fmt": ["254"],
+          "warning": {},
+          "error": {},
+          "context": ["missing"]
+        },
+        "p_miss": {
+          "stat": [0],
+          "stat_fmt": ["0"],
+          "warning": {},
+          "error": {},
+          "context": ["missing"]
+        },
+        "p_nonmiss": {
+          "stat": [1],
+          "stat_fmt": ["100"],
+          "warning": {},
+          "error": {},
+          "context": ["missing"]
+        }
+      }
+    },
+    "..ard_total_n..": {
+      "stat_name": {
+        "N": {
+          "stat": [254],
+          "stat_fmt": ["254"],
+          "warning": {},
+          "error": {},
+          "context": ["total_n"]
+        }
+      }
+    }
+  }
+} </code></pre>
+</div>
+</div></section><section id="how-can-llms-help-us-within-the-ard-framework-2" class="slide level2">
+<h2>How can LLMs help us within the ARD framework?</h2>
+<p>Ask the LLM to write draft summary for you.</p>
+<blockquote>
+<p>Below you will find a JSON representation of the results in the table. Act as a medical writer working at a pharmaceutical company and write a brief summary of the results.</p>
+</blockquote>
+<div class="fragment">
+<div class="small">
+<div class="scrollable-text">
+<p>A total of 254 participants were enrolled in the study, distributed across three treatment arms: Placebo (N=86), Xanomeline High Dose (N=84), and Xanomeline Low Dose (N=84).</p>
+<p>Baseline demographics indicate that participants were generally similar across all treatment groups with respect to age. The mean age was approximately 75 years across the groups, with standard deviations ranging from 7.9 to 8.6 years. Specifically, the mean age (standard deviation) was 75.2 (8.6) years in the Placebo group, 74.4 (7.9) years in the Xanomeline High Dose group, and 75.7 (8.3) years in the Xanomeline Low Dose group. The median ages were also comparable: 76 years (IQR: 69, 82) for Placebo, 76 years (IQR: 70.5, 80) for Xanomeline High Dose, and 77.5 years (IQR: 71, 82) for Xanomeline Low Dose.</p>
+<p>Regarding age groups, the majority of participants in all treatment arms were over 64 years of age. Specifically, the proportion of participants aged &gt;64 years was 83.7% (n=72) in the Placebo group, 86.9% (n=73) in the Xanomeline High Dose group, and 90.5% (n=76) in the Xanomeline Low Dose group. The proportion of participants aged 18-64 years was 16.3% (n=14) in the Placebo group, 13.1% (n=11) in the Xanomeline High Dose group, and 9.5% (n=8) in the Xanomeline Low Dose group. There were no participants under 18 years of age.</p>
+<p>Overall, the demographic characteristics at baseline appear well-balanced across the treatment groups, suggesting that any observed differences in outcomes are less likely to be attributable to baseline age disparities.</p>
+</div>
+</div>
+</div>
 <!-- Open the teal gallery and walk through examples (not the code, but the end result) -->
 <!-- TODO: Ram will add -->
 <p>&lt;!–</p>
-</section>
+</section></section>
     </div>
   </div>
 
