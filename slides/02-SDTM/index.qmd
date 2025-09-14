@@ -36,39 +36,42 @@ img_right_size <- 150
 img_center_size <- 300
 ```
 
-# Presenter
-
-##  Rammprasad Ganapathy (Ram) {.smaller}
-
-::: incremental
-
-  - Principal Data Scientist ar Roche/Genentech with over 15 years of experience in EDC and Statistical Programming.
-  - Based in San Francisco Bay area in CA.
-  - Passionate about developing R packages, creating innovative solutions, and automation.
-  - Creator of the `roak` package, which is a metadata-driven automation framework for SDTM programming.
-  - Led the OAK team and the `roak` product from the initial vision of metadata driven automation through PoC to Production.
-  - It is now utilized to automate SDTM in more than 50 studies at Roche for regulatory reporting.
-  - Creator and one of the developers for `sdtm.oak`.
-
-:::
-
 ## Objectives
 
 ::: incremental
 -   By the end of this workshop you will have:
-    -   Updated code for SDTM `VS` and `DM` using `sdtm.oak`.
-    -   Gained an understanding of how to use `sdtm.oak`.
-    -   Gained an understanding of how to use resources for building
+    -   **Gained** an understanding of how to use `sdtm.oak` and algorithms.
+    -   **Seen**  code executed for SDTM `VS` and `DM` using `sdtm.oak`.
+    -   **Gained** an understanding of how to use resources for building
         SDTM in `R`.
 :::
+
+## End to End with Barb!!
+
+<div style="text-align: left;"> <img src="./images/barb.png" alt="Barb!" style="width: 200px;"/> </div>
+ 
+```{mermaid}
+%%| echo: FALSE
+flowchart LR
+  A[Raw] --> B[SDTM]
+  B[SDTM] --> C[ADaM]
+  C[ADaM] --> D[ARD]
+  D[ARD] --> E[TFL]
+  
+%% Apply the custom class "highlight" to node B
+class B highlight;
+
+%% Define the style for the "highlight" class:
+classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;  
+```
 
 ## Assumptions
 
 ::: incremental
 -   Basic knowledge of CDISC Standards (SDTM Domains)
--   Basic background in R and its packages
--   Basic familiarity with RStudio IDE.
--   `%>%` chaining functions together
+-      Check out the [SDTM IG and other documents for CDISC](https://www.cdisc.org/standards/foundational/sdtm)
+-     🦺 But even lacking CDSIC knowledge, we still think you will gain some great learnings today! 🦺
+-   Basic familiarity in R, RStudio IDE and its packages
 :::
 
 ## Agenda
@@ -77,9 +80,9 @@ img_center_size <- 300
 
 -   🕙 20 minutes Introduction to `sdtm.oak`
 
--   🕥 20 minutes `VS` domain programming
+-   🕥 20 minutes `VS` domain programming & check in on Barb
 
--   🕦 10 minutes `DM` domain programming
+-   🕦 10 minutes `DM` domain programming & check in on Barb
 
 -   🕦 10 minutes short exercise
 :::
@@ -265,29 +268,57 @@ img_center_size <- 300
 ::: incremental
 -   We will walk you through coding `VS` and `DM`
     -   Discussion on each function and function arguments
-    -   Occasional Check-in Poll
--   Important to move along quickly
-    -   Full scripts are available in `demo` folder
+    -   Check-in Poll
 :::
 
 ## Review specs
 
 Review aCRF
 
--  [AdverseEvent_aCRF](https://github.com/pharmaverse/pharmaverseraw/blob/main/vignettes/articles/aCRFs/VitalSigns_eCRF.pdf)
+-  [VitalSigns_aCRF](https://github.com/pharmaverse/pharmaverseraw/blob/main/vignettes/articles/aCRFs/VitalSigns_aCRF.pdf)
 
 ## Code Walkthrough
 
 Run the code and explain to the users
 
-## Recap
+## Check in on Barb in Vitals Raw dataset
 
-Did we review the following in the code?
+:::: {.columns}
 
--   Function call for various Algorithms
--   assign datetime function
--   How does condition_add work?
--   SDTM derived variables
+::: {.column}
+<div style="text-align: left;"> <img src="images/barb.png" alt="Barb!" style="width: 200px;"/> </div>
+:::
+
+::: {.column}
+* PATNUM:  701-1034
+* OAK_ID:  213
+* INSTANCE: WEEK2
+* VTLD: 15-Jul-2014
+* TMPTC: after Lying Down for 5 Minutes
+* SYS_BP:   183.0
+* DIA_BP:   81.0
+:::
+
+::::
+
+## Check in on Barb in VS
+
+:::: {.columns}
+
+::: {.column}
+<div style="text-align: left;"> <img src="images/barb.png" alt="Barb!" style="width: 200px;"/> </div>
+:::
+
+::: {.column}
+* USUBJID:  01-701-1034
+* VSTESTCD: SYSBP and DIABP
+* VISIT: WEEK2
+* VSDTC: 2014-07-15
+* VSTPT: AFTER LYING DOWN FOR 5 MINUTES
+* VSORRES:   183.0 and 81.0
+:::
+
+::::
 
 ## Quiz - 1
 
@@ -341,13 +372,38 @@ Review aCRF
 
 Run the code and explain to the users
 
-## Recap
+## Check in on Barb in Raw dataset
 
-Did we review the following in the code?
+:::: {.columns}
 
--   Mapping one topic variable and its qualifies at a time
--   Mapping qualifiers common to all topic variables
--   Usage of `oak_id_vars`
+::: {.column}
+<div style="text-align: left;"> <img src="images/barb.png" alt="Barb!" style="width: 200px;"/> </div>
+:::
+
+::: {.column}
+* PATNUM:  701-1034
+* OAK_ID:  5
+* IT.AGE: 77
+* IT.SEX: Female
+:::
+
+::::
+
+## Check in on Barb in DM
+
+:::: {.columns}
+
+::: {.column}
+<div style="text-align: left;"> <img src="images/barb.png" alt="Barb!" style="width: 200px;"/> </div>
+:::
+
+::: {.column}
+* USUBJID:  01-701-1034
+* AGE:  77
+* SEX: FEMALE
+:::
+
+::::
 
 ## Quiz - 2
 
@@ -377,6 +433,85 @@ When to use hardcode mapping algorithm?
     RELREC (Related Records)\
     Associated Person domains.
 :::
+
+## Check-in Exercise {.smaller}
+
+```{r, eval = FALSE}
+library(sdtm.oak)
+library(pharmaverseraw)
+library(dplyr)
+
+#AE aCRF - https://github.com/pharmaverse/pharmaverseraw/blob/main/vignettes/articles/aCRFs/AdverseEvent_aCRF.pdf
+
+# Read in Raw dataset ----
+ae_raw <- pharmaverseraw::ae_raw
+
+# Generate oak_id_vars ----
+ae_raw <- ae_raw %>%
+  generate_oak_id_vars(
+    pat_var = "PATNUM",
+    raw_src = "ae_raw"
+  )
+
+# Read in Controlled Terminology
+study_ct <-  data.frame(
+  codelist_code = c("C66742", "C66742"),
+  term_code = c("C49487", "C49488"),
+  term_value = c("N", "Y"),
+  collected_value = c("No", "Yes"),
+  term_preferred_term = c("No", "Yes"),
+  term_synonyms = c("No", "Yes"),
+  stringsAsFactors = FALSE
+)
+
+# Map AETERM from raw_var=IT.AETERM, tgt_var=AETERM
+# Map AESER from raw_var=IT.AESER, tgt_var=AESER. Codelist code for AESDTH is C66742
+# Map AESDTH from raw_var=IT.AESDTH, tgt_var=AESDTH.Annotation text is 
+#    If "Yes" then AESDTH = "Y" else Not Submitted. Codelist code for AESDTH is C66742
+
+```
+
+Add the "completed" sticky note to your laptop when complete.
+
+```{r}
+#| echo: false
+#| cache: false
+library(countdown)
+countdown::countdown(minutes = 10)
+```
+
+## Exercise Solution
+
+```{r, eval = FALSE}
+ae <-
+  # Derive topic variable
+  # Map AETERM using assign_no_ct, raw_var=IT.AETERM, tgt_var=AETERM
+  assign_no_ct(
+    raw_dat = ae_raw,
+    raw_var = "IT.AETERM",
+    tgt_var = "AETERM",
+    id_vars = oak_id_vars()
+  ) %>%
+  # Map AESER using assign_no_ct, raw_var=IT.AESER, tgt_var=AESER
+  assign_ct(
+    raw_dat = ae_raw,
+    raw_var = "IT.AESER",
+    tgt_var = "AESER",
+    ct_spec = study_ct,
+    ct_clst = "C66742",
+    id_vars = oak_id_vars()
+  ) %>%
+  # Map AESDTH using condition_add & assign_ct, raw_var=IT.AESDTH, tgt_var=AESDTH
+  assign_ct(
+    raw_dat = condition_add(ae_raw, IT.AESDTH == "Yes"),
+    raw_var = "IT.AESDTH",
+    tgt_var = "AESDTH",
+    ct_spec = study_ct,
+    ct_clst = "C66742",
+    id_vars = oak_id_vars()
+  )
+```
+
 
 ## Get Involved
 

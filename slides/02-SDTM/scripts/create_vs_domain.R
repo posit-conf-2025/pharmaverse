@@ -4,19 +4,21 @@
 #
 # Input raw data: pharmaverseraw::vs_raw
 # study_controlled_terminology : study_ct
-#
-#
+# SDTM aCRF
+# https://github.com/pharmaverse/pharmaverseraw/blob/main/vignettes/articles/aCRFs/VitalSigns_aCRF.pdf
+# Expand - Option+Shift+Cmd+O / Alt+Shift+Cmd+O
+# Collapse -  Option+Cmd+O / Alt+Cmd+O
 
 library(sdtm.oak)
 library(pharmaverseraw)
 library(dplyr)
 
 
-# Read Specification
+# Read Specification ----
 
-study_ct <- read.csv("metadata/sdtm_ct.csv")
+study_ct <- read.csv("slides/02-SDTM/metadata/sdtm_ct.csv")
 
-# Read in raw data
+# Read in raw data & create oak_id_vars ----
 
 vs_raw <- pharmaverseraw::vs_raw %>%
   generate_oak_id_vars(
@@ -29,7 +31,67 @@ dm <- pharmaversesdtm::dm
 # Create VS domain.
 # Create the topic variable and corresponding qualifiers for the VS domain.
 
-# Map topic variable SYSBP and its qualifiers.
+# Map topic variable TEMP and its qualifiers. ----
+vs_temp <-
+  hardcode_ct(
+    raw_dat = vs_raw,
+    raw_var = "IT.TEMP",
+    tgt_var = "VSTESTCD",
+    tgt_val = "TEMP",
+    ct_spec = study_ct,
+    ct_clst = "C66741"
+  ) %>%
+  dplyr::filter(!is.na(.data$VSTESTCD)) %>%
+  # Map VSTEST using hardcode_ct algorithm
+  hardcode_ct(
+    raw_dat = vs_raw,
+    raw_var = "IT.TEMP",
+    tgt_var = "VSTEST",
+    tgt_val = "Temperature",
+    ct_spec = study_ct,
+    ct_clst = "C67153",
+    id_vars = oak_id_vars()
+  ) %>%
+  # Map VSORRES using assign_no_ct algorithm
+  assign_no_ct(
+    raw_dat = vs_raw,
+    raw_var = "IT.TEMP",
+    tgt_var = "VSORRES",
+    id_vars = oak_id_vars()
+  ) %>%
+  # Map VSORRESU using hardcode_ct algorithm
+  hardcode_ct(
+    raw_dat = vs_raw,
+    raw_var = "IT.TEMP",
+    tgt_var = "VSORRESU",
+    tgt_val = "F",
+    ct_spec = study_ct,
+    ct_clst = "C66770",
+    id_vars = oak_id_vars()
+  ) %>%
+  # Map VSLOC from TEMPLOC using assign_ct
+  assign_ct(
+    raw_dat = condition_add(vs_raw, !is.na(IT.TEMP)),
+    raw_var = "IT.TEMP_LOC",
+    tgt_var = "VSLOC",
+    ct_spec = study_ct,
+    ct_clst = "C74456",
+    id_vars = oak_id_vars()
+  ) %>%
+  # Create VSSTRESC by converting VSORRES from F to C
+  mutate(VSSTRESC = as.character(sprintf("%.2f", (as.numeric(VSORRES) - 32) * 5/9))) %>%
+  # Map VSSTRESU using hardcode_ct algorithm
+  hardcode_ct(
+    raw_dat = vs_raw,
+    raw_var = "IT.TEMP",
+    tgt_var = "VSSTRESU",
+    tgt_val = "C",
+    ct_spec = study_ct,
+    ct_clst = "C66770",
+    id_vars = oak_id_vars()
+  )
+
+# Map topic variable SYSBP and its qualifiers ----
 vs_sysbp <-
   hardcode_ct(
     raw_dat = vs_raw,
@@ -79,7 +141,7 @@ vs_sysbp <-
     id_vars = oak_id_vars()
   )
 
-# Map topic variable DIABP and its qualifiers.
+# Map topic variable DIABP and its qualifiers. ----
 vs_diabp <-
   hardcode_ct(
     raw_dat = vs_raw,
@@ -127,7 +189,7 @@ vs_diabp <-
     id_vars = oak_id_vars()
   )
 
-# Map topic variable PULSE and its qualifiers.
+# Map topic variable PULSE and its qualifiers. ----
 vs_pulse <-
   hardcode_ct(
     raw_dat = vs_raw,
@@ -175,67 +237,7 @@ vs_pulse <-
     id_vars = oak_id_vars()
   )
 
-# Map topic variable TEMP from raw variable TEMP and its qualifiers.
-vs_temp <-
-  hardcode_ct(
-    raw_dat = vs_raw,
-    raw_var = "IT.TEMP",
-    tgt_var = "VSTESTCD",
-    tgt_val = "TEMP",
-    ct_spec = study_ct,
-    ct_clst = "C66741"
-  ) %>%
-  dplyr::filter(!is.na(.data$VSTESTCD)) %>%
-  # Map VSTEST using hardcode_ct algorithm
-  hardcode_ct(
-    raw_dat = vs_raw,
-    raw_var = "IT.TEMP",
-    tgt_var = "VSTEST",
-    tgt_val = "Temperature",
-    ct_spec = study_ct,
-    ct_clst = "C67153",
-    id_vars = oak_id_vars()
-  ) %>%
-  # Map VSORRES using assign_no_ct algorithm
-  assign_no_ct(
-    raw_dat = vs_raw,
-    raw_var = "IT.TEMP",
-    tgt_var = "VSORRES",
-    id_vars = oak_id_vars()
-  ) %>%
-  # Map VSORRESU using hardcode_ct algorithm
-  hardcode_ct(
-    raw_dat = vs_raw,
-    raw_var = "IT.TEMP",
-    tgt_var = "VSORRESU",
-    tgt_val = "F",
-    ct_spec = study_ct,
-    ct_clst = "C66770",
-    id_vars = oak_id_vars()
-  ) %>%
-  # Map VSLOC from TEMPLOC using assign_ct
-  assign_ct(
-    raw_dat = vs_raw,
-    raw_var = "IT.TEMP_LOC",
-    tgt_var = "VSLOC",
-    ct_spec = study_ct,
-    ct_clst = "C74456",
-    id_vars = oak_id_vars()
-  ) %>%
-  # Create VSSTRESC by converting VSORRES from F to C
-  mutate(VSSTRESC = as.character(sprintf("%.2f", (as.numeric(VSORRES) - 32) * 5/9))) %>%
-  # Map VSSTRESU using hardcode_ct algorithm
-  hardcode_ct(
-    raw_dat = vs_raw,
-    raw_var = "IT.TEMP",
-    tgt_var = "VSSTRESU",
-    tgt_val = "C",
-    ct_spec = study_ct,
-    ct_clst = "C66770",
-    id_vars = oak_id_vars()
-  )
-
-# Map topic variable HEIGHT from raw variable IT.HEIGHT_VSORRRES and its qualifiers.
+# Map topic variable HEIGHT and its qualifiers. ----
 vs_height <-
   hardcode_ct(
     raw_dat = vs_raw,
@@ -286,7 +288,7 @@ vs_height <-
     id_vars = oak_id_vars()
   )
 
-# Map topic variable WEIGHT from raw variable IT.WEIGHT and its qualifiers.
+# Map topic variable WEIGHT and its qualifiers. ----
 vs_weight <-
   hardcode_ct(
     raw_dat = vs_raw,
@@ -337,13 +339,13 @@ vs_weight <-
     id_vars = oak_id_vars()
   )
 
-# Combine all the topic variables into a single data frame.
+# Combine all the topic variables into a single data frame.  ----
 vs_combined <- dplyr::bind_rows(
   vs_diabp, vs_height, vs_pulse,
   vs_sysbp, vs_temp, vs_weight
 )
 
-# Map qualifiers common to all topic variables
+# Map qualifiers common to all topic variables  ----
 
 vs <- vs_combined %>%
   # Map VSDTC using assign_ct algorithm
@@ -398,7 +400,8 @@ vs <- vs_combined %>%
     VSSTRESN = as.numeric(VSSTRESC),
     VSSTRESU = ifelse(is.na(VSSTRESU), VSORRESU, VSSTRESU),
     VSELTM = ifelse(is.na(VSTPT), NA, paste0("PT", readr::parse_number(VSTPT), "M")),
-    VSTPTREF = ifelse(is.na(VSPOS), NA, paste("PATIENT", VSPOS))
+    VSTPTREF = ifelse(is.na(VSPOS), NA, paste("PATIENT", VSPOS)),
+    VSSTAT = NA_character_
   ) %>%
   arrange(USUBJID, VSTESTCD, as.numeric(VISITNUM), as.numeric(VSTPTNUM)) %>%
   derive_seq(tgt_var = "VSSEQ",
@@ -409,40 +412,18 @@ vs <- vs_combined %>%
     tgdt = "VSDTC",
     refdt = "RFXSTDTC",
     study_day_var = "VSDY"
+  )
+
+# Derive Baseline flag
+vs <-  vs %>%
+  dplyr::mutate(VSDTC = as.character(VSDTC)) %>%
+  derive_blfl(
+    sdtm_in = .,
+    dm_domain = dm,
+    tgt_var = "VSBLFL",
+    ref_var = "RFSTDTC",
+    baseline_visits = "BASELINE",
+    baseline_timepoints = c("AFTER LYING DOWN FOR 5 MINUTES", "AFTER STANDING FOR 1 MINUTE", "AFTER STANDING FOR 3 MINUTES", NA)
   ) %>%
-  # derive_blfl(
-  #   sdtm_in = .,
-  #   dm_domain = dm,
-  #   tgt_var = "VSBLFL",
-  #   ref_var = "RFSTDTC",
-  #   baseline_visits = "BASELINE",
-  #   baseline_timepoints = c("AFTER LYING DOWN FOR 5 MINUTES", "AFTER STANDING FOR 1 MINUTE", "AFTER STANDING FOR 3 MINUTES", NA)
-  # ) %>%
   dplyr::select("STUDYID", "DOMAIN", "USUBJID", "VSSEQ", "VSTESTCD", "VSTEST", "VSPOS", "VSORRES", "VSORRESU", "VSSTRESC", "VSSTRESN", "VSSTRESU", "VSLOC", "VISITNUM", "VISIT", "VSDTC", "VSDY", "VSTPT", "VSTPTNUM", "VSELTM", "VSTPTREF")
 
-### TODO: Remove the section below before adding to the workshop repo
-
-# Total number of records in the output is 29635. In pharmaversesdtm, the vs domain has 29643 records. Need to filter out the NOT DONE records in pharmaversesdtm::vs to get the numbers match.
-compare <- pharmaversesdtm::vs %>%
-  filter(is.na(VSSTAT)) %>%
-  select(names(vs))
-
-# Compare one subject
-subject_1 <- vs %>%
-  filter(USUBJID == "01-705-1281")
-
-subject_1_compare <- compare %>%
-  filter(USUBJID == "01-705-1281")
-
-diffdf::diffdf(subject_1, subject_1_compare)
-
-# Compare entire datasets
-diffdf::diffdf(vs, compare)
-
-# KNOWN DIFFERENCES:
-# 1. VSORRESU, VSSTRESU: "beats/min" - in CDISC's Controlled Terminology file, the unit is "beats/min" whereas in pharmaversesdtm::vs, the unit is in upper case
-# 2. VSSTRESC and VSSTRESN - due to rounding and decimal place differences
-
-# NOTES:
-# 1. VSSTAT is needed for BLFL calculation. As the information is removed from raw, should we consider removing VSBLFL variable or create a blank VSSTAT variable?
-# 2. VISITDY variable is not derived in the output. Since TV domain is not available in pharmaversesdtm package, we might need to skip VISITDY?
