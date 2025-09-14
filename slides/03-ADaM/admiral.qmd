@@ -35,6 +35,22 @@ img_center_size <- 300
     - **Checked** in on our fav participant - Barb 
 :::
 
+## Play by Play to achieve our Objectives
+
+::: incremental
+-   🕙11:00 - 11:15 Set the Stage: Overview of how we will work, datasets, specs, packages, functions
+
+-   🕥11:15 - 11:40 Subject-level dataset: `ADSL`
+
+-   🕚11:40 - 11:50 Check in on Barb / Exercise
+
+-   🕦11:50 - 12:20 Basic Data Structure: `ADVS`
+
+-   🕚12:20 - 12:30 Check in on Barb / Exercise
+
+-   🕚12:30 Lunch!
+:::
+
 ## End to End with Barb!!
 
 <div style="text-align: left;"> <img src="images/barb.png" alt="Barb!" style="width: 200px;"/> </div>
@@ -54,32 +70,8 @@ class C highlight;
 classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;  
 ```
 
-## Assumptions
+* We are going to take a **glimpse** of where Barb is in `ADSL` and `ADVS`
 
-::: incremental
-*   Basic knowledge of CDISC Standards (ADaM and SDTM Domains)
-    *   Check out the [ADaM IG and other documents for CDISC](https://www.cdisc.org/standards/foundational/adam) 
-        *   These are great but tome-like!!
-    * Check out [admiral](https://pharmaverse.github.io/admiral/cran-release/) and [admiraldiscovery](https://pharmaverse.github.io/admiraldiscovery/articles/reactable.html) for CDISC implementation
-        *   I always like to code immediately to understand a process!
-*   🦺 But even lacking CDISC knowledge, we still think you will gain some great learning today! 🦺
-:::
-
-## Play by Play
-
-::: incremental
--   🕙11:00 - 11:15 Set the Stage: Overview of how we will work, datasets, specs, packages, functions
-
--   🕥11:15 - 11:40 Subject-level dataset: `ADSL`
-
--   🕚11:40 - 11:50 Check in on Barb / Exercise
-
--   🕦11:50 - 12:20 Basic Data Structure: `ADVS`
-
--   🕚12:20 - 12:30 Check in on Barb / Exercise
-
--   🕚12:30 Lunch!
-:::
 
 # Set the Stage
 
@@ -92,10 +84,11 @@ classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;
 ::: incremental
 
 *  How we will work for the next 90 minutes?
-*  Data (SDTMs, ADSL, and ADVS)
+*  Data (SDTMs, `ADSL`, and `ADVS`)
 *  Specs (Excel document with lots of tabs)
 *  pharmaverse packages
-*  Functions to make ADaM variables and records!!
+    *  playing nice with tidyverse and base R!!
+*  Functions to make ADaM variables and records.
 :::
 
 # How we will proceed today?
@@ -106,23 +99,23 @@ classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;
 ## How we will proceed today?
 
 ::: incremental
--   I will walk you through certain parts of the  `ADSL` and `ADVS` R scripts
-    - Let's take a quick peek at [scripts](https://github.com/posit-conf-2025/pharmaverse/tree/main/slides/03-ADaM/scripts).
-    -   Discussion on **certain** functions and function arguments from [scripts](https://github.com/posit-conf-2025/pharmaverse/tree/main/slides/03-ADaM/scripts) for deriving variables/records. 
-    -   Will pull up full function arguments to briefly highlight other powers. 
-    -   When possible will have some play data and mini-runs of the function.
+-   I will **pull out** certain functions of the  [`ADSL`](https://github.com/posit-conf-2025/pharmaverse/blob/main/slides/03-ADaM/scripts/adsl.R) and [`ADVS`](https://github.com/posit-conf-2025/pharmaverse/blob/main/slides/03-ADaM/scripts/advs.R) R scripts.
+    - Let's take a quick peek at the [scripts](https://github.com/posit-conf-2025/pharmaverse/tree/main/slides/03-ADaM/scripts).
+    -   I will discuss **certain** functions and function arguments from [scripts](https://github.com/posit-conf-2025/pharmaverse/tree/main/slides/03-ADaM/scripts) for deriving variables/records. 
+    -   Will pull up full function arguments to briefly highlight other powers. 💡
+    -   When possible will have some play data and mini-runs of the function. 🏸
 :::
 
 ## How we will proceed today continued?
 
 ::: incremental
 -   Two exercises set up to help explore two key functions discussed:
-    - `derive_vars_dtm()`
-    - `derive_param_computed()`
+    - `derive_vars_dtm()` at end of `ADSL`.
+    - `derive_param_computed()` at end of `ADVS`.
 -   Brief notes on the code in script and exercises:
     -   Code in scripts should run out of the box.
-    -   Exercises will need some lite updates.
-    -   3 folks not presenting can help diagnose issues. 
+    -   Exercises will need some minor updates.
+    -   3 folks not presenting can help diagnose issues during exercises. 
 :::
 
 
@@ -132,18 +125,18 @@ classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;
 
 <div style="text-align: center;"> <img src="./images/adsl.png" alt="adsl" style="width: 700px;"/> </div>
 
-* ADSL - Subject Level Dataset, i.e each subject has a record.  Focus on adding variables.
+* `ADSL` - Subject Level Dataset, i.e each subject has a record.  Focus on adding variables.
 * We will use SDTM data from the [pharmaversesdtm package](https://pharmaverse.github.io/pharmaversesdtm/).  
-* ADSL is available in the [pharmaverseadam package](https://pharmaverse.github.io/pharmaverseadam/)
+* `ADSL` is available in the [pharmaverseadam package](https://pharmaverse.github.io/pharmaverseadam/)
 
 ## ADVS - Vital Signs Dataset
 
 <div style="text-align: center;"> <img src="./images/advs.png" alt="advs" style="width: 700px;"/> </div>
 
-* ADVS - Basic Data Structure (BDS) Dataset. Focus on adding records, but also some variables!
+* ADVS - Is a Basic Data Structure (BDS) Dataset. Focus on adding records, but also some variables!
 * We will use SDTM data `vs` from the [pharmaversesdtm package](https://pharmaverse.github.io/pharmaversesdtm/) and
-ADSL from [dataset](TBL) created by the `adsl.R` script.
-* ADVS is available in the [pharmaverseadam package](https://pharmaverse.github.io/pharmaverseadam/)
+`ADSL` from [dataset](TBL) created by the `adsl.R` script.
+* `ADVS` is available in the [pharmaverseadam package](https://pharmaverse.github.io/pharmaverseadam/)
 
 # Specs
 
@@ -153,8 +146,8 @@ ADSL from [dataset](TBL) created by the `adsl.R` script.
 
 - Gives specifics on how we derive variables in the ADaMs (extreme traceability)
 - P21-like spec
-    - P21 is spec/data validation tool widely used in the industry for creating SDTMs
-    and ADaMs
+    - P21 is spec/data validation tool widely used in the industry for creating and validating SDTMs
+    and ADaMs.
 - These specs are not fit for purpose - just a helpful guide
 - What is in the the Specs:
   -   Two datasets, dataset labels and variable keys
@@ -165,6 +158,8 @@ ADSL from [dataset](TBL) created by the `adsl.R` script.
 ## Spec-peek
 
 - Let's take a quick peek at [metadata](https://github.com/posit-conf-2025/pharmaverse/tree/main/slides/03-ADaM/metadata)
+
+<div style="text-align: center;"> <img src="./images/specs_peek.png" alt="sunny" style="width: 600px;"/> </div>
 
 ## The core pharmaverse packages for creating ADaMs
 
@@ -237,18 +232,24 @@ Most functions in admiral follow these conventions:
 🕥 11:15 - 11:40
 
 
-* Note: Referencing lines in file at each section (ADSL Lines: ##-##)
+* Note: Referencing lines in file at each section with a footnote (Lines: ##-##)
 
-## The Big Picture of ADSL
+## The Big Picture of `ADSL`
 
-* We have an ADSL script:
-  * Using pharmaversesdtm data: dm, suppdm, ex, ae, vs, etc
-  * Uses the ADSL section of our spec file
-  * Creating a single record for each subject with a lot of variables!!
+* We have an `ADSL` script:
+
+::: {.incremental}
   
-## Reading in our spec for ADSL (ADSL Lines: )
+    * Using `{pharmaversesdtm}` data: `dm`, `suppdm`, `ex`, `ae`, `vs`, etc
+    * Uses the `ADSL` section of our spec file
+    * Creating a single record for each subject with a lot of variables!!
+    * Write out an xpt file for regulatory send-off!
+  
+:::
 
-```{.r, code-line-numbers="1|2|3|4|5|6"}
+## Reading in our spec for `ADSL` ^[Lines: 20-25 ]
+
+```{.r code-line-numbers="1|2|3|4|5|6"}
 spec_to_metacore(
   path = "slides/03-ADaM/metadata/posit_specs.xlsx",
   where_sep_sheet = FALSE,
@@ -261,8 +262,9 @@ spec_to_metacore(
   * P21 is spec/data validation tool widely used in the industry for creating SDTMs
   and ADaMs
 * `quiet` argument should be set to `TRUE` while developing your spec and ADaMs.
+* Same call in ADVS script.
 
-## Combine Parent and Supplementary Data (ADSL Lines: )
+## Combine Parent and Supplementary Data ^[Lines: 53]
 
 ```{.r}
 dm_suppdm <- combine_supp(dm, suppdm)
@@ -272,9 +274,9 @@ dm_suppdm <- combine_supp(dm, suppdm)
 * Supps usually are a collection non-standard data and linking to parent
 * Function is from `{metatools}`
 
-## Let's turn a `--DTC` to a `*DTM` variable (ADSL Lines: )
+## Let's turn a `--DTC` to a `*DTM` or `*DT` variable ^[Lines: 57-69, 132-136, 198-204]
 
-```{.r code-line-numbers="1|2|3|4|5"}
+```{.r code-line-numbers="1|2|3|4|5|6"}
 ex_ext <- ex %>%
   derive_vars_dtm(
     dtc = EXSTDTC,
@@ -292,7 +294,7 @@ ds_ext <- derive_vars_dt(
 )
 ```
 
-```{.r code-line-numbers="1|2|3|4|5"}
+```{.r code-line-numbers="1|2|3|4|5|6"}
 adsl11 <- adsl10 %>%
   derive_vars_dt(
     new_vars_prefix = "DTH",
@@ -348,7 +350,7 @@ derive_vars_dtm(
 ```
 :::
 
-## Let's get a merge  (ADSL Lines: )
+## Let's get a merge  ^[Lines: 72-84, and more!!]
 
 ```{.r code-line-numbers="1|2|3|4|5|6|7|8|9|10"}
 derive_vars_merged(
@@ -364,7 +366,7 @@ derive_vars_merged(
 )
 ```
 
-* Filter, join and rename is a common pattern in ADaMs.
+* Filter, arrange, join and rename is a common pattern in ADaMs.
 * `rlang::exprs()` is used in a lot of of admiral functions where...
 
 ## Whoa!!! Way more options!!
@@ -390,7 +392,7 @@ derive_vars_merged(
 ```
 :::
 
-## Let's derive a Duration Variable (ADSL Lines: )
+## Let's derive a Duration Variable ^[Lines: 122-126]
 
 ```{.r code-line-numbers="1|2|3|4"}
 derive_vars_duration(
@@ -443,7 +445,7 @@ derive_vars_duration(
 ```
 :::
 
-## Let's apply Control Terms / Code Lists (ADSL Lines: )
+## Let's apply Control Terms / Code Lists ^[Lines: 276-282]
 
 ```{.r}
 adsl16 %>%
@@ -455,7 +457,7 @@ adsl16 %>%
   create_var_from_codelist(metacore, input_var = TRT01A, out_var = TRT01AN)
 ```
 
-* Numeric Variables like the above are helpful for sorting in TLFs.
+* Numeric Variables like the above are helpful for sorting options in Tables.
 
 ## More details
 
@@ -477,7 +479,7 @@ create_var_from_codelist(
 
 🕚11:40 - 11:50
 
-## Check in on Barb in ADSL
+## Check in on Barb in `ADSL` {.smaller}
 
 :::: {.columns}
 
@@ -498,17 +500,23 @@ classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;
 
 :::
 
-::: {.column}
+::: {.column} 
+
 * USUBJID:  01-701-1034
 * SEX:      F
 * AGE:      77
-* RANDDT:   2014-07-01
-* TRTSDT:   2014-07-01
-* TRTSDTM:  2014-07-01 23:59:59
-* TRTEDT:   2014-12-30
-* TRTDURD:  183
-* EOSDT:    2014-12-30
-* EOSSTT:   COMPLETED
+::: incremental
+* derive_vars_dt()
+  * RANDDT:   2014-07-01
+  * TRTSDT:   2014-07-01
+  * TRTSDTM:  2014-07-01 23:59:59
+  * TRTEDT:   2014-12-30
+* derive_vars_duration()
+  * TRTDURD:  183
+* derive_vars_merged()
+  * EOSDT:    2014-12-30
+  * EOSSTT:   COMPLETED
+:::
 :::
 
 ::::
@@ -553,8 +561,8 @@ derive_vars_dtm(
   * Using `pharmaversesdtm` data: `vs`
   * Uses the ADVS section of our spec file
   * Creating a **multiple records** for each subject
-  * ADSL information included
-  * Lot's of functions are repeated within the ADVS script used in ADSL script
+  * `ADSL` information included
+  * Lot's of functions are repeated within the ADVS script used in `ADSL` script
 
 ## Let's talk about lookup tables (ADVS Lines: )
 
@@ -669,7 +677,7 @@ advs <- advs_final %>%
   xportr_write("datasets/advs.xpt", metadata = metacore, domain = "ADVS")
 ```
 
-* Note similar code in ADSL!
+* Note similar code in `ADSL`!
 
 # Check in on Barb / Exercise
 
