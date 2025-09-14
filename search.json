@@ -928,32 +928,32 @@
     ]
   },
   {
-    "objectID": "slides/02-SDTM/index.html#rammprasad-ganapathy-ram",
-    "href": "slides/02-SDTM/index.html#rammprasad-ganapathy-ram",
-    "title": "CDISC SDTM (Study Data Tabulation Model) datasets in R",
-    "section": "Rammprasad Ganapathy (Ram)",
-    "text": "Rammprasad Ganapathy (Ram)\n\nPrincipal Data Scientist ar Roche/Genentech with over 15 years of experience in EDC and Statistical Programming.\nBased in San Francisco Bay area in CA.\nPassionate about developing R packages, creating innovative solutions, and automation.\nCreator of the roak package, which is a metadata-driven automation framework for SDTM programming.\nLed the OAK team and the roak product from the initial vision of metadata driven automation through PoC to Production.\nIt is now utilized to automate SDTM in more than 50 studies at Roche for regulatory reporting.\nCreator and one of the developers for sdtm.oak."
-  },
-  {
     "objectID": "slides/02-SDTM/index.html#objectives",
     "href": "slides/02-SDTM/index.html#objectives",
     "title": "CDISC SDTM (Study Data Tabulation Model) datasets in R",
     "section": "Objectives",
-    "text": "Objectives\n\nBy the end of this workshop you will have:\n\nUpdated code for SDTM VS and DM using sdtm.oak.\nGained an understanding of how to use sdtm.oak.\nGained an understanding of how to use resources for building SDTM in R."
+    "text": "Objectives\n\nBy the end of this workshop you will have:\n\nGained an understanding of how to use sdtm.oak and algorithms.\nSeen code executed for SDTM VS and DM using sdtm.oak.\nGained an understanding of how to use resources for building SDTM in R."
+  },
+  {
+    "objectID": "slides/02-SDTM/index.html#end-to-end-with-barb",
+    "href": "slides/02-SDTM/index.html#end-to-end-with-barb",
+    "title": "CDISC SDTM (Study Data Tabulation Model) datasets in R",
+    "section": "End to End with Barb!!",
+    "text": "End to End with Barb!!\n\n\n\n\n\n\n\n\nflowchart LR\n  A[Raw] --&gt; B[SDTM]\n  B[SDTM] --&gt; C[ADaM]\n  C[ADaM] --&gt; D[ARD]\n  D[ARD] --&gt; E[TFL]\n  \n%% Apply the custom class \"highlight\" to node B\nclass B highlight;\n\n%% Define the style for the \"highlight\" class:\nclassDef highlight fill:#F9B, stroke:#333, stroke-width:2px;"
   },
   {
     "objectID": "slides/02-SDTM/index.html#assumptions",
     "href": "slides/02-SDTM/index.html#assumptions",
     "title": "CDISC SDTM (Study Data Tabulation Model) datasets in R",
     "section": "Assumptions",
-    "text": "Assumptions\n\nBasic knowledge of CDISC Standards (SDTM Domains)\nBasic background in R and its packages\nBasic familiarity with RStudio IDE.\n%&gt;% chaining functions together"
+    "text": "Assumptions\n\nBasic knowledge of CDISC Standards (SDTM Domains)\n Check out the [SDTM IG and other documents for CDISC](https://www.cdisc.org/standards/foundational/sdtm)\n🦺 But even lacking CDSIC knowledge, we still think you will gain some great learnings today! 🦺\nBasic familiarity in R, RStudio IDE and its packages"
   },
   {
     "objectID": "slides/02-SDTM/index.html#agenda",
     "href": "slides/02-SDTM/index.html#agenda",
     "title": "CDISC SDTM (Study Data Tabulation Model) datasets in R",
     "section": "Agenda",
-    "text": "Agenda\n\n🕙 20 minutes Introduction to sdtm.oak\n🕥 20 minutes VS domain programming\n🕦 10 minutes DM domain programming\n🕦 10 minutes short exercise"
+    "text": "Agenda\n\n🕙 20 minutes Introduction to sdtm.oak\n🕥 20 minutes VS domain programming & check in on Barb\n🕦 10 minutes DM domain programming & check in on Barb\n🕦 10 minutes short exercise"
   },
   {
     "objectID": "slides/02-SDTM/index.html#about-the-package",
@@ -1079,14 +1079,14 @@
     "href": "slides/02-SDTM/index.html#how-we-will-code-today",
     "title": "CDISC SDTM (Study Data Tabulation Model) datasets in R",
     "section": "How we will “code” today",
-    "text": "How we will “code” today\n\nWe will walk you through coding VS and DM\n\nDiscussion on each function and function arguments\nOccasional Check-in Poll\n\nImportant to move along quickly\n\nFull scripts are available in demo folder"
+    "text": "How we will “code” today\n\nWe will walk you through coding VS and DM\n\nDiscussion on each function and function arguments\nCheck-in Poll"
   },
   {
     "objectID": "slides/02-SDTM/index.html#review-specs",
     "href": "slides/02-SDTM/index.html#review-specs",
     "title": "CDISC SDTM (Study Data Tabulation Model) datasets in R",
     "section": "Review specs",
-    "text": "Review specs\nReview aCRF\n\nAdverseEvent_aCRF"
+    "text": "Review specs\nReview aCRF\n\nVitalSigns_aCRF"
   },
   {
     "objectID": "slides/02-SDTM/index.html#code-walkthrough",
@@ -1096,11 +1096,18 @@
     "text": "Code Walkthrough\nRun the code and explain to the users"
   },
   {
-    "objectID": "slides/02-SDTM/index.html#recap",
-    "href": "slides/02-SDTM/index.html#recap",
+    "objectID": "slides/02-SDTM/index.html#check-in-on-barb-in-vitals-raw-dataset",
+    "href": "slides/02-SDTM/index.html#check-in-on-barb-in-vitals-raw-dataset",
     "title": "CDISC SDTM (Study Data Tabulation Model) datasets in R",
-    "section": "Recap",
-    "text": "Recap\nDid we review the following in the code?\n\nFunction call for various Algorithms\nassign datetime function\nHow does condition_add work?\nSDTM derived variables"
+    "section": "Check in on Barb in Vitals Raw dataset",
+    "text": "Check in on Barb in Vitals Raw dataset\n\n\n\n\n\n\n\nPATNUM: 701-1034\nOAK_ID: 213\nINSTANCE: WEEK2\nVTLD: 15-Jul-2014\nTMPTC: after Lying Down for 5 Minutes\nSYS_BP: 183.0\nDIA_BP: 81.0"
+  },
+  {
+    "objectID": "slides/02-SDTM/index.html#check-in-on-barb-in-vs",
+    "href": "slides/02-SDTM/index.html#check-in-on-barb-in-vs",
+    "title": "CDISC SDTM (Study Data Tabulation Model) datasets in R",
+    "section": "Check in on Barb in VS",
+    "text": "Check in on Barb in VS\n\n\n\n\n\n\n\nUSUBJID: 01-701-1034\nVSTESTCD: SYSBP and DIABP\nVISIT: WEEK2\nVSDTC: 2014-07-15\nVSTPT: AFTER LYING DOWN FOR 5 MINUTES\nVSORRES: 183.0 and 81.0"
   },
   {
     "objectID": "slides/02-SDTM/index.html#quiz---1",
@@ -1138,11 +1145,18 @@
     "text": "Code Walkthrough\nRun the code and explain to the users"
   },
   {
-    "objectID": "slides/02-SDTM/index.html#recap-1",
-    "href": "slides/02-SDTM/index.html#recap-1",
+    "objectID": "slides/02-SDTM/index.html#check-in-on-barb-in-raw-dataset",
+    "href": "slides/02-SDTM/index.html#check-in-on-barb-in-raw-dataset",
     "title": "CDISC SDTM (Study Data Tabulation Model) datasets in R",
-    "section": "Recap",
-    "text": "Recap\nDid we review the following in the code?\n\nMapping one topic variable and its qualifies at a time\nMapping qualifiers common to all topic variables\nUsage of oak_id_vars"
+    "section": "Check in on Barb in Raw dataset",
+    "text": "Check in on Barb in Raw dataset\n\n\n\n\n\n\n\nPATNUM: 701-1034\nOAK_ID: 5\nIT.AGE: 77\nIT.SEX: Female"
+  },
+  {
+    "objectID": "slides/02-SDTM/index.html#check-in-on-barb-in-dm",
+    "href": "slides/02-SDTM/index.html#check-in-on-barb-in-dm",
+    "title": "CDISC SDTM (Study Data Tabulation Model) datasets in R",
+    "section": "Check in on Barb in DM",
+    "text": "Check in on Barb in DM\n\n\n\n\n\n\n\nUSUBJID: 01-701-1034\nAGE: 77\nSEX: FEMALE"
   },
   {
     "objectID": "slides/02-SDTM/index.html#quiz---2",
@@ -1150,6 +1164,20 @@
     "title": "CDISC SDTM (Study Data Tabulation Model) datasets in R",
     "section": "Quiz - 2",
     "text": "Quiz - 2\nWhen to use hardcode mapping algorithm?\n\n\n\n\n\nTo assign a collected value on the eCRF\n\n\nTo Hardcode a SDTM variable that has not directly collected on the eCRF.\n\n\n\n\n\n\n\n\nCorrect answer:\nb) To hardcode a value use hardcode algorithms. To assign a collected value use assign algorithms"
+  },
+  {
+    "objectID": "slides/02-SDTM/index.html#check-in-exercise",
+    "href": "slides/02-SDTM/index.html#check-in-exercise",
+    "title": "CDISC SDTM (Study Data Tabulation Model) datasets in R",
+    "section": "Check-in Exercise",
+    "text": "Check-in Exercise\n\nlibrary(sdtm.oak)\nlibrary(pharmaverseraw)\nlibrary(dplyr)\n\n#AE aCRF - https://github.com/pharmaverse/pharmaverseraw/blob/main/vignettes/articles/aCRFs/AdverseEvent_aCRF.pdf\n\n# Read in Raw dataset ----\nae_raw &lt;- pharmaverseraw::ae_raw\n\n# Generate oak_id_vars ----\nae_raw &lt;- ae_raw %&gt;%\n  generate_oak_id_vars(\n    pat_var = \"PATNUM\",\n    raw_src = \"ae_raw\"\n  )\n\n# Read in Controlled Terminology\nstudy_ct &lt;-  data.frame(\n  codelist_code = c(\"C66742\", \"C66742\"),\n  term_code = c(\"C49487\", \"C49488\"),\n  term_value = c(\"N\", \"Y\"),\n  collected_value = c(\"No\", \"Yes\"),\n  term_preferred_term = c(\"No\", \"Yes\"),\n  term_synonyms = c(\"No\", \"Yes\"),\n  stringsAsFactors = FALSE\n)\n\n# Map AETERM from raw_var=IT.AETERM, tgt_var=AETERM\n# Map AESER from raw_var=IT.AESER, tgt_var=AESER. Codelist code for AESDTH is C66742\n# Map AESDTH from raw_var=IT.AESDTH, tgt_var=AESDTH.Annotation text is \n#    If \"Yes\" then AESDTH = \"Y\" else Not Submitted. Codelist code for AESDTH is C66742\n\nAdd the “completed” sticky note to your laptop when complete.\n\n\n\n−+\n10:00"
+  },
+  {
+    "objectID": "slides/02-SDTM/index.html#exercise-solution",
+    "href": "slides/02-SDTM/index.html#exercise-solution",
+    "title": "CDISC SDTM (Study Data Tabulation Model) datasets in R",
+    "section": "Exercise Solution",
+    "text": "Exercise Solution\n\nae &lt;-\n  # Derive topic variable\n  # Map AETERM using assign_no_ct, raw_var=IT.AETERM, tgt_var=AETERM\n  assign_no_ct(\n    raw_dat = ae_raw,\n    raw_var = \"IT.AETERM\",\n    tgt_var = \"AETERM\",\n    id_vars = oak_id_vars()\n  ) %&gt;%\n  # Map AESER using assign_no_ct, raw_var=IT.AESER, tgt_var=AESER\n  assign_ct(\n    raw_dat = ae_raw,\n    raw_var = \"IT.AESER\",\n    tgt_var = \"AESER\",\n    ct_spec = study_ct,\n    ct_clst = \"C66742\",\n    id_vars = oak_id_vars()\n  ) %&gt;%\n  # Map AESDTH using condition_add & assign_ct, raw_var=IT.AESDTH, tgt_var=AESDTH\n  assign_ct(\n    raw_dat = condition_add(ae_raw, IT.AESDTH == \"Yes\"),\n    raw_var = \"IT.AESDTH\",\n    tgt_var = \"AESDTH\",\n    ct_spec = study_ct,\n    ct_clst = \"C66742\",\n    id_vars = oak_id_vars()\n  )"
   },
   {
     "objectID": "slides/02-SDTM/index.html#get-involved",
