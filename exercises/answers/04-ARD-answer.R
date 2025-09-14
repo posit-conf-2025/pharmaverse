@@ -13,7 +13,7 @@ adsl <- pharmaverseadam::adsl |>
 
 adae <- pharmaverseadam::adae |> 
   dplyr::filter(SAFFL=="Y") |> 
-  dplyr::mutate(ARM2 = ifelse(startsWith(ARM, "Xanomeline"), "Xanomeline", ARM))
+  dplyr::mutate(ARM2 = ifelse(startsWith(ARM, "Xanomeline"), "Xanomeline", ARM)) |>
   dplyr::filter(AESOC %in% unique(AESOC)[1:3]) |> 
   dplyr::group_by(AESOC) |> 
   dplyr::filter(AEDECOD %in% unique(AEDECOD)[1:3]) |> 
