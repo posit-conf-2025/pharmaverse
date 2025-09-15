@@ -2,7 +2,10 @@
 
 ## Remember...
 
-The success of Pharmaverse and Open Source relies on the community!
+The success of Pharmaverse and Open Source relies on the community! 
+
+![](images/barb-litter.png){fig-align="center"}
+
 
 ## How to contribute
 
@@ -19,6 +22,8 @@ The success of Pharmaverse and Open Source relies on the community!
   - Bug
   
 - Join as a contributor – get in touch with the maintainer
+
+- Diversity Alliance Hackathon is coming up!
 
 All types of contributions are welcome!
 

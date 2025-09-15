@@ -589,10 +589,35 @@ adsl |>
 
 :::
 
+## {cardx} Regression Example
 
-## {cardx} Regression
 
-::: {.small}
+```{r}
+#| message: true
+#| warning: false
+library(survival)
+
+# build model
+mod <- pharmaverseadam::adtte_onco |> 
+  dplyr::filter(PARAM %in% "Progression Free Survival") |>
+  coxph(ggsurvfit::Surv_CNSR() ~ ARM, data = _)
+
+# put model in a summary table
+tbl <- gtsummary::tbl_regression(mod, exponentiate = TRUE) |> 
+  gtsummary::add_n(location = c('label', 'level')) |> 
+  gtsummary::add_nevent(location = c('label', 'level'))
+```
+
+<br>
+
+```{r}
+#| echo: false
+tbl |> 
+  gtsummary::as_gt() |> 
+  gt::cols_width(c(stat_n, stat_nevent, estimate, p.value) ~ gt::px(25))
+```
+
+## {cardx} Regression Example
 
 The `cardx::ard_regression()` does **a lot** for us in the background.
 
@@ -602,14 +627,7 @@ The `cardx::ard_regression()` does **a lot** for us in the background.
 - Knows the total N of the model, the number of events, and can do the same for each level of categorical variables
 - Contextually aware of slopes, odds ratios, hazard ratios, and incidence rate ratios
 - And much _**much**_ more.
-
-:::
-
-```{r}
-lm(AGE ~ ARM2, data = adsl) |>
-  cardx::ard_regression(add_estimate_to_reference_rows = TRUE)
-```
-
+  
 
 ## When things go wrong 😱
 
