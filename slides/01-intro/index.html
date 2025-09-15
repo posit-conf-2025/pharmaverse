@@ -191,6 +191,8 @@
       margin-right: 0; 
     }
   </style>
+  <link href="../../site_libs/countdown-0.4.0/countdown.css" rel="stylesheet">
+  <script src="../../site_libs/countdown-0.4.0/countdown.js"></script>
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -368,6 +370,63 @@
 <section id="end-to-end-the-data" class="slide level2">
 <h2>End-to-End: The Data</h2>
 <p><img src="pharmaverseraw.png" width="30%"> <img src="pharmaversesdtm.png" width="30%"> <img src="pharmaverseadam.png" width="30%"></p>
+</section>
+<section id="working-environment" class="slide level2">
+<h2>Working environment</h2>
+<ul>
+<li><p>For consistency, we will be working in Posit Cloud</p></li>
+<li><p>Everything has been installed and set up for you</p></li>
+<li><p>You can also opt to work in local RStudio</p></li>
+<li><p>Following the course, all content from this workshop will be available on the course website and GitHub</p></li>
+</ul>
+</section>
+<section id="quick-warm-up" class="slide level2">
+<h2>Quick warm-up</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div class="countdown" id="timer_abeac2b0" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+</div>
+</div>
+<ul>
+<li><p>If using Posit Cloud:</p>
+<ul>
+<li><p>Navigate to Posit Cloud link</p></li>
+<li><p>Click on the Project to make a personal copy</p></li>
+</ul></li>
+<li><p>If using local RStudio:</p>
+<ul>
+<li>Exercises can be found here: https://posit-conf-2025.github.io/pharmaverse/exercises/exercises.html</li>
+</ul></li>
+<li><p>Open <code>exercises/01-intro.R</code></p></li>
+<li><p>Complete the exercise</p></li>
+</ul>
+</section>
+<section id="solution-for-00-intro.r" class="slide level2">
+<h2>Solution for <code>00-intro.R</code></h2>
+<p>Using dplyr:</p>
+<ul>
+<li>From the ADSL dataset:</li>
+<li>Subset to the safety population (SAFFL == “Y”)</li>
+<li>calculate the number of unique subjects in each treatment group (TRT01A)</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb3-2"><a></a></span>
+<span id="cb3-3"><a></a>pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
+<span id="cb3-4"><a></a>  <span class="fu">filter</span>(SAFFL <span class="sc">==</span> <span class="st">"Y"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb3-5"><a></a>  <span class="fu">count</span>(TRT01A)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  TRT01A                   n
+  &lt;chr&gt;                &lt;int&gt;
+1 Placebo                 86
+2 Xanomeline High Dose    72
+3 Xanomeline Low Dose     96</code></pre>
+</div>
+</div>
 
 
 </section></section>

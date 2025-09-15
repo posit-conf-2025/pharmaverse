@@ -215,7 +215,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#cardx-t-test-example-1" id="toc-cardx-t-test-example-1" class="nav-link" data-scroll-target="#cardx-t-test-example-1">{cardx} t-test Example</a></li>
   <li><a href="#cardx-t-test-example-2" id="toc-cardx-t-test-example-2" class="nav-link" data-scroll-target="#cardx-t-test-example-2">{cardx} t-test Example</a></li>
   <li><a href="#cardx-regression" id="toc-cardx-regression" class="nav-link" data-scroll-target="#cardx-regression">{cardx} Regression</a></li>
-  <li><a href="#cardx-regression-1" id="toc-cardx-regression-1" class="nav-link" data-scroll-target="#cardx-regression-1">{cardx} Regression</a></li>
+  <li><a href="#cardx-regression-example" id="toc-cardx-regression-example" class="nav-link" data-scroll-target="#cardx-regression-example">{cardx} Regression Example</a></li>
+  <li><a href="#cardx-regression-example-1" id="toc-cardx-regression-example-1" class="nav-link" data-scroll-target="#cardx-regression-example-1">{cardx} Regression Example</a></li>
   <li><a href="#when-things-go-wrong" id="toc-when-things-go-wrong" class="nav-link" data-scroll-target="#when-things-go-wrong">When things go wrong 😱</a></li>
   </ul></li>
   </ul>
@@ -1006,7 +1007,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_a4c455d9" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_52b7b0a3" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -1163,9 +1164,536 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><code>betareg::betareg()</code>, <code>biglm::bigglm()</code>, <code>brms::brm()</code>, <code>cmprsk::crr()</code>, <code>fixest::feglm()</code>, <code>fixest::femlm()</code>, <code>fixest::feNmlm()</code>, <code>fixest::feols()</code>, <code>gam::gam()</code>, <code>geepack::geeglm()</code>, <code>glmmTMB::glmmTMB()</code>, <code>glmtoolbox::glmgee()</code>, <code>lavaan::lavaan()</code>, <code>lfe::felm()</code>, <code>lme4::glmer.nb()</code>, <code>lme4::glmer()</code>, <code>lme4::lmer()</code>, <code>logitr::logitr()</code>, <code>MASS::glm.nb()</code>, <code>MASS::polr()</code>, <code>mgcv::gam()</code>, <code>mice::mira</code>, <code>mmrm::mmrm()</code>, <code>multgee::nomLORgee()</code>, <code>multgee::ordLORgee()</code>, <code>nnet::multinom()</code>, <code>ordinal::clm()</code>, <code>ordinal::clmm()</code>, <code>parsnip::model_fit</code>, <code>plm::plm()</code>, <code>pscl::hurdle()</code>, <code>pscl::zeroinfl()</code>, <code>rstanarm::stan_glm()</code>, <code>stats::aov()</code>, <code>stats::glm()</code>, <code>stats::lm()</code>, <code>stats::nls()</code>, <code>survey::svycoxph()</code>, <code>survey::svyglm()</code>, <code>survey::svyolr()</code>, <code>survival::cch()</code>, <code>survival::clogit()</code>, <code>survival::coxph()</code>, <code>survival::survreg()</code>, <code>svyVGAM::svy_vglm()</code>, <code>tidycmprsk::crr()</code>, <code>VGAM::vgam()</code>, <code>VGAM::vglm()</code> (and more)</p>
 </div>
 </section>
-<section id="cardx-regression-1" class="level2">
-<h2 class="anchored" data-anchor-id="cardx-regression-1">{cardx} Regression</h2>
-<div class="small">
+<section id="cardx-regression-example" class="level2">
+<h2 class="anchored" data-anchor-id="cardx-regression-example">{cardx} Regression Example</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span>
+<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a><span class="co"># build model</span></span>
+<span id="cb93-4"><a href="#cb93-4" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> pharmaverseadam<span class="sc">::</span>adtte_onco <span class="sc">|&gt;</span> </span>
+<span id="cb93-5"><a href="#cb93-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(PARAM <span class="sc">%in%</span> <span class="st">"Progression Free Survival"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb93-6"><a href="#cb93-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coxph</span>(ggsurvfit<span class="sc">::</span><span class="fu">Surv_CNSR</span>() <span class="sc">~</span> ARM, <span class="at">data =</span> _)</span>
+<span id="cb93-7"><a href="#cb93-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb93-8"><a href="#cb93-8" aria-hidden="true" tabindex="-1"></a><span class="co"># put model in a summary table</span></span>
+<span id="cb93-9"><a href="#cb93-9" aria-hidden="true" tabindex="-1"></a>tbl <span class="ot">&lt;-</span> gtsummary<span class="sc">::</span><span class="fu">tbl_regression</span>(mod, <span class="at">exponentiate =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb93-10"><a href="#cb93-10" aria-hidden="true" tabindex="-1"></a>  gtsummary<span class="sc">::</span><span class="fu">add_n</span>(<span class="at">location =</span> <span class="fu">c</span>(<span class="st">'label'</span>, <span class="st">'level'</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb93-11"><a href="#cb93-11" aria-hidden="true" tabindex="-1"></a>  gtsummary<span class="sc">::</span><span class="fu">add_nevent</span>(<span class="at">location =</span> <span class="fu">c</span>(<span class="st">'label'</span>, <span class="st">'level'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><br></p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="szuribxdys" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#szuribxdys table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#szuribxdys thead, #szuribxdys tbody, #szuribxdys tfoot, #szuribxdys tr, #szuribxdys td, #szuribxdys th {
+  border-style: none;
+}
+
+#szuribxdys p {
+  margin: 0;
+  padding: 0;
+}
+
+#szuribxdys .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#szuribxdys .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#szuribxdys .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#szuribxdys .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#szuribxdys .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#szuribxdys .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#szuribxdys .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#szuribxdys .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#szuribxdys .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#szuribxdys .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#szuribxdys .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#szuribxdys .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#szuribxdys .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#szuribxdys .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#szuribxdys .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#szuribxdys .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#szuribxdys .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#szuribxdys .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#szuribxdys .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#szuribxdys .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#szuribxdys .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#szuribxdys .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#szuribxdys .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#szuribxdys .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#szuribxdys .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#szuribxdys .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#szuribxdys .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#szuribxdys .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#szuribxdys .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#szuribxdys .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#szuribxdys .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#szuribxdys .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#szuribxdys .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#szuribxdys .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#szuribxdys .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#szuribxdys .gt_left {
+  text-align: left;
+}
+
+#szuribxdys .gt_center {
+  text-align: center;
+}
+
+#szuribxdys .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#szuribxdys .gt_font_normal {
+  font-weight: normal;
+}
+
+#szuribxdys .gt_font_bold {
+  font-weight: bold;
+}
+
+#szuribxdys .gt_font_italic {
+  font-style: italic;
+}
+
+#szuribxdys .gt_super {
+  font-size: 65%;
+}
+
+#szuribxdys .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#szuribxdys .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#szuribxdys .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#szuribxdys .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#szuribxdys .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#szuribxdys .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#szuribxdys .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#szuribxdys .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#szuribxdys div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_col_headings header">
+<th id="label" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"><strong>Characteristic</strong></th>
+<th id="stat_n" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>N</strong></th>
+<th id="stat_nevent" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>Event N</strong></th>
+<th id="estimate" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>HR</strong></th>
+<th id="conf.low" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>95% CI</strong></th>
+<th id="p.value" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>p-value</strong></th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">Description of Planned Arm</td>
+<td class="gt_row gt_center" headers="stat_n">254</td>
+<td class="gt_row gt_center" headers="stat_nevent">6</td>
+<td class="gt_row gt_center" headers="estimate"><br>
+</td>
+<td class="gt_row gt_center" headers="conf.low"><br>
+</td>
+<td class="gt_row gt_center" headers="p.value"><br>
+</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Placebo</td>
+<td class="gt_row gt_center" headers="stat_n">86</td>
+<td class="gt_row gt_center" headers="stat_nevent">3</td>
+<td class="gt_row gt_center" headers="estimate">—</td>
+<td class="gt_row gt_center" headers="conf.low">—</td>
+<td class="gt_row gt_center" headers="p.value"><br>
+</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Xanomeline High Dose</td>
+<td class="gt_row gt_center" headers="stat_n">84</td>
+<td class="gt_row gt_center" headers="stat_nevent">2</td>
+<td class="gt_row gt_center" headers="estimate">3.00</td>
+<td class="gt_row gt_center" headers="conf.low">0.39, 22.9</td>
+<td class="gt_row gt_center" headers="p.value">0.3</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Xanomeline Low Dose</td>
+<td class="gt_row gt_center" headers="stat_n">84</td>
+<td class="gt_row gt_center" headers="stat_nevent">1</td>
+<td class="gt_row gt_center" headers="estimate">1.27</td>
+<td class="gt_row gt_center" headers="conf.low">0.11, 14.3</td>
+<td class="gt_row gt_center" headers="p.value">0.8</td>
+</tr>
+</tbody><tfoot class="gt_sourcenotes">
+<tr class="odd">
+<td colspan="6" class="gt_sourcenote">Abbreviations: CI = Confidence Interval, HR = Hazard Ratio</td>
+</tr>
+</tfoot>
+
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="cardx-regression-example-1" class="level2">
+<h2 class="anchored" data-anchor-id="cardx-regression-example-1">{cardx} Regression Example</h2>
 <p>The <code>cardx::ard_regression()</code> does <strong>a lot</strong> for us in the background.</p>
 <ul>
 <li>Identifies the variable from the regression terms (i.e.&nbsp;groups levels of the same variable)</li>
@@ -1175,36 +1703,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Contextually aware of slopes, odds ratios, hazard ratios, and incidence rate ratios</li>
 <li>And much <em><strong>much</strong></em> more.</li>
 </ul>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(AGE <span class="sc">~</span> ARM2, <span class="at">data =</span> adsl) <span class="sc">|&gt;</span></span>
-<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>  cardx<span class="sc">::</span><span class="fu">ard_regression</span>(<span class="at">add_estimate_to_reference_rows =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>{cards} data frame: 27 x 9</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   variable variable_level   context      stat_name stat_label      stat
-1      ARM2        Placebo regressi…           term       term ARM2Plac…
-2      ARM2        Placebo regressi…      var_label      Label      ARM2
-3      ARM2        Placebo regressi…      var_class      Class character
-4      ARM2        Placebo regressi…       var_type       Type dichotom…
-5      ARM2        Placebo regressi…    var_nlevels   N Levels         2
-6      ARM2        Placebo regressi…      contrasts  contrasts contr.tr…
-7      ARM2        Placebo regressi… contrasts_type  Contrast… treatment
-8      ARM2        Placebo regressi…  reference_row  referenc…      TRUE
-9      ARM2        Placebo regressi…          label  Level La…   Placebo
-10     ARM2        Placebo regressi…          n_obs     N Obs.        86</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ 17 more rows</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ Use `print(n = ...)` to see more rows</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ 3 more variables: fmt_fun, warning, error</code></pre>
-</div>
-</div>
 </section>
 <section id="when-things-go-wrong" class="level2">
 <h2 class="anchored" data-anchor-id="when-things-go-wrong">When things go wrong 😱</h2>
@@ -1212,15 +1710,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>What happens when statistics are un-calculable?</p>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>ard_gone_wrong <span class="ot">&lt;-</span> </span>
-<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>  adsl <span class="sc">|&gt;</span> </span>
-<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ard_summary</span>(</span>
-<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> ARM2,</span>
-<span id="cb99-5"><a href="#cb99-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">variable =</span> AGEGR1,</span>
-<span id="cb99-6"><a href="#cb99-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">statistic =</span> <span class="sc">~</span><span class="fu">list</span>(<span class="at">kurtosis =</span> \(x) e1071<span class="sc">::</span><span class="fu">kurtosis</span>(x))</span>
-<span id="cb99-7"><a href="#cb99-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb99-8"><a href="#cb99-8" aria-hidden="true" tabindex="-1"></a>  cards<span class="sc">::</span><span class="fu">replace_null_statistic</span>()</span>
-<span id="cb99-9"><a href="#cb99-9" aria-hidden="true" tabindex="-1"></a>ard_gone_wrong</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>ard_gone_wrong <span class="ot">&lt;-</span> </span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>  adsl <span class="sc">|&gt;</span> </span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ard_summary</span>(</span>
+<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> ARM2,</span>
+<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">variable =</span> AGEGR1,</span>
+<span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">statistic =</span> <span class="sc">~</span><span class="fu">list</span>(<span class="at">kurtosis =</span> \(x) e1071<span class="sc">::</span><span class="fu">kurtosis</span>(x))</span>
+<span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb94-8"><a href="#cb94-8" aria-hidden="true" tabindex="-1"></a>  cards<span class="sc">::</span><span class="fu">replace_null_statistic</span>()</span>
+<span id="cb94-9"><a href="#cb94-9" aria-hidden="true" tabindex="-1"></a>ard_gone_wrong</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>{cards} data frame: 2 x 10</code></pre>
 </div>
@@ -1234,7 +1732,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="fragment">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a>cards<span class="sc">::</span><span class="fu">print_ard_conditions</span>(ard_gone_wrong)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>cards<span class="sc">::</span><span class="fu">print_ard_conditions</span>(ard_gone_wrong)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><img src="images/ard-error-msg.png" class="img-fluid"></p>
 </div>
 <div class="notes">
