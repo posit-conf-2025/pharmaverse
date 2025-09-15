@@ -44,8 +44,7 @@ cache: false
 <!-- TODO: Ram will add -->
 <!-- {{< include 05-teal.qmd >} -->
 
-<!-- TODO: Becca will add and will also add anything from last year we want to include -->
-<!-- {{< include 06-goodbye.qmd >}} -->
+{{< include 06-goodbye.qmd >}}
 
 
 
