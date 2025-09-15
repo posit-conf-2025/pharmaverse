@@ -12,7 +12,7 @@ adsl <- pharmaverseadam::adsl |>
 
 adae <- pharmaverseadam::adae |> 
   dplyr::filter(SAFFL=="Y") |> 
-dplyr::filter(AESOC %in% unique(AESOC)[1:3]) |> 
+  dplyr::filter(AESOC %in% unique(AESOC)[1:3]) |> 
   dplyr::group_by(AESOC) |> 
   dplyr::filter(AEDECOD %in% unique(AEDECOD)[1:3]) |> 
   dplyr::ungroup()
