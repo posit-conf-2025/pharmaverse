@@ -2,6 +2,10 @@
 
 ## Where are the ARDs?
 
+![](images/diagram-pkgs.png){fig-align="center"}
+
+## Where are the ARDs?
+
 ::: {.columns .v-center-container}
 ::: {.column width="30%"}
 
@@ -24,9 +28,6 @@ gather_ard(tbl)
 :::
 :::
 
-## Where are the ARDs?
-
-![](images/diagram-pkgs.png){fig-align="center"}
 
 ## ARD + QC
 
