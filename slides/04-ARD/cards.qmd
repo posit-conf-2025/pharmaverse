@@ -12,7 +12,7 @@
 
 -   Can be used within the ARS workflow and separately
 
--   36k downloads per month 🤯
+-   38k downloads per month 🤯
 
 ## Data used in examples
 
