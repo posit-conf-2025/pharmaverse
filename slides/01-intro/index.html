@@ -30,6 +30,72 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-556630f860dbdb15ddb2dc7e2cb50a88.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -154,47 +220,41 @@
 </ul>
 <!-- TODO: Add link to posit cloud -->
 <ul>
-<li>Join the Posit Cloud workspace:</li>
-</ul>
-<!-- TODO: Add link to Slack channel -->
-<ul>
-<li>Join the Slack from</li>
-</ul>
-<!-- TODO: UPDATE WITH WIFI INFORMATION! -->
-<ul>
-<li><strong>WiFI</strong>: Posit Conf 2024 | <code>conf2024</code></li>
+<li><p>Join the Posit Cloud workspace</p></li>
+<li><p>Join the Slack from <a href="https://pharmaverse.slack.com/">pharmaverse.slack.com/</a></p></li>
+<li><p><strong>WiFI</strong>: Posit Conf 2025 | <code>conf2025</code></p></li>
 </ul>
 </section>
 <section id="expected-background" class="slide level2">
 <h2>Expected Background</h2>
 <ul>
-<li class="fragment">Basic knowledge of R and packages in the tidyverse</li>
-<li class="fragment">Basic knowledge of CDISC Standards (ADaM and SDTM Domains)
+<li><p>Basic knowledge of R and packages in the tidyverse</p></li>
+<li><p>Basic knowledge of CDISC Standards (ADaM and SDTM Domains)</p>
 <ul>
-<li class="fragment">Check out the <a href="https://www.cdisc.org/standards/foundational/adam">ADaM IG and other documents for CDISC</a>
+<li><p>Check out the <a href="https://www.cdisc.org/standards/foundational/adam">ADaM IG and other documents for CDISC</a></p>
 <ul>
-<li class="fragment">These are great but tome-like!!</li>
+<li>These are great but tome-like!!</li>
 </ul></li>
-<li class="fragment">Check out <a href="https://pharmaverse.github.io/admiral/cran-release/">admiral</a> and <a href="https://pharmaverse.github.io/admiraldiscovery/articles/reactable.html">admiraldiscovery</a> for CDISC implementation
+<li><p>Check out <a href="https://pharmaverse.github.io/admiral/cran-release/">admiral</a> and <a href="https://pharmaverse.github.io/admiraldiscovery/articles/reactable.html">admiraldiscovery</a> for CDISC implementation</p>
 <ul>
-<li class="fragment">I always like to code immediately to understand a process!</li>
+<li>I always like to code immediately to understand a process!</li>
 </ul></li>
 </ul></li>
-<li class="fragment">🦺 But even lacking CDISC knowledge, we still think you will gain some great learning today! 🦺</li>
+<li><p>🦺 But even lacking CDISC knowledge, we still think you will gain some great learning today! 🦺</p></li>
 </ul>
 </section>
 <section id="instructors" class="slide level2">
 <h2>Instructors</h2>
-<!-- TODO: Update this -->
 <div class="columns">
-<div class="column">
-
-</div><div class="column">
-
+<div class="column" style="width:70%;">
+<p><img data-src="instructors2.png"></p>
+</div><div class="column" style="width:30%;">
+<p>Daniel Sjoberg<br></p>
+<p>Becca Krouse</p>
+<p><br><br></p>
+<p>Ram Ganapathy<br></p>
+<p>Ben X. Straub</p>
 </div></div>
-<p>Who are we?</p>
-<p>What do we do?</p>
-<p>Why are we here?</p>
 </section>
 <section id="your-turn" class="slide level2">
 <h2>Your turn!</h2>
@@ -202,13 +262,91 @@
 <p>What do you do?</p>
 <p>What do you hope to get out of today?</p>
 </section>
-<section id="workshop-outline" class="slide level2">
-<h2>Workshop outline</h2>
+<section>
+<section id="workshop-outline" class="title-slide slide level1 center">
+<h1>Workshop outline</h1>
+
 </section>
+<section id="what-to-expect-from-this-workshop" class="slide level2">
+<h2>What to expect from this workshop</h2>
+<ul>
+<li><p>Learn about what the Pharmaverse is</p></li>
+<li><p>R packages to support Clinical Reporting in R</p>
+<ul>
+<li><p>Create SDTM from raw data (CDASH and non-SDACH formats)</p></li>
+<li><p>Create ADaM datasets from SDTM</p></li>
+<li><p>Multiple ways to create tables</p></li>
+<li><p>Learn about ARDs</p></li>
+</ul></li>
+<li><p>Hands-on Exercises &amp; Discussions</p></li>
+</ul>
+</section>
+<section id="workshop-expectations" class="slide level2">
+<h2>Workshop Expectations</h2>
+<div class="columns">
+<div class="column" style="width:70%;">
+<div class="larger">
+<ul>
+<li><p>Ask questions!</p></li>
+<li><p>Be respectful to each other and yourself</p></li>
+</ul>
+</div>
+</div><div class="column" style="width:30%;">
+<p><img data-src="student-ask-questions.png"></p>
+</div></div>
+</section>
+<section id="welcome-to-the-pharmaverse" class="slide level2">
+<h2>Welcome to the pharmaverse!</h2>
+<div class="columns">
+<div class="column" style="width:70%;">
+<div class="large">
+<ul>
+<li><p><a href="https://pharmaverse.org/" class="uri">https://pharmaverse.org/</a></p></li>
+<li><p>Goals</p>
+<ul>
+<li><p>Align pharma industry on a set of open source packages based in R to deliver the clinical data pipeline</p></li>
+<li><p>Design, collaborate, and deliver new solutions where suitable tools do not exist</p></li>
+</ul></li>
+</ul>
+</div>
+</div><div class="column" style="width:30%;">
+<p><img data-src="../../images/pharmaverse-hex.png"></p>
+</div></div>
+</section>
+<section id="e2e-clinical-reporting-packages" class="slide level2">
+<h2>E2E Clinical Reporting Packages</h2>
+<p><a href="https://pharmaverse.org/e2eclinical/" class="uri">https://pharmaverse.org/e2eclinical/</a></p>
+
+<img src="pharmaverse-pkgs.png" style="width: 200px;" class="r-stretch"></section>
+<section id="not-that-kind-of--verse" class="slide level2">
+<h2>Not that kind of -verse</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(pharmaverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in library(pharmaverse): there is no package called 'pharmaverse'</code></pre>
+</div>
+</div>
+<ul>
+<li><p>The pharmaverse is a collection of open-source tools</p></li>
+<li><p>But we would not want to attempt to load <strong>all of them</strong> at once.</p></li>
+</ul>
+</section>
+<section id="industry-working-on-a-similar-goal" class="slide level2">
+<h2>Industry working on a similar goal</h2>
+<ul>
+<li><p>Standards (ie CDISC) means standard tools can be created and shared</p></li>
+<li><p>Collaboration in the “post competitive” space means everyone has access to free solutions</p></li>
+<li><p>Team and Regulators seeing consistent packages being used across multiple teams speeds up development and review</p></li>
+</ul>
+</section>
+<section id="pharmaverse-true-or-false" class="slide level2">
+<h2>pharmaverse: TRUE or FALSE?</h2>
+
+<img src="TRUEandFALSE.png" style="width: 200px;" class="r-stretch"></section>
 <section id="end-to-end-with-barb" class="slide level2">
 <h2>End to End with Barb!!</h2>
 <div style="text-align: left;">
-<img src="barb.png" alt="Barb!" style="width: 200px;">
+<p><img src="barb.png" alt="Barb!" style="width: 200px;"></p>
 </div>
 <div class="cell" data-reveal="true" data-layout-align="default">
 <div class="cell-output-display">
@@ -238,7 +376,7 @@ classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;
 </ul>
 
 
-</section>
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <p><img src="../../images/pharmaverse-hex.png" class="slide-logo"></p>

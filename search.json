@@ -963,7 +963,7 @@
     "href": "slides/01-intro/index.html#end-to-end-submissions-in-r-with-the-pharmaverse",
     "title": "Welcome!",
     "section": "End-to-End Submissions in R with the Pharmaverse",
-    "text": "End-to-End Submissions in R with the Pharmaverse\n\nFind a seat where you can see the screen!\n\n\n\nJoin the Posit Cloud workspace:\n\n\n\nJoin the Slack from\n\n\n\nWiFI: Posit Conf 2024 | conf2024"
+    "text": "End-to-End Submissions in R with the Pharmaverse\n\nFind a seat where you can see the screen!\n\n\n\nJoin the Posit Cloud workspace\nJoin the Slack from pharmaverse.slack.com/\nWiFI: Posit Conf 2025 | conf2025"
   },
   {
     "objectID": "slides/01-intro/index.html#expected-background",
@@ -977,7 +977,7 @@
     "href": "slides/01-intro/index.html#instructors",
     "title": "Welcome!",
     "section": "Instructors",
-    "text": "Instructors\n\n\n\n\n\n\n\nWho are we?\nWhat do we do?\nWhy are we here?"
+    "text": "Instructors\n\n\n\n\nDaniel Sjoberg\nBecca Krouse\n\nRam Ganapathy\nBen X. Straub"
   },
   {
     "objectID": "slides/01-intro/index.html#your-turn",
@@ -987,11 +987,53 @@
     "text": "Your turn!\nWho are you?\nWhat do you do?\nWhat do you hope to get out of today?"
   },
   {
-    "objectID": "slides/01-intro/index.html#workshop-outline",
-    "href": "slides/01-intro/index.html#workshop-outline",
+    "objectID": "slides/01-intro/index.html#what-to-expect-from-this-workshop",
+    "href": "slides/01-intro/index.html#what-to-expect-from-this-workshop",
     "title": "Welcome!",
-    "section": "Workshop outline",
-    "text": "Workshop outline"
+    "section": "What to expect from this workshop",
+    "text": "What to expect from this workshop\n\nLearn about what the Pharmaverse is\nR packages to support Clinical Reporting in R\n\nCreate SDTM from raw data (CDASH and non-SDACH formats)\nCreate ADaM datasets from SDTM\nMultiple ways to create tables\nLearn about ARDs\n\nHands-on Exercises & Discussions"
+  },
+  {
+    "objectID": "slides/01-intro/index.html#workshop-expectations",
+    "href": "slides/01-intro/index.html#workshop-expectations",
+    "title": "Welcome!",
+    "section": "Workshop Expectations",
+    "text": "Workshop Expectations\n\n\n\n\nAsk questions!\nBe respectful to each other and yourself"
+  },
+  {
+    "objectID": "slides/01-intro/index.html#welcome-to-the-pharmaverse",
+    "href": "slides/01-intro/index.html#welcome-to-the-pharmaverse",
+    "title": "Welcome!",
+    "section": "Welcome to the pharmaverse!",
+    "text": "Welcome to the pharmaverse!\n\n\n\n\nhttps://pharmaverse.org/\nGoals\n\nAlign pharma industry on a set of open source packages based in R to deliver the clinical data pipeline\nDesign, collaborate, and deliver new solutions where suitable tools do not exist"
+  },
+  {
+    "objectID": "slides/01-intro/index.html#e2e-clinical-reporting-packages",
+    "href": "slides/01-intro/index.html#e2e-clinical-reporting-packages",
+    "title": "Welcome!",
+    "section": "E2E Clinical Reporting Packages",
+    "text": "E2E Clinical Reporting Packages\nhttps://pharmaverse.org/e2eclinical/"
+  },
+  {
+    "objectID": "slides/01-intro/index.html#not-that-kind-of--verse",
+    "href": "slides/01-intro/index.html#not-that-kind-of--verse",
+    "title": "Welcome!",
+    "section": "Not that kind of -verse",
+    "text": "Not that kind of -verse\n\nlibrary(pharmaverse)\n\nError in library(pharmaverse): there is no package called 'pharmaverse'\n\n\n\nThe pharmaverse is a collection of open-source tools\nBut we would not want to attempt to load all of them at once."
+  },
+  {
+    "objectID": "slides/01-intro/index.html#industry-working-on-a-similar-goal",
+    "href": "slides/01-intro/index.html#industry-working-on-a-similar-goal",
+    "title": "Welcome!",
+    "section": "Industry working on a similar goal",
+    "text": "Industry working on a similar goal\n\nStandards (ie CDISC) means standard tools can be created and shared\nCollaboration in the “post competitive” space means everyone has access to free solutions\nTeam and Regulators seeing consistent packages being used across multiple teams speeds up development and review"
+  },
+  {
+    "objectID": "slides/01-intro/index.html#pharmaverse-true-or-false",
+    "href": "slides/01-intro/index.html#pharmaverse-true-or-false",
+    "title": "Welcome!",
+    "section": "pharmaverse: TRUE or FALSE?",
+    "text": "pharmaverse: TRUE or FALSE?"
   },
   {
     "objectID": "slides/01-intro/index.html#end-to-end-with-barb",
