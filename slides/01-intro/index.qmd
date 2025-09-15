@@ -31,22 +31,6 @@ cache: false
 
 -   **WiFI**: Posit Conf 2025 \| `conf2025`
 
-## Expected Background
-
--   Basic knowledge of R and packages in the tidyverse
-
--   Basic knowledge of CDISC Standards (ADaM and SDTM Domains)
-
-    -   Check out the [ADaM IG and other documents for CDISC](https://www.cdisc.org/standards/foundational/adam)
-
-        -   These are great but tome-like!!
-
-    -   Check out [admiral](https://pharmaverse.github.io/admiral/cran-release/) and [admiraldiscovery](https://pharmaverse.github.io/admiraldiscovery/articles/reactable.html) for CDISC implementation
-
-        -   I always like to code immediately to understand a process!
-
--   🦺 But even lacking CDISC knowledge, we still think you will gain some great learning today! 🦺
-
 ## Instructors
 
 ::: columns
@@ -114,6 +98,19 @@ What do you hope to get out of today?
 :::
 ::::::
 
+## Your Background
+
+-   Basic knowledge of R and packages in the tidyverse
+
+-   Basic knowledge of CDISC Standards (ADaM and SDTM Domains)
+
+    -   Check out the [ADaM IG and other documents for CDISC](https://www.cdisc.org/standards/foundational/adam)
+
+    -   Check out [admiral](https://pharmaverse.github.io/admiral/cran-release/) and [admiraldiscovery](https://pharmaverse.github.io/admiraldiscovery/articles/reactable.html) for CDISC implementation
+
+-   🦺 However, CDISC knowledge _not_ required, and you will learn! 🦺
+
+
 ## Welcome to the pharmaverse!
 
 :::::: columns
@@ -163,26 +160,52 @@ library(pharmaverse)
 
 <img src="TRUEandFALSE.png" style="width: 200px;"/>
 
-## End to End with Barb!!
+## End-to-End with Barb!
 
-::: {style="text-align: left;"}
-<img src="barb.png" alt="Barb!" style="width: 200px;"/>
+::: columns
+
+::: column
+::: {style="text-align: center;"}
+<img src="barb-transparent.png" alt="Barb!" style="width: 200px;"/>
+:::
 :::
 
-```{mermaid}
-%%| echo: FALSE
-flowchart LR
-  A[Raw] --> B[SDTM]
-  B[SDTM] --> C[ADaM]
-  C[ADaM] --> D[ARD]
-  D[ARD] --> E[TFL]
-  
-%% Apply the custom class "highlight" to node B
-class B highlight;
+::: column
+- Yes, she is a cat!
 
-%% Define the style for the "highlight" class:
-classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;  
-```
+- Yes, she is cute!
 
--   Barb is on a journey from raw to TFL.
--   At various points we will be finding Barb in our data as we transform from Raw to TFL.
+- Yes, she is enrolled in the clinical trial we will be walking through today.
+
+- Named after Ben's mother-in-law? Perhaps! 
+:::
+::::
+
+## End-to-End with Barb!
+
+Barb is on a journey from raw to TFL.
+At various points we will be finding Barb in our data as we transform from Raw to TFL.
+
+<img src="barb-sdtm.png" alt="Barb!" style="width: 100%;"/>
+
+## End-to-End with Barb!
+
+Barb is on a journey from raw to TFL.
+At various points we will be finding Barb in our data as we transform from Raw to TFL.
+
+<img src="barb-adam.png" alt="Barb!" style="width: 100%;"/>
+
+## End-to-End with Barb!
+
+Barb is on a journey from raw to TFL.
+At various points we will be finding Barb in our data as we transform from Raw to TFL.
+
+<img src="barb-tlg.png" alt="Barb!" style="width: 100%;"/>
+
+## End-to-End: The Data
+
+<img src="pharmaverseraw.png" width="30%">
+<img src="pharmaversesdtm.png" width="30%">
+<img src="pharmaverseadam.png" width="30%">
+
+
