@@ -1,22 +1,11 @@
 
-## Where's Barb?
+## Check in with Barb!
 
-<div style="text-align: left;"> <img src="images/barb.png" alt="Barb!" style="width: 200px;"/> </div>
- 
-```{mermaid}
-%%| echo: FALSE
-flowchart LR
-  A[Raw] --> B[SDTM]
-  B[SDTM] --> C[ADaM]
-  C[ADaM] --> D[ARD]
-  D[ARD] --> E[TFL]
-  
-%% Apply the custom class "highlight" to node B
-class D highlight;
+Barb is on a journey from raw to TFL.
+At various points we will be finding Barb in our data as we transform from Raw to TFL.
+Barb has arrived at RESULTS!
 
-%% Define the style for the "highlight" class:
-classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;  
-```
+<img src="images/barb-tlg.png" alt="Barb!" style="width: 100%;"/>
 
 ## ARDS 🤝 Tables: A Dynamic Duo 
 
