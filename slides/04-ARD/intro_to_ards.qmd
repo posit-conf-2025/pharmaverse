@@ -3,6 +3,7 @@
 
 Barb is on a journey from raw to TFL.
 At various points we will be finding Barb in our data as we transform from Raw to TFL.
+
 Barb has arrived at RESULTS!
 
 <img src="images/barb-tlg.png" alt="Barb!" style="width: 100%;"/>
@@ -66,13 +67,11 @@ Barb has arrived at RESULTS!
 
 ![](images/ars-flow.png){fig-align="center"}
 :::{.small}
-:::{.incremental}
 Objectives include:
 
 -   To leverage analysis results metadata to drive the automation of results
 -   To support storage, access, processing, traceability and reproducibility of results
 -   Learn more at [https://www.cdisc.org/events/webinar/analysis-results-standard-public-review](https://www.cdisc.org/events/webinar/analysis-results-standard-public-review) 
-:::
 :::
 
 ## Proposed Metadata Framework in the ARS
