@@ -788,7 +788,7 @@
     "href": "slides/03-ADaM/admiral.html#more-details",
     "title": "Set the Stage",
     "section": "More details",
-    "text": "More details\n\ncreate_var_from_codelist(\n  data,\n  metacore,\n  input_var,\n  out_var,\n  codelist = NULL,\n  decode_to_code = TRUE,\n  strict = TRUE\n)"
+    "text": "More details\n\ncreate_var_from_codelist(\n  data,\n  metacore,\n  input_var,\n  out_var,\n  codelist = NULL,\n  decode_to_code = TRUE,\n  strict = TRUE\n)\n\ncodelist - Optional argument to supply a codelist. Must be a data.frame with code and decode columns such as those created by the function metacore::get_control_term. If no codelist is provided the codelist associated with the column supplied to out_var will be used. By default codelist is NULL.\ndecode_to_code - Direction of the translation. Default value is TRUE, i.e., assumes the input_var is the decode column of the codelist. Set to FALSE if the input_var is the code column of the codelist.\nstrict - A logical value indicating whether to perform strict checking against the codelist. If TRUE will issue a warning if values in the input_var column are not present in the codelist. If FALSE no warning is issued and values not present in the codelist will likely result in NA results."
   },
   {
     "objectID": "slides/03-ADaM/admiral.html#check-in-on-barb-in-adsl",
@@ -844,7 +844,7 @@
     "href": "slides/03-ADaM/admiral.html#only-two-arguments-not-used",
     "title": "Set the Stage",
     "section": "Only two arguments not used!",
-    "text": "Only two arguments not used!\n\nderive_param_computed(\n  dataset = NULL,\n  dataset_add = NULL,\n  by_vars,\n  parameters,\n  set_values_to,\n  filter = NULL,\n  constant_by_vars = NULL,\n  constant_parameters = NULL,\n  keep_nas = FALSE\n)"
+    "text": "Only two arguments not used!\n\nderive_param_computed(\n  dataset = NULL,\n  dataset_add = NULL,\n  by_vars,\n  parameters,\n  set_values_to,\n  filter = NULL,\n  constant_by_vars = NULL,\n  constant_parameters = NULL,\n  keep_nas = FALSE\n)\n\n\nfilter - The specified condition is applied to the input dataset before deriving the new parameter, i.e., only observations fulfilling the condition are taken into account.\nkeep_na - If the argument is set to TRUE, observations are added even if some of the values contributing to the computed value are NA"
   },
   {
     "objectID": "slides/03-ADaM/admiral.html#lets-derive-dtype-summary-records",
@@ -858,7 +858,7 @@
     "href": "slides/03-ADaM/admiral.html#lets-restrict",
     "title": "Set the Stage",
     "section": "Let’s restrict! 11",
-    "text": "Let’s restrict! 11\nrestrict_derivation(\n  derivation = derive_var_extreme_flag,\n  args = params(\n    by_vars = exprs(STUDYID, USUBJID, BASETYPE, PARAMCD),\n    order = exprs(ADT, VISITNUM, VSSEQ),\n    new_var = ABLFL,\n    mode = \"last\",\n    true_value = \"Y\"\n  ),\n  filter = (!is.na(AVAL) &\n    ADT &lt;= TRTSDT & !is.na(BASETYPE) & is.na(DTYPE))\n)\n\nCheck out Higher Order Functions for more information.\ncall_derivation() is super handy iF you are doing similar calls with same function, but just changing one or two arguments."
+    "text": "Let’s restrict! 11\nrestrict_derivation(\n  derivation = derive_var_extreme_flag,\n  args = params(\n    by_vars = exprs(STUDYID, USUBJID, BASETYPE, PARAMCD),\n    order = exprs(ADT, VISITNUM, VSSEQ),\n    new_var = ABLFL,\n    mode = \"last\",\n    true_value = \"Y\"\n  ),\n  filter = (!is.na(AVAL) &\n    ADT &lt;= TRTSDT & !is.na(BASETYPE) & is.na(DTYPE))\n)\n\nCheck out Higher Order Functions for more information.\ncall_derivation() is super handy if you are doing similar calls with same function, but just changing one or two arguments."
   },
   {
     "objectID": "slides/03-ADaM/admiral.html#lets-add-a-base-variable",
@@ -1723,7 +1723,7 @@
     "href": "slides/03-ADaM/index.html#more-details",
     "title": "ADaMs with {admiral} and friends",
     "section": "More details",
-    "text": "More details\n\ncreate_var_from_codelist(\n  data,\n  metacore,\n  input_var,\n  out_var,\n  codelist = NULL,\n  decode_to_code = TRUE,\n  strict = TRUE\n)"
+    "text": "More details\n\ncreate_var_from_codelist(\n  data,\n  metacore,\n  input_var,\n  out_var,\n  codelist = NULL,\n  decode_to_code = TRUE,\n  strict = TRUE\n)\n\ncodelist - Optional argument to supply a codelist. Must be a data.frame with code and decode columns such as those created by the function metacore::get_control_term. If no codelist is provided the codelist associated with the column supplied to out_var will be used. By default codelist is NULL.\ndecode_to_code - Direction of the translation. Default value is TRUE, i.e., assumes the input_var is the decode column of the codelist. Set to FALSE if the input_var is the code column of the codelist.\nstrict - A logical value indicating whether to perform strict checking against the codelist. If TRUE will issue a warning if values in the input_var column are not present in the codelist. If FALSE no warning is issued and values not present in the codelist will likely result in NA results."
   },
   {
     "objectID": "slides/03-ADaM/index.html#check-in-on-barb-in-adsl",
@@ -1779,7 +1779,7 @@
     "href": "slides/03-ADaM/index.html#only-two-arguments-not-used",
     "title": "ADaMs with {admiral} and friends",
     "section": "Only two arguments not used!",
-    "text": "Only two arguments not used!\n\nderive_param_computed(\n  dataset = NULL,\n  dataset_add = NULL,\n  by_vars,\n  parameters,\n  set_values_to,\n  filter = NULL,\n  constant_by_vars = NULL,\n  constant_parameters = NULL,\n  keep_nas = FALSE\n)"
+    "text": "Only two arguments not used!\n\nderive_param_computed(\n  dataset = NULL,\n  dataset_add = NULL,\n  by_vars,\n  parameters,\n  set_values_to,\n  filter = NULL,\n  constant_by_vars = NULL,\n  constant_parameters = NULL,\n  keep_nas = FALSE\n)\n\n\nfilter - The specified condition is applied to the input dataset before deriving the new parameter, i.e., only observations fulfilling the condition are taken into account.\nkeep_na - If the argument is set to TRUE, observations are added even if some of the values contributing to the computed value are NA"
   },
   {
     "objectID": "slides/03-ADaM/index.html#lets-derive-dtype-summary-records",
@@ -1793,7 +1793,7 @@
     "href": "slides/03-ADaM/index.html#lets-restrict",
     "title": "ADaMs with {admiral} and friends",
     "section": "Let’s restrict! 1",
-    "text": "Let’s restrict! 1\nrestrict_derivation(\n  derivation = derive_var_extreme_flag,\n  args = params(\n    by_vars = exprs(STUDYID, USUBJID, BASETYPE, PARAMCD),\n    order = exprs(ADT, VISITNUM, VSSEQ),\n    new_var = ABLFL,\n    mode = \"last\",\n    true_value = \"Y\"\n  ),\n  filter = (!is.na(AVAL) &\n    ADT &lt;= TRTSDT & !is.na(BASETYPE) & is.na(DTYPE))\n)\n\nCheck out Higher Order Functions for more information.\ncall_derivation() is super handy iF you are doing similar calls with same function, but just changing one or two arguments.\n\nLines: 196-210"
+    "text": "Let’s restrict! 1\nrestrict_derivation(\n  derivation = derive_var_extreme_flag,\n  args = params(\n    by_vars = exprs(STUDYID, USUBJID, BASETYPE, PARAMCD),\n    order = exprs(ADT, VISITNUM, VSSEQ),\n    new_var = ABLFL,\n    mode = \"last\",\n    true_value = \"Y\"\n  ),\n  filter = (!is.na(AVAL) &\n    ADT &lt;= TRTSDT & !is.na(BASETYPE) & is.na(DTYPE))\n)\n\nCheck out Higher Order Functions for more information.\ncall_derivation() is super handy if you are doing similar calls with same function, but just changing one or two arguments.\n\nLines: 196-210"
   },
   {
     "objectID": "slides/03-ADaM/index.html#lets-add-a-base-variable",

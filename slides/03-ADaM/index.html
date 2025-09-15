@@ -758,7 +758,7 @@ classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;
 <li>Numeric Variables like the above are helpful for sorting options in Tables.</li>
 </ul>
 <aside><ol class="aside-footnotes"><li id="fn7"><p>Lines: 276-282</p></li></ol></aside></section>
-<section id="more-details" class="slide level2">
+<section id="more-details" class="slide level2 smaller">
 <h2>More details</h2>
 <div class="codewindow" style="font-size: 0.6em;">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="fu">create_var_from_codelist</span>(</span>
@@ -771,6 +771,9 @@ classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;
 <span id="cb17-8"><a></a>  <span class="at">strict =</span> <span class="cn">TRUE</span></span>
 <span id="cb17-9"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p><code>codelist</code> - Optional argument to supply a codelist. Must be a data.frame with code and decode columns such as those created by the function metacore::get_control_term. If no codelist is provided the codelist associated with the column supplied to out_var will be used. By default codelist is NULL.</p>
+<p><code>decode_to_code</code> - Direction of the translation. Default value is TRUE, i.e., assumes the input_var is the decode column of the codelist. Set to FALSE if the input_var is the code column of the codelist.</p>
+<p><code>strict</code> - A logical value indicating whether to perform strict checking against the codelist. If TRUE will issue a warning if values in the input_var column are not present in the codelist. If FALSE no warning is issued and values not present in the codelist will likely result in NA results.</p>
 </section></section>
 <section>
 <section id="check-in-on-barb-exercise" class="title-slide slide level1 center">
@@ -957,7 +960,7 @@ classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;
 <span id="cb23-12"><a></a>    <span class="at">constant_by_vars =</span> <span class="fu">exprs</span>(USUBJID)</span>
 <span id="cb23-13"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <aside><ol class="aside-footnotes"><li id="fn9"><p>Lines: 100-111</p></li></ol></aside></section>
-<section id="only-two-arguments-not-used" class="slide level2">
+<section id="only-two-arguments-not-used" class="slide level2 smaller">
 <h2>Only two arguments not used!</h2>
 <div class="codewindow" style="font-size: 0.6em;">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="fu">derive_param_computed</span>(</span>
@@ -972,6 +975,10 @@ classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;
 <span id="cb24-10"><a></a>  <span class="at">keep_nas =</span> <span class="cn">FALSE</span></span>
 <span id="cb24-11"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<ul>
+<li><code>filter</code> - The specified condition is applied to the input dataset before deriving the new parameter, i.e., only observations fulfilling the condition are taken into account.</li>
+<li><code>keep_na</code> - If the argument is set to TRUE, observations are added even if some of the values contributing to the computed value are NA</li>
+</ul>
 </section>
 <section id="lets-derive-dtype-summary-records" class="slide level2">
 <h2>Let’s derive DTYPE summary records <sup>1</sup></h2>
@@ -1004,7 +1011,7 @@ classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;
 <span id="cb26-12"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>Check out <a href="https://pharmaverse.github.io/admiral/cran-release/articles/higher_order.html">Higher Order Functions</a> for more information.</li>
-<li><code>call_derivation()</code> is super handy iF you are doing similar calls with same function, but just changing one or two arguments.</li>
+<li><code>call_derivation()</code> is super handy if you are doing similar calls with same function, but just changing one or two arguments.</li>
 </ul>
 <aside><ol class="aside-footnotes"><li id="fn11"><p>Lines: 196-210</p></li></ol></aside></section>
 <section id="lets-add-a-base-variable" class="slide level2">
