@@ -904,8 +904,6 @@ mock_tbl |>
 Take a look at our "big N" (i.e. population counts) rows:
 :::
 
-:::
-
 ```{r}
 #| echo: false
 ard_demog_00 |> 
