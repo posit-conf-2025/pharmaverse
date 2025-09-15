@@ -309,8 +309,8 @@ Let's compute summaries for a demography table that includes age (AGE), age grou
 ard_stack(
   data = adsl,
   .by = ARM2,
-  ard_continuous(variables = AGE),
-  ard_categorical(variables = c(AGEGR1, SEX))
+  ard_summary(variables = AGE),
+  ard_tabulate(variables = c(AGEGR1, SEX))
 )
 ```
 
@@ -329,8 +329,8 @@ We can also add:
 ard_stack(
   data = adsl,
   .by = ARM2,
-  ard_continuous(variables = AGE),
-  ard_categorical(variables = c(AGEGR1, SEX)),
+  ard_summary(variables = AGE),
+  ard_tabulate(variables = c(AGEGR1, SEX)),
   .overall = TRUE,
   .total_n = TRUE
 )
@@ -527,7 +527,7 @@ countdown(minutes = 10, play_sound = TRUE)
 
 - We see the results like the mean difference, the confidence interval, and p-value as expected.
 
-- And we also see the function's inputs, which is incredibly useful for re-use, e.g. we know the we did not use equal variances.
+- And we also see the function's inputs, which is incredibly useful for re-use, e.g. we know that we did not use equal variances.
 
 :::
 
@@ -545,7 +545,7 @@ adsl |>
 
 - It's simple to wrap existing frameworks to customize.
 
-- One-sample t-test example utilizing `cards::ard_continuous()`.
+- One-sample t-test example utilizing `cards::ard_summary()`.
 
 :::
 
