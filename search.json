@@ -270,14 +270,14 @@
     "href": "slides/04-ARD/intro_to_ards.html",
     "title": "End-to-End Submissions in R with the Pharmaverse",
     "section": "",
-    "text": "Barb is on a journey from raw to TFL. At various points we will be finding Barb in our data as we transform from Raw to TFL.\nBarb has arrived at RESULTS!"
+    "text": "Barb is on a journey from raw data to the TFLs. At various points we will be finding Barb in our data as we transform from Raw to TFL.\nBarb has arrived at RESULTS!"
   },
   {
     "objectID": "slides/04-ARD/intro_to_ards.html#check-in-with-barb",
     "href": "slides/04-ARD/intro_to_ards.html#check-in-with-barb",
     "title": "End-to-End Submissions in R with the Pharmaverse",
     "section": "",
-    "text": "Barb is on a journey from raw to TFL. At various points we will be finding Barb in our data as we transform from Raw to TFL.\nBarb has arrived at RESULTS!"
+    "text": "Barb is on a journey from raw data to the TFLs. At various points we will be finding Barb in our data as we transform from Raw to TFL.\nBarb has arrived at RESULTS!"
   },
   {
     "objectID": "slides/04-ARD/intro_to_ards.html#ards-tables-a-dynamic-duo",
@@ -952,6 +952,20 @@
     "text": "End-to-End Submissions in R with the Pharmaverse\n\nFind a seat where you can see the screen!\n\n\n\nJoin the Posit Cloud workspace\nJoin the Slack from pharmaverse.slack.com/\nWiFI: Posit Conf 2025 | conf2025"
   },
   {
+    "objectID": "slides/01-intro/index.html#positconf2025-things-to-know",
+    "href": "slides/01-intro/index.html#positconf2025-things-to-know",
+    "title": "Welcome!",
+    "section": "posit::conf(2025) Things to Know",
+    "text": "posit::conf(2025) Things to Know\n\n🚻 Gender-neutral bathroom: LL2 next to Chicago A\n🧘 Meditation/prayer room: LL2 Chicago A\n🤱 Lactation room: LL2 Chicago B\n🎉 Welcome reception: Tonight 5-7 pm, LL2 Grand Hall West\n🐠 Aquarium Night: Tomorrow 7-10 pm, Georgia Aquarium"
+  },
+  {
+    "objectID": "slides/01-intro/index.html#positconf2025-social-media",
+    "href": "slides/01-intro/index.html#positconf2025-social-media",
+    "title": "Welcome!",
+    "section": "posit::conf(2025) Social Media",
+    "text": "posit::conf(2025) Social Media\n\nRed lanyards available to those who don’t wish to be photographed\n#PositConf2025 for all things conf"
+  },
+  {
     "objectID": "slides/01-intro/index.html#instructors",
     "href": "slides/01-intro/index.html#instructors",
     "title": "Welcome!",
@@ -1033,21 +1047,21 @@
     "href": "slides/01-intro/index.html#end-to-end-with-barb-1",
     "title": "Welcome!",
     "section": "End-to-End with Barb!",
-    "text": "End-to-End with Barb!\nBarb is on a journey from raw to TFL. At various points we will be finding Barb in our data as we transform from Raw to TFL."
+    "text": "End-to-End with Barb!\nBarb is on a journey from raw data to the TFLs. At various points we will be finding Barb in our data as we transform from Raw to TFL."
   },
   {
     "objectID": "slides/01-intro/index.html#end-to-end-with-barb-2",
     "href": "slides/01-intro/index.html#end-to-end-with-barb-2",
     "title": "Welcome!",
     "section": "End-to-End with Barb!",
-    "text": "End-to-End with Barb!\nBarb is on a journey from raw to TFL. At various points we will be finding Barb in our data as we transform from Raw to TFL."
+    "text": "End-to-End with Barb!\nBarb is on a journey from raw data to the TFLs. At various points we will be finding Barb in our data as we transform from Raw to TFL."
   },
   {
     "objectID": "slides/01-intro/index.html#end-to-end-with-barb-3",
     "href": "slides/01-intro/index.html#end-to-end-with-barb-3",
     "title": "Welcome!",
     "section": "End-to-End with Barb!",
-    "text": "End-to-End with Barb!\nBarb is on a journey from raw to TFL. At various points we will be finding Barb in our data as we transform from Raw to TFL."
+    "text": "End-to-End with Barb!\nBarb is on a journey from raw data to the TFLs. At various points we will be finding Barb in our data as we transform from Raw to TFL."
   },
   {
     "objectID": "slides/01-intro/index.html#end-to-end-the-data",
@@ -1908,7 +1922,7 @@
     "href": "slides/04-ARD/index.html#check-in-with-barb",
     "title": "ARDs (Analysis Results Datasets) in R",
     "section": "Check in with Barb!",
-    "text": "Check in with Barb!\nBarb is on a journey from raw to TFL. At various points we will be finding Barb in our data as we transform from Raw to TFL.\nBarb has arrived at RESULTS!"
+    "text": "Check in with Barb!\nBarb is on a journey from raw data to the TFLs. At various points we will be finding Barb in our data as we transform from Raw to TFL.\nBarb has arrived at RESULTS!"
   },
   {
     "objectID": "slides/04-ARD/index.html#ards-tables-a-dynamic-duo",
@@ -2657,14 +2671,14 @@
     "href": "slides/06-tables-gtsummary/index.html#where-are-the-ards",
     "title": "Clinical Reporting with {gtsummary}",
     "section": "Where are the ARDs?",
-    "text": "Where are the ARDs?\n\n\n\nARDs are the backbone for all calculations in gtsummary\nEvery gtsummary table saves the ARDs from each calculation\n\n\n\ntbl &lt;- tbl_summary(adsl, by = \"ARM2\", include = \"AGE\")\ngather_ard(tbl)\n\n$tbl_summary\n\n\n{cards} data frame: 27 x 12\n\n\n   group1 group1_level variable variable_level stat_name stat_label      stat\n1    ARM2      Placebo      AGE                   median     Median        76\n2    ARM2      Placebo      AGE                      p25         Q1        69\n3    ARM2      Placebo      AGE                      p75         Q3        82\n4    ARM2    Xanomeli…      AGE                   median     Median        77\n5    ARM2    Xanomeli…      AGE                      p25         Q1        71\n6    ARM2    Xanomeli…      AGE                      p75         Q3        81\n7    &lt;NA&gt;                   AGE                    label  Variable…       Age\n8    &lt;NA&gt;                   AGE                    class  Variable…   numeric\n9    &lt;NA&gt;                  ARM2                    label  Variable…      ARM2\n10   &lt;NA&gt;                  ARM2                    class  Variable… character\n\n\nℹ 17 more rows\n\n\nℹ Use `print(n = ...)` to see more rows\n\n\nℹ 5 more variables: context, fmt_fun, warning, error, gts_column"
+    "text": "Where are the ARDs?"
   },
   {
     "objectID": "slides/06-tables-gtsummary/index.html#where-are-the-ards-1",
     "href": "slides/06-tables-gtsummary/index.html#where-are-the-ards-1",
     "title": "Clinical Reporting with {gtsummary}",
     "section": "Where are the ARDs?",
-    "text": "Where are the ARDs?"
+    "text": "Where are the ARDs?\n\n\n\nARDs are the backbone for all calculations in gtsummary\nEvery gtsummary table saves the ARDs from each calculation\n\n\n\ntbl &lt;- tbl_summary(adsl, by = \"ARM2\", include = \"AGE\")\ngather_ard(tbl)\n\n$tbl_summary\n\n\n{cards} data frame: 27 x 12\n\n\n   group1 group1_level variable variable_level stat_name stat_label      stat\n1    ARM2      Placebo      AGE                   median     Median        76\n2    ARM2      Placebo      AGE                      p25         Q1        69\n3    ARM2      Placebo      AGE                      p75         Q3        82\n4    ARM2    Xanomeli…      AGE                   median     Median        77\n5    ARM2    Xanomeli…      AGE                      p25         Q1        71\n6    ARM2    Xanomeli…      AGE                      p75         Q3        81\n7    &lt;NA&gt;                   AGE                    label  Variable…       Age\n8    &lt;NA&gt;                   AGE                    class  Variable…   numeric\n9    &lt;NA&gt;                  ARM2                    label  Variable…      ARM2\n10   &lt;NA&gt;                  ARM2                    class  Variable… character\n\n\nℹ 17 more rows\n\n\nℹ Use `print(n = ...)` to see more rows\n\n\nℹ 5 more variables: context, fmt_fun, warning, error, gts_column"
   },
   {
     "objectID": "slides/06-tables-gtsummary/index.html#ard-qc",
@@ -2798,6 +2812,13 @@
     "title": "Clinical Reporting with {gtsummary}",
     "section": "cardinal collaboration ",
     "text": "cardinal collaboration \nThe cardinal initiative is an industry collaborative effort under the pharmaverse.\nThe site includes examples for building ARDs and tables from the FDA Standard Safety Tables and Figures Integrated Guide using {cards} and {gtsummary}.\n Let’s Go!"
+  },
+  {
+    "objectID": "slides/06-tables-gtsummary/index.html#pharmaverse-30-day-cran-downloads",
+    "href": "slides/06-tables-gtsummary/index.html#pharmaverse-30-day-cran-downloads",
+    "title": "Clinical Reporting with {gtsummary}",
+    "section": "{pharmaverse} 30-day CRAN Downloads",
+    "text": "{pharmaverse} 30-day CRAN Downloads\n\n\n\n\n\n\n\n\n\n\n\nFigure contains 30-day downloads for all summary table packages on CRAN."
   },
   {
     "objectID": "slides/06-tables-gtsummary/index.html#gtsummary-website",
