@@ -966,13 +966,6 @@
     "text": "End-to-End Submissions in R with the Pharmaverse\n\nFind a seat where you can see the screen!\n\n\n\nJoin the Posit Cloud workspace\nJoin the Slack from pharmaverse.slack.com/\nWiFI: Posit Conf 2025 | conf2025"
   },
   {
-    "objectID": "slides/01-intro/index.html#expected-background",
-    "href": "slides/01-intro/index.html#expected-background",
-    "title": "Welcome!",
-    "section": "Expected Background",
-    "text": "Expected Background\n\nBasic knowledge of R and packages in the tidyverse\nBasic knowledge of CDISC Standards (ADaM and SDTM Domains)\n\nCheck out the ADaM IG and other documents for CDISC\n\nThese are great but tome-like!!\n\nCheck out admiral and admiraldiscovery for CDISC implementation\n\nI always like to code immediately to understand a process!\n\n\n🦺 But even lacking CDISC knowledge, we still think you will gain some great learning today! 🦺"
-  },
-  {
     "objectID": "slides/01-intro/index.html#instructors",
     "href": "slides/01-intro/index.html#instructors",
     "title": "Welcome!",
@@ -999,6 +992,13 @@
     "title": "Welcome!",
     "section": "Workshop Expectations",
     "text": "Workshop Expectations\n\n\n\n\nAsk questions!\nBe respectful to each other and yourself"
+  },
+  {
+    "objectID": "slides/01-intro/index.html#your-background",
+    "href": "slides/01-intro/index.html#your-background",
+    "title": "Welcome!",
+    "section": "Your Background",
+    "text": "Your Background\n\nBasic knowledge of R and packages in the tidyverse\nBasic knowledge of CDISC Standards (ADaM and SDTM Domains)\n\nCheck out the ADaM IG and other documents for CDISC\nCheck out admiral and admiraldiscovery for CDISC implementation\n\n🦺 However, CDISC knowledge not required, and you will learn! 🦺"
   },
   {
     "objectID": "slides/01-intro/index.html#welcome-to-the-pharmaverse",
@@ -1039,8 +1039,36 @@
     "objectID": "slides/01-intro/index.html#end-to-end-with-barb",
     "href": "slides/01-intro/index.html#end-to-end-with-barb",
     "title": "Welcome!",
-    "section": "End to End with Barb!!",
-    "text": "End to End with Barb!!\n\n\n\n\n\n\n\n\nflowchart LR\n  A[Raw] --&gt; B[SDTM]\n  B[SDTM] --&gt; C[ADaM]\n  C[ADaM] --&gt; D[ARD]\n  D[ARD] --&gt; E[TFL]\n  \n%% Apply the custom class \"highlight\" to node B\nclass B highlight;\n\n%% Define the style for the \"highlight\" class:\nclassDef highlight fill:#F9B, stroke:#333, stroke-width:2px;  \n\n\n\n\n\n\n\nBarb is on a journey from raw to TFL.\nAt various points we will be finding Barb in our data as we transform from Raw to TFL."
+    "section": "End-to-End with Barb!",
+    "text": "End-to-End with Barb!\n\n\n\n\n\n\n\nYes, she is a cat!\nYes, she is cute!\nYes, she is enrolled in the clinical trial we will be walking through today.\nNamed after Ben’s mother-in-law? Perhaps!"
+  },
+  {
+    "objectID": "slides/01-intro/index.html#end-to-end-with-barb-1",
+    "href": "slides/01-intro/index.html#end-to-end-with-barb-1",
+    "title": "Welcome!",
+    "section": "End-to-End with Barb!",
+    "text": "End-to-End with Barb!\nBarb is on a journey from raw to TFL. At various points we will be finding Barb in our data as we transform from Raw to TFL."
+  },
+  {
+    "objectID": "slides/01-intro/index.html#end-to-end-with-barb-2",
+    "href": "slides/01-intro/index.html#end-to-end-with-barb-2",
+    "title": "Welcome!",
+    "section": "End-to-End with Barb!",
+    "text": "End-to-End with Barb!\nBarb is on a journey from raw to TFL. At various points we will be finding Barb in our data as we transform from Raw to TFL."
+  },
+  {
+    "objectID": "slides/01-intro/index.html#end-to-end-with-barb-3",
+    "href": "slides/01-intro/index.html#end-to-end-with-barb-3",
+    "title": "Welcome!",
+    "section": "End-to-End with Barb!",
+    "text": "End-to-End with Barb!\nBarb is on a journey from raw to TFL. At various points we will be finding Barb in our data as we transform from Raw to TFL."
+  },
+  {
+    "objectID": "slides/01-intro/index.html#end-to-end-the-data",
+    "href": "slides/01-intro/index.html#end-to-end-the-data",
+    "title": "Welcome!",
+    "section": "End-to-End: The Data",
+    "text": "End-to-End: The Data"
   },
   {
     "objectID": "index.html",

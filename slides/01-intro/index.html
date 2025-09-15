@@ -191,9 +191,6 @@
       margin-right: 0; 
     }
   </style>
-  <script src="../../site_libs/quarto-diagram/mermaid.min.js"></script>
-  <script src="../../site_libs/quarto-diagram/mermaid-init.js"></script>
-  <link href="../../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -223,24 +220,6 @@
 <li><p>Join the Posit Cloud workspace</p></li>
 <li><p>Join the Slack from <a href="https://pharmaverse.slack.com/">pharmaverse.slack.com/</a></p></li>
 <li><p><strong>WiFI</strong>: Posit Conf 2025 | <code>conf2025</code></p></li>
-</ul>
-</section>
-<section id="expected-background" class="slide level2">
-<h2>Expected Background</h2>
-<ul>
-<li><p>Basic knowledge of R and packages in the tidyverse</p></li>
-<li><p>Basic knowledge of CDISC Standards (ADaM and SDTM Domains)</p>
-<ul>
-<li><p>Check out the <a href="https://www.cdisc.org/standards/foundational/adam">ADaM IG and other documents for CDISC</a></p>
-<ul>
-<li>These are great but tome-like!!</li>
-</ul></li>
-<li><p>Check out <a href="https://pharmaverse.github.io/admiral/cran-release/">admiral</a> and <a href="https://pharmaverse.github.io/admiraldiscovery/articles/reactable.html">admiraldiscovery</a> for CDISC implementation</p>
-<ul>
-<li>I always like to code immediately to understand a process!</li>
-</ul></li>
-</ul></li>
-<li><p>🦺 But even lacking CDISC knowledge, we still think you will gain some great learning today! 🦺</p></li>
 </ul>
 </section>
 <section id="instructors" class="slide level2">
@@ -295,6 +274,18 @@
 <p><img data-src="student-ask-questions.png"></p>
 </div></div>
 </section>
+<section id="your-background" class="slide level2">
+<h2>Your Background</h2>
+<ul>
+<li><p>Basic knowledge of R and packages in the tidyverse</p></li>
+<li><p>Basic knowledge of CDISC Standards (ADaM and SDTM Domains)</p>
+<ul>
+<li><p>Check out the <a href="https://www.cdisc.org/standards/foundational/adam">ADaM IG and other documents for CDISC</a></p></li>
+<li><p>Check out <a href="https://pharmaverse.github.io/admiral/cran-release/">admiral</a> and <a href="https://pharmaverse.github.io/admiraldiscovery/articles/reactable.html">admiraldiscovery</a> for CDISC implementation</p></li>
+</ul></li>
+<li><p>🦺 However, CDISC knowledge <em>not</em> required, and you will learn! 🦺</p></li>
+</ul>
+</section>
 <section id="welcome-to-the-pharmaverse" class="slide level2">
 <h2>Welcome to the pharmaverse!</h2>
 <div class="columns">
@@ -344,36 +335,39 @@
 
 <img src="TRUEandFALSE.png" style="width: 200px;" class="r-stretch"></section>
 <section id="end-to-end-with-barb" class="slide level2">
-<h2>End to End with Barb!!</h2>
-<div style="text-align: left;">
-<p><img src="barb.png" alt="Barb!" style="width: 200px;"></p>
+<h2>End-to-End with Barb!</h2>
+<div class="columns">
+<div class="column">
+<div style="text-align: center;">
+<p><img src="barb-transparent.png" alt="Barb!" style="width: 200px;"></p>
 </div>
-<div class="cell" data-reveal="true" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart LR
-  A[Raw] --&gt; B[SDTM]
-  B[SDTM] --&gt; C[ADaM]
-  C[ADaM] --&gt; D[ARD]
-  D[ARD] --&gt; E[TFL]
-  
-%% Apply the custom class "highlight" to node B
-class B highlight;
-
-%% Define the style for the "highlight" class:
-classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;  
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
+</div><div class="column">
 <ul>
-<li>Barb is on a journey from raw to TFL.</li>
-<li>At various points we will be finding Barb in our data as we transform from Raw to TFL.</li>
+<li><p>Yes, she is a cat!</p></li>
+<li><p>Yes, she is cute!</p></li>
+<li><p>Yes, she is enrolled in the clinical trial we will be walking through today.</p></li>
+<li><p>Named after Ben’s mother-in-law? Perhaps!</p></li>
 </ul>
+</div></div>
+</section>
+<section id="end-to-end-with-barb-1" class="slide level2">
+<h2>End-to-End with Barb!</h2>
+<p>Barb is on a journey from raw to TFL. At various points we will be finding Barb in our data as we transform from Raw to TFL.</p>
+
+<img src="barb-sdtm.png" alt="Barb!" style="width: 100%;" class="r-stretch"></section>
+<section id="end-to-end-with-barb-2" class="slide level2">
+<h2>End-to-End with Barb!</h2>
+<p>Barb is on a journey from raw to TFL. At various points we will be finding Barb in our data as we transform from Raw to TFL.</p>
+
+<img src="barb-adam.png" alt="Barb!" style="width: 100%;" class="r-stretch"></section>
+<section id="end-to-end-with-barb-3" class="slide level2">
+<h2>End-to-End with Barb!</h2>
+<p>Barb is on a journey from raw to TFL. At various points we will be finding Barb in our data as we transform from Raw to TFL.</p>
+
+<img src="barb-tlg.png" alt="Barb!" style="width: 100%;" class="r-stretch"></section>
+<section id="end-to-end-the-data" class="slide level2">
+<h2>End-to-End: The Data</h2>
+<p><img src="pharmaverseraw.png" width="30%"> <img src="pharmaversesdtm.png" width="30%"> <img src="pharmaverseadam.png" width="30%"></p>
 
 
 </section></section>
