@@ -17,70 +17,158 @@ execute:
   echo: true
   freeze: false
 cache: false
---- 
+---
 
 ## End-to-End Submissions in R with the Pharmaverse
 
-* Find a seat where you can see the screen!
+-   Find a seat where you can see the screen!
 
 <!-- TODO: Add link to posit cloud -->
-* Join the Posit Cloud workspace: 
 
-<!-- TODO: Add link to Slack channel -->
-* Join the Slack from 
+-   Join the Posit Cloud workspace
 
-<!-- TODO: UPDATE WITH WIFI INFORMATION! -->
-* **WiFI**: Posit Conf 2024 | `conf2024`
+-   Join the Slack from [pharmaverse.slack.com/](https://pharmaverse.slack.com/)
 
+-   **WiFI**: Posit Conf 2025 \| `conf2025`
 
 ## Expected Background
 
-::: incremental
-*   Basic knowledge of R and packages in the tidyverse 
-*   Basic knowledge of CDISC Standards (ADaM and SDTM Domains)
-    *   Check out the [ADaM IG and other documents for CDISC](https://www.cdisc.org/standards/foundational/adam) 
-        *   These are great but tome-like!!
-    * Check out [admiral](https://pharmaverse.github.io/admiral/cran-release/) and [admiraldiscovery](https://pharmaverse.github.io/admiraldiscovery/articles/reactable.html) for CDISC implementation
-        *   I always like to code immediately to understand a process!
-*   🦺 But even lacking CDISC knowledge, we still think you will gain some great learning today! 🦺
-:::
+-   Basic knowledge of R and packages in the tidyverse
 
+-   Basic knowledge of CDISC Standards (ADaM and SDTM Domains)
+
+    -   Check out the [ADaM IG and other documents for CDISC](https://www.cdisc.org/standards/foundational/adam)
+
+        -   These are great but tome-like!!
+
+    -   Check out [admiral](https://pharmaverse.github.io/admiral/cran-release/) and [admiraldiscovery](https://pharmaverse.github.io/admiraldiscovery/articles/reactable.html) for CDISC implementation
+
+        -   I always like to code immediately to understand a process!
+
+-   🦺 But even lacking CDISC knowledge, we still think you will gain some great learning today! 🦺
 
 ## Instructors
 
-<!-- TODO: Update this -->
-:::: {.columns}
+::: columns
+::: {.column width="70%"}
 
-::: {.column}
- 
-:::
-::: {.column}
+![](instructors2.png)
 
 :::
 
-::::
+::: {.column width="30%"}
 
-Who are we? 
+Daniel Sjoberg<br>
 
-What do we do? 
+Becca Krouse
 
-Why are we here?
+<br><br>
+
+Ram Ganapathy<br>
+
+Ben X. Straub
+
+:::
+:::::
+
 
 ## Your turn!
 
-Who are you? 
+Who are you?
 
-What do you do? 
+What do you do?
 
 What do you hope to get out of today?
 
+# Workshop outline
 
-## Workshop outline
+## What to expect from this workshop
+
+-   Learn about what the Pharmaverse is
+
+-   R packages to support Clinical Reporting in R
+
+    -   Create SDTM from raw data (CDASH and non-SDACH formats)
+
+    -   Create ADaM datasets from SDTM
+
+    -   Multiple ways to create tables
+
+    -   Learn about ARDs
+
+-   Hands-on Exercises & Discussions
+
+## Workshop Expectations
+
+:::::: columns
+:::: {.column width="70%"}
+::: larger
+-   Ask questions!
+
+-   Be respectful to each other and yourself
+:::
+::::
+
+::: {.column width="30%"}
+![](student-ask-questions.png)
+:::
+::::::
+
+## Welcome to the pharmaverse!
+
+:::::: columns
+:::: {.column width="70%"}
+::: large
+-   <https://pharmaverse.org/>
+
+-   Goals
+
+    -   Align pharma industry on a set of open source packages based in R to deliver the clinical data pipeline
+
+    -   Design, collaborate, and deliver new solutions where suitable tools do not exist
+:::
+::::
+
+::: {.column width="30%"}
+![](../../images/pharmaverse-hex.png)
+:::
+::::::
+
+## E2E Clinical Reporting Packages
+
+<https://pharmaverse.org/e2eclinical/>
+
+<img src="pharmaverse-pkgs.png" style="width: 200px;"/>
+
+## Not that kind of -verse
+
+```{r}
+#| error: true
+library(pharmaverse)
+```
+
+-   The pharmaverse is a collection of open-source tools
+
+-   But we would not want to attempt to load **all of them** at once.
+
+## Industry working on a similar goal
+
+-   Standards (ie CDISC) means standard tools can be created and shared
+
+-   Collaboration in the “post competitive” space means everyone has access to free solutions
+
+-   Team and Regulators seeing consistent packages being used across multiple teams speeds up development and review
+
+## pharmaverse: TRUE or FALSE?
+
+<img src="TRUEandFALSE.png" style="width: 200px;"/>
 
 ## End to End with Barb!!
 
-<div style="text-align: left;"> <img src="barb.png" alt="Barb!" style="width: 200px;"/> </div>
- 
+::: {style="text-align: left;"}
+<img src="barb.png" alt="Barb!" style="width: 200px;"/>
+:::
+
 ```{mermaid}
 %%| echo: FALSE
 flowchart LR
@@ -96,9 +184,5 @@ class B highlight;
 classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;  
 ```
 
-* Barb is on a journey from raw to TFL.
-* At various points we will be finding Barb in our data as we transform from Raw to TFL.
-
-
-
-
+-   Barb is on a journey from raw to TFL.
+-   At various points we will be finding Barb in our data as we transform from Raw to TFL.
