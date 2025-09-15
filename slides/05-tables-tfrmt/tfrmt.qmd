@@ -1,3 +1,23 @@
+
+## Where's Barb?
+
+<div style="text-align: left;"> <img src="images/barb.png" alt="Barb!" style="width: 200px;"/> </div>
+ 
+```{mermaid}
+%%| echo: FALSE
+flowchart LR
+  A[Raw] --> B[SDTM]
+  B[SDTM] --> C[ADaM]
+  C[ADaM] --> D[ARD]
+  D[ARD] --> E[TFL]
+  
+%% Apply the custom class "highlight" to node B
+class E highlight;
+
+%% Define the style for the "highlight" class:
+classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;  
+```
+
 ## ARDS 🤝 Tables: A Dynamic Duo 
 
 ![](images/diagram-pkgs.png){fig-align="center"}
@@ -366,7 +386,7 @@ adsl <- pharmaverseadam::adsl |>
 ard_demog <- cards::ard_stack(
   data = adsl,
   .by = ARM2,
-  cards::ard_continuous( variables = AGE,
+  cards::ard_summary( variables = AGE,
                          statistic = ~ cards::continuous_summary_fns(c("median", "p25", "p75"))),
   cards::ard_categorical(variables = c(AGEGR1, SEX), statistic = ~ c("n","p"))
 ) 
@@ -764,7 +784,7 @@ Current data (`cards` output)
 ard_demog_00 <- cards::ard_stack(
   data = adsl,
   .by = ARM2,
-  cards::ard_continuous( variables = AGE,
+  cards::ard_summary( variables = AGE,
                          statistic = ~ cards::continuous_summary_fns(c("median", "p25", "p75"))),
   cards::ard_categorical(variables = c(AGEGR1, SEX), statistic = ~ c("n","p"))
 ) 

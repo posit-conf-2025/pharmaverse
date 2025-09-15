@@ -64,7 +64,16 @@ Who are we?
 
 What do we do? 
 
-Why are we here? 
+Why are we here?
+
+## Your turn!
+
+Who are you? 
+
+What do you do? 
+
+What do you hope to get out of today?
+
 
 ## Workshop outline
 

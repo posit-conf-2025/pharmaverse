@@ -1,6 +1,8 @@
 install.packages(c("devtools",
                    "tidyverse",
                    "sdtm.oak",
+                   "pharmaverseraw",
+                   "pharmaversesdtm",
                    "metatools",
                    "metacore",
                    "admiral",
