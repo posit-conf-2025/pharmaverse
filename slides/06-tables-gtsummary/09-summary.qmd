@@ -1,5 +1,48 @@
 # In Closing
 
+## {pharmaverse} 30-day CRAN Downloads
+
+```{r}
+#| echo: false
+pkgs_all <- 
+  c("gtsummary", "stargazer", "arsenal", "rtables",
+    "table1", "tableone", "modelsummary",
+    "finalfit", "furniture", "compareGroups",
+    "tangram", "atable", "texreg", "apsrtable",
+    "tables", "qwraps2", "summarytools", "tfrmt", "tidytlg", "Tplyr")
+pkgs_pharmaverse <- c("gtsummary", "rtables", "tfrmt", "tidytlg", "Tplyr")
+
+df_30day <- 
+  cranlogs::cran_downloads(packages = pkgs_all, when = "last-month") |> 
+  dplyr::summarise(.by = package, count = sum(count)) |> 
+  dplyr::arrange(-count) |> 
+  dplyr::mutate(
+    pharmaverse = package %in% pkgs_pharmaverse
+  )
+
+# pharmaverse downloads
+df_30day |> 
+  dplyr::mutate(
+    pharmaverse = ifelse(pharmaverse, "pharmaverse package", "non-pharmaverse package")
+  ) |> 
+  ggplot(aes(y = count, x = fct_reorder(package, count), color = pharmaverse, fill = pharmaverse)) +
+  geom_bar(stat = "identity", linewidth = 0.1) +
+  scale_y_continuous(expand = c(0, 0), n.breaks = 20, labels = gtsummary::label_style_number()) +
+  scale_x_discrete(label = \(.x) ifelse(.x == "gtsummary", "gtsummary", strrep("x", nchar(.x)))) + 
+  coord_flip() +
+  labs(x = NULL, y = "30-Day Downloads", color = NULL, fill = NULL) +
+  theme_minimal() +
+  theme(legend.position = "bottom") +
+  ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 20, vjust = 0.8, hjust=0.8)) +
+  scale_color_manual(values=c("#DBD6D1", "#007AC2")) +
+  scale_fill_manual(values=c("#DBD6D1", "#007AC2")) +
+  NULL
+```
+
+::: aside
+Figure contains 30-day downloads for all summary table packages on CRAN.
+:::
+
 ## {gtsummary} website
 
 [http://www.danieldsjoberg.com/gtsummary/](http://www.danieldsjoberg.com/gtsummary/)
