@@ -237,7 +237,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Collaboration between Roche, GSK, Novartis, Eli Lilly, Pfizer</p></li>
 <li><p>Contains a variety of utilities for making ARDs</p></li>
 <li><p>Can be used within the ARS workflow and separately</p></li>
-<li><p>36k downloads per month 🤯</p></li>
+<li><p>38k downloads per month 🤯</p></li>
 </ul>
 </section>
 <section id="data-used-in-examples" class="level2">
@@ -674,7 +674,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="quick-recap-4" class="level2">
 <h2 class="anchored" data-anchor-id="quick-recap-4">Quick recap!</h2>
 <div class="small">
-<p>Let’s compute summaries for a demography table that includes age (AGE), age group (AGEGR1), and sex (SEX) by treatment (ARM2) in a *single <code>ard_stack()</code> call, including:</p>
+<p>Let’s compute summaries for a demography table that includes age (AGE), age group (AGEGR1), and sex (SEX) by treatment (ARM2) in a <em>single <code>ard_stack()</code> call</em>, including:</p>
 <ul>
 <li><p>summaries by ARM2 as performed above</p></li>
 <li><p>continuous summaries from part A for AGE</p></li>
@@ -705,8 +705,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a><span class="fu">ard_stack</span>(</span>
 <span id="cb48-2"><a href="#cb48-2"></a>  <span class="at">data =</span> adsl,</span>
 <span id="cb48-3"><a href="#cb48-3"></a>  <span class="at">.by =</span> ARM2,</span>
-<span id="cb48-4"><a href="#cb48-4"></a>  <span class="fu">ard_continuous</span>(<span class="at">variables =</span> AGE),</span>
-<span id="cb48-5"><a href="#cb48-5"></a>  <span class="fu">ard_categorical</span>(<span class="at">variables =</span> <span class="fu">c</span>(AGEGR1, SEX))</span>
+<span id="cb48-4"><a href="#cb48-4"></a>  <span class="fu">ard_summary</span>(<span class="at">variables =</span> AGE),</span>
+<span id="cb48-5"><a href="#cb48-5"></a>  <span class="fu">ard_tabulate</span>(<span class="at">variables =</span> <span class="fu">c</span>(AGEGR1, SEX))</span>
 <span id="cb48-6"><a href="#cb48-6"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>{cards} data frame: 46 x 11</code></pre>
@@ -748,8 +748,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a><span class="fu">ard_stack</span>(</span>
 <span id="cb54-2"><a href="#cb54-2"></a>  <span class="at">data =</span> adsl,</span>
 <span id="cb54-3"><a href="#cb54-3"></a>  <span class="at">.by =</span> ARM2,</span>
-<span id="cb54-4"><a href="#cb54-4"></a>  <span class="fu">ard_continuous</span>(<span class="at">variables =</span> AGE),</span>
-<span id="cb54-5"><a href="#cb54-5"></a>  <span class="fu">ard_categorical</span>(<span class="at">variables =</span> <span class="fu">c</span>(AGEGR1, SEX)),</span>
+<span id="cb54-4"><a href="#cb54-4"></a>  <span class="fu">ard_summary</span>(<span class="at">variables =</span> AGE),</span>
+<span id="cb54-5"><a href="#cb54-5"></a>  <span class="fu">ard_tabulate</span>(<span class="at">variables =</span> <span class="fu">c</span>(AGEGR1, SEX)),</span>
 <span id="cb54-6"><a href="#cb54-6"></a>  <span class="at">.overall =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb54-7"><a href="#cb54-7"></a>  <span class="at">.total_n =</span> <span class="cn">TRUE</span></span>
 <span id="cb54-8"><a href="#cb54-8"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1006,7 +1006,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_303a890f" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_a02c5bca" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -1051,7 +1051,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="small">
 <ul>
 <li><p>We see the results like the mean difference, the confidence interval, and p-value as expected.</p></li>
-<li><p>And we also see the function’s inputs, which is incredibly useful for re-use, e.g.&nbsp;we know the we did not use equal variances.</p></li>
+<li><p>And we also see the function’s inputs, which is incredibly useful for re-use, e.g.&nbsp;we know that we did not use equal variances.</p></li>
 </ul>
 </div>
 <div class="cell">
@@ -1088,7 +1088,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><p><em>What to do if a method you need is not implemented?</em></p></li>
 <li><p>It’s simple to wrap existing frameworks to customize.</p></li>
-<li><p>One-sample t-test example utilizing <code>cards::ard_continuous()</code>.</p></li>
+<li><p>One-sample t-test example utilizing <code>cards::ard_summary()</code>.</p></li>
 </ul>
 </div>
 <div class="cell">

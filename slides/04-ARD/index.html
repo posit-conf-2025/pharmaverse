@@ -189,6 +189,9 @@
       margin-right: 0; 
     }
   </style>
+  <script src="../../site_libs/quarto-diagram/mermaid.min.js"></script>
+  <script src="../../site_libs/quarto-diagram/mermaid-init.js"></script>
+  <link href="../../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
   <link href="../../site_libs/countdown-0.4.0/countdown.css" rel="stylesheet">
   <script src="../../site_libs/countdown-0.4.0/countdown.js"></script>
 </head>
@@ -202,6 +205,34 @@
 <div class="quarto-title-authors">
 </div>
 
+</section>
+<section id="wheres-barb" class="slide level2">
+<h2>Where’s Barb?</h2>
+<div style="text-align: left;">
+<img src="images/barb.png" alt="Barb!" style="width: 200px;">
+</div>
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  A[Raw] --&gt; B[SDTM]
+  B[SDTM] --&gt; C[ADaM]
+  C[ADaM] --&gt; D[ARD]
+  D[ARD] --&gt; E[TFL]
+  
+%% Apply the custom class "highlight" to node B
+class D highlight;
+
+%% Define the style for the "highlight" class:
+classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;  
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 </section>
 <section id="ards-tables-a-dynamic-duo" class="slide level2">
 <h2>ARDS 🤝 Tables: A Dynamic Duo</h2>
@@ -222,6 +253,7 @@
 <h2>What are ARDs?</h2>
 <ul>
 <li class="fragment"><p>Dataset that stores key metadata and <em>raw results</em> from analysis</p></li>
+<li class="fragment"><p>Long dataset that is 1 record per result value</p></li>
 <li class="fragment"><p>May contained formatted values as well</p></li>
 <li class="fragment"><p>The ARD can be used to to subsequently create tables and figures.</p></li>
 <li class="fragment"><p>The ARD does <em>not</em> describe the layout of the results</p></li>
@@ -253,17 +285,13 @@
 </section>
 <section id="zooming-out-the-analysis-results-standard-ars" class="slide level2">
 <h2>Zooming Out: The Analysis Results Standard (ARS)</h2>
-<p><img data-src="images/ars-flow.png" class="quarto-figure quarto-figure-center"> Objectives include:</p>
+<p><img data-src="images/ars-flow.png" class="quarto-figure quarto-figure-center"> :::{.small} :::{.incremental} Objectives include:</p>
 <ul>
 <li>To leverage analysis results metadata to drive the automation of results</li>
 <li>To support storage, access, processing, traceability and reproducibility of results</li>
+<li>Learn more at <a href="https://www.cdisc.org/events/webinar/analysis-results-standard-public-review">https://www.cdisc.org/events/webinar/analysis-results-standard-public-review</a> ::: :::</li>
 </ul>
-
-<aside><div>
-<ul>
-<li>Learn more at <a href="https://www.cdisc.org/events/webinar/analysis-results-standard-public-review">https://www.cdisc.org/events/webinar/analysis-results-standard-public-review</a></li>
-</ul>
-</div></aside></section>
+</section>
 <section id="proposed-metadata-framework-in-the-ars" class="slide level2">
 <h2>Proposed Metadata Framework in the ARS</h2>
 
@@ -291,7 +319,7 @@
 <li><p>Collaboration between Roche, GSK, Novartis, Eli Lilly, Pfizer</p></li>
 <li><p>Contains a variety of utilities for making ARDs</p></li>
 <li><p>Can be used within the ARS workflow and separately</p></li>
-<li><p>36k downloads per month 🤯</p></li>
+<li><p>38k downloads per month 🤯</p></li>
 </ul>
 </section>
 <section id="data-used-in-examples" class="slide level2">
@@ -728,7 +756,7 @@
 <section id="quick-recap-4" class="slide level2">
 <h2>Quick recap!</h2>
 <div class="small">
-<p>Let’s compute summaries for a demography table that includes age (AGE), age group (AGEGR1), and sex (SEX) by treatment (ARM2) in a *single <code>ard_stack()</code> call, including:</p>
+<p>Let’s compute summaries for a demography table that includes age (AGE), age group (AGEGR1), and sex (SEX) by treatment (ARM2) in a <em>single <code>ard_stack()</code> call</em>, including:</p>
 <ul>
 <li><p>summaries by ARM2 as performed above</p></li>
 <li><p>continuous summaries from part A for AGE</p></li>
@@ -759,8 +787,8 @@
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48" data-code-line-numbers="4,5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a></a><span class="fu">ard_stack</span>(</span>
 <span id="cb48-2"><a></a>  <span class="at">data =</span> adsl,</span>
 <span id="cb48-3"><a></a>  <span class="at">.by =</span> ARM2,</span>
-<span id="cb48-4"><a></a>  <span class="fu">ard_continuous</span>(<span class="at">variables =</span> AGE),</span>
-<span id="cb48-5"><a></a>  <span class="fu">ard_categorical</span>(<span class="at">variables =</span> <span class="fu">c</span>(AGEGR1, SEX))</span>
+<span id="cb48-4"><a></a>  <span class="fu">ard_summary</span>(<span class="at">variables =</span> AGE),</span>
+<span id="cb48-5"><a></a>  <span class="fu">ard_tabulate</span>(<span class="at">variables =</span> <span class="fu">c</span>(AGEGR1, SEX))</span>
 <span id="cb48-6"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>{cards} data frame: 46 x 11</code></pre>
@@ -802,8 +830,8 @@
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54" data-code-line-numbers="6,7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a></a><span class="fu">ard_stack</span>(</span>
 <span id="cb54-2"><a></a>  <span class="at">data =</span> adsl,</span>
 <span id="cb54-3"><a></a>  <span class="at">.by =</span> ARM2,</span>
-<span id="cb54-4"><a></a>  <span class="fu">ard_continuous</span>(<span class="at">variables =</span> AGE),</span>
-<span id="cb54-5"><a></a>  <span class="fu">ard_categorical</span>(<span class="at">variables =</span> <span class="fu">c</span>(AGEGR1, SEX)),</span>
+<span id="cb54-4"><a></a>  <span class="fu">ard_summary</span>(<span class="at">variables =</span> AGE),</span>
+<span id="cb54-5"><a></a>  <span class="fu">ard_tabulate</span>(<span class="at">variables =</span> <span class="fu">c</span>(AGEGR1, SEX)),</span>
 <span id="cb54-6"><a></a>  <span class="at">.overall =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb54-7"><a></a>  <span class="at">.total_n =</span> <span class="cn">TRUE</span></span>
 <span id="cb54-8"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1008,7 +1036,7 @@
 </ol>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_b1dd88c6" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_85af2835" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -1049,7 +1077,7 @@
 <div class="small">
 <ul>
 <li><p>We see the results like the mean difference, the confidence interval, and p-value as expected.</p></li>
-<li><p>And we also see the function’s inputs, which is incredibly useful for re-use, e.g.&nbsp;we know the we did not use equal variances.</p></li>
+<li><p>And we also see the function’s inputs, which is incredibly useful for re-use, e.g.&nbsp;we know that we did not use equal variances.</p></li>
 </ul>
 </div>
 <div class="cell">
@@ -1086,7 +1114,7 @@
 <ul>
 <li><p><em>What to do if a method you need is not implemented?</em></p></li>
 <li><p>It’s simple to wrap existing frameworks to customize.</p></li>
-<li><p>One-sample t-test example utilizing <code>cards::ard_continuous()</code>.</p></li>
+<li><p>One-sample t-test example utilizing <code>cards::ard_summary()</code>.</p></li>
 </ul>
 </div>
 <div class="cell">

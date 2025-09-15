@@ -68,11 +68,14 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="../../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 </head>
 
-<body class="nav-sidebar docked slimcontent quarto-light">
+<body class="nav-sidebar docked quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -144,7 +147,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#ards-tables-a-dynamic-duo" id="toc-ards-tables-a-dynamic-duo" class="nav-link active" data-scroll-target="#ards-tables-a-dynamic-duo">ARDS 🤝 Tables: A Dynamic Duo</a></li>
+  <li><a href="#wheres-barb" id="toc-wheres-barb" class="nav-link active" data-scroll-target="#wheres-barb">Where’s Barb?</a></li>
+  <li><a href="#ards-tables-a-dynamic-duo" id="toc-ards-tables-a-dynamic-duo" class="nav-link" data-scroll-target="#ards-tables-a-dynamic-duo">ARDS 🤝 Tables: A Dynamic Duo</a></li>
   <li><a href="#objectives" id="toc-objectives" class="nav-link" data-scroll-target="#objectives">Objectives</a></li>
   <li><a href="#what-are-ards" id="toc-what-are-ards" class="nav-link" data-scroll-target="#what-are-ards">What are ARDs?</a></li>
   <li><a href="#analysis-results-data-ard" id="toc-analysis-results-data-ard" class="nav-link" data-scroll-target="#analysis-results-data-ard">Analysis Results Data (ARD)</a></li>
@@ -156,11 +160,39 @@ ul.task-list li input[type="checkbox"] {
 <div class="toc-actions"><ul><li><a href="https://github.com/posit-conf-2025/pharmaverse/edit/main/slides/04-ARD/intro_to_ards.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/posit-conf-2025/pharmaverse/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
 
 
+<section id="wheres-barb" class="level2">
+<h2 class="anchored" data-anchor-id="wheres-barb">Where’s Barb?</h2>
+<div style="text-align: left;">
+<img src="images/barb.png" alt="Barb!" style="width: 200px;">
+</div>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  A[Raw] --&gt; B[SDTM]
+  B[SDTM] --&gt; C[ADaM]
+  C[ADaM] --&gt; D[ARD]
+  D[ARD] --&gt; E[TFL]
+  
+%% Apply the custom class "highlight" to node B
+class D highlight;
+
+%% Define the style for the "highlight" class:
+classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;  
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
 <section id="ards-tables-a-dynamic-duo" class="level2">
 <h2 class="anchored" data-anchor-id="ards-tables-a-dynamic-duo">ARDS 🤝 Tables: A Dynamic Duo</h2>
 <div class="quarto-figure quarto-figure-center">
@@ -187,6 +219,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="incremental">
 <ul class="incremental">
 <li><p>Dataset that stores key metadata and <em>raw results</em> from analysis</p></li>
+<li><p>Long dataset that is 1 record per result value</p></li>
 <li><p>May contained formatted values as well</p></li>
 <li><p>The ARD can be used to to subsequently create tables and figures.</p></li>
 <li><p>The ARD does <em>not</em> describe the layout of the results</p></li>
@@ -223,19 +256,15 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 </div>
 </section>
-<section id="zooming-out-the-analysis-results-standard-ars" class="level2 page-columns page-full">
+<section id="zooming-out-the-analysis-results-standard-ars" class="level2">
 <h2 class="anchored" data-anchor-id="zooming-out-the-analysis-results-standard-ars">Zooming Out: The Analysis Results Standard (ARS)</h2>
-<p><img src="images/ars-flow.png" class="img-fluid quarto-figure quarto-figure-center"> Objectives include:</p>
+<p><img src="images/ars-flow.png" class="img-fluid quarto-figure quarto-figure-center"> :::{.small} :::{.incremental} Objectives include:</p>
 <ul>
 <li>To leverage analysis results metadata to drive the automation of results</li>
 <li>To support storage, access, processing, traceability and reproducibility of results</li>
+<li>Learn more at <a href="https://www.cdisc.org/events/webinar/analysis-results-standard-public-review">https://www.cdisc.org/events/webinar/analysis-results-standard-public-review</a> ::: :::</li>
 </ul>
-
-<div class="no-row-height column-margin column-container"><div class="margin-aside">
-<ul>
-<li>Learn more at <a href="https://www.cdisc.org/events/webinar/analysis-results-standard-public-review">https://www.cdisc.org/events/webinar/analysis-results-standard-public-review</a></li>
-</ul>
-</div></div></section>
+</section>
 <section id="proposed-metadata-framework-in-the-ars" class="level2">
 <h2 class="anchored" data-anchor-id="proposed-metadata-framework-in-the-ars">Proposed Metadata Framework in the ARS</h2>
 <div class="quarto-figure quarto-figure-center">
