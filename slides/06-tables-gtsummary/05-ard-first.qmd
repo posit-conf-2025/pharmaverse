@@ -24,6 +24,10 @@ gather_ard(tbl)
 :::
 :::
 
+## Where are the ARDs?
+
+![](images/diagram-pkgs.png){fig-align="center"}
+
 ## ARD + QC
 
 ARDs are **wonderful** for QCing {gtsummary} tables. 😻

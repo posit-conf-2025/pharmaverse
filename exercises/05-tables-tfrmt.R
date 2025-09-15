@@ -14,12 +14,10 @@ library(tfrmt)
 
 ## Import & subset data
 adsl <- pharmaverseadam::adsl |> 
-  dplyr::filter(SAFFL=="Y") |> 
-  dplyr::mutate(ARM2 = ifelse(startsWith(ARM, "Xanomeline"), "Xanomeline", ARM))
+  dplyr::filter(SAFFL=="Y") 
 
 adae <- pharmaverseadam::adae |> 
   dplyr::filter(SAFFL=="Y") |> 
-  dplyr::mutate(ARM2 = ifelse(startsWith(ARM, "Xanomeline"), "Xanomeline", ARM)) |> 
   dplyr::filter(AESOC %in% unique(AESOC)[1:3]) |> 
   dplyr::group_by(AESOC) |> 
   dplyr::filter(AEDECOD %in% unique(AEDECOD)[1:3]) |> 
@@ -29,7 +27,7 @@ adae <- pharmaverseadam::adae |>
 ard_ae <- ard_stack_hierarchical(
   data = adae,
   variables = c(AESOC, AEDECOD),
-  by = ARM2, 
+  by = ARM, 
   id = USUBJID,
   denominator = adsl,
   over_variables = TRUE,
@@ -44,7 +42,7 @@ ard_ae <- ard_stack_hierarchical(
 
 ard_ae_tidy <- ard_ae |> 
   shuffle_card(fill_hierarchical_overall = "ANY EVENT") |> 
-  prep_big_n(vars = "ARM2") |> 
+  prep_big_n(vars = "ARM") |> 
   prep_hierarchical_fill(vars = c("AESOC","AEDECOD"),
                        fill_from_left = TRUE)|> 
   dplyr::select(-c(context, stat_label, stat_variable)) 
@@ -80,7 +78,7 @@ ae_tfrmt <- ae_tfrmt |>
   tfrmt(
     col_plan = col_plan(
       "Placebo",
-      "Xanomeline"
+      starts_with("Xanomeline")
     )
   )  
 

@@ -8,12 +8,10 @@ library(cards)
 
 # Import & subset data
 adsl <- pharmaverseadam::adsl |> 
-  dplyr::filter(SAFFL=="Y") |> 
-  dplyr::mutate(ARM2 = ifelse(startsWith(ARM, "Xanomeline"), "Xanomeline", ARM))
+  dplyr::filter(SAFFL=="Y")
 
 adae <- pharmaverseadam::adae |> 
   dplyr::filter(SAFFL=="Y") |> 
-  dplyr::mutate(ARM2 = ifelse(startsWith(ARM, "Xanomeline"), "Xanomeline", ARM)) |>
   dplyr::filter(AESOC %in% unique(AESOC)[1:3]) |> 
   dplyr::group_by(AESOC) |> 
   dplyr::filter(AEDECOD %in% unique(AEDECOD)[1:3]) |> 
@@ -30,7 +28,7 @@ adae <- pharmaverseadam::adae |>
 ard_stack_hierarchical(
   data = adae,
   variables = c(AESOC, AEDECOD),
-  by = ARM2, 
+  by = ARM, 
   id = USUBJID,
   denominator = adsl 
 ) 
@@ -41,7 +39,7 @@ ard_stack_hierarchical(
 ard_stack_hierarchical(
   data = adae,
   variables = c(AESOC, AEDECOD),
-  by = ARM2, 
+  by = ARM, 
   id = USUBJID,
   denominator = adsl,
   over_variables = TRUE
