@@ -95,7 +95,7 @@
     "href": "slides/07-submissions-wrapup/index.html#how-to-contribute",
     "title": "Submissions in R and Wrap-Up",
     "section": "How to contribute",
-    "text": "How to contribute\n\nUse the packages\nWrite blogs, create templates\nSubmit Issues and/or Code\n\ndocumentation\nfeature requests\nBug\n\nJoin as a contributor – get in touch with the maintainer\nDiversity Alliance Hackathon is coming up!\n\nAll types of contributions are welcome!"
+    "text": "How to contribute\n\nUse the packages\nWrite blogs, create templates\nSubmit Issues and/or Code\n\ndocumentation\nfeature requests\nBug\n\nJoin as a contributor – get in touch with the maintainer\nDiversity Alliance Hackathon is coming up! Link to registration here\n\nAll types of contributions are welcome!"
   },
   {
     "objectID": "slides/07-submissions-wrapup/index.html#discussion-time",
@@ -1309,7 +1309,7 @@
     "href": "exercises/exercises.html#intro.r-1",
     "title": "Exercises + Solutions",
     "section": "01-intro.R",
-    "text": "01-intro.R",
+    "text": "01-intro.R\n\n\nWarning in readLines(\"answers/01-intro-answer.R\"): incomplete final line found\non 'answers/01-intro-answer.R'\n\n\n# Let's warm-up!\n\nlibrary(dplyr)\n\n# Using dplyr:\n#  - From the ADSL dataset:\n#   - Subset to the safety population (SAFFL == \"Y\")\n#   - calculate the number of unique subjects in each treatment group (TRT01A)  \n\npharmaverseadam::adsl |&gt; \n  filter(SAFFL == \"Y\") |&gt; \n  count(TRT01A)",
     "crumbs": [
       "Exercises + Solutions"
     ]
