@@ -322,20 +322,15 @@ Run the code and explain to the users
 
 ## Quiz - 1
 
-What function should be used for mapping for CMROUTE. The Route information
-is collected in a drop down list on the CRF.
+::: incremental
+* What function should be used for mapping for CMROUTE. The Route information is collected in a drop down list on the CRF.
+  
+  * a)  sdtm.oak::assign_no_ct()
+  * b)  sdtm.oak::assign_ct()
 
-> > -   
-> >
-> >     a)  sdtm.oak::assign_no_ct()
-> >
-> > -   
-> >
-> >     b)  sdtm.oak::assign_ct()
-
-> -   Correct answer:
-> -   **b) As CMROUTE has a codelist associated we need to use
->     sdtm.oak::assign_ct()**
+* Correct answer:
+  * b) As CMROUTE has a codelist associated we need to use sdtm.oak::assign_ct()
+:::
 
 # Workshop - Create DM domain
 
@@ -407,20 +402,17 @@ Run the code and explain to the users
 
 ## Quiz - 2
 
-When to use hardcode mapping algorithm?
+::: incremental
 
-> > -   
-> >
-> >     a)  To assign a collected value on the eCRF
-> >
-> > -   
-> >
-> >     b)  To Hardcode a SDTM variable that has not directly collected
-> >         on the eCRF.
+* When to use hardcode mapping algorithm?
+    * a)  To assign a collected value on the eCRF
+    * b)  To Hardcode a SDTM variable that has not directly collected on the eCRF.
 
-> -   Correct answer:
-> -   **b) To hardcode a value use hardcode algorithms. To assign a
->     collected value use assign algorithms**
+* Correct answer:
+    * b) To hardcode a value use hardcode algorithms. To assign a
+    collected value use assign algorithms**
+    
+::: 
 
 # Release summary
 
