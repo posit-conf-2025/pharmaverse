@@ -16,15 +16,15 @@ execute:
 cache: false
 --- 
 
-
 # E2E Overview
-
 
 <!-- Show Barb moving along the E2E pathway -->
 
 <!-- Do a Q&A here? Their questions are probably more important than other items -->
 <!-- TODO: BEN will add -->
 {{< include 01-recap.qmd >}}
+
+# More Resources for E2E
 
 {{< include 02-examples.qmd >}}
 
