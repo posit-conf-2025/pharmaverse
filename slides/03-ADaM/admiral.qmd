@@ -484,7 +484,7 @@ adsl16 %>%
 
 * Numeric Variables like the above are helpful for sorting options in Tables.
 
-## More details
+## More details {.smaller}
 
 ::: {.codewindow style="font-size: 0.6em;"}
 ```r
@@ -499,6 +499,12 @@ create_var_from_codelist(
 )
 ```
 :::
+
+`codelist` - Optional argument to supply a codelist. Must be a data.frame with code and decode columns such as those created by the function metacore::get_control_term. If no codelist is provided the codelist associated with the column supplied to out_var will be used. By default codelist is NULL.
+
+`decode_to_code` - Direction of the translation. Default value is TRUE, i.e., assumes the input_var is the decode column of the codelist. Set to FALSE if the input_var is the code column of the codelist.
+
+`strict` - A logical value indicating whether to perform strict checking against the codelist. If TRUE will issue a warning if values in the input_var column are not present in the codelist. If FALSE no warning is issued and values not present in the codelist will likely result in NA results.
 
 # Check in on Barb / Exercise 
 
@@ -669,7 +675,7 @@ advs <- advs %>%
 )
 ```
 
-## Only two arguments not used!
+## Only two arguments not used! {.smaller}
 
 ::: {.codewindow style="font-size: 0.6em;"}
 ```r
@@ -686,6 +692,9 @@ derive_param_computed(
 )
 ```
 :::
+
+* `filter` - The specified condition is applied to the input dataset before deriving the new parameter, i.e., only observations fulfilling the condition are taken into account.
+* `keep_na` - If the argument is set to TRUE, observations are added even if some of the values contributing to the computed value are NA
 
 ## Let's derive DTYPE summary records ^[Lines: 144-153]
 
@@ -724,7 +733,7 @@ restrict_derivation(
 
 * Check out [Higher Order Functions](https://pharmaverse.github.io/admiral/cran-release/articles/higher_order.html)
 for more information. 
-* `call_derivation()` is super handy iF you are doing similar calls with same function,
+* `call_derivation()` is super handy if you are doing similar calls with same function,
 but just changing one or two arguments.
 
 ## Let's add a BASE variable ^[Lines: 210-217]

@@ -31,6 +31,26 @@ cache: false
 
 -   **WiFI**: Posit Conf 2025 \| `conf2025`
 
+## posit::conf(2025) Things to Know
+
+::: incremental
+*  🚻 **Gender-neutral bathroom**: LL2 next to Chicago A
+
+*  🧘 **Meditation/prayer room**: LL2 Chicago A
+
+*  🤱 **Lactation room**: LL2 Chicago B
+
+*  🎉 **Welcome reception**: Tonight 5-7 pm, LL2 Grand Hall West
+
+*  🐠 **Aquarium Night**: Tomorrow 7-10 pm, Georgia Aquarium
+:::
+
+## posit::conf(2025) Social Media
+
+* [Red lanyards]{.red .b} available to those who don't wish to be photographed
+
+* `#PositConf2025` for all things conf
+
 ## Instructors
 
 ::: columns
@@ -72,7 +92,7 @@ What do you hope to get out of today?
 
 -   R packages to support Clinical Reporting in R
 
-    -   Create SDTM from raw data (CDASH and non-SDACH formats)
+    -   Create SDTM from raw data (CDASH and non-CDASH formats)
 
     -   Create ADaM datasets from SDTM
 
@@ -183,21 +203,21 @@ library(pharmaverse)
 
 ## End-to-End with Barb!
 
-Barb is on a journey from raw to TFL.
+Barb is on a journey from raw data to the TFLs.
 At various points we will be finding Barb in our data as we transform from Raw to TFL.
 
 <img src="barb-sdtm.png" alt="Barb!" style="width: 100%;"/>
 
 ## End-to-End with Barb!
 
-Barb is on a journey from raw to TFL.
+Barb is on a journey from raw data to the TFLs.
 At various points we will be finding Barb in our data as we transform from Raw to TFL.
 
 <img src="barb-adam.png" alt="Barb!" style="width: 100%;"/>
 
 ## End-to-End with Barb!
 
-Barb is on a journey from raw to TFL.
+Barb is on a journey from raw data to the TFLs.
 At various points we will be finding Barb in our data as we transform from Raw to TFL.
 
 <img src="barb-tlg.png" alt="Barb!" style="width: 100%;"/>

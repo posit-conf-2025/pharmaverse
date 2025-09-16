@@ -40,9 +40,7 @@ cache: false
 
 {{< include 04-llm.qmd >}}
 
-<!-- Open the teal gallery and walk through examples (not the code, but the end result) -->
-<!-- TODO: Ram will add -->
-<!-- {{< include 05-teal.qmd >} -->
+{{< include 05-teal.qmd >}}
 
 {{< include 06-goodbye.qmd >}}
 
