@@ -92,7 +92,7 @@ What do you hope to get out of today?
 
 -   R packages to support Clinical Reporting in R
 
-    -   Create SDTM from raw data (CDASH and non-SDACH formats)
+    -   Create SDTM from raw data (CDASH and non-CDASH formats)
 
     -   Create ADaM datasets from SDTM
 

@@ -69,7 +69,7 @@ classDef highlight fill:#F9B, stroke:#333, stroke-width:2px;
 
 ::: incremental
 -   Basic knowledge of CDISC Standards (SDTM Domains)
--      Check out the [SDTM IG and other documents for CDISC](https://www.cdisc.org/standards/foundational/sdtm)
+-   Check out the [SDTM IG & other documents](https://www.cdisc.org/standards/foundational/sdtm)
 -     🦺 But even lacking CDSIC knowledge, we still think you will gain some great learnings today! 🦺
 -   Basic familiarity in R, RStudio IDE and its packages
 :::
@@ -436,6 +436,8 @@ When to use hardcode mapping algorithm?
 
 ## Check-in Exercise {.smaller}
 
+Open exercises/02-SDTM.R
+
 ```{r, eval = FALSE}
 library(sdtm.oak)
 library(pharmaverseraw)
@@ -443,30 +445,11 @@ library(dplyr)
 
 #AE aCRF - https://github.com/pharmaverse/pharmaverseraw/blob/main/vignettes/articles/aCRFs/AdverseEvent_aCRF.pdf
 
-# Read in Raw dataset ----
-ae_raw <- pharmaverseraw::ae_raw
+# Exercise 1: Map AETERM from raw_var=IT.AETERM, tgt_var=AETERM
 
-# Generate oak_id_vars ----
-ae_raw <- ae_raw %>%
-  generate_oak_id_vars(
-    pat_var = "PATNUM",
-    raw_src = "ae_raw"
-  )
+# Exercise 2:  Map AESER from raw_var=IT.AESER, tgt_var=AESER. Codelist code for AESDTH is C66742
 
-# Read in Controlled Terminology
-study_ct <-  data.frame(
-  codelist_code = c("C66742", "C66742"),
-  term_code = c("C49487", "C49488"),
-  term_value = c("N", "Y"),
-  collected_value = c("No", "Yes"),
-  term_preferred_term = c("No", "Yes"),
-  term_synonyms = c("No", "Yes"),
-  stringsAsFactors = FALSE
-)
-
-# Map AETERM from raw_var=IT.AETERM, tgt_var=AETERM
-# Map AESER from raw_var=IT.AESER, tgt_var=AESER. Codelist code for AESDTH is C66742
-# Map AESDTH from raw_var=IT.AESDTH, tgt_var=AESDTH.Annotation text is 
+# Exercise 3:  Map AESDTH from raw_var=IT.AESDTH, tgt_var=AESDTH.Annotation text is 
 #    If "Yes" then AESDTH = "Y" else Not Submitted. Codelist code for AESDTH is C66742
 
 ```
@@ -527,11 +510,13 @@ CDISC Wiki: https://wiki.cdisc.org/display/oakgarden
 
 [sdtm.oak Documentation](https://pharmaverse.github.io/sdtm.oak/)
 
+[Pharmaverse Examples](https://pharmaverse.github.io/examples/)
+
 [sdtm.oak Youtube Video](https://www.youtube.com/watch?v=H0FdhG9_ttU&list=PLMtxz1fUYA5C67SvhSCINluOV2EmyjKql&index=3&ab_channel=RinPharma)
 
 [sdtm.oak Pharmaverse Blog](https://pharmaverse.github.io/blog/posts/2024-10-24_introducing.../introducing_sdtm.oak.html)
 
-[SDTM Programming in R with sdtm.oak](https://phuse.s3.eu-central-1.amazonaws.com/Archive/2025/Connect/US/Orlando/POS_PP31.pdf)
+[SDTM Programming in R with sdtm.oak Poster](https://phuse.s3.eu-central-1.amazonaws.com/Archive/2025/Connect/US/Orlando/POS_PP31.pdf)
 
 ## Thank you
 
