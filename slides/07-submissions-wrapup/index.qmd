@@ -26,9 +26,7 @@ cache: false
 
 # More Resources for E2E
 
-<!-- Open the pharmaverse examples website -->
-<!-- TODO: Daniel will add -->
-<!-- {{< include 02-examples.qmd >}} -->
+{{< include 02-examples.qmd >}}
 
 <!-- TODO: BEN will add -->
 <!-- {{< include 03-submissions-wg.qmd >}} -->
