@@ -294,7 +294,7 @@ ard_stack(
 ## Quick recap!
 
 ::: {.small}
-Let's compute summaries for a demography table that includes age (AGE), age group (AGEGR1), and sex (SEX) by treatment (ARM2) in a *single `ard_stack()` call, including:
+Let's compute summaries for a demography table that includes age (AGE), age group (AGEGR1), and sex (SEX) by treatment (ARM2) in a *single `ard_stack()` call*, including:
 
   - summaries by ARM2 as performed above
   

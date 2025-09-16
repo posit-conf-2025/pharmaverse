@@ -66,6 +66,7 @@ Barb has arrived at RESULTS!
 ## Zooming Out: The Analysis Results Standard (ARS) 
 
 ![](images/ars-flow.png){fig-align="center"}
+
 :::{.small}
 Objectives include:
 
