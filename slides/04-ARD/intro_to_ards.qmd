@@ -21,6 +21,18 @@ Barb has arrived at RESULTS!
     - Gained an awareness of other possibilities in `cards` and statistical capabilities in `cardx`
 :::
 
+## Play by Play to achieve our Objectives
+
+::: incremental
+-   🕙 5 mins: Intro to ARDs and the ARS
+
+-   🕥 20 mins: Basic summaries using {cards}
+
+-   🕚 10 mins: Exercise
+
+-   🕦 10 mins: Intro to stats with {cardx}
+
+:::
 
 
 ## What are ARDs?
