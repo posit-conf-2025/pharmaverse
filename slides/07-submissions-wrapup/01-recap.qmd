@@ -1,0 +1,38 @@
+# Recap time!
+
+## End-to-End with Barb!
+
+Barb went on a journey from raw data to TFLs.
+At various points we found Barb in our data as we transformed from Raw to TFL.
+
+<img src="images/barb-sdtm.png" alt="Barb!" style="width: 100%;"/>
+
+## End-to-End with Barb!
+
+Barb went on a journey from raw data to TFLs.
+At various points we found Barb in our data as we transformed from Raw to TFL
+
+<img src="images/barb-adam.png" alt="Barb!" style="width: 100%;"/>
+
+## End-to-End with Barb!
+
+Barb went on a journey from raw data to TFLs.
+At various points we found Barb in our data as we transformed from Raw to TFL
+
+<img src="images/barb-tlg.png" alt="Barb!" style="width: 100%;"/>
+
+## What did we cover?
+
+::: {.incremental}
+
+- Raw to SDTM with {sdtm.oak}
+
+- SDTM to ADaM with {admiral}, {metacore}, {metatools}, {xportr}
+
+- ARDs with {cards} and {cardx}
+
+- ARD-first tables with {tfrmt}
+
+- ARD-friendly tables with {gtsummary}
+
+:::

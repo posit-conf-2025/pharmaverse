@@ -16,9 +16,7 @@ execute:
 cache: false
 --- 
 
-
 # E2E Overview
-
 
 <!-- Show Barb moving along the E2E pathway -->
 
@@ -26,6 +24,7 @@ cache: false
 <!-- TODO: BEN will add -->
 {{< include 01-recap.qmd >}}
 
+# More Resources for E2E
 
 <!-- Open the pharmaverse examples website -->
 <!-- TODO: Daniel will add -->
