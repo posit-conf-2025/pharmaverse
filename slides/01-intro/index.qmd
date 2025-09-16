@@ -23,9 +23,7 @@ cache: false
 
 -   Find a seat where you can see the screen!
 
-<!-- TODO: Add link to posit cloud -->
-
--   Join the Posit Cloud workspace
+-   Join the Posit Cloud workspace: [link](https://posit.cloud/spaces/679631/join?access_code=o6j4FZfDKnkiUYDW0g5izzl6qCMQpdsm5RZwk5ay)
 
 -   Join the Slack from [pharmaverse.slack.com/](https://pharmaverse.slack.com/)
 
