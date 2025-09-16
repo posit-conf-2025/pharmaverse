@@ -26,10 +26,7 @@ cache: false
 <!-- TODO: BEN will add -->
 {{< include 01-recap.qmd >}}
 
-
-<!-- Open the pharmaverse examples website -->
-<!-- TODO: Daniel will add -->
-<!-- {{< include 02-examples.qmd >}} -->
+{{< include 02-examples.qmd >}}
 
 <!-- TODO: BEN will add -->
 <!-- {{< include 03-submissions-wg.qmd >}} -->
