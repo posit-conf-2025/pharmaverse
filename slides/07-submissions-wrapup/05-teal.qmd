@@ -1,0 +1,45 @@
+# Teal
+
+## What is {teal}?
+
+::: incremental
+* Open-source R Shiny-based interactive data exploration framework
+* Modularized and standardized building blocks
+* Collection of specialized R packages
+* Streamlines creation of web-apps that offers:
+    * Dynamic filtering facility
+    * Code reproducibility
+    * Reporting engine
+    * Many data summarization and visualizations
+:::
+
+## Teal Modules
+
+::: incremental
+* Teal modules are shiny modules built within the teal framework that specify analysis
+to be performed. For example, it can be a module for exploring outliers in the data, or a module for visualizing the data in line plots. 
+
+  * teal.modules.general: General modules for exploring relational/independent/CDISC data
+  * teal.modules.clinical: Modules specific to CDISC data and clinical trial reporting
+  * teal.modules.hermes: Modules for analyzing MultiAssayExperiment objects
+:::
+
+## Your first Teal app
+
+[A simple teal app](https://insightsengineering.github.io/teal/latest-tag/articles/getting-started-with-teal.html#your-first-teal-application)
+
+## Teal Gallery
+
+A gallery of sample apps based on the teal framework. The gallery showcases a variety of applications, including safety, efficacy and exploratory examples.
+
+[Teal Gallery](https://insightsengineering.github.io/teal.gallery/)
+
+## Teal as a shiny module
+::: incremental
+* A shiny developer can embed a teal application into their own shiny app by using shiny module components of teal
+* Using teal as a shiny module offers several advantages:
+    * Embedding one or more teal applications within a larger shiny app
+    * Creating teal applications with dynamically generated components (initial data, modules, filters)
+* [Teal as a shiny module](https://rinpharma.shinyapps.io/nest_teal-as-shiny-module_stable/)
+:::
+
