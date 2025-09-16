@@ -1,5 +1,33 @@
 [
   {
+    "objectID": "slides/07-submissions-wrapup/index.html#end-to-end-with-barb",
+    "href": "slides/07-submissions-wrapup/index.html#end-to-end-with-barb",
+    "title": "Submissions in R and Wrap-Up",
+    "section": "End-to-End with Barb!",
+    "text": "End-to-End with Barb!\nBarb went on a journey from raw data to TFLs. At various points we found Barb in our data as we transformed from Raw to TFL."
+  },
+  {
+    "objectID": "slides/07-submissions-wrapup/index.html#end-to-end-with-barb-1",
+    "href": "slides/07-submissions-wrapup/index.html#end-to-end-with-barb-1",
+    "title": "Submissions in R and Wrap-Up",
+    "section": "End-to-End with Barb!",
+    "text": "End-to-End with Barb!\nBarb went on a journey from raw data to TFLs. At various points we found Barb in our data as we transformed from Raw to TFL"
+  },
+  {
+    "objectID": "slides/07-submissions-wrapup/index.html#end-to-end-with-barb-2",
+    "href": "slides/07-submissions-wrapup/index.html#end-to-end-with-barb-2",
+    "title": "Submissions in R and Wrap-Up",
+    "section": "End-to-End with Barb!",
+    "text": "End-to-End with Barb!\nBarb went on a journey from raw data to TFLs. At various points we found Barb in our data as we transformed from Raw to TFL"
+  },
+  {
+    "objectID": "slides/07-submissions-wrapup/index.html#what-did-we-cover",
+    "href": "slides/07-submissions-wrapup/index.html#what-did-we-cover",
+    "title": "Submissions in R and Wrap-Up",
+    "section": "What did we cover?",
+    "text": "What did we cover?\n\nRaw to SDTM with {sdtm.oak}\nSDTM to ADaM with {admiral}, {metacore}, {metatools}, {xportr}\nARDs with {cards} and {cardx}\nARD-first tables with {tfrmt}\nARD-friendly tables with {gtsummary}"
+  },
+  {
     "objectID": "slides/07-submissions-wrapup/index.html#pharmaverse-examples",
     "href": "slides/07-submissions-wrapup/index.html#pharmaverse-examples",
     "title": "Submissions in R and Wrap-Up",
