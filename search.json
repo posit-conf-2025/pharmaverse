@@ -1319,7 +1319,7 @@
     "href": "exercises/exercises.html#sdtm.r-1",
     "title": "Exercises + Solutions",
     "section": "02-SDTM.R",
-    "text": "02-SDTM.R",
+    "text": "02-SDTM.R\n\n\nWarning in readLines(\"answers/02-SDTM-answer.R\"): incomplete final line found\non 'answers/02-SDTM-answer.R'\n\n\nlibrary(sdtm.oak)\nlibrary(pharmaverseraw)\nlibrary(dplyr)\n\n#AE aCRF - https://github.com/pharmaverse/pharmaverseraw/blob/main/vignettes/articles/aCRFs/AdverseEvent_aCRF.pdf\n\n# Read in Raw dataset ----\nae_raw &lt;- pharmaverseraw::ae_raw\n\n# Generate oak_id_vars ----\nae_raw &lt;- ae_raw %&gt;%\n  generate_oak_id_vars(\n    pat_var = \"PATNUM\",\n    raw_src = \"ae_raw\"\n  )\n\n# Read in Controlled Terminology\nstudy_ct &lt;-  data.frame(\n  codelist_code = c(\"C66742\", \"C66742\"),\n  term_code = c(\"C49487\", \"C49488\"),\n  term_value = c(\"N\", \"Y\"),\n  collected_value = c(\"No\", \"Yes\"),\n  term_preferred_term = c(\"No\", \"Yes\"),\n  term_synonyms = c(\"No\", \"Yes\"),\n  stringsAsFactors = FALSE\n)\n\n# Exercise 1 ------------------------------------------------\n# Map AETERM from raw_var=IT.AETERM, tgt_var=AETERM\nae &lt;-\n  # Derive topic variable\n  # Map AETERM using assign_no_ct, raw_var=IT.AETERM, tgt_var=AETERM\n  assign_no_ct(\n    raw_dat = ae_raw,\n    raw_var = \"IT.AETERM\",\n    tgt_var = \"AETERM\",\n    id_vars = oak_id_vars()\n  ) %&gt;%\n  # Exercise 2 ------------------------------------------------\n  # Map AESER using assign_no_ct, raw_var=IT.AESER, tgt_var=AESER\n  assign_ct(\n    raw_dat = ae_raw,\n    raw_var = \"IT.AESER\",\n    tgt_var = \"AESER\",\n    ct_spec = study_ct,\n    ct_clst = \"C66742\",\n    id_vars = oak_id_vars()\n  ) %&gt;%\n  # Exercise 3 ------------------------------------------------\n  # Map AESDTH from raw_var=IT.AESDTH, tgt_var=AESDTH.Annotation text is \n  #    If \"Yes\" then AESDTH = \"Y\" else Not Submitted. Codelist code for AESDTH is C66742\n  # Map AESDTH using condition_add & assign_ct, raw_var=IT.AESDTH, tgt_var=AESDTH\n  assign_ct(\n    raw_dat = condition_add(ae_raw, IT.AESDTH == \"Yes\"),\n    raw_var = \"IT.AESDTH\",\n    tgt_var = \"AESDTH\",\n    ct_spec = study_ct,\n    ct_clst = \"C66742\",\n    id_vars = oak_id_vars()\n  )",
     "crumbs": [
       "Exercises + Solutions"
     ]
@@ -1561,7 +1561,7 @@
     "href": "slides/02-SDTM/index.html#quiz---1",
     "title": "CDISC SDTM (Study Data Tabulation Model) datasets in R",
     "section": "Quiz - 1",
-    "text": "Quiz - 1\nWhat function should be used for mapping for CMROUTE. The Route information is collected in a drop down list on the CRF.\n\n\n\n\n\n  assign_no_ct() \n\n\n  assign_ct() \n\n\n\n\n\n\n\n\nCorrect answer:\nb) As CMROUTE has a codelist associated we need to use   assign_ct()"
+    "text": "Quiz - 1\n\nWhat function should be used for mapping for CMROUTE. The Route information is collected in a drop down list on the CRF.\n\n\n  assign_no_ct() \n\n\n  assign_ct() \n\n\nCorrect answer:\n\n\nAs CMROUTE has a codelist associated we need to use   assign_ct()"
   },
   {
     "objectID": "slides/02-SDTM/index.html#review-specs-1",
@@ -1610,7 +1610,7 @@
     "href": "slides/02-SDTM/index.html#quiz---2",
     "title": "CDISC SDTM (Study Data Tabulation Model) datasets in R",
     "section": "Quiz - 2",
-    "text": "Quiz - 2\nWhen to use hardcode mapping algorithm?\n\n\n\n\n\nTo assign a collected value on the eCRF\n\n\nTo Hardcode a SDTM variable that has not directly collected on the eCRF.\n\n\n\n\n\n\n\n\nCorrect answer:\nb) To hardcode a value use hardcode algorithms. To assign a collected value use assign algorithms"
+    "text": "Quiz - 2\n\nWhen to use hardcode mapping algorithm?\n\n\nTo assign a collected value on the eCRF\n\n\nTo Hardcode a SDTM variable that has not directly collected on the eCRF.\n\n\nCorrect answer:\n\n\nTo hardcode a value use hardcode algorithms. To assign a collected value use assign algorithms**"
   },
   {
     "objectID": "slides/02-SDTM/index.html#check-in-exercise",

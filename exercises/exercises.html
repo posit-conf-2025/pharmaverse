@@ -611,63 +611,131 @@ on 'answers/01-intro-answer.R'</code></pre>
 </section>
 <section id="sdtm.r-1" class="level2">
 <h2 class="anchored" data-anchor-id="sdtm.r-1"><code>02-SDTM.R</code></h2>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in readLines("answers/02-SDTM-answer.R"): incomplete final line found
+on 'answers/02-SDTM-answer.R'</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sdtm.oak)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pharmaverseraw)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#AE aCRF - https://github.com/pharmaverse/pharmaverseraw/blob/main/vignettes/articles/aCRFs/AdverseEvent_aCRF.pdf</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in Raw dataset ----</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>ae_raw <span class="ot">&lt;-</span> pharmaverseraw<span class="sc">::</span>ae_raw</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate oak_id_vars ----</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>ae_raw <span class="ot">&lt;-</span> ae_raw <span class="sc">%&gt;%</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate_oak_id_vars</span>(</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">pat_var =</span> <span class="st">"PATNUM"</span>,</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">raw_src =</span> <span class="st">"ae_raw"</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in Controlled Terminology</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>study_ct <span class="ot">&lt;-</span>  <span class="fu">data.frame</span>(</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">codelist_code =</span> <span class="fu">c</span>(<span class="st">"C66742"</span>, <span class="st">"C66742"</span>),</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">term_code =</span> <span class="fu">c</span>(<span class="st">"C49487"</span>, <span class="st">"C49488"</span>),</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">term_value =</span> <span class="fu">c</span>(<span class="st">"N"</span>, <span class="st">"Y"</span>),</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">collected_value =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>),</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">term_preferred_term =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>),</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">term_synonyms =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>),</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Exercise 1 ------------------------------------------------</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Map AETERM from raw_var=IT.AETERM, tgt_var=AETERM</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>ae <span class="ot">&lt;-</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Derive topic variable</span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Map AETERM using assign_no_ct, raw_var=IT.AETERM, tgt_var=AETERM</span></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assign_no_ct</span>(</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">raw_dat =</span> ae_raw,</span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">raw_var =</span> <span class="st">"IT.AETERM"</span>,</span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">tgt_var =</span> <span class="st">"AETERM"</span>,</span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">id_vars =</span> <span class="fu">oak_id_vars</span>()</span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Exercise 2 ------------------------------------------------</span></span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Map AESER using assign_no_ct, raw_var=IT.AESER, tgt_var=AESER</span></span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assign_ct</span>(</span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">raw_dat =</span> ae_raw,</span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">raw_var =</span> <span class="st">"IT.AESER"</span>,</span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">tgt_var =</span> <span class="st">"AESER"</span>,</span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">ct_spec =</span> study_ct,</span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">ct_clst =</span> <span class="st">"C66742"</span>,</span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">id_vars =</span> <span class="fu">oak_id_vars</span>()</span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Exercise 3 ------------------------------------------------</span></span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Map AESDTH from raw_var=IT.AESDTH, tgt_var=AESDTH.Annotation text is </span></span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a>  <span class="co">#    If "Yes" then AESDTH = "Y" else Not Submitted. Codelist code for AESDTH is C66742</span></span>
+<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Map AESDTH using condition_add &amp; assign_ct, raw_var=IT.AESDTH, tgt_var=AESDTH</span></span>
+<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assign_ct</span>(</span>
+<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a>    <span class="at">raw_dat =</span> <span class="fu">condition_add</span>(ae_raw, IT.AESDTH <span class="sc">==</span> <span class="st">"Yes"</span>),</span>
+<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a>    <span class="at">raw_var =</span> <span class="st">"IT.AESDTH"</span>,</span>
+<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a>    <span class="at">tgt_var =</span> <span class="st">"AESDTH"</span>,</span>
+<span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a>    <span class="at">ct_spec =</span> study_ct,</span>
+<span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a>    <span class="at">ct_clst =</span> <span class="st">"C66742"</span>,</span>
+<span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a>    <span class="at">id_vars =</span> <span class="fu">oak_id_vars</span>()</span>
+<span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
 </section>
 <section id="adam.r-1" class="level2">
 <h2 class="anchored" data-anchor-id="adam.r-1"><code>03-ADaM.R</code></h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Exercise 1</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Update date and time imputation arguments so that any dates or times</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># that are imputed are the last month/day of the year and 23:59:59</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(admiral)</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>posit_mh <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>USUBJID, <span class="sc">~</span>MHSTDTC,</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span>,        <span class="st">"2019-07-18T15:25:40"</span>,</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span>,        <span class="st">"2019-07-18T15:25"</span>,</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span>,        <span class="st">"2019-07-18"</span>,</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span>,        <span class="st">"2024-02"</span>,</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span>,        <span class="st">"2019"</span>,</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span>,        <span class="st">"2019---07"</span>,</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  <span class="dv">3</span>,        <span class="st">""</span></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="fu">derive_vars_dtm</span>(</span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">dataset =</span> posit_mh,</span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">new_vars_prefix =</span> <span class="st">"AST"</span>,</span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">dtc =</span> MHSTDTC,</span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">highest_imputation =</span> <span class="st">"M"</span>,</span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">date_imputation =</span> <span class="st">"last"</span>,</span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">time_imputation =</span> <span class="st">"last"</span></span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Exercise 2</span></span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Update set_values_to argument for the formula</span></span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="co"># MAP Formula: MAP = (SYSBP + 2*DIABP) / 3</span></span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>ADVS <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>USUBJID,      <span class="sc">~</span>PARAMCD, <span class="sc">~</span>PARAM,                            <span class="sc">~</span>AVALU,  <span class="sc">~</span>AVAL, <span class="sc">~</span>VISIT,</span>
-<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>  <span class="st">"01-701-1015"</span>, <span class="st">"DIABP"</span>,  <span class="st">"Diastolic Blood Pressure (mmHg)"</span>, <span class="st">"mmHg"</span>,    <span class="dv">51</span>, <span class="st">"BASELINE"</span>,</span>
-<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>  <span class="st">"01-701-1015"</span>, <span class="st">"SYSBP"</span>,  <span class="st">"Systolic Blood Pressure (mmHg)"</span>,  <span class="st">"mmHg"</span>,   <span class="dv">121</span>, <span class="st">"BASELINE"</span>,</span>
-<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>  <span class="st">"01-701-1028"</span>, <span class="st">"DIABP"</span>,  <span class="st">"Diastolic Blood Pressure (mmHg)"</span>, <span class="st">"mmHg"</span>,    <span class="dv">79</span>, <span class="st">"BASELINE"</span>,</span>
-<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>  <span class="st">"01-701-1028"</span>, <span class="st">"SYSBP"</span>,  <span class="st">"Systolic Blood Pressure (mmHg)"</span>,  <span class="st">"mmHg"</span>,   <span class="dv">130</span>, <span class="st">"BASELINE"</span>,</span>
-<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>) </span>
-<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a><span class="fu">derive_param_computed</span>(</span>
-<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>  ADVS,</span>
-<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>  <span class="at">by_vars =</span> <span class="fu">exprs</span>(USUBJID, VISIT),</span>
-<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">c</span>(<span class="st">"SYSBP"</span>, <span class="st">"DIABP"</span>),</span>
-<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>  <span class="at">set_values_to =</span> <span class="fu">exprs</span>(</span>
-<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">AVAL =</span> (AVAL.SYSBP <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> AVAL.DIABP) <span class="sc">/</span> <span class="dv">3</span>,</span>
-<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>    <span class="at">PARAMCD =</span> <span class="st">"MAP"</span>,</span>
-<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>    <span class="at">PARAM =</span> <span class="st">"Mean Arterial Pressure (mmHg)"</span>,</span>
-<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>    <span class="at">AVALU =</span> <span class="st">"mmHg"</span>,</span>
-<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Exercise 1</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Update date and time imputation arguments so that any dates or times</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># that are imputed are the last month/day of the year and 23:59:59</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(admiral)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>posit_mh <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>USUBJID, <span class="sc">~</span>MHSTDTC,</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span>,        <span class="st">"2019-07-18T15:25:40"</span>,</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span>,        <span class="st">"2019-07-18T15:25"</span>,</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span>,        <span class="st">"2019-07-18"</span>,</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span>,        <span class="st">"2024-02"</span>,</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span>,        <span class="st">"2019"</span>,</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span>,        <span class="st">"2019---07"</span>,</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>  <span class="dv">3</span>,        <span class="st">""</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="fu">derive_vars_dtm</span>(</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">dataset =</span> posit_mh,</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">new_vars_prefix =</span> <span class="st">"AST"</span>,</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">dtc =</span> MHSTDTC,</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">highest_imputation =</span> <span class="st">"M"</span>,</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">date_imputation =</span> <span class="st">"last"</span>,</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">time_imputation =</span> <span class="st">"last"</span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Exercise 2</span></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Update set_values_to argument for the formula</span></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="co"># MAP Formula: MAP = (SYSBP + 2*DIABP) / 3</span></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>ADVS <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>USUBJID,      <span class="sc">~</span>PARAMCD, <span class="sc">~</span>PARAM,                            <span class="sc">~</span>AVALU,  <span class="sc">~</span>AVAL, <span class="sc">~</span>VISIT,</span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>  <span class="st">"01-701-1015"</span>, <span class="st">"DIABP"</span>,  <span class="st">"Diastolic Blood Pressure (mmHg)"</span>, <span class="st">"mmHg"</span>,    <span class="dv">51</span>, <span class="st">"BASELINE"</span>,</span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>  <span class="st">"01-701-1015"</span>, <span class="st">"SYSBP"</span>,  <span class="st">"Systolic Blood Pressure (mmHg)"</span>,  <span class="st">"mmHg"</span>,   <span class="dv">121</span>, <span class="st">"BASELINE"</span>,</span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>  <span class="st">"01-701-1028"</span>, <span class="st">"DIABP"</span>,  <span class="st">"Diastolic Blood Pressure (mmHg)"</span>, <span class="st">"mmHg"</span>,    <span class="dv">79</span>, <span class="st">"BASELINE"</span>,</span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a>  <span class="st">"01-701-1028"</span>, <span class="st">"SYSBP"</span>,  <span class="st">"Systolic Blood Pressure (mmHg)"</span>,  <span class="st">"mmHg"</span>,   <span class="dv">130</span>, <span class="st">"BASELINE"</span>,</span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a>) </span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a><span class="fu">derive_param_computed</span>(</span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>  ADVS,</span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a>  <span class="at">by_vars =</span> <span class="fu">exprs</span>(USUBJID, VISIT),</span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">c</span>(<span class="st">"SYSBP"</span>, <span class="st">"DIABP"</span>),</span>
+<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a>  <span class="at">set_values_to =</span> <span class="fu">exprs</span>(</span>
+<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">AVAL =</span> (AVAL.SYSBP <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> AVAL.DIABP) <span class="sc">/</span> <span class="dv">3</span>,</span>
+<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a>    <span class="at">PARAMCD =</span> <span class="st">"MAP"</span>,</span>
+<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a>    <span class="at">PARAM =</span> <span class="st">"Mean Arterial Pressure (mmHg)"</span>,</span>
+<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a>    <span class="at">AVALU =</span> <span class="st">"mmHg"</span>,</span>
+<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </section>
@@ -675,52 +743,52 @@ on 'answers/01-intro-answer.R'</code></pre>
 <h2 class="anchored" data-anchor-id="ard.r-1"><code>04-ARD.R</code></h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ARD Exercise: Adverse Events summaries using {cards}</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup: run this first! --------------------------------------------------</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Load necessary packages</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cards) </span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Import &amp; subset data</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>adsl <span class="ot">&lt;-</span> pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(SAFFL<span class="sc">==</span><span class="st">"Y"</span>)</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>adae <span class="ot">&lt;-</span> pharmaverseadam<span class="sc">::</span>adae <span class="sc">|&gt;</span> </span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(SAFFL<span class="sc">==</span><span class="st">"Y"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(AESOC <span class="sc">%in%</span> <span class="fu">unique</span>(AESOC)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]) <span class="sc">|&gt;</span> </span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(AESOC) <span class="sc">|&gt;</span> </span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(AEDECOD <span class="sc">%in%</span> <span class="fu">unique</span>(AEDECOD)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]) <span class="sc">|&gt;</span> </span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">ungroup</span>()</span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Exercise ----------------------------------------------------------------</span></span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="co"># A. Calculate the number and percentage of *unique* subjects with at least one AE:</span></span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a><span class="co">#  - By each SOC (AESOC)</span></span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a><span class="co">#  - By each Preferred term (AEDECOD) within SOC (AESOC)</span></span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="co"># By every combination of treatment group (ARM2) </span></span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a><span class="fu">ard_stack_hierarchical</span>(</span>
-<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> adae,</span>
-<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">variables =</span> <span class="fu">c</span>(AESOC, AEDECOD),</span>
-<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> ARM, </span>
-<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> USUBJID,</span>
-<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>  <span class="at">denominator =</span> adsl </span>
-<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>) </span>
-<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a><span class="co"># B. [*BONUS*] Modify the code from part A to include overall number/percentage of</span></span>
-<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a><span class="co"># subjects with at least one AE, regardless of SOC and PT</span></span>
-<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a><span class="fu">ard_stack_hierarchical</span>(</span>
-<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> adae,</span>
-<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>  <span class="at">variables =</span> <span class="fu">c</span>(AESOC, AEDECOD),</span>
-<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> ARM, </span>
-<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> USUBJID,</span>
-<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>  <span class="at">denominator =</span> adsl,</span>
-<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>  <span class="at">over_variables =</span> <span class="cn">TRUE</span></span>
-<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ARD Exercise: Adverse Events summaries using {cards}</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup: run this first! --------------------------------------------------</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Load necessary packages</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cards) </span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Import &amp; subset data</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>adsl <span class="ot">&lt;-</span> pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(SAFFL<span class="sc">==</span><span class="st">"Y"</span>)</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>adae <span class="ot">&lt;-</span> pharmaverseadam<span class="sc">::</span>adae <span class="sc">|&gt;</span> </span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(SAFFL<span class="sc">==</span><span class="st">"Y"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(AESOC <span class="sc">%in%</span> <span class="fu">unique</span>(AESOC)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]) <span class="sc">|&gt;</span> </span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(AESOC) <span class="sc">|&gt;</span> </span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(AEDECOD <span class="sc">%in%</span> <span class="fu">unique</span>(AEDECOD)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]) <span class="sc">|&gt;</span> </span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">ungroup</span>()</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Exercise ----------------------------------------------------------------</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="co"># A. Calculate the number and percentage of *unique* subjects with at least one AE:</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="co">#  - By each SOC (AESOC)</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="co">#  - By each Preferred term (AEDECOD) within SOC (AESOC)</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="co"># By every combination of treatment group (ARM2) </span></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="fu">ard_stack_hierarchical</span>(</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> adae,</span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">variables =</span> <span class="fu">c</span>(AESOC, AEDECOD),</span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> ARM, </span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> USUBJID,</span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>  <span class="at">denominator =</span> adsl </span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>) </span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a><span class="co"># B. [*BONUS*] Modify the code from part A to include overall number/percentage of</span></span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a><span class="co"># subjects with at least one AE, regardless of SOC and PT</span></span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a><span class="fu">ard_stack_hierarchical</span>(</span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> adae,</span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a>  <span class="at">variables =</span> <span class="fu">c</span>(AESOC, AEDECOD),</span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> ARM, </span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> USUBJID,</span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>  <span class="at">denominator =</span> adsl,</span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a>  <span class="at">over_variables =</span> <span class="cn">TRUE</span></span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </section>
@@ -728,104 +796,104 @@ on 'answers/01-intro-answer.R'</code></pre>
 <h2 class="anchored" data-anchor-id="tables-tfrmt.r-1"><code>05-tables-tfrmt.R</code></h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Table Exercise: AE summary table using {tfrmt}</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># For this exercise, we will use the AE ARD from the last section to</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># create a {tfrmt} table</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup: run this first! --------------------------------------------------</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Load necessary packages</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cards)</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tfrmt)</span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Import &amp; subset data</span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>adsl <span class="ot">&lt;-</span> pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(SAFFL<span class="sc">==</span><span class="st">"Y"</span>) </span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>adae <span class="ot">&lt;-</span> pharmaverseadam<span class="sc">::</span>adae <span class="sc">|&gt;</span> </span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(SAFFL<span class="sc">==</span><span class="st">"Y"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(AESOC <span class="sc">%in%</span> <span class="fu">unique</span>(AESOC)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]) <span class="sc">|&gt;</span> </span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(AESOC) <span class="sc">|&gt;</span> </span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(AEDECOD <span class="sc">%in%</span> <span class="fu">unique</span>(AEDECOD)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]) <span class="sc">|&gt;</span> </span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">ungroup</span>()</span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="do">## Create AE Summary using cards</span></span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>ard_ae <span class="ot">&lt;-</span> <span class="fu">ard_stack_hierarchical</span>(</span>
-<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> adae,</span>
-<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">variables =</span> <span class="fu">c</span>(AESOC, AEDECOD),</span>
-<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> ARM, </span>
-<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> USUBJID,</span>
-<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">denominator =</span> adsl,</span>
-<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>  <span class="at">over_variables =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>  <span class="at">statistic =</span> <span class="sc">~</span> <span class="fu">c</span>(<span class="st">"n"</span>, <span class="st">"p"</span>)</span>
-<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>) </span>
-<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Exercise ----------------------------------------------------------------</span></span>
-<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a><span class="co"># A. Convert `cards` object into a tidy data frame ready for {tfrmt}. </span></span>
-<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a><span class="co">#    Nothing to do besides run each step &amp; explore the output!</span></span>
-<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>ard_ae_tidy <span class="ot">&lt;-</span> ard_ae <span class="sc">|&gt;</span> </span>
-<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shuffle_card</span>(<span class="at">fill_hierarchical_overall =</span> <span class="st">"ANY EVENT"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep_big_n</span>(<span class="at">vars =</span> <span class="st">"ARM"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep_hierarchical_fill</span>(<span class="at">vars =</span> <span class="fu">c</span>(<span class="st">"AESOC"</span>,<span class="st">"AEDECOD"</span>),</span>
-<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a>                         <span class="at">fill_from_left =</span> <span class="cn">TRUE</span>)<span class="sc">|&gt;</span> </span>
-<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(context, stat_label, stat_variable))  </span>
-<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a><span class="co"># B. Create a basic tfrmt, filling in the appropriate variable names</span></span>
-<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a>ae_tfrmt <span class="ot">&lt;-</span> <span class="fu">tfrmt</span>(</span>
-<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a>  <span class="at">group =</span> AESOC,</span>
-<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a>  <span class="at">label =</span> AEDECOD,</span>
-<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a>  <span class="at">param =</span> stat_name,</span>
-<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a>  <span class="at">value =</span> stat,</span>
-<span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a>  <span class="at">column =</span> ARM,</span>
-<span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a>  <span class="at">body_plan =</span> <span class="fu">body_plan</span>(</span>
-<span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a>    <span class="fu">frmt_structure</span>(<span class="at">group_val =</span> <span class="st">".default"</span>, <span class="at">label_val =</span> <span class="st">".default"</span>, </span>
-<span id="cb11-61"><a href="#cb11-61" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">frmt_combine</span>(</span>
-<span id="cb11-62"><a href="#cb11-62" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"{n} ({p}%)"</span>,</span>
-<span id="cb11-63"><a href="#cb11-63" aria-hidden="true" tabindex="-1"></a>                     <span class="at">n =</span> <span class="fu">frmt</span>(<span class="st">"xx"</span>),</span>
-<span id="cb11-64"><a href="#cb11-64" aria-hidden="true" tabindex="-1"></a>                     <span class="at">p =</span> <span class="fu">frmt</span>(<span class="st">"xx"</span>, <span class="at">transform =</span> <span class="sc">~</span> . <span class="sc">*</span><span class="dv">100</span>)</span>
-<span id="cb11-65"><a href="#cb11-65" aria-hidden="true" tabindex="-1"></a>                   )</span>
-<span id="cb11-66"><a href="#cb11-66" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb11-67"><a href="#cb11-67" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb11-68"><a href="#cb11-68" aria-hidden="true" tabindex="-1"></a>  <span class="at">big_n =</span> <span class="fu">big_n_structure</span>(<span class="at">param_val =</span> <span class="st">"bigN"</span>) </span>
-<span id="cb11-69"><a href="#cb11-69" aria-hidden="true" tabindex="-1"></a>) </span>
-<span id="cb11-70"><a href="#cb11-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-71"><a href="#cb11-71" aria-hidden="true" tabindex="-1"></a><span class="fu">print_to_gt</span>(ae_tfrmt,</span>
-<span id="cb11-72"><a href="#cb11-72" aria-hidden="true" tabindex="-1"></a>            ard_ae_tidy)</span>
-<span id="cb11-73"><a href="#cb11-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-74"><a href="#cb11-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-75"><a href="#cb11-75" aria-hidden="true" tabindex="-1"></a><span class="co"># C. Switch the order of the columns so Placebo is last</span></span>
-<span id="cb11-76"><a href="#cb11-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-77"><a href="#cb11-77" aria-hidden="true" tabindex="-1"></a>ae_tfrmt <span class="ot">&lt;-</span> ae_tfrmt <span class="sc">|&gt;</span> </span>
-<span id="cb11-78"><a href="#cb11-78" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tfrmt</span>(</span>
-<span id="cb11-79"><a href="#cb11-79" aria-hidden="true" tabindex="-1"></a>    <span class="at">col_plan =</span> <span class="fu">col_plan</span>(</span>
-<span id="cb11-80"><a href="#cb11-80" aria-hidden="true" tabindex="-1"></a>      <span class="fu">starts_with</span>(<span class="st">"Xanomeline"</span>),</span>
-<span id="cb11-81"><a href="#cb11-81" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Placebo"</span></span>
-<span id="cb11-82"><a href="#cb11-82" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb11-83"><a href="#cb11-83" aria-hidden="true" tabindex="-1"></a>  )  </span>
-<span id="cb11-84"><a href="#cb11-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-85"><a href="#cb11-85" aria-hidden="true" tabindex="-1"></a><span class="fu">print_to_gt</span>(ae_tfrmt, ard_ae_tidy)</span>
-<span id="cb11-86"><a href="#cb11-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-87"><a href="#cb11-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-88"><a href="#cb11-88" aria-hidden="true" tabindex="-1"></a><span class="co"># D. Add a title and source note for the table</span></span>
-<span id="cb11-89"><a href="#cb11-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-90"><a href="#cb11-90" aria-hidden="true" tabindex="-1"></a>ae_tfrmt <span class="ot">&lt;-</span> ae_tfrmt <span class="sc">|&gt;</span> </span>
-<span id="cb11-91"><a href="#cb11-91" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tfrmt</span>(</span>
-<span id="cb11-92"><a href="#cb11-92" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"AE Table"</span>,</span>
-<span id="cb11-93"><a href="#cb11-93" aria-hidden="true" tabindex="-1"></a>    <span class="at">footnote_plan =</span> <span class="fu">footnote_plan</span>(</span>
-<span id="cb11-94"><a href="#cb11-94" aria-hidden="true" tabindex="-1"></a>      <span class="fu">footnote_structure</span>(<span class="st">"A typical AE Table"</span>)</span>
-<span id="cb11-95"><a href="#cb11-95" aria-hidden="true" tabindex="-1"></a>    ) </span>
-<span id="cb11-96"><a href="#cb11-96" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb11-97"><a href="#cb11-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-98"><a href="#cb11-98" aria-hidden="true" tabindex="-1"></a><span class="fu">print_to_gt</span>(ae_tfrmt, ard_ae_tidy)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Table Exercise: AE summary table using {tfrmt}</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># For this exercise, we will use the AE ARD from the last section to</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># create a {tfrmt} table</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup: run this first! --------------------------------------------------</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Load necessary packages</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cards)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tfrmt)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Import &amp; subset data</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>adsl <span class="ot">&lt;-</span> pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span> </span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(SAFFL<span class="sc">==</span><span class="st">"Y"</span>) </span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>adae <span class="ot">&lt;-</span> pharmaverseadam<span class="sc">::</span>adae <span class="sc">|&gt;</span> </span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(SAFFL<span class="sc">==</span><span class="st">"Y"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(AESOC <span class="sc">%in%</span> <span class="fu">unique</span>(AESOC)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]) <span class="sc">|&gt;</span> </span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(AESOC) <span class="sc">|&gt;</span> </span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(AEDECOD <span class="sc">%in%</span> <span class="fu">unique</span>(AEDECOD)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]) <span class="sc">|&gt;</span> </span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">ungroup</span>()</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a><span class="do">## Create AE Summary using cards</span></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>ard_ae <span class="ot">&lt;-</span> <span class="fu">ard_stack_hierarchical</span>(</span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> adae,</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">variables =</span> <span class="fu">c</span>(AESOC, AEDECOD),</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> ARM, </span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> USUBJID,</span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">denominator =</span> adsl,</span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>  <span class="at">over_variables =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>  <span class="at">statistic =</span> <span class="sc">~</span> <span class="fu">c</span>(<span class="st">"n"</span>, <span class="st">"p"</span>)</span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>) </span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Exercise ----------------------------------------------------------------</span></span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a><span class="co"># A. Convert `cards` object into a tidy data frame ready for {tfrmt}. </span></span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a><span class="co">#    Nothing to do besides run each step &amp; explore the output!</span></span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>ard_ae_tidy <span class="ot">&lt;-</span> ard_ae <span class="sc">|&gt;</span> </span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shuffle_card</span>(<span class="at">fill_hierarchical_overall =</span> <span class="st">"ANY EVENT"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep_big_n</span>(<span class="at">vars =</span> <span class="st">"ARM"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep_hierarchical_fill</span>(<span class="at">vars =</span> <span class="fu">c</span>(<span class="st">"AESOC"</span>,<span class="st">"AEDECOD"</span>),</span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>                         <span class="at">fill_from_left =</span> <span class="cn">TRUE</span>)<span class="sc">|&gt;</span> </span>
+<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(context, stat_label, stat_variable))  </span>
+<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a><span class="co"># B. Create a basic tfrmt, filling in the appropriate variable names</span></span>
+<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a>ae_tfrmt <span class="ot">&lt;-</span> <span class="fu">tfrmt</span>(</span>
+<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a>  <span class="at">group =</span> AESOC,</span>
+<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a>  <span class="at">label =</span> AEDECOD,</span>
+<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a>  <span class="at">param =</span> stat_name,</span>
+<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a>  <span class="at">value =</span> stat,</span>
+<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a>  <span class="at">column =</span> ARM,</span>
+<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a>  <span class="at">body_plan =</span> <span class="fu">body_plan</span>(</span>
+<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a>    <span class="fu">frmt_structure</span>(<span class="at">group_val =</span> <span class="st">".default"</span>, <span class="at">label_val =</span> <span class="st">".default"</span>, </span>
+<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">frmt_combine</span>(</span>
+<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"{n} ({p}%)"</span>,</span>
+<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a>                     <span class="at">n =</span> <span class="fu">frmt</span>(<span class="st">"xx"</span>),</span>
+<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a>                     <span class="at">p =</span> <span class="fu">frmt</span>(<span class="st">"xx"</span>, <span class="at">transform =</span> <span class="sc">~</span> . <span class="sc">*</span><span class="dv">100</span>)</span>
+<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a>                   )</span>
+<span id="cb13-66"><a href="#cb13-66" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb13-67"><a href="#cb13-67" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb13-68"><a href="#cb13-68" aria-hidden="true" tabindex="-1"></a>  <span class="at">big_n =</span> <span class="fu">big_n_structure</span>(<span class="at">param_val =</span> <span class="st">"bigN"</span>) </span>
+<span id="cb13-69"><a href="#cb13-69" aria-hidden="true" tabindex="-1"></a>) </span>
+<span id="cb13-70"><a href="#cb13-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-71"><a href="#cb13-71" aria-hidden="true" tabindex="-1"></a><span class="fu">print_to_gt</span>(ae_tfrmt,</span>
+<span id="cb13-72"><a href="#cb13-72" aria-hidden="true" tabindex="-1"></a>            ard_ae_tidy)</span>
+<span id="cb13-73"><a href="#cb13-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-74"><a href="#cb13-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-75"><a href="#cb13-75" aria-hidden="true" tabindex="-1"></a><span class="co"># C. Switch the order of the columns so Placebo is last</span></span>
+<span id="cb13-76"><a href="#cb13-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-77"><a href="#cb13-77" aria-hidden="true" tabindex="-1"></a>ae_tfrmt <span class="ot">&lt;-</span> ae_tfrmt <span class="sc">|&gt;</span> </span>
+<span id="cb13-78"><a href="#cb13-78" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tfrmt</span>(</span>
+<span id="cb13-79"><a href="#cb13-79" aria-hidden="true" tabindex="-1"></a>    <span class="at">col_plan =</span> <span class="fu">col_plan</span>(</span>
+<span id="cb13-80"><a href="#cb13-80" aria-hidden="true" tabindex="-1"></a>      <span class="fu">starts_with</span>(<span class="st">"Xanomeline"</span>),</span>
+<span id="cb13-81"><a href="#cb13-81" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Placebo"</span></span>
+<span id="cb13-82"><a href="#cb13-82" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb13-83"><a href="#cb13-83" aria-hidden="true" tabindex="-1"></a>  )  </span>
+<span id="cb13-84"><a href="#cb13-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-85"><a href="#cb13-85" aria-hidden="true" tabindex="-1"></a><span class="fu">print_to_gt</span>(ae_tfrmt, ard_ae_tidy)</span>
+<span id="cb13-86"><a href="#cb13-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-87"><a href="#cb13-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-88"><a href="#cb13-88" aria-hidden="true" tabindex="-1"></a><span class="co"># D. Add a title and source note for the table</span></span>
+<span id="cb13-89"><a href="#cb13-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-90"><a href="#cb13-90" aria-hidden="true" tabindex="-1"></a>ae_tfrmt <span class="ot">&lt;-</span> ae_tfrmt <span class="sc">|&gt;</span> </span>
+<span id="cb13-91"><a href="#cb13-91" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tfrmt</span>(</span>
+<span id="cb13-92"><a href="#cb13-92" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"AE Table"</span>,</span>
+<span id="cb13-93"><a href="#cb13-93" aria-hidden="true" tabindex="-1"></a>    <span class="at">footnote_plan =</span> <span class="fu">footnote_plan</span>(</span>
+<span id="cb13-94"><a href="#cb13-94" aria-hidden="true" tabindex="-1"></a>      <span class="fu">footnote_structure</span>(<span class="st">"A typical AE Table"</span>)</span>
+<span id="cb13-95"><a href="#cb13-95" aria-hidden="true" tabindex="-1"></a>    ) </span>
+<span id="cb13-96"><a href="#cb13-96" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb13-97"><a href="#cb13-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-98"><a href="#cb13-98" aria-hidden="true" tabindex="-1"></a><span class="fu">print_to_gt</span>(ae_tfrmt, ard_ae_tidy)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </section>
@@ -833,59 +901,59 @@ on 'answers/01-intro-answer.R'</code></pre>
 <h2 class="anchored" data-anchor-id="tables-gtsummary.r-1"><code>06-tables-gtsummary.R</code></h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Table Exercise: Demographic summary table using {gtsummary}</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a Demography table split by treatment</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Load necessary packages</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtsummary)</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Import data</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>df_gtsummary_exercise <span class="ot">&lt;-</span> pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(SAFFL <span class="sc">==</span> <span class="st">"Y"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    pharmaverseadam<span class="sc">::</span>advs <span class="sc">|&gt;</span></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(PARAMCD <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"BMI"</span>, <span class="st">"HEIGHT"</span>, <span class="st">"WEIGHT"</span>), <span class="sc">!</span><span class="fu">is.na</span>(AVAL)) <span class="sc">|&gt;</span></span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">arrange</span>(ADY) <span class="sc">|&gt;</span></span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>      <span class="fu">slice</span>(<span class="dv">1</span>, <span class="at">.by =</span> <span class="fu">c</span>(USUBJID, PARAMCD)) <span class="sc">|&gt;</span></span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>      <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> USUBJID, <span class="at">names_from =</span> PARAMCD, <span class="at">values_from =</span> AVAL),</span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="st">"USUBJID"</span></span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(USUBJID, TRT01A, AGE, AGEGR1, SEX, RACE, ETHNIC, BMI, HEIGHT, WEIGHT) <span class="sc">|&gt;</span></span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>  labelled<span class="sc">::</span><span class="fu">set_variable_labels</span>(</span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">BMI =</span> <span class="st">"BMI"</span>,</span>
-<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">HEIGHT =</span> <span class="st">"Height, cm"</span>,</span>
-<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">WEIGHT =</span> <span class="st">"Weight, kg"</span></span>
-<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Use tbl_summary() to summarize AGE, AGEGR1, SEX, RACE, ETHNIC, BMI, HEIGHT, WEIGHT by TRT01A</span></span>
-<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. For all continuous variables, present the following stats: c("{mean} ({sd})", "{median} ({p25}, {p75})", "{min}, {max}")</span></span>
-<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Ensure the AGEGR1 levels are reported in the correct order</span></span>
-<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. View the ARD saved in the gtsummary table using `gather_ard()` function</span></span>
-<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a><span class="co"># BONUS!</span></span>
-<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Add the header "**Active Treatment**" over the 'Xanomeline' treatments using the `modify_spanning_header()` function</span></span>
-<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>tbl <span class="ot">&lt;-</span></span>
-<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>  df_gtsummary_exercise <span class="sc">|&gt;</span></span>
-<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ensure the age groups print in the correct order</span></span>
-<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">AGEGR1 =</span> <span class="fu">factor</span>(AGEGR1, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"18-64"</span>, <span class="st">"&gt;64"</span>))) <span class="sc">|&gt;</span></span>
-<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tbl_summary</span>(</span>
-<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> TRT01A,</span>
-<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">include =</span> <span class="fu">c</span>(AGE, AGEGR1, SEX, RACE, ETHNIC, BMI, HEIGHT, WEIGHT), </span>
-<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">"continuous2"</span>, <span class="co"># all continuous variables should be summarized as multi-row</span></span>
-<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">statistic =</span> <span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="fu">c</span>(<span class="st">"{mean} ({sd})"</span>, <span class="st">"{median} ({p25}, {p75})"</span>, <span class="st">"{min}, {max}"</span>), <span class="co"># change the statistics for all continuous variables</span></span>
-<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="fu">list</span>(<span class="at">AGEGR1 =</span> <span class="st">"Age Group"</span>), <span class="co"># add a label for AGEGR1</span></span>
-<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add a header above the 'Xanomeline' treatments. We used `show_header_names()` to know the column names</span></span>
-<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">modify_spanning_header</span>(<span class="fu">c</span>(stat_2, stat_3) <span class="sc">~</span> <span class="st">"**Active Treatment**"</span>)</span>
-<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a>tbl</span>
-<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a><span class="co"># extract the ARD from the table</span></span>
-<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a><span class="fu">gather_ard</span>(tbl)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Table Exercise: Demographic summary table using {gtsummary}</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a Demography table split by treatment</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Load necessary packages</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtsummary)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Import data</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>df_gtsummary_exercise <span class="ot">&lt;-</span> pharmaverseadam<span class="sc">::</span>adsl <span class="sc">|&gt;</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(SAFFL <span class="sc">==</span> <span class="st">"Y"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    pharmaverseadam<span class="sc">::</span>advs <span class="sc">|&gt;</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(PARAMCD <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"BMI"</span>, <span class="st">"HEIGHT"</span>, <span class="st">"WEIGHT"</span>), <span class="sc">!</span><span class="fu">is.na</span>(AVAL)) <span class="sc">|&gt;</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">arrange</span>(ADY) <span class="sc">|&gt;</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>      <span class="fu">slice</span>(<span class="dv">1</span>, <span class="at">.by =</span> <span class="fu">c</span>(USUBJID, PARAMCD)) <span class="sc">|&gt;</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>      <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> USUBJID, <span class="at">names_from =</span> PARAMCD, <span class="at">values_from =</span> AVAL),</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="st">"USUBJID"</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(USUBJID, TRT01A, AGE, AGEGR1, SEX, RACE, ETHNIC, BMI, HEIGHT, WEIGHT) <span class="sc">|&gt;</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>  labelled<span class="sc">::</span><span class="fu">set_variable_labels</span>(</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">BMI =</span> <span class="st">"BMI"</span>,</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">HEIGHT =</span> <span class="st">"Height, cm"</span>,</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">WEIGHT =</span> <span class="st">"Weight, kg"</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Use tbl_summary() to summarize AGE, AGEGR1, SEX, RACE, ETHNIC, BMI, HEIGHT, WEIGHT by TRT01A</span></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. For all continuous variables, present the following stats: c("{mean} ({sd})", "{median} ({p25}, {p75})", "{min}, {max}")</span></span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Ensure the AGEGR1 levels are reported in the correct order</span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. View the ARD saved in the gtsummary table using `gather_ard()` function</span></span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a><span class="co"># BONUS!</span></span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Add the header "**Active Treatment**" over the 'Xanomeline' treatments using the `modify_spanning_header()` function</span></span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>tbl <span class="ot">&lt;-</span></span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>  df_gtsummary_exercise <span class="sc">|&gt;</span></span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ensure the age groups print in the correct order</span></span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">AGEGR1 =</span> <span class="fu">factor</span>(AGEGR1, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"18-64"</span>, <span class="st">"&gt;64"</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tbl_summary</span>(</span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> TRT01A,</span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">include =</span> <span class="fu">c</span>(AGE, AGEGR1, SEX, RACE, ETHNIC, BMI, HEIGHT, WEIGHT), </span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">"continuous2"</span>, <span class="co"># all continuous variables should be summarized as multi-row</span></span>
+<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">statistic =</span> <span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="fu">c</span>(<span class="st">"{mean} ({sd})"</span>, <span class="st">"{median} ({p25}, {p75})"</span>, <span class="st">"{min}, {max}"</span>), <span class="co"># change the statistics for all continuous variables</span></span>
+<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="fu">list</span>(<span class="at">AGEGR1 =</span> <span class="st">"Age Group"</span>), <span class="co"># add a label for AGEGR1</span></span>
+<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add a header above the 'Xanomeline' treatments. We used `show_header_names()` to know the column names</span></span>
+<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">modify_spanning_header</span>(<span class="fu">c</span>(stat_2, stat_3) <span class="sc">~</span> <span class="st">"**Active Treatment**"</span>)</span>
+<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a>tbl</span>
+<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a><span class="co"># extract the ARD from the table</span></span>
+<span id="cb14-53"><a href="#cb14-53" aria-hidden="true" tabindex="-1"></a><span class="fu">gather_ard</span>(tbl)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 
