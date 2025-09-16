@@ -11,6 +11,18 @@
     - Gained an awareness of utilities for the transition from cards to tfrmt input data
 :::
 
+## Play by Play to achieve our Objectives
+
+::: incremental
+-   🕙 10 mins: The possibilities of `tfrmt`
+
+-   🕥 15 mins: Step-by-step formatting a display
+
+-   🕚 10 mins: cards-to-tfrmt helpers
+
+-   🕦 10 mins: Exercise
+
+:::
 
 ## ARD-first Tables with {tfrmt} {.black-header}
 
